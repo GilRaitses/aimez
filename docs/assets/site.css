@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-start: #e8f4fc;
+  --bg-mid: #f5e6f0;
+  --bg-end: #fdf6e3;
+  --text-primary: #3a4a5c;
+  --text-secondary: #5a6a7c;
+  --accent: #7eb8d8;
+  --accent-hover: #a8d4e6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Avenir", "Avenir Next", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 200;
+  line-height: 1.7;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--bg-start) 0%,
+    var(--bg-mid) 50%,
+    var(--bg-end) 100%
+  );
+  background-attachment: fixed;
+}
+
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 200;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  margin-bottom: 3rem;
+}
+
+.description {
+  margin-bottom: 3rem;
+}
+
+.description p {
+  margin-bottom: 1.4rem;
+  font-size: 1.05rem;
+}
+
+.description ul {
+  list-style: none;
+  margin: 1rem 0 1.4rem 0;
+}
+
+.description li {
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.description li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.shortcuts {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.link-button {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--text-primary);
+  padding: 0.6rem 1.4rem;
+  font-family: inherit;
+  font-weight: 300;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 2rem;
+  transition: all 0.2s ease;
+}
+
+.link-button:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(58, 74, 92, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+  z-index: 100;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-container {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  height: 70vh;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 20px 60px rgba(58, 74, 92, 0.2);
+  overflow: hidden;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  z-index: 10;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--text-primary);
+}
+
+#modal-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

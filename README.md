@@ -14,3 +14,12 @@ Coherence across variation is reflected in properties such as:
 • Decision persistence that remains stable prior to regime change.
 
 The long-term objective is to understand how coherence is preserved or lost as underlying descriptions vary.
+
+## Current work
+
+• Developing methods for characterizing coherence boundaries in multi-agent information flows.
+• Building DecisionDB, an experimental structure for tracking decision provenance.
+
+## Contact
+
+Email: gilraitses@gmail.com

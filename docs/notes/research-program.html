@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research program – aimez</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#131c2d">
+  <meta name="msapplication-TileColor" content="#131c2d">
+  <meta name="msapplication-config" content="../browserconfig.xml">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300..800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 300;
+      line-height: 1.62;
+      color: #3a4a5c;
+      padding: 2rem;
+      background: #fafcfd;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.55rem; font-weight: 400; margin-bottom: 0.4rem; letter-spacing: 0.02em; }
+    h2 { font-size: 1.05rem; font-weight: 400; margin: 1.8rem 0 0.7rem; letter-spacing: 0.01em; }
+    p { margin-bottom: 1rem; font-size: 0.96rem; }
+    .eyebrow { font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: #7eb8d8; margin-bottom: 1rem; }
+    .lede { color: #4b5b6d; font-size: 1rem; }
+    ul { list-style: none; margin: 0.9rem 0; }
+    li { position: relative; padding-left: 1rem; margin-bottom: 0.45rem; font-size: 0.92rem; color: #5a6a7c; }
+    li::before { content: "•"; position: absolute; left: 0; color: #7eb8d8; }
+    figure { margin: 1.35rem 0; background: white; border: 1px solid #e5eef5; padding: 0.8rem; }
+    img { display: block; width: 100%; height: auto; background: #fff; }
+    figcaption { margin-top: 0.75rem; font-size: 0.82rem; color: #5a6a7c; line-height: 1.55; }
+    .actions { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .actions a {
+      color: #3a4a5c;
+      text-decoration: none;
+      border: 1px solid #7eb8d8;
+      border-radius: 999px;
+      padding: 0.55rem 1rem;
+      font-size: 0.88rem;
+    }
+    .actions a:hover { background: #eef7fc; }
+  
+    .brandline {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+    }
+    .brand-name {
+      font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "IBM Plex Serif", Georgia, serif;
+      font-size: 0.9rem;
+      line-height: 1.15;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-style: italic;
+      color: #8f3a12;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
+  <div class="eyebrow">Private research note</div>
+  <h1>Research program</h1>
+  <p class="lede">
+    aimez is a cross-domain applied research program studying where artifacts remain usable under reuse and where they lose applicability as the conditions around them shift. The current work focuses on systems whose outputs pass local tests while their outcomes still depend on scene-level or field-level structure that those local tests do not capture.
+  </p>
+
+  <h2>What the program is trying to understand</h2>
+  <p>
+    The program's central object is not model performance by itself. It is the structural relation between an artifact, the conditions compressed when that artifact was formed, and the later conditions that must still hold for the artifact to remain interpretable, comparable, and deployable. In some domains this looks like a representation problem. In others it looks like a routing problem, a diagnostics problem, or a problem of collective response. The common question is the same: when does a local success criterion stop tracking the larger structure that governs outcome fit?
+  </p>
+
+  <h2>First applied substrate</h2>
+  <p>
+    The Midtown pedestrian-routing substrate is the first demonstrated applied instance of this program. It pairs a camera-derived stress field with a seven-layer public-data capacity model and shows that a routing layer can return a path that is locally valid under one criterion and structurally different under a criterion that reads against the full scene.
+  </p>
+
+  <figure>
+    <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest versus stress-aware route comparison">
+    <figcaption>
+      <strong>Shortest versus stress-aware routing.</strong> Same origin, same destination, same hop count. Different accumulated stress, different exposure profile, different scene fit. This is the program's first concrete demonstration of the output-success versus outcome-fit distinction.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Cross-street capacity overlay">
+    <figcaption>
+      <strong>Second-order constraint field.</strong> Sidewalk width, active sheds, frontage load, and combined capacity factor rendered as measured per-block fields. This is the missing-context column of the demonstration made visible as infrastructure.
+    </figcaption>
+  </figure>
+
+  <h2>Why the work is cross-domain</h2>
+  <p>
+    The same structural form appears whenever a system acts through a finite first-order interface over a scene whose relevant constraints are represented elsewhere. In the mobility demonstration the missing context is physical and measurable. In other domains it may be institutional, social, embodied, or computational. The program is therefore cross-domain by structure, not by branding. It studies where the same failure pattern recurs and what kinds of representation or feedback loops make that recurrence legible.
+  </p>
+
+  <h2>Current materials</h2>
+  <ul>
+    <li>Background report on the routing substrate and its figure set</li>
+    <li>Canonical figure walkthrough with claims, boundaries, caveats, and open questions</li>
+    <li>CV pipeline appendix showing how per-camera stress lifts to per-edge sigma</li>
+    <li>Q&amp;A and theory-anchor notes connecting the substrate to adjacent fields</li>
+  </ul>
+
+  <div class="actions">
+    <a href="../assets/gallery/documents/pax_report.pdf">Background report (PDF)</a>
+    <a href="../assets/gallery/documents/gil_canonical_walkthrough_for_jen_20260424.pdf">Canonical figure walkthrough (PDF)</a>
+  </div>
+</body>
+</html>

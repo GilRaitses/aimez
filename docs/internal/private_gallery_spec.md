@@ -39,6 +39,7 @@ When implemented (phase 3), add:
 - `docs/notes/jen-packet.html`
 - `docs/notes/related-anchors.html`
 - `docs/notes/program-brief.html`
+- `docs/notes/tom-sherman.html`
 
 These are note pages, not standalone top-level routes. They should open via the existing modal pattern.
 
@@ -148,6 +149,21 @@ First staged materials:
 - one section on collaboration surfaces (what kinds of methods, systems, and questions the program wants collaborators for)
 - one section on where the current work is intentionally bounded
 
+### Group 6. Creative / media-theory packet
+
+Target note: `tom-sherman.html`
+
+Purpose:
+- support creative-world and media-theory readers who should receive a conceptually rich but non-technical entry point
+- frame the program through time-based media, attention, environment as representation, and information environments
+- avoid the advisor packet's justificatory tone and the collaborator packet's methods-first tone
+
+First staged materials:
+- one concrete routing figure
+- the flocking / active-matter video bridge
+- short text connecting environment-as-media, modelled scenes, and time-based structure
+- light links to the research-program and related-anchors pages
+
 ## Minimum viable figure set for the private gallery
 
 The first private gallery should not duplicate the full 42-page walkthrough. It should stage a smaller figure set:
@@ -172,6 +188,7 @@ flowchart TD
   modal --> programBrief[program-brief.html]
   modal --> jenPacket[jen-packet.html]
   modal --> researchPartner[research-partner.html]
+  modal --> tomSherman[tom-sherman.html]
   modal --> relatedAnchors[related-anchors.html]
   modal --> streetlightBrief[streetlight-brief.html]
   jenPacket --> selectedFigures[selected mobility figures]

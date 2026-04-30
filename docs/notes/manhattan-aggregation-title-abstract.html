@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Segment Hour Manhattan - aimez</title>
+  <meta name="description" content="A planning note for title, abstract, and bounded segment-hour aggregation on the Manhattan pedestrian graph.">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#131c2d">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300..800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.62; color: #3a4a5c; padding: 2rem; background: #fafcfd; max-width: 920px; margin: 0 auto; }
+    h1 { font-family: "Newsreader", "IBM Plex Serif", Georgia, serif; font-size: 1.65rem; line-height: 0.98; font-weight: 700; margin-bottom: 0.55rem; letter-spacing: -0.035em; }
+    h2 { font-size: 1.08rem; line-height: 1.08; letter-spacing: -0.02em; font-weight: 600; margin: 1.9rem 0 0.75rem; }
+    h3 { font-size: 0.98rem; line-height: 1.12; letter-spacing: -0.01em; font-weight: 600; margin: 1.3rem 0 0.55rem; }
+    p { margin-bottom: 1rem; font-size: 0.96rem; }
+    ul { list-style: none; margin: 0.9rem 0; }
+    li { position: relative; padding-left: 1rem; margin-bottom: 0.45rem; font-size: 0.92rem; color: #5a6a7c; }
+    li::before { content: "•"; position: absolute; left: 0; color: #7eb8d8; }
+    .eyebrow { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.74rem; line-height: 1.15; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; margin-bottom: 1rem; }
+    .lede { color: #4b5b6d; font-size: 1rem; }
+    .brandline { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+    .brand-mark { width: 28px; height: 28px; flex: 0 0 auto; }
+    .brand-name { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.9rem; line-height: 1.15; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; }
+    .note { background: #f5f9fc; border-left: 3px solid #7eb8d8; padding: 0.9rem 1rem; margin: 1rem 0; }
+    .title-card { background: white; border: 1px solid #e5eef5; padding: 1rem; margin: 1.1rem 0; }
+    .title-card strong { color: #243242; }
+    .actions { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .actions a { color: #3a4a5c; text-decoration: none; border: 1px solid #7eb8d8; border-radius: 999px; padding: 0.55rem 1rem; font-size: 0.88rem; }
+    .actions a:hover { background: #eef7fc; }
+  </style>
+</head>
+<body>
+  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
+  <div class="eyebrow">Planning note</div>
+  <h1>Segment Hour Manhattan</h1>
+  <p class="lede">A title and abstract planning note for bounded segment-hour aggregation on the Manhattan pedestrian graph.</p>
+
+  <h2>Purpose</h2>
+  <p>This note starts from the StreetLight meeting work and the Emergent Mind summaries, but it does not treat StreetLight as the first data partner. The useful next frame is smaller, cheaper, and more precise.</p>
+  <p>The project needs a way to describe a bounded mode of aggregation for Manhattan. It should support one or more segment-level samples, such as a peak hour on selected street segments, and compare those observations against the existing stress-field hypotheses.</p>
+
+  <h2>Core reframe</h2>
+  <p>The project does not need an expensive broad mobility platform at the start. It needs a validated sample of movement conditions at selected Manhattan segments and times. That sample can be compared against the modeled stress field, route behavior, and high-pressure or low-pressure areas.</p>
+  <div class="note"><p>The core method can be called <strong>segment-hour aggregation</strong>. This means aggregating observed movement, exposure, or route-relevant conditions for selected graph segments during bounded time windows.</p></div>
+  <p>A peak-hour sample is enough for a first validation pass if the segment, hour, observation method, and comparison hypothesis are all recorded.</p>
+
+  <h2>Useful aggregation terms</h2>
+  <ul>
+    <li>corridor-scale aggregation</li>
+    <li>graph-edge aggregation</li>
+    <li>peak-window aggregation</li>
+    <li>privacy-preserving mobility aggregation</li>
+    <li>segment-level exposure aggregation</li>
+    <li>bounded mobility validation</li>
+  </ul>
+  <p>The strongest phrase for the research frame is <strong>bounded segment-hour aggregation on the Manhattan pedestrian graph</strong>. It is technical enough to be accurate, but it does not sound like a vendor product.</p>
+
+  <h2>What the background research adds</h2>
+  <p>OD and mobile-device research shows that raw traces are not the object of interest. The usable object is an inferred and documented movement layer with sampling, map matching, mode inference, and validation notes.</p>
+  <p>Traffic-volume research shows that phone or trace data only becomes useful after calibration against counts or local ground truth. Active-transportation exposure research gives a vocabulary for walking and biking as measured exposure, not as direct proof of risk, stress, or discomfort.</p>
+  <p>Vendor-validation research says that commercial mobility datasets must be checked against use-case-specific ground truth. Privacy research says the project should not ask for raw traces. It should ask for aggregated, documented, privacy-preserving measures that can be validated and cited.</p>
+
+  <h2>Manhattan association</h2>
+  <p>Manhattan should be presented as a model system, not as a backdrop. The project studies selected parts of Manhattan as a graph where camera-derived conditions, pedestrian exposure, edge costs, and route behavior can be compared.</p>
+  <p>The gallery or installation version should not need the full technical stack. It should show that Manhattan can be turned into a spatial model of pressure, flow, attention, and route choice.</p>
+  <div class="note"><p>The bridge from research to installation is <strong>measured aggregation becomes spatial experience</strong>.</p></div>
+
+  <h2>Title candidates</h2>
+  <div class="title-card">
+    <p><strong>Segment Hour Manhattan</strong></p>
+    <p>Best current candidate. It is short, concrete, and tied to the aggregation method. It sounds like an artwork or research project rather than a platform.</p>
+  </div>
+  <ul>
+    <li><strong>Manhattan at Peak Hour.</strong> Immediately legible, but less method-specific.</li>
+    <li><strong>The Segment and the Hour.</strong> More poetic and useful as an exhibition title with a subtitle.</li>
+    <li><strong>Stress Field Manhattan.</strong> Direct, but possibly too technical for a first gallery-facing brief.</li>
+    <li><strong>Pressure Map for a Peak Hour.</strong> Accessible, but risks sounding like a finished map rather than a research and installation program.</li>
+    <li><strong>Walking Through Aggregated Manhattan.</strong> Useful for installation framing if the subtitle explains aggregation.</li>
+  </ul>
+
+  <h2>Recommended title structure</h2>
+  <p><strong>Segment Hour Manhattan</strong><br>A project for measuring, modeling, and walking through urban pressure on selected Manhattan streets.</p>
+  <p><strong>The Segment and the Hour</strong><br>An installation study of Manhattan pressure, movement, and route behavior.</p>
+  <p><strong>Bounded Segment-Hour Aggregation on the Manhattan Pedestrian Graph</strong><br>A validation frame for stress topology, exposure, and route behavior.</p>
+
+  <h2>Proposed abstract</h2>
+  <p><strong>Segment Hour Manhattan</strong> is a research and installation project that studies selected Manhattan street segments during bounded time windows, such as a peak hour, to compare observed movement conditions with a modeled stress field on the pedestrian graph. The project does not begin from comprehensive surveillance or a broad mobility vendor platform. It begins from small, documented samples that can be validated against local observation, public context, camera-derived measures, and route behavior.</p>
+  <p>The research asks how high-pressure and low-pressure areas emerge across a city graph, how those areas scale from local segments to corridor patterns, and how routing behavior changes when modeled stress becomes part of the cost of movement. The installation version translates that comparison into space. Viewers encounter monitors, maps, color, light, and route traces arranged around selected Manhattan segments and time windows. The goal is to make aggregation visible as an urban condition, not to present data as total knowledge of the city.</p>
+  <p>This framing keeps the project practical. A first study can use one or a few selected segments, one peak-hour sample, and a clearly stated validation plan. The resulting work can support research, grant writing, gallery conversation, and public presentation without depending on expensive platform-scale data access at the beginning.</p>
+
+  <h2>Short abstract for sharing</h2>
+  <p><strong>Segment Hour Manhattan</strong> uses selected Manhattan street segments and bounded time windows to study how urban pressure appears in pedestrian movement, camera-derived conditions, and route behavior. The project begins with small validated samples rather than platform-scale mobility data. Its installation form turns those samples into a walk-through environment of maps, monitors, color, light, and route traces, asking how local street conditions become patterns a viewer can see and move through.</p>
+
+  <h2>Gallery bridge</h2>
+  <p>A later gallery-facing brief should not lead with StreetLight, vendor validation, or the archival sound question. It should lead with Manhattan as a model system, selected street segments, a peak-hour or bounded time-window sample, and the spatial translation of pressure, movement, and route behavior.</p>
+  <p>The shareable ask can be simple. I am shaping this into a gallery-facing installation brief and wanted to ask whether the project reads as something that could be discussed with a gallery, curator, or media-arts funder.</p>
+
+  <h2>Information boundary</h2>
+  <p>Safe to share in a gallery brief: working title, short abstract, Manhattan model-system framing, selected segments and peak-hour aggregation, installation elements such as maps, monitors, light, and route traces, and the need for production advice, space, and grant strategy.</p>
+  <p>Keep private or advisor-only for now: detailed system architecture, patent-sensitive implementation, data-provider negotiations, claims that require validation, and any archival sound plan unless permissions and tone are settled.</p>
+
+  <div class="actions">
+    <a href="guggenheim-installation-sketch.html">Installation sketch</a>
+    <a href="research-program.html">Research program</a>
+    <a href="tom-sherman.html">Tom note</a>
+  </div>
+</body>
+</html>

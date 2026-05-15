@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neighborhood access research - aimez</title>
+  <meta name="description" content="Public note on Manhattan pedestrian movement, route quality, lived accessibility, neighborhood access as well as future location-intelligence tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="aimez">
+  <meta property="og:title" content="aimez - Neighborhood access research">
+  <meta property="og:description" content="Public note on Manhattan pedestrian movement, route quality, lived accessibility, neighborhood access as well as future location-intelligence tools.">
+  <meta property="og:url" content="https://aimez.ai/notes/neighborhood-access-research.html">
+  <meta property="og:image" content="https://aimez.ai/assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="aimez - Neighborhood access research">
+  <meta name="twitter:description" content="Public note on Manhattan pedestrian movement, route quality, lived accessibility, neighborhood access as well as future location-intelligence tools.">
+  <meta name="twitter:image" content="https://aimez.ai/assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#131c2d">
+  <meta name="msapplication-TileColor" content="#131c2d">
+  <meta name="msapplication-config" content="../browserconfig.xml">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Newsreader:opsz,wght@6..72,300..800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 400;
+      line-height: 1.62;
+      color: #3a4a5c;
+      padding: 2rem;
+      background: #fafcfd;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-family: "Newsreader", "IBM Plex Serif", Georgia, serif;
+      font-size: clamp(2.4rem, 6vw, 4.6rem);
+      line-height: 0.98;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+      color: #3a4a5c;
+    }
+    h2 {
+      font-size: 1.08rem;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: #3a4a5c;
+    }
+    p { margin-bottom: 1rem; font-size: 0.98rem; color: #4b5b6d; }
+    .eyebrow {
+      font-family: "IBM Plex Serif", Georgia, serif;
+      font-size: 0.74rem;
+      line-height: 1.15;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-style: italic;
+      color: #8f3a12;
+      margin-bottom: 1rem;
+    }
+    .lede { font-size: 1.05rem; color: #3a4a5c; }
+    .brandline {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+    }
+    .brand-name {
+      font-family: "IBM Plex Serif", Georgia, serif;
+      font-size: 0.9rem;
+      line-height: 1.15;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-style: italic;
+      color: #8f3a12;
+    }
+    figure {
+      margin: 1.5rem 0;
+      background: white;
+      border: 1px solid #e5eef5;
+      padding: 0.85rem;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.84rem;
+      color: #5a6a7c;
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
+  <div class="eyebrow">Public research note</div>
+  <h1>Research and neighborhood access</h1>
+
+  <p class="lede">
+    I am working on an urban research program focused on how people experience movement through Manhattan streets during ordinary daily routines. The current project studies why two addresses that look similarly located on a map can feel different once walking conditions, corridor load, route quality, street access as well as neighborhood connections are measured.
+  </p>
+
+  <h2>What the work looks at</h2>
+  <p>
+    The research studies how stress and constraint accumulate across streets, blocks as well as neighborhood corridors as people move through them. Instead of treating access as a simple distance problem, the project looks at how route quality changes with local conditions and how those conditions shape the practical experience of getting to transit, shops, services, parks as well as daily destinations.
+  </p>
+
+  <figure>
+    <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Two routes from Grand Central to Carnegie Hall with different accumulated stress">
+    <figcaption>
+      <strong>Route quality changes across trips that appear similar on a map but carry different walking burdens.</strong> This route comparison uses the same origin and destination while showing different accumulated exposure under distance-only and stress-aware routing. The panel reads quickly for a location discussion because it shows why two trips with similar map length can produce different daily movement experience.
+    </figcaption>
+  </figure>
+
+  <h2>Why this matters for real estate judgment</h2>
+  <p>
+    Real estate decisions already depend on more than nominal proximity to a subway stop, park, office, school, store, or service corridor. People care about how a walk feels, how exposed or crowded a route becomes, how easily daily errands connect as well as whether a location remains practically convenient over repeated use.
+  </p>
+
+  <p>
+    The research is aimed at making those differences more visible and more measurable for future location analysis. A broker or owner already evaluates convenience, access, visibility, circulation as well as neighborhood fit through experience, while this work develops a measured way to describe the same practical judgments.
+  </p>
+
+  <h2>Why Manhattan</h2>
+  <p>
+    Manhattan is useful for this work because small differences in street conditions can produce large differences in daily movement through an area. The current baseline is Midtown, where dense transit anchors sit near office corridors, sidewalks affected by active sheds, frontage load as well as pedestrian crowding that make the gap between map distance and lived accessibility visible.
+  </p>
+
+  <figure>
+    <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Corridor capacity layers showing local street constraints across Midtown">
+    <figcaption>
+      <strong>Street conditions accumulate across the path a person uses repeatedly during ordinary neighborhood access routines.</strong> This corridor panel shows sidewalk width, active sheds, frontage load as well as combined capacity factors as measured block-level layers. The panel fits a broker or owner audience because it shows how neighborhood access depends on local street conditions that build up across a daily path.
+    </figcaption>
+  </figure>
+
+  <h2>West Village expansion</h2>
+  <p>
+    The work is now beginning to expand beyond the Midtown baseline into neighborhoods with a different pedestrian structure. The West Village is the next neighborhood-scale test case because its street geometry, block pattern, corridor texture as well as daily movement conditions differ sharply from Midtown. That contrast is useful for testing how the same method behaves across different urban forms. Being based there would place the next phase of the work closer to the next field site while keeping it near Betaworks, Google, OpenAI as well as the Hudson Square technology corridor as applied neighbors for the project’s next stage.
+  </p>
+
+  <h2>Longer-term direction</h2>
+  <p>
+    The longer-term goal is to support practical urban decision tools for people choosing where to live, where to open businesses as well as how to evaluate neighborhood access with more realistic evidence. The work sits close to future location-intelligence tools that compare map distance with lived accessibility, route quality, daily movement as well as neighborhood fit.
+  </p>
+</body>
+</html>

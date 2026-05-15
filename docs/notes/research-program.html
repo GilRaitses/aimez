@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Research program - aimez</title>
-  <meta name="description" content="A working home for research using a Manhattan pedestrian graph to study stress topology, route behavior, and emergent organization.">
+  <meta name="description" content="A graph-field research program studying measured stress fields, route cost, loop closure, residual structure, and basis stability on a Manhattan pedestrian graph.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="aimez">
   <meta property="og:title" content="aimez - Research program">
-  <meta property="og:description" content="A working home for research using a Manhattan pedestrian graph to study stress topology, route behavior, and emergent organization.">
+  <meta property="og:description" content="A graph-field research program studying measured stress fields, route cost, loop closure, residual structure, and basis stability on a Manhattan pedestrian graph.">
   <meta property="og:url" content="https://aimez.ai/notes/research-program.html">
   <meta property="og:image" content="https://aimez.ai/assets/social/research_program_preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="aimez - Research program">
-  <meta name="twitter:description" content="A working home for research using a Manhattan pedestrian graph to study stress topology, route behavior, and emergent organization.">
+  <meta name="twitter:description" content="A graph-field research program studying measured stress fields, route cost, loop closure, residual structure, and basis stability on a Manhattan pedestrian graph.">
   <meta name="twitter:image" content="https://aimez.ai/assets/social/research_program_preview.png">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
@@ -88,36 +88,36 @@
   <div class="eyebrow">Private research note</div>
   <h1>Research program</h1>
   <p class="lede">
-    aimez is the working home for a cross-domain research program using Manhattan as a model system for how stress patterns organize in a city. The current work models high- and low-pressure areas on a pedestrian graph and asks how those patterns scale, how routing algorithms behave on top of them, and what that reveals about the interaction between human movement and urban form.
+    aimez studies graph fields through measured systems whose local edge values alter route cost while also potentially inducing graph-level structure that only becomes visible when the graph is read through loops, residual patterns, and basis changes. The current project uses a Manhattan pedestrian graph to test a specific structural question about whether local stress values on directed edges merely perturb route cost or whether they generate a higher-order object that becomes visible through loop closure, residual patterns, and basis stability.
   </p>
 
   <h2>What the program is trying to understand</h2>
   <p>
-    The current object is a modeled city system. Camera-derived stress and public capacity layers make high- and low-pressure areas visible on a pedestrian graph. The project asks how those pressures organize across the graph, how they scale through corridors and loops, and how routing algorithms respond to that organization.
+    The project's formal object is a measured stress field on a pedestrian graph corridor, where camera-derived stress and public capacity layers assign route-cost values to directed edges and adjacent corridor segments. Route comparisons show the first-order effect of those assignments on path cost and exposure, while loop closure provides the operational test for whether those local changes cancel around the graph or leave residual structure that cannot be reduced to the raw local field. Basis checks then ask whether the resulting structure persists when the same graph is read through a different but equivalent organization of its loops.
   </p>
 
   <h2>First applied substrate</h2>
   <p>
-    The Manhattan pedestrian-routing substrate is the first demonstrated applied instance of this program. It pairs a camera-derived stress field with a seven-layer public-data capacity model and tests how routing changes when algorithms move through the stress topology of the city rather than distance alone.
+    The Manhattan pedestrian-routing graph is the first applied test surface because it allows the project to hold the graph fixed while varying the field carried by its edges and then measuring the resulting change in route behavior. The central claim is therefore not that Manhattan has a general stress atmosphere, but that measured edge values can be tested for route-cost effects, loop residuals, corridor organization, and basis stability within a concrete graph domain.
   </p>
 
   <figure>
     <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest versus stress-aware route comparison">
     <figcaption>
-      <strong>Shortest versus stress-aware routing.</strong> Same origin, same destination, same hop count. Different accumulated stress, different exposure profile, different route-cost structure. This is the program's first concrete demonstration of routing behavior changing over a measured stress topology.
+      <strong>Shortest versus stress-aware routing.</strong> Same origin, same destination, same hop count. Different accumulated stress, different exposure profile, different route-cost structure. This is the first visible difference between distance-only routing and routing through a measured graph field whose edge values alter accumulated exposure and cost.
     </figcaption>
   </figure>
 
   <figure>
     <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Cross-street capacity overlay">
     <figcaption>
-      <strong>Corridor-level constraint field.</strong> Sidewalk width, active sheds, frontage load, and combined capacity factor rendered as measured per-block fields. These layers help make the city's high- and low-pressure areas visible as a modeled stress topology.
+      <strong>Corridor-level constraint field.</strong> Sidewalk width, active sheds, frontage load, and combined capacity factor rendered as measured per-block fields. These layers provide adjacent evidence for testing route cost, loop residuals, and corridor-level organization.
     </figcaption>
   </figure>
 
   <h2>Why the work is cross-domain</h2>
   <p>
-    The mobility substrate gives the program a concrete measured case. The broader research question is how local pressures produce organized behavior in systems where movement depends on fields rather than isolated parts. In other domains the field may be computational, biological, institutional, or social. The common problem is how emergent organization becomes observable through the way a system is modeled.
+    The Manhattan case keeps the program anchored in a concrete graph, a measured field, and visible route behavior whose changes can be inspected rather than only asserted. The broader program begins only after that anchor is clear, because the larger question concerns when local measurements form a higher-order object that can be tested through routes, loops, residuals, and basis changes rather than merely described in general terms.
   </p>
 
   <h2>Current materials</h2>

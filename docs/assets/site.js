@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const modalClose = document.getElementById('modal-close');
   const buttons = document.querySelectorAll('.link-button');
 
+  if (!modal || !modalFrame || !modalClose || !buttons.length) {
+    return;
+  }
+
   buttons.forEach(function(button) {
     button.addEventListener('click', function() {
       const target = this.getAttribute('data-target');

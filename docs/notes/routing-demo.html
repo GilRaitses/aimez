@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Routing demo: Grand Central to Carnegie Hall - aimez</title>
+  <meta name="description" content="Interactive demo of the aimez stress-aware pedestrian routing system, with a camera-derived stress field and route metrics.">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <meta name="theme-color" content="#131c2d">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300..800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif; line-height: 1.62; color: #3a4a5c; background: #fafcfd; padding: 2rem; max-width: 960px; margin: 0 auto; }
+    .brandline { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+    .brand-mark { width: 26px; height: 26px; }
+    .brand-name { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; }
+    h1 { font-family: "Newsreader", "IBM Plex Serif", Georgia, serif; font-size: 1.6rem; line-height: 1.02; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.3rem; }
+    .lede { color: #4b5b6d; font-size: 1rem; margin-bottom: 1.6rem; }
+    h2 { font-size: 1.05rem; font-weight: 600; margin: 1.8rem 0 0.6rem; }
+    p { margin-bottom: 1rem; font-size: 0.95rem; }
+    .controls { background: #fff; border: 1px solid #e2e8ee; border-radius: 0.8rem; padding: 1.1rem 1.2rem; }
+    .field { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem; }
+    .field label { font-weight: 600; min-width: 90px; font-size: 0.9rem; }
+    .field input { flex: 1; min-width: 200px; padding: 0.5rem 0.7rem; border: 1px solid #cfdbe6; border-radius: 0.5rem; font: inherit; font-size: 0.92rem; color: #3a4a5c; background: #fbfdff; }
+    .analyze { margin-top: 0.4rem; padding: 0.6rem 1.4rem; border: none; border-radius: 0.5rem; background: #1c4e80; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+    .analyze:hover { background: #16406a; }
+    .hint { font-size: 0.82rem; color: #8a98a6; margin: 0.6rem 0 0; }
+    #results { display: none; margin-top: 1.6rem; }
+    .toggles { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem; }
+    .toggle { padding: 0.42rem 0.8rem; border: 1px solid #cfdbe6; border-radius: 30px; background: #fff; font: inherit; font-size: 0.85rem; color: #3a4a5c; cursor: pointer; transition: all 0.15s; }
+    .toggle:hover { border-color: #1c4e80; }
+    .toggle.active { background: #1c4e80; border-color: #1c4e80; color: #fff; }
+    .mapwrap { background: #fff; border: 1px solid #e2e8ee; border-radius: 0.8rem; padding: 0.7rem; }
+    .mapwrap img { width: 100%; border-radius: 0.5rem; display: block; }
+    .mapcap { font-size: 0.85rem; color: #6a7886; margin: 0.5rem 0.2rem 0; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; background: #fff; border-radius: 0.6rem; overflow: hidden; border: 1px solid #e2e8ee; }
+    th, td { text-align: left; padding: 0.5rem 0.7rem; border-bottom: 1px solid #eef2f6; }
+    th { color: #1c4e80; background: #f1f6fb; font-weight: 600; }
+    td.num { font-family: "IBM Plex Mono", monospace; }
+    .win { color: #1d7a4d; font-weight: 600; }
+    .headline { background: #eaf4ec; border: 1px solid #bfe0cc; border-radius: 0.7rem; padding: 0.8rem 1rem; margin: 0.6rem 0 1rem; color: #1d5e3d; }
+    .note { font-size: 0.82rem; color: #8a98a6; margin-top: 1.4rem; padding-top: 0.9rem; border-top: 1px solid #e2e8ee; }
+    a { color: #1c4e80; }
+    code { font-family: "IBM Plex Mono", monospace; font-size: 0.88em; background: #f1f6fb; padding: 0.05rem 0.3rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
+  <h1>Routing demo: Grand Central to Carnegie Hall</h1>
+  <p class="lede">How the stress-aware routing system works. It scores every route on measured camera stress, not just distance, and finds a path that reaches the same destination in the same number of blocks with far less accumulated stress.</p>
+
+  <div class="controls">
+    <div class="field"><label for="origin">Origin</label><input id="origin" type="text" value="Grand Central (Park Ave / E42)"></div>
+    <div class="field"><label for="dest">Destination</label><input id="dest" type="text" value="Carnegie Hall (7 Ave / W57)"></div>
+    <button class="analyze" id="analyze">Analyze routes</button>
+    <p class="hint">This public demo runs the Grand Central to Carnegie Hall corridor example. Arbitrary origin and destination pairs run on the pax research backend.</p>
+  </div>
+
+  <div id="results">
+    <h2>Routes</h2>
+    <div class="toggles" id="toggles">
+      <button class="toggle active" data-img="../assets/gallery/mobility/demo/route_sigma.png" data-cap="Stress-aware route. 19 hops, total accumulated stress 13.38, max edge stress 0.89. Cost on each edge is 1 plus alpha times the camera stress.">Stress-aware route</button>
+      <button class="toggle" data-img="../assets/gallery/mobility/demo/route_shortest.png" data-cap="Shortest route. 19 hops, total accumulated stress 17.09, max edge stress 0.98. Hop-count optimal, stress ignored.">Shortest route</button>
+      <button class="toggle" data-img="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" data-cap="Both routes on the camera stress field, with the cumulative stress plot and the full metric table.">Compare both</button>
+      <button class="toggle" data-img="../assets/gallery/mobility/demo/route_cumulative.png" data-cap="Cumulative stress along each route. The stress-aware route stays below the shortest route the whole way to Carnegie Hall.">Stress accumulation</button>
+      <button class="toggle" data-img="../assets/gallery/cv-pipeline/camera_voronoi_assignment.png" data-cap="The camera stress field that the router reads. 82 cameras, Voronoi cells colored by measured stress sigma.">Camera stress field</button>
+    </div>
+    <div class="mapwrap">
+      <img id="mapimg" src="../assets/gallery/mobility/demo/route_sigma.png" alt="Route map with camera stress overlay">
+      <p class="mapcap" id="mapcap">Stress-aware route. 19 hops, total accumulated stress 13.38, max edge stress 0.89. Cost on each edge is 1 plus alpha times the camera stress.</p>
+    </div>
+
+    <h2>Route metrics</h2>
+    <div class="headline">Same 19 hops, 21.7 percent less accumulated stress, 16 fewer high-stress blocks and the worst single block drops from 0.98 to 0.89.</div>
+    <table>
+      <tr><th>Metric</th><th>Shortest route</th><th>Stress-aware route</th><th>Change</th></tr>
+      <tr><td>Hops</td><td class="num">19</td><td class="num">19</td><td class="num">0</td></tr>
+      <tr><td>Total accumulated stress</td><td class="num">17.09</td><td class="num">13.38</td><td class="num win">-3.71 (-21.7%)</td></tr>
+      <tr><td>Mean stress per block</td><td class="num">0.900</td><td class="num">0.704</td><td class="num win">-0.196</td></tr>
+      <tr><td>Max single-block stress</td><td class="num">0.98</td><td class="num">0.89</td><td class="num win">-0.09</td></tr>
+      <tr><td>High-stress blocks (s &gt; 0.80)</td><td class="num">17</td><td class="num">1</td><td class="num win">-16</td></tr>
+      <tr><td>Integral cost (1 + alpha&middot;s)</td><td class="num">36.09</td><td class="num">32.38</td><td class="num win">-3.71 (-10.3%)</td></tr>
+    </table>
+
+    <h2>How it works</h2>
+    <p>The camera pipeline reads public traffic-camera frames and turns them into a per-block stress value from 0 to 1. The router runs A* search on the Midtown corridor graph with an edge cost of <code>1 + alpha * stress</code>, so a block that is calmer costs less to cross. The result is a route that holds the same hop count and walks through far less measured stress.</p>
+
+    <p class="note">This is the public research demonstration of the mobility substrate. Some broader diagnostic-infrastructure concepts in the research program are the subject of a filed U.S. provisional patent application. Built and orchestrated with Central Casting.</p>
+  </div>
+
+  <script>
+    (function () {
+      var analyze = document.getElementById('analyze');
+      var results = document.getElementById('results');
+      var img = document.getElementById('mapimg');
+      var cap = document.getElementById('mapcap');
+      analyze.addEventListener('click', function () {
+        results.style.display = 'block';
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      document.getElementById('toggles').addEventListener('click', function (e) {
+        var b = e.target.closest('.toggle');
+        if (!b) return;
+        document.querySelectorAll('.toggle').forEach(function (t) { t.classList.remove('active'); });
+        b.classList.add('active');
+        img.src = b.getAttribute('data-img');
+        cap.textContent = b.getAttribute('data-cap');
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Routing demo: Grand Central to Carnegie Hall - aimez</title>
-  <meta name="description" content="Interactive demo of the aimez stress-aware pedestrian routing system, with a camera-derived stress field and route metrics.">
+  <title>Routing demo: stress-aware pedestrian routing - aimez</title>
+  <meta name="description" content="Live demo of the aimez stress-aware pedestrian routing system. Pick an origin and destination in the Midtown corridor and compare a shortest route against a stress-aware route, with a camera-derived stress field and route metrics.">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <meta name="theme-color" content="#131c2d">
   <style>
@@ -21,18 +21,14 @@
     .controls { background: #fff; border: 1px solid #e2e8ee; border-radius: 0.8rem; padding: 1.1rem 1.2rem; }
     .field { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem; }
     .field label { font-weight: 600; min-width: 90px; font-size: 0.9rem; }
-    .field input { flex: 1; min-width: 200px; padding: 0.5rem 0.7rem; border: 1px solid #cfdbe6; border-radius: 0.5rem; font: inherit; font-size: 0.92rem; color: #3a4a5c; background: #fbfdff; }
+    .field select { flex: 1; min-width: 220px; padding: 0.5rem 0.7rem; border: 1px solid #cfdbe6; border-radius: 0.5rem; font: inherit; font-size: 0.92rem; color: #3a4a5c; background: #fbfdff; }
     .analyze { margin-top: 0.4rem; padding: 0.6rem 1.4rem; border: none; border-radius: 0.5rem; background: #1c4e80; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
     .analyze:hover { background: #16406a; }
+    .analyze:disabled { background: #9fb3c6; cursor: default; }
     .hint { font-size: 0.82rem; color: #8a98a6; margin: 0.6rem 0 0; }
-    #results { display: none; margin-top: 1.6rem; }
-    .toggles { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem; }
-    .toggle { padding: 0.42rem 0.8rem; border: 1px solid #cfdbe6; border-radius: 30px; background: #fff; font: inherit; font-size: 0.85rem; color: #3a4a5c; cursor: pointer; transition: all 0.15s; }
-    .toggle:hover { border-color: #1c4e80; }
-    .toggle.active { background: #1c4e80; border-color: #1c4e80; color: #fff; }
-    .mapwrap { background: #fff; border: 1px solid #e2e8ee; border-radius: 0.8rem; padding: 0.7rem; }
+    #status { font-size: 0.9rem; color: #6a7886; margin: 1rem 0 0.4rem; min-height: 1.2em; }
+    .mapwrap { background: #fff; border: 1px solid #e2e8ee; border-radius: 0.8rem; padding: 0.7rem; margin-top: 0.4rem; }
     .mapwrap img { width: 100%; border-radius: 0.5rem; display: block; }
-    .mapcap { font-size: 0.85rem; color: #6a7886; margin: 0.5rem 0.2rem 0; }
     table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; background: #fff; border-radius: 0.6rem; overflow: hidden; border: 1px solid #e2e8ee; }
     th, td { text-align: left; padding: 0.5rem 0.7rem; border-bottom: 1px solid #eef2f6; }
     th { color: #1c4e80; background: #f1f6fb; font-weight: 600; }
@@ -46,67 +42,110 @@
 </head>
 <body>
   <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
-  <h1>Routing demo: Grand Central to Carnegie Hall</h1>
-  <p class="lede">How the stress-aware routing system works. It scores every route on measured camera stress, not just distance, and finds a path that reaches the same destination in the same number of blocks with far less accumulated stress.</p>
+  <h1>Routing demo: stress-aware pedestrian routing</h1>
+  <p class="lede">Pick an origin and a destination in the Midtown corridor, then compare a shortest route against a stress-aware route. The router scores every block on measured camera stress, not just distance, and the figure and metrics are computed live on the pax routing engine.</p>
 
   <div class="controls">
-    <div class="field"><label for="origin">Origin</label><input id="origin" type="text" value="Grand Central (Park Ave / E42)"></div>
-    <div class="field"><label for="dest">Destination</label><input id="dest" type="text" value="Carnegie Hall (7 Ave / W57)"></div>
+    <div class="field">
+      <label for="origin">Origin</label>
+      <select id="origin"></select>
+    </div>
+    <div class="field">
+      <label for="dest">Destination</label>
+      <select id="dest"></select>
+    </div>
     <button class="analyze" id="analyze">Analyze routes</button>
-    <p class="hint">This public demo runs the Grand Central to Carnegie Hall corridor example. Arbitrary origin and destination pairs run on the pax research backend.</p>
+    <p class="hint">Origin and destination are landmarks inside the Midtown corridor (streets 42 to 59, avenues 3 to 9). The first request after a quiet period takes a few seconds to warm up.</p>
   </div>
 
-  <div id="results">
-    <h2>Routes</h2>
-    <div class="toggles" id="toggles">
-      <button class="toggle active" data-img="../assets/gallery/mobility/demo/route_sigma.png" data-cap="Stress-aware route. 19 hops, total accumulated stress 13.38, max edge stress 0.89. Cost on each edge is 1 plus alpha times the camera stress.">Stress-aware route</button>
-      <button class="toggle" data-img="../assets/gallery/mobility/demo/route_shortest.png" data-cap="Shortest route. 19 hops, total accumulated stress 17.09, max edge stress 0.98. Hop-count optimal, stress ignored.">Shortest route</button>
-      <button class="toggle" data-img="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" data-cap="Both routes on the camera stress field, with the cumulative stress plot and the full metric table.">Compare both</button>
-      <button class="toggle" data-img="../assets/gallery/mobility/demo/route_cumulative.png" data-cap="Cumulative stress along each route. The stress-aware route stays below the shortest route the whole way to Carnegie Hall.">Stress accumulation</button>
-      <button class="toggle" data-img="../assets/gallery/cv-pipeline/camera_voronoi_assignment.png" data-cap="The camera stress field that the router reads. 82 cameras, Voronoi cells colored by measured stress sigma.">Camera stress field</button>
-    </div>
-    <div class="mapwrap">
-      <img id="mapimg" src="../assets/gallery/mobility/demo/route_sigma.png" alt="Route map with camera stress overlay">
-      <p class="mapcap" id="mapcap">Stress-aware route. 19 hops, total accumulated stress 13.38, max edge stress 0.89. Cost on each edge is 1 plus alpha times the camera stress.</p>
-    </div>
+  <div id="status"></div>
 
-    <h2>Route metrics</h2>
-    <div class="headline">Same 19 hops, 21.7 percent less accumulated stress, 16 fewer high-stress blocks and the worst single block drops from 0.98 to 0.89.</div>
-    <table>
-      <tr><th>Metric</th><th>Shortest route</th><th>Stress-aware route</th><th>Change</th></tr>
+  <div class="mapwrap">
+    <img id="mapimg" src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest versus stress-aware route on the camera stress field">
+  </div>
+
+  <h2>Route metrics</h2>
+  <div class="headline" id="headline">Same 19 hops, 21.7 percent less accumulated stress, 16 fewer high-stress blocks and the worst single block drops from 0.98 to 0.89.</div>
+  <table>
+    <tr><th>Metric</th><th>Shortest route</th><th>Stress-aware route</th><th>Change</th></tr>
+    <tbody id="metricbody">
       <tr><td>Hops</td><td class="num">19</td><td class="num">19</td><td class="num">0</td></tr>
-      <tr><td>Total accumulated stress</td><td class="num">17.09</td><td class="num">13.38</td><td class="num win">-3.71 (-21.7%)</td></tr>
-      <tr><td>Mean stress per block</td><td class="num">0.900</td><td class="num">0.704</td><td class="num win">-0.196</td></tr>
+      <tr><td>Total accumulated stress</td><td class="num">17.09</td><td class="num">13.38</td><td class="num win">-21.7%</td></tr>
       <tr><td>Max single-block stress</td><td class="num">0.98</td><td class="num">0.89</td><td class="num win">-0.09</td></tr>
       <tr><td>High-stress blocks (s &gt; 0.80)</td><td class="num">17</td><td class="num">1</td><td class="num win">-16</td></tr>
-      <tr><td>Integral cost (1 + alpha&middot;s)</td><td class="num">36.09</td><td class="num">32.38</td><td class="num win">-3.71 (-10.3%)</td></tr>
-    </table>
+      <tr><td>Integral cost (1 + alpha&middot;s)</td><td class="num">36.09</td><td class="num">32.38</td><td class="num win">-3.71</td></tr>
+    </tbody>
+  </table>
 
-    <h2>How it works</h2>
-    <p>The camera pipeline reads public traffic-camera frames and turns them into a per-block stress value from 0 to 1. The router runs A* search on the Midtown corridor graph with an edge cost of <code>1 + alpha * stress</code>, so a block that is calmer costs less to cross. The result is a route that holds the same hop count and walks through far less measured stress.</p>
+  <h2>How it works</h2>
+  <p>The camera pipeline reads public traffic-camera frames and turns them into a per-block stress value from 0 to 1. The router runs A* search on the Midtown corridor graph with an edge cost of <code>1 + alpha * stress</code>, so a calmer block costs less to cross. Each request snaps the chosen landmarks to the nearest intersection, computes both routes and renders the comparison.</p>
 
-    <p class="note">This is the public research demonstration of the mobility substrate. Some broader diagnostic-infrastructure concepts in the research program are the subject of a filed U.S. provisional patent application. Built and orchestrated with Central Casting.</p>
-  </div>
+  <p class="note">This is the public research demonstration of the mobility substrate. Some broader diagnostic-infrastructure concepts in the research program are the subject of a filed U.S. provisional patent application. Built and orchestrated with Central Casting.</p>
 
   <script>
-    (function () {
-      var analyze = document.getElementById('analyze');
-      var results = document.getElementById('results');
-      var img = document.getElementById('mapimg');
-      var cap = document.getElementById('mapcap');
-      analyze.addEventListener('click', function () {
-        results.style.display = 'block';
-        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-      document.getElementById('toggles').addEventListener('click', function (e) {
-        var b = e.target.closest('.toggle');
-        if (!b) return;
-        document.querySelectorAll('.toggle').forEach(function (t) { t.classList.remove('active'); });
-        b.classList.add('active');
-        img.src = b.getAttribute('data-img');
-        cap.textContent = b.getAttribute('data-cap');
-      });
-    })();
+    var API = "https://09nmb9gia3.execute-api.us-east-1.amazonaws.com";
+    var LANDMARKS = [
+      ["grand_central", "Grand Central"],
+      ["carnegie_hall", "Carnegie Hall"],
+      ["times_square", "Times Square"],
+      ["bryant_park", "Bryant Park"],
+      ["rockefeller_center", "Rockefeller Center"],
+      ["moma", "MoMA"],
+      ["columbus_circle", "Columbus Circle"]
+    ];
+    var oSel = document.getElementById("origin");
+    var dSel = document.getElementById("dest");
+    LANDMARKS.forEach(function (lm) {
+      var o = document.createElement("option"); o.value = lm[0]; o.textContent = lm[1]; oSel.appendChild(o);
+      var d = document.createElement("option"); d.value = lm[0]; d.textContent = lm[1]; dSel.appendChild(d);
+    });
+    oSel.value = "grand_central";
+    dSel.value = "carnegie_hall";
+
+    var btn = document.getElementById("analyze");
+    var statusEl = document.getElementById("status");
+    var img = document.getElementById("mapimg");
+    var headline = document.getElementById("headline");
+    var body = document.getElementById("metricbody");
+
+    function cell(v, cls) { return '<td class="num' + (cls ? ' ' + cls : '') + '">' + v + '</td>'; }
+
+    function render(m) {
+      var s = m.shortest, g = m.sigma_aware, c = m.comparison;
+      var hopTxt = c.extra_hops === 0 ? ("Same " + m.hops + " hops")
+        : (c.extra_hops > 0 ? ("+" + c.extra_hops + " hops") : (c.extra_hops + " hops"));
+      headline.textContent = hopTxt + ", " + c.pct_stress_reduction + " percent less accumulated stress, "
+        + c.high_stress_drop + " fewer high-stress blocks, and the worst single block drops from "
+        + s.max_stress + " to " + g.max_stress + ".";
+      body.innerHTML =
+        "<tr><td>Hops</td>" + cell(m.hops) + cell(m.hops + c.extra_hops) + cell(c.extra_hops) + "</tr>" +
+        "<tr><td>Total accumulated stress</td>" + cell(s.total_stress) + cell(g.total_stress) + cell("-" + c.pct_stress_reduction + "%", "win") + "</tr>" +
+        "<tr><td>Max single-block stress</td>" + cell(s.max_stress) + cell(g.max_stress) + cell((g.max_stress - s.max_stress).toFixed(2), "win") + "</tr>" +
+        "<tr><td>High-stress blocks (s &gt; 0.80)</td>" + cell(s.n_high_stress_edges) + cell(g.n_high_stress_edges) + cell("-" + c.high_stress_drop, "win") + "</tr>" +
+        "<tr><td>Integral cost (1 + alpha&middot;s)</td>" + cell(s.integral_cost) + cell(g.integral_cost) + cell((g.integral_cost - s.integral_cost).toFixed(2), "win") + "</tr>";
+    }
+
+    btn.addEventListener("click", function () {
+      if (oSel.value === dSel.value) { statusEl.textContent = "Pick two different landmarks."; return; }
+      btn.disabled = true;
+      statusEl.textContent = "Computing routes on the pax engine, this can take a few seconds on a cold start.";
+      fetch(API, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ origin: oSel.value, destination: dSel.value })
+      }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (!res.ok || res.j.error) { throw new Error(res.j.error || "request failed"); }
+          img.src = "data:image/png;base64," + res.j.png_base64;
+          render(res.j.metrics);
+          statusEl.textContent = res.j.metrics.origin + " to " + res.j.metrics.destination + ", computed live.";
+        })
+        .catch(function (e) {
+          statusEl.textContent = "Live engine unreachable (" + e.message + "). Showing the Grand Central to Carnegie Hall worked example.";
+          img.src = "../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png";
+        })
+        .finally(function () { btn.disabled = false; });
+    });
   </script>
 </body>
 </html>

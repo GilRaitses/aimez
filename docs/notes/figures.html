@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Figures gallery - aimez</title>
-  <meta name="description" content="Figures from the aimez research program: the camera vision pipeline, mobility and routing panels, and validation work.">
+  <meta name="description" content="Figures from the aimez research program: the camera vision pipeline, mobility and routing panels and validation work.">
   <meta name="robots" content="noindex">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <meta name="theme-color" content="#131c2d">
@@ -29,13 +29,13 @@
 <body>
   <p class="eyebrow">aimez</p>
   <h1>Figures gallery</h1>
-  <p class="lede">Figures produced across the aimez research program, gathered here so the camera pipeline, the routing work, and the validation results can be read in one place.</p>
+  <p class="lede">Figures produced across the aimez research program, gathered here so the camera pipeline, the routing work and the validation results can be read in one place.</p>
 
   <h2>Camera vision pipeline</h2>
   <p>The pipeline reads public traffic-camera frames and turns them into a continuous stress field that routing can use. The stages run from camera frame through computer-vision detection to an interpolated field and a Pareto route.</p>
   <figure>
     <img src="../assets/gallery/cv-pipeline/pipeline_data_flow_strip.png" alt="Pipeline data flow from camera to route output">
-    <figcaption>The full pipeline: 82 cameras feed YOLO and CLIP models, which produce a per-camera stress value from 0 to 1, interpolated by Voronoi and inverse-distance weighting, and consumed by an A* Pareto router that returns a route.</figcaption>
+    <figcaption>The full pipeline: 82 cameras feed YOLO and CLIP models, which produce a per-camera stress value from 0 to 1, interpolated by Voronoi and inverse-distance weighting and consumed by an A* Pareto router that returns a route.</figcaption>
   </figure>
   <figure>
     <img src="../assets/gallery/cv-pipeline/camera_voronoi_assignment.png" alt="Camera coverage with Voronoi tessellation colored by camera stress">
@@ -43,7 +43,7 @@
   </figure>
   <figure>
     <img src="../assets/gallery/cv-pipeline/cv_model_outputs_park_vs_madison.png" alt="CV model outputs comparing Park Avenue and Madison Avenue">
-    <figcaption>Model outputs at two locations: YOLO pedestrian and vehicle detections, CLIP scene semantics, and Detectron2 density on real camera frames. Park Avenue reads at stress sigma near 0.21 and Madison Avenue near 0.30.</figcaption>
+    <figcaption>Model outputs at two locations: YOLO pedestrian and vehicle detections, CLIP scene semantics and Detectron2 density on real camera frames. Park Avenue reads at stress sigma near 0.21 and Madison Avenue near 0.30.</figcaption>
   </figure>
 
   <h2>Mobility and routing</h2>

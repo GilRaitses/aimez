@@ -24,6 +24,7 @@ check "not the ceiling" 'not the ceiling'
 check "not guessed" 'not guessed'
 check "not mid-pitch" 'not mid-pitch'
 check "word slice" '\bslice\b'
+check "slide meta on title" 'Panel map on slide|Links on the last slide|Who to talk to after'
 
 if [[ "$FAIL" -eq 0 ]]; then
   echo "OK: no flagged prose patterns."

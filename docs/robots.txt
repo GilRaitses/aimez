@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /internal/
+# Legacy private URLs (redirect stubs only)
+Disallow: /notes/tom-sherman.html
+Disallow: /notes/topological-modeling-note.html

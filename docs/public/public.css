@@ -23,19 +23,19 @@ figure img,
   display: block;
   width: 100%;
   height: auto;
-  max-height: min(52vh, 520px);
+  max-height: min(40vh, 400px);
   object-fit: contain;
   margin: 0 auto;
 }
 
 .patent-banner {
-  font-size: 0.78rem;
-  line-height: 1.45;
+  font-size: 0.72rem;
+  line-height: 1.38;
   color: #5a6a7c;
   background: #f5f0ea;
   border: 1px solid #e8ddd0;
-  padding: 0.55rem 0.75rem;
-  margin-bottom: 0.75rem;
+  padding: 0.4rem 0.55rem;
+  margin-bottom: 0.4rem;
   border-radius: 4px;
 }
 

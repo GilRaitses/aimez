@@ -69,6 +69,66 @@ html, body {
 .slide--title p { color: #c4ccd8; max-width: 36rem; }
 .slide--title .patent-banner { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: #b8c4d0; }
 
+/* Title fits content — no full-viewport dead band */
+.slide--title-compact {
+  min-height: 0;
+  padding: 0.55rem 1.15rem 2.75rem;
+}
+
+.slide--title-compact h1 { font-size: clamp(1.25rem, 3vw, 1.45rem); margin-bottom: 0.3rem; }
+.slide--title-compact p { font-size: 0.84rem; margin-bottom: 0.28rem; max-width: 38rem; }
+
+.slide-arc-intro {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin-bottom: 0.4rem;
+  max-width: 44rem;
+}
+
+.q-block {
+  margin-bottom: 0.45rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #e5eef5;
+  max-width: 44rem;
+}
+
+.q-block:last-of-type { border-bottom: none; margin-bottom: 0.2rem; }
+
+.q-block__head {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #2b3a4c;
+  margin-bottom: 0.2rem;
+  line-height: 1.35;
+}
+
+.q-block__head .q-num {
+  color: #8f3a12;
+  margin-right: 0.25rem;
+}
+
+.q-block__send {
+  font-weight: 400;
+  font-size: 0.74rem;
+  color: #6a7886;
+}
+
+.q-block__q {
+  font-size: 0.78rem;
+  line-height: 1.38;
+  margin-bottom: 0.22rem;
+  color: #3a4a5c;
+}
+
+.q-block__growth {
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: #5a6a7c;
+  margin-bottom: 0;
+}
+
+.q-block__growth strong { color: #8f3a12; font-weight: 600; }
+
 .slide-figure { margin: 0.25rem 0; border: 1px solid #e5eef5; padding: 0.35rem; background: #fff; }
 .slide-caption { font-size: 0.76rem; color: #5a6a7c; margin-top: 0.3rem; line-height: 1.38; }
 
@@ -137,6 +197,8 @@ html, body {
   line-height: 1.35;
   margin-bottom: 0.2rem;
 }
+
+.slide--dense .patent-banner { padding: 0.4rem 0.55rem; margin-bottom: 0.4rem; font-size: 0.72rem; }
 
 @media (max-width: 640px) {
   .slide-roster { grid-template-columns: 1fr; }
@@ -233,6 +295,12 @@ html, body {
   .slide-data th { background: #11161d; }
   .slide-data th, .slide-data td { border-color: #232a33; }
   .slide-data td:first-child { color: #cdd5e0; }
+  .q-block { border-bottom-color: #232a33; }
+  .q-block__head { color: #e6e9f0; }
+  .q-block__send { color: #98a2b3; }
+  .q-block__q { color: #c4ccd8; }
+  .q-block__growth { color: #98a2b3; }
+  .q-block__growth strong { color: #e08a5a; }
   .deck-chrome { background: rgba(14, 17, 22, 0.94); border-color: #232a33; }
   .deck-chrome button { background: #161b22; color: #e6e9f0; border-color: #7eb8d8; }
 }

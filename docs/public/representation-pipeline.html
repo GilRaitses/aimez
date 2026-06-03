@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Representation pipeline - aimez</title>
+  <meta name="description" content="How public traffic camera frames become a graph stress field for routing: CV pipeline, Voronoi assignment, and link to canonical figures.">
+  <link rel="canonical" href="https://aimez.ai/public/representation-pipeline.html">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;700&display=swap');
+    body { font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.62; color: #3a4a5c; background: #fafcfd; padding: 2rem; max-width: 820px; margin: 0 auto; }
+    h1 { font-family: Newsreader, serif; font-size: 1.5rem; margin-bottom: 0.4rem; }
+    h2 { font-size: 1.05rem; margin: 1.8rem 0 0.5rem; font-weight: 600; }
+    .eyebrow { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #8f3a12; margin-bottom: 0.75rem; }
+    .lede { color: #4b5b6d; margin-bottom: 1rem; }
+    p { font-size: 0.94rem; margin-bottom: 0.85rem; }
+    figure { margin: 1.2rem 0; background: #fff; border: 1px solid #e2e8ee; padding: 0.75rem; border-radius: 6px; }
+    img { width: 100%; height: auto; display: block; }
+    figcaption { font-size: 0.84rem; color: #5a6a7c; margin-top: 0.6rem; }
+    a { color: #1c4e80; }
+    ol { margin: 0 0 1rem 1.2rem; font-size: 0.92rem; }
+    li { margin-bottom: 0.4rem; }
+    .nav { margin-top: 1.5rem; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <p class="eyebrow">Public · Representation pipeline</p>
+  <h1>From camera frames to graph stress</h1>
+  <p class="lede">This is category <strong>A</strong> in the <a href="executive-summary.html">executive summary</a> map: how sensing becomes a field the router can read. It matches the IST 675 demonstration narrative at a high level; the full course appendix HTML lives outside this repo unless synced to AWS (see <a href="CLOUD_DATA_MANIFEST.md">manifest</a>).</p>
+
+  <h2>Stages</h2>
+  <ol>
+    <li><strong>Ingest</strong> — Public NYC traffic camera frames on a fixed cadence (corridor-scale camera manifest).</li>
+    <li><strong>Perceive</strong> — YOLO (pedestrians/vehicles), CLIP scene semantics, Detectron2 density; fused into a per-camera stress score in [0, 1].</li>
+    <li><strong>Spatialize</strong> — Voronoi tessellation from camera positions; optional IDW smoothing between cells.</li>
+    <li><strong>Graph bind</strong> — Stress assigned to corridor intersections and directed edges; combined with Open Data capacity layers for routing cost.</li>
+    <li><strong>Route</strong> — Shortest-hop path vs stress-weighted path (live demo: <a href="routing-demo.html">routing demo</a>).</li>
+  </ol>
+
+  <figure>
+    <img src="../assets/gallery/cv-pipeline/pipeline_data_flow_strip.png" alt="Pipeline from cameras through CV models to route output">
+    <figcaption>End-to-end data flow: many cameras feed vision models; per-camera stress is interpolated to the graph; A* returns a path. Figure count in caption reflects the April 2026 corridor lock (gallery asset).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="../assets/gallery/cv-pipeline/camera_voronoi_assignment.png" alt="Voronoi tessellation colored by camera stress">
+    <figcaption>Camera coverage with Voronoi cells colored by measured stress—allocentric anchoring of each score to a corridor region.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="../assets/gallery/cv-pipeline/cv_model_outputs_park_vs_madison.png" alt="CV outputs on Park vs Madison camera frames">
+    <figcaption><strong>Original camera data in-repo:</strong> This composite shows <em>real traffic-camera frames</em> with model overlays (detections and density), not synthetic scenes. Raw frame archives are not stored in git; only derived figures and JSON stress tables ship with the site and pax routing service.</figcaption>
+  </figure>
+
+  <h2>What is not on this page</h2>
+  <p>Supply-side capacity (sidewalk width, sheds, frontage, stations) comes from NYC Open Data, not from cameras. Orthogonality of the two layers is shown in the canonical walkthrough (§4.1). Substrate and operator figures are in <a href="figure-walkthrough.html">Canonical figures walkthrough</a>.</p>
+
+  <p class="nav"><a href="executive-summary.html">← Executive summary</a> · <a href="figure-walkthrough.html">Canonical figures</a> · <a href="routing-demo.html">Live demo</a></p>
+</body>
+</html>

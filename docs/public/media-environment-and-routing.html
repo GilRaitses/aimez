@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media, environment, and routing - aimez</title>
+  <meta name="description" content="How measured city graphs, time-based media, and stress-aware routing connect: environment as representation and route traces over a field.">
+  <link rel="canonical" href="https://aimez.ai/public/media-environment-and-routing.html">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <meta name="theme-color" content="#131c2d">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital@0;1&family=Newsreader:opsz,wght@6..72,400;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.62; color: #3a4a5c; padding: 2rem; background: #fafcfd; max-width: 920px; margin: 0 auto; color-scheme: light dark; }
+    h1 { font-family: Newsreader, serif; font-size: 1.65rem; font-weight: 700; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.08rem; font-weight: 600; margin: 1.9rem 0 0.75rem; }
+    p { margin-bottom: 1rem; font-size: 0.96rem; }
+    .eyebrow { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; margin-bottom: 1rem; }
+    .brandline { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+    .brand-mark { width: 28px; height: 28px; }
+    .brand-name { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; }
+    figure { margin: 1.35rem 0; background: #fff; border: 1px solid #e5eef5; padding: 0.8rem; }
+    img { width: 100%; height: auto; display: block; }
+    figcaption { margin-top: 0.75rem; font-size: 0.82rem; color: #5a6a7c; }
+    .video-wrap { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin: 1.35rem 0; background: #fff; border: 1px solid #e5eef5; }
+    .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .nav { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .nav a { text-decoration: none; border: 1px solid #7eb8d8; border-radius: 999px; padding: 0.55rem 1rem; font-size: 0.88rem; color: #3a4a5c; }
+    a { color: #1c4e80; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0e1116; color: #e6e9f0; }
+      .eyebrow, .brand-name { color: #e08a5a; }
+      figure, .video-wrap { background: #161b22; border-color: #232a33; }
+      figcaption { color: #98a2b3; }
+      .nav a { color: #e6e9f0; border-color: #7eb8d8; }
+      a { color: #7e9bff; }
+    }
+  </style>
+</head>
+<body>
+  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
+  <div class="eyebrow">Public research note</div>
+  <h1>Media, environment, and routing</h1>
+
+  <p>The measured-city work has a concrete graph object. It also connects to questions from time-based media: how structure unfolds over time, how attention moves across a field, and how an environment becomes legible through its representation.</p>
+
+  <h2>Concrete case: Midtown routing graph</h2>
+  <p>A standard planner optimizes distance. The corridor model adds a camera-derived stress field and capacity layers on directed edges. Route cost changes, and corridor-level structure becomes visible beyond isolated edge values.</p>
+
+  <figure>
+    <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest versus stress-aware routing">
+    <figcaption><strong>Two routes, same hop count.</strong> Stress-aware routing reads the measured field on the graph, not distance alone.</figcaption>
+  </figure>
+
+  <h2>Routes as temporal traces</h2>
+  <p>A route is a trace through the graph. The corridor is a measured environment whose stress field and capacity layers change what that trace means. The question is how an environment is made perceptible through a representational system.</p>
+
+  <h2>Collective behavior as a bridge</h2>
+  <p>The clip below moves from rule-based flocking to navigation models built from how animals encode space, then back to crowds and active matter. The shared theme is the shift from local, agent-centered information to world-anchored representation.</p>
+
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/9WeYlTmqViQ?start=300" title="Flocking and navigation excerpt" allowfullscreen></iframe>
+  </div>
+
+  <p>Related work on allocentric flocking shows how collective behavior can depend on the reference frame through which a system encodes the world. The city graph, the crowd, and the mediated image are different objects; the shared problem is how representation and environment shape behavior over time.</p>
+
+  <h2>Route space, not a single best path</h2>
+  <p>Work on generalization at the edge of stability suggests behavior may be governed by lower-dimensional structure in state space. Here, the relevant object may be the shape of route space once the graph field and loop residuals are represented, not one optimal path in isolation.</p>
+
+  <p class="nav">
+    <a href="routing-demo.html">Routing demo</a>
+    <a href="spatial-media-installation.html">Spatial media installation</a>
+    <a href="graph-field-research.html">Graph-field research</a>
+    <a href="index.html">All public pages</a>
+  </p>
+</body>
+</html>

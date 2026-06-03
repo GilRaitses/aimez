@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spatial media installation sketch - aimez</title>
+  <meta name="description" content="A public sketch for a room-scale installation that makes a measured Midtown stress field perceptible through light, image, sound, and movement.">
+  <link rel="canonical" href="https://aimez.ai/public/spatial-media-installation.html">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <meta name="theme-color" content="#131c2d">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital@0;1&family=Newsreader:opsz,wght@6..72,400;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.62; color: #3a4a5c; padding: 2rem; background: #fafcfd; max-width: 960px; margin: 0 auto; color-scheme: light dark; }
+    h1 { font-family: Newsreader, serif; font-size: 1.65rem; font-weight: 700; margin-bottom: 0.6rem; }
+    h2 { font-size: 1.08rem; font-weight: 600; margin: 1.8rem 0 0.7rem; }
+    p { margin-bottom: 1rem; font-size: 0.96rem; }
+    ul { margin: 1rem 0 1rem 1.2rem; }
+    li { margin-bottom: 0.45rem; font-size: 0.93rem; }
+    figure { margin: 1.35rem 0; background: #fff; border: 1px solid #e5eef5; padding: 0.8rem; }
+    img { width: 100%; height: auto; display: block; }
+    figcaption { margin-top: 0.75rem; font-size: 0.82rem; color: #5a6a7c; }
+    .eyebrow { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; margin-bottom: 1rem; }
+    .brandline { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+    .brand-mark { width: 28px; height: 28px; }
+    .brand-name { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; }
+    .note { background: #f5f9fc; border-left: 3px solid #7eb8d8; padding: 0.9rem 1rem; margin: 1rem 0; }
+    .nav { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .nav a { text-decoration: none; border: 1px solid #7eb8d8; border-radius: 999px; padding: 0.55rem 1rem; font-size: 0.88rem; color: #3a4a5c; }
+    a { color: #1c4e80; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0e1116; color: #e6e9f0; }
+      .eyebrow, .brand-name { color: #e08a5a; }
+      li { color: #98a2b3; }
+      figure { background: #161b22; border-color: #232a33; }
+      figcaption { color: #98a2b3; }
+      .note { background: #11161d; }
+      .nav a { color: #e6e9f0; border-color: #7eb8d8; }
+      a { color: #7e9bff; }
+    }
+  </style>
+</head>
+<body>
+  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
+  <div class="eyebrow">Public proposal sketch</div>
+  <h1>Walking through a stress topology</h1>
+
+  <p>This is a sketch for an immersive installation, not a finished grant application. The work would translate the Midtown stress-topology model into a space a viewer can walk through: camera feeds, colored light, mapped sound, and a room layout that makes the corridor graph perceptible as an environment.</p>
+
+  <h2>Concept</h2>
+  <p>The research program uses Manhattan Midtown as a model system for how stress patterns organize on a pedestrian graph. The installation would turn that model into an embodied experience: monitors for selected camera views, light tied to graph regions, color shifting with the stress field, and sound giving the room a time-based layer.</p>
+
+  <div class="note"><p>The installation asks what a city graph feels like when its stress field is made spatial, visual, and sonic.</p></div>
+
+  <figure>
+    <img src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="Camera-derived stress heatmap">
+    <figcaption><strong>Stress topology.</strong> Camera-derived measurements become a field of high- and low-pressure areas rather than isolated images.</figcaption>
+  </figure>
+
+  <h2>Layout elements</h2>
+  <ul>
+    <li>Monitors with camera stills or loops from selected locations</li>
+    <li>Colored lights for high- and low-pressure regions</li>
+    <li>A floor or wall layout suggesting corridor structure</li>
+    <li>A central map or projection of the graph field</li>
+    <li>A route trace that moves through the room over time</li>
+    <li>Sound tied to walking, waiting, crossing, or density</li>
+  </ul>
+
+  <figure>
+    <img src="../assets/gallery/cv-pipeline/camera_voronoi_assignment.png" alt="Camera assignment map">
+    <figcaption><strong>Image to place to field.</strong> Camera regions connect a visual feed to a graph location and a local pressure state.</figcaption>
+  </figure>
+
+  <h2>Sound layer</h2>
+  <p>The sound layer could combine field recordings from city walks with synthetic cues tied to route stress. Any use of third-party archival audio would require explicit permission from rights holders before production.</p>
+
+  <h2>Why it belongs with the research</h2>
+  <p>The installation extends the same question into perception and media: how can a measured field be visible enough for a person to move through, compare, and judge? It is not centered on a chat interface; it shows modeling as a way of making an environment legible.</p>
+
+  <p class="nav">
+    <a href="routing-demo.html">Routing demo</a>
+    <a href="media-environment-and-routing.html">Media and routing</a>
+    <a href="graph-field-research.html">Graph-field research</a>
+    <a href="index.html">All public pages</a>
+  </p>
+</body>
+</html>

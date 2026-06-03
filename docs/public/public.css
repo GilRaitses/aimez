@@ -1,0 +1,45 @@
+/* Shared public pages — safe image rules (brand mark must not inherit figure width) */
+.brandline { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+.brand-mark {
+  width: 28px !important;
+  height: 28px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+  flex: 0 0 28px;
+  object-fit: contain;
+}
+.brand-name {
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-style: italic;
+  color: #8f3a12;
+}
+
+figure img,
+.slide-figure img,
+.slide img.figure-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(52vh, 520px);
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.patent-banner {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #5a6a7c;
+  background: #f5f0ea;
+  border: 1px solid #e8ddd0;
+  padding: 0.55rem 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .brand-name { color: #e08a5a; }
+  .patent-banner { background: #1a1510; border-color: #3a2f22; color: #98a2b3; }
+}

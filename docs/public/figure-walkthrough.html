@@ -3,418 +3,217 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Canonical figures walkthrough - aimez</title>
-  <meta name="description" content="A figure-by-figure walkthrough of the Manhattan pedestrian routing substrate: routing demonstration, capacity field, spectral operator analysis, validation and extended scenarios.">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="aimez">
-  <meta property="og:title" content="aimez - Canonical figures walkthrough">
-  <meta property="og:description" content="A figure-by-figure walkthrough of the Manhattan pedestrian routing substrate, with structured captions, claims, boundaries, limitations and open questions.">
-  <meta property="og:url" content="https://aimez.ai/public/figure-walkthrough.html">
-  <meta property="og:image" content="https://aimez.ai/assets/social/research_program_preview.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="aimez - Walkthrough of the canonical figures">
-  <meta name="twitter:description" content="A figure-by-figure walkthrough of the Manhattan pedestrian routing substrate, with structured captions, claims, boundaries, limitations and open questions.">
-  <meta name="twitter:image" content="https://aimez.ai/assets/social/research_program_preview.png">
+  <title>Canonical figures (slides) - aimez</title>
+  <meta name="description" content="Slide deck walkthrough: problem, methods, stress field topology, supply substrate, routing on the graph, validation. One figure per slide.">
+  <link rel="canonical" href="https://aimez.ai/public/figure-walkthrough.html">
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
-  <link rel="manifest" href="../site.webmanifest">
-  <meta name="theme-color" content="#131c2d">
-  <meta name="msapplication-TileColor" content="#131c2d">
-  <meta name="msapplication-config" content="../browserconfig.xml">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300..800&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-weight: 400;
-      line-height: 1.62;
-      color: #3a4a5c;
-      padding: 2rem;
-      background: #fafcfd;
-      max-width: 920px;
-      margin: 0 auto;
-      color-scheme: light dark;
-    }
-    h1 { font-family: "Newsreader", "IBM Plex Serif", Georgia, serif; font-size: 1.7rem; line-height: 1.0; font-weight: 700; margin-bottom: 0.4rem; letter-spacing: -0.035em; }
-    h2 { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 1.18rem; line-height: 1.05; letter-spacing: -0.02em; font-weight: 600; margin: 2.6rem 0 0.6rem; padding-bottom: 0.35rem; border-bottom: 1px solid #e5eef5; }
-    h3 { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 1.0rem; letter-spacing: -0.01em; font-weight: 600; margin: 2rem 0 0.4rem; color: #2b3a4c; }
-    p { margin-bottom: 1rem; font-size: 0.95rem; }
-    .eyebrow { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.74rem; line-height: 1.15; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; margin-bottom: 1rem; }
-    .byline { color: #8295a6; font-size: 0.85rem; margin-bottom: 1.4rem; font-family: "IBM Plex Mono", monospace; }
-    .lede { color: #4b5b6d; font-size: 1rem; }
-    .abstract { background: #f3f8fb; border: 1px solid #e5eef5; border-left: 3px solid #7eb8d8; padding: 1rem 1.2rem; margin: 1.2rem 0; }
-    .abstract p { font-size: 0.92rem; margin-bottom: 0.6rem; }
-    .abstract p:last-child { margin-bottom: 0; }
-    ul, ol { margin: 0.9rem 0 1rem 0; padding-left: 0; list-style: none; }
-    li { position: relative; padding-left: 1rem; margin-bottom: 0.45rem; font-size: 0.9rem; color: #5a6a7c; }
-    li::before { content: "•"; position: absolute; left: 0; color: #7eb8d8; }
-    .refs li { font-size: 0.84rem; line-height: 1.5; }
-    figure { margin: 1.5rem 0 0.6rem; background: white; border: 1px solid #e5eef5; padding: 0.8rem; }
-    img { display: block; width: 100%; height: auto; background: #fff; }
-    figcaption { margin-top: 0.75rem; font-size: 0.82rem; color: #5a6a7c; line-height: 1.55; }
-    .fignum { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: #8f3a12; margin: 1.6rem 0 0; }
-    .discussion { margin: 0.4rem 0 1.4rem; }
-    .discussion p { font-size: 0.9rem; margin-bottom: 0.5rem; color: #45566a; }
-    .dlabel { font-weight: 600; color: #8f3a12; }
-    code { font-family: "IBM Plex Mono", monospace; font-size: 0.86em; background: #f3f8fb; padding: 0.05rem 0.3rem; border-radius: 3px; }
-    .synthesis { background: #fbf5ef; border: 1px solid #f0e0d0; border-left: 3px solid #c98a4a; padding: 1rem 1.2rem; margin: 1.2rem 0; }
-    .actions { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
-    .actions a { color: #3a4a5c; text-decoration: none; border: 1px solid #7eb8d8; border-radius: 999px; padding: 0.55rem 1rem; font-size: 0.88rem; }
-    .actions a:hover { background: #eef7fc; }
-    .brandline { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
-    .brand-mark { width: 28px; height: 28px; flex: 0 0 auto; }
-    .brand-name { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.9rem; line-height: 1.15; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; }
-    @media (prefers-color-scheme: dark) {
-      body { background: #0e1116; color: #e6e9f0; }
-      h2 { border-bottom-color: #232a33; }
-      h3 { color: #cdd5e0; }
-      .eyebrow, .fignum, .dlabel, .brand-name { color: #e08a5a; }
-      .byline { color: #98a2b3; }
-      .lede { color: #c4ccd8; }
-      .abstract { background: #11161d; border-color: #232a33; }
-      li { color: #98a2b3; }
-      figure { background: #161b22; border-color: #232a33; }
-      img { background: #161b22; }
-      figcaption { color: #98a2b3; }
-      .discussion p { color: #aeb8c4; }
-      code { background: #11151d; }
-      .synthesis { background: #22190f; border-color: #3a2f22; }
-      .actions a { color: #e6e9f0; border-color: #7eb8d8; }
-      .actions a:hover { background: rgba(126, 184, 216, 0.18); }
-    }
-  </style>
+  <link rel="stylesheet" href="public.css">
+  <link rel="stylesheet" href="slides.css">
 </head>
 <body>
-  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
-  <div class="eyebrow">Public materials</div>
-  <h1>Walkthrough of the canonical figures</h1>
-  <p class="byline">Gil Raitses &middot; April 2026 &middot; <a href="executive-summary.html">Executive summary</a></p>
+  <div class="deck" id="deck">
 
-  <div class="abstract">
-    <p>This page walks through the canonical figures for the Midtown pedestrian routing substrate. Each figure has a structured caption (overview and per-panel description) and a discussion of remarks, claims, boundaries, limitations, improvements, and open questions.</p>
-    <p>The substrate models pedestrian routing on the Midtown Manhattan corridor (40th to 59th Streets, Lexington to 8th Avenues) as a graph with two measurements: a camera-derived stress field on the demand side (per block, decision-locked) and a multi-layer cross-street capacity model on the supply side (per edge, from NYC Open Data). Routing combines them as effective cost on directed edges.</p>
-    <p>Reported results include stress-aware routes that dominate shortest paths on measured stress at equal hop count, corridor-wide load redistribution under a static cost perturbation with no boundary leakage, near-orthogonal supply and demand layers (Pearson r = -0.014 at cross-street edges), and lived-knowledge alignment on 8 of 12 reference blocks (0 misaligned).</p>
-    <p>For the sensing-to-field pipeline (camera frames through vision models to graph stress), see <a href="representation-pipeline.html">Representation pipeline</a>. For a one-page investor orientation, see <a href="executive-summary.html">Executive summary</a>.</p>
+    <section class="slide slide--title">
+      <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt=""><span class="brand-name">aimez</span></div>
+      <p class="slide-tag">Canonical figures</p>
+      <h1>Substrate before navigation</h1>
+      <p>Each block: <strong>process</strong> (what we are doing) → <strong>figure</strong> → <strong>outcome</strong> (what it enables next). Stress field and topology come <em>before</em> routing panels.</p>
+      <div class="patent-banner"><strong>Patent pending.</strong> Captions describe published figures only. Proprietary fusion, calibration, and cost bindings are not disclosed here.</div>
+      <p style="font-size:0.82rem"><a href="executive-summary.html" style="color:#7eb8d8">← Executive summary slides</a></p>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="slide slide--process">
+      <p class="slide-tag">§0 · Problem</p>
+      <h1>Urban walking is a graph with hidden load</h1>
+      <p>We fix a Midtown pedestrian graph and ask whether measurable local pressure reorganizes route cost and corridor-level flow—without claiming a general theory of the city.</p>
+    </section>
+
+    <!-- METHODS -->
+    <section class="slide slide--process">
+      <p class="slide-tag">§0 · Methods</p>
+      <h1>Three measurement streams → one substrate</h1>
+      <ul>
+        <li>Camera-derived demand (stress)</li>
+        <li>Open-data supply (capacity layers)</li>
+        <li>Field / lived calibration on reference blocks</li>
+      </ul>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="slide-tag">Methods · Figure</p>
+      <h1>Representation pipeline</h1>
+      <div class="slide-figure">
+        <img class="figure-img" src="../assets/gallery/cv-pipeline/cv_model_outputs_park_vs_madison.png" alt="CV on real camera frames" loading="lazy">
+        <p class="slide-caption">Real traffic-camera frames with model overlays (Park vs Madison). <a href="representation-pipeline.html">Pipeline page</a>.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--outcome">
+      <p class="slide-tag">Outcome</p>
+      <h1>Demand signal is grounded in observation</h1>
+      <p>Next: spatialize stress on the corridor and read emergent topology before any routing comparison.</p>
+    </section>
+
+    <!-- EMERGENT STRESS TOPOLOGY (2.1 FIRST) -->
+    <section class="slide slide--process">
+      <p class="slide-tag">§2 · Emergent topology</p>
+      <h1>Stress field structure on the graph</h1>
+      <p>Assign per-camera scores to Voronoi cells; read gradients and hot spots as <strong>topology of pressure</strong>—independent of path algorithms.</p>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="slide-tag">Figure 6 · §2.1 Camera-derived stress</p>
+      <h1>Decision-locked stress heatmap</h1>
+      <div class="slide-figure">
+        <img class="figure-img" src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="Stress heatmap" loading="eager">
+        <p class="slide-caption">Southwest hot (Times Square), northeast cooler; localized station and tourist hot spots. Locked colormap in decision record.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--outcome">
+      <p class="slide-tag">Outcome</p>
+      <h1>Substrate is visible before routing</h1>
+      <p>Partners can critique sensing and spatial assignment here. Next: supply overlay and orthogonality check.</p>
+    </section>
+
+    <!-- SUPPLY -->
+    <section class="slide slide--process">
+      <p class="slide-tag">§2 · Supply substrate</p>
+      <h1>Cross-street capacity from civic open data</h1>
+      <p>Width, sheds, frontage, stations—multiplicative layers on cross-street edges. Composable for ablation.</p>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="slide-tag">Figure 7 · Capacity overlay</p>
+      <h1>Supply layers in canonical frame</h1>
+      <div class="slide-figure">
+        <img class="figure-img" src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Capacity layers" loading="lazy">
+        <p class="slide-caption">Four panels → combined denominator for effective cost.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--outcome">
+      <p class="slide-tag">Outcome · Validation preview</p>
+      <h1>Supply ⊥ demand (r ≈ 0)</h1>
+      <p>Layers carry independent information—routing cost is not a tautology. See orthogonality scatter in deck §4.</p>
+    </section>
+
+    <!-- NAVIGATION LAYER -->
+    <section class="slide slide--process">
+      <p class="slide-tag">§1 · Navigation layer</p>
+      <h1>Routing built on the substrate</h1>
+      <p>Compare unit-weight shortest paths with stress-aware costs on the <em>same</em> graph. Claims: measured exposure, not stated user preference.</p>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="slide-tag">Figure 1 · §1.1 Shortest vs stress-aware</p>
+      <h1>Same hops, different stress profile</h1>
+      <div class="slide-figure">
+        <img class="figure-img" src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Route comparison" loading="lazy">
+        <p class="slide-caption">Grand Central → Carnegie Hall; cumulative stress curves diverge monotonically in the locked run.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--outcome">
+      <p class="slide-tag">Outcome</p>
+      <h1>Strict dominance on measured criteria (demo OD)</h1>
+      <p>Next: generalize across destinations; then corridor-wide redistribution.</p>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="slide-tag">Figure 2 · §1.2 Destination grid</p>
+      <h1>Recommendations across nine destinations</h1>
+      <div class="slide-figure">
+        <img class="figure-img" src="../assets/gallery/mobility/02_feasible_routes_destination_grid.png" alt="Destination grid" loading="lazy">
+        <p class="slide-caption">Flat vs hierarchical modes; structural contrast holds across most destinations in the sample.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--outcome">
+      <p class="slide-tag">Outcome</p>
+      <h1>Not a single OD artifact</h1>
+      <p>Next: per-edge alternatives and global redistribution under stress-weighted betweenness.</p>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="slide-tag">Figure 5 · §1.5 Redistribution</p>
+      <h1>Corridor-wide soft-mode response</h1>
+      <div class="slide-figure">
+        <img class="figure-img" src="../assets/gallery/mobility/06_load_redistribution_under_stress.png" alt="Redistribution map" loading="lazy">
+        <p class="slide-caption">Absorbing vs avoided edges; boundary flux diagnostic—zero overlap with top edge set in locked run.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--outcome">
+      <p class="slide-tag">Outcome</p>
+      <h1>Graph-level behavior, not only two polylines</h1>
+      <p>Next: operator view (spectral / centrality)—optional depth for research partners.</p>
+    </section>
+
+    <!-- OPERATOR (abbreviated) -->
+    <section class="slide slide--process">
+      <p class="slide-tag">§3 · Operator (summary)</p>
+      <h1>How the graph operator reorganizes under stress</h1>
+      <p>Laplacian modes, centrality Jaccard shifts, stress–flow coupling. Full panels in PDF walkthrough.</p>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="slide-tag">Figure 8–10 · Operator panels</p>
+      <h1>Spectral and flow coupling</h1>
+      <div class="slide-figure">
+        <img class="figure-img" src="../assets/gallery/walkthrough/phase_c_corridor_stress_flow_coupling_PRE_VIZFIX.png" alt="Stress flow coupling" loading="lazy">
+        <p class="slide-caption">Stress at nodes → betweenness under unit vs stress distance → redistribution field.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--outcome">
+      <p class="slide-tag">Outcome</p>
+      <h1>Weighting changes who matters on the graph</h1>
+      <p>Top eigenvector sets can be disjoint under stress weighting—structure is cost-dependent.</p>
+    </section>
+
+    <!-- VALIDATION -->
+    <section class="slide slide--process">
+      <p class="slide-tag">§4 · Validation</p>
+      <h1>Internal checks published with limits</h1>
+      <p>Orthogonality + lived-knowledge audit; external pedestrian counts still open.</p>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="slide-tag">Figure 12 · Orthogonality</p>
+      <h1>Supply vs demand scatter</h1>
+      <div class="slide-figure">
+        <img class="figure-img" src="../assets/gallery/walkthrough/cross_street_capacity_vs_camera_stress.png" alt="Orthogonality validation" loading="lazy">
+        <p class="slide-caption">Pearson r = −0.014 on 228 cross-street edges.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="slide-tag">Figure 13 · Lived-knowledge audit</p>
+      <h1>Twelve reference blocks</h1>
+      <div class="slide-figure">
+        <img class="figure-img" src="../assets/gallery/walkthrough/cross_street_audit_reference_blocks.png" alt="Audit blocks" loading="lazy">
+        <p class="slide-caption">8 aligned, 4 partial, 0 misaligned—multi-informant extension recommended.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--outcome">
+      <p class="slide-tag">Outcome · Close</p>
+      <h1>Ready for demo + partnership</h1>
+      <p><a href="routing-demo.html">Interactive demo</a> · <a href="executive-summary.html">Executive slides</a> · <a href="../assets/gallery/documents/gil_canonical_walkthrough_for_jen_20260424.pdf">Full PDF walkthrough</a> (detailed captions)</p>
+    </section>
+
   </div>
 
-  <p class="lede">
-    The figures are grouped by purpose. Section 1 covers the routing demonstration figures. Section 2 covers the substrate's underlying second-order constraint field. Section 3 covers the spectral analysis of the corridor graph operator. Section 4 covers the validation figures. Section 5 covers extended scenarios. The synthesis section consolidates the open conceptual questions into one question, and the references section lists the related literature by domain.
-  </p>
-
-  <h2>1. Routing demonstration</h2>
-
-  <h3>1.1 Shortest versus stress-aware routing</h3>
-  <p class="fignum">Figure 1</p>
-  <figure>
-    <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest versus stress-aware routing for Grand Central to Carnegie Hall">
-    <figcaption>
-      <strong>Shortest versus stress-aware routing for Grand Central to Carnegie Hall.</strong> Two routes between the same origin and destination on the Midtown corridor graph, both nineteen hops, with the substrate colored by camera-derived stress (pale to deep red as stress rises). Top left is the shortest route, the unit-edge-weight optimal path under standard A* routing, with total accumulated stress 17.09 and maximum single-edge stress 0.98. Top right is the sigma-aware route under cost 1 + alpha times s_edge, with total accumulated stress 13.38 and maximum single-edge stress 0.89 at the same hop count, sixteen fewer high-stress edges and a 0.09 drop in max single-edge stress. Below, the cumulative stress along each route, where the sigma-aware curve stays consistently below the shortest curve with a divergence that grows monotonically. At the foot, a metrics table where the sigma-aware route is strictly dominant on every measured criterion at the same path length.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This is the demonstration's anchor. It shows the two routes the routing layer can produce given access to either the first-order graph alone or the first-order graph plus the second-order capacity field. The contrast is unambiguous: same task, same hop count, very different second-order load.</p>
-    <p><span class="dlabel">Claims.</span> The routing layer can produce a strictly dominant alternative once it can read the second-order constraint field. The dominance is in measured stress accumulation, not in inferred user comfort. The figure claims a measurable substrate-level difference, not a behavioral preference.</p>
-    <p><span class="dlabel">Boundaries.</span> The figure is for one origin-destination pair, Grand Central to Carnegie Hall. The substrate covers the Midtown corridor (40th to 59th Streets, Lexington to 8th Avenues). The shortest path is the unit-weight A* optimal, and alternative tie-breaks may produce slightly different specific routes with the same overall stress profile.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The stress field is camera-derived, not behaviorally validated. The 22 percent reduction in accumulated stress is a substrate-level number; whether a real pedestrian would experience the second route as 22 percent less stressful stays unmeasured here. The cumulative-stress curve aggregates per-edge stress with no weighting for path length, time of day or pedestrian profile.</p>
-    <p><span class="dlabel">Things to improve.</span> Add a third panel showing the stress-aware route under a time-varying capacity field (peak-hour subway egress, active scaffolding sheds), so the recommendation shifts with the field. The current figure is static.</p>
-    <p><span class="dlabel">Open questions.</span> The cumulative-stress curve has a structural feature I find interesting: the divergence between the two routes accumulates monotonically along the path and spreads across many edges, with no single bottleneck dominating it. Does this match the soft-mode picture you would expect from a system near a rigidity transition, where a small constraint perturbation produces a redistributed response spread across the structure? I read the monotonic divergence as evidence that local edge cost differences integrate over path length into path-level differences, and I am not sure if that is the right physical intuition.</p>
-  </div>
-
-  <h3>1.2 Routes generalize across destinations</h3>
-  <p class="fignum">Figure 2</p>
-  <figure>
-    <img src="../assets/gallery/mobility/02_feasible_routes_destination_grid.png" alt="Stress-aware routing across nine destinations from Grand Central">
-    <figcaption>
-      <strong>Stress-aware routing across nine destinations from Grand Central.</strong> Recommended routes for nine destinations, with both flat (red) and hierarchical (green) routing modes overlaid on each panel, and the full seven-layer capacity model active (sidewalk width, sheds, frontage load, construction closures, station envelopes, open streets and bike lanes). The nine destination panels are Carnegie Hall, MoMA, Bryant Park, Central Park South, Lever House, Lipstick Building, Apple Cube, Plaza Hotel and Saks Fifth Avenue, each colored by combined effective cost and annotated with hops, total cost, max edge cost and mean capacity for each mode. The metrics summary table at the foot reports the per-destination differences, where the hierarchical mode produces substantially lower total cost on most destinations at the price of a small max-edge-cost increase on some.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> The contrast generalizes across destinations. The flat route differs from the hierarchical route on eight of the nine destinations. The metric trade-off is consistent: hierarchical routing chooses an avenue spine that lowers total cost while accepting a slightly higher max-edge cost on the chosen avenue.</p>
-    <p><span class="dlabel">Claims.</span> The substrate's recommendations hold across nine destinations under the same routing layer and capacity model, so the structural argument is a property of the field. The flat-versus-hierarchical contrast also holds, so hierarchical routing is doing real work.</p>
-    <p><span class="dlabel">Boundaries.</span> Nine destinations is a sampling, not a census. All destinations sit within the Midtown corridor, and the substrate stays untested on destinations outside the 40th to 59th Street range. The capacity model is the seven-layer combined version, and the contrast may behave differently if individual layers are removed.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The hierarchical mode applies a coarse-tile-plan discount (factor 0.45) to edges that lie on the planned avenue. This is a heuristic, not a derived parameter, and alternative discount values produce different specific routes though the qualitative picture holds across the range tested. The comparison favors hierarchical routing partly because of this discount.</p>
-    <p><span class="dlabel">Things to improve.</span> Sample destinations outside the corridor (for example Penn Station to Carnegie Hall) to test whether the substrate generalizes beyond its geographic envelope. Add an ablation: the same nine destinations with each capacity layer removed in turn, to identify which layers drive the contrast.</p>
-    <p><span class="dlabel">Open questions.</span> The hierarchical mode reads to me as a coarse-grained scaffolding operation: it imposes a low-frequency structure (which avenue to use) on top of which the high-frequency edge-by-edge routing happens. This feels analogous to the multi-scale moves your group has made in different contexts. Does the coarse-grained and fine-grained decomposition here look like the same scale-separation move you would deploy in a physical system, or is it doing something else operationally?</p>
-  </div>
-
-  <h3>1.3 Hierarchical multi-scale routing</h3>
-  <p class="fignum">Figure 3</p>
-  <figure>
-    <img src="../assets/gallery/mobility/08_hierarchical_routing_with_capacity_layers.png" alt="Flat versus hierarchical routing on the asymmetric-spillover field">
-    <figcaption>
-      <strong>Flat versus hierarchical routing on the asymmetric-spillover field.</strong> The flat-versus-hierarchical comparison for Grand Central to Carnegie Hall under the asymmetric-spillover capacity model with a coarse-tile-plan discount of 0.45. Top left is flat routing: 18 hops, total effective stress 13.72, max edge 1.04, total cost 30.45, running primarily along 5th Avenue. Top right is hierarchical routing: 19 hops, total effective stress 14.01, max edge 0.925, base cost 31.68, discounted cost 23.87, running primarily along Park Avenue. The middle avenue-dwell bar chart shows the flat mode committing 12 edges to 5th Avenue and the hierarchical mode committing 12 edges to Park Avenue. The cumulative effective stress chart and the metrics table at the foot show hierarchical routing producing a lower discounted total cost at the price of one extra hop and a slightly higher raw stress accumulation.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This figure isolates the multi-scale move. Flat routing optimizes hop by hop; hierarchical routing biases path choice toward avenues with second-order capacity headroom (Park Avenue here, against 5th Avenue under flat routing) by applying a coarse-tile-plan discount.</p>
-    <p><span class="dlabel">Claims.</span> The hierarchical layer is doing real work. The comparison shows two structurally different paths with a different avenue spine, a different exit point and a different per-block stress profile. The avenue-dwell chart makes the structural difference visible, where 5th against Park is the operative choice.</p>
-    <p><span class="dlabel">Boundaries.</span> The coarse-tile-plan discount of 0.45 is the canonical setting, and alternative discounts in the range 0.3 to 0.6 produce qualitatively similar pictures. The hierarchical layer operates on avenue-band membership, and the avenue-band decomposition is corridor-specific.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The hierarchical mode adds one hop to this specific route. The trade-off is hop count against accumulated stress, so a pedestrian who values minimum hop count over minimum stress would not benefit from this mode. The discount is applied as a multiplicative factor on edge cost, a heuristic and not a derived parameter.</p>
-    <p><span class="dlabel">Things to improve.</span> Replace the heuristic discount with a derived parameter from the substrate's local-to-global capacity ratio (mean per-edge capacity along the chosen avenue divided by corridor-mean capacity). This would make the hierarchical layer continuous with the rest of the model, so it stops behaving like an inserted scaffold.</p>
-    <p><span class="dlabel">Open questions.</span> The hierarchical layer feels like a renormalization-group move: coarse-grain to one decision (which avenue), then run the fine-grained edge-level routing on the result. Does this map onto something you would recognize in a physical-systems context, or is the analogy strained because there is no proper scaling relation between the coarse and fine levels here?</p>
-  </div>
-
-  <h3>1.4 Per-edge route alternatives</h3>
-  <p class="fignum">Figure 4</p>
-  <figure>
-    <img src="../assets/gallery/walkthrough/05_top6_individual_edges_route_alternatives.png" alt="Top six per-edge route alternatives, sorted by absorbing and avoided edges">
-    <figcaption>
-      <strong>Top six per-edge route alternatives, sorted by absorbing and avoided edges.</strong> Six per-edge alternative routes between Grand Central and Carnegie Hall, in two groups of three. The top row holds the three strongest absorbing edges: Madison E52 to E53 (delta +0.102), 5 Ave W54 to W55 (delta +0.090) and Madison E44 to E45 (delta +0.087), each a low-stress route at 19 hops and stress cost 32.38, with the chosen low-stress edge marked with a green ring. The bottom row holds the three strongest avoided edges: Broadway W45 to W46 (delta -0.073, 20 hops, stress cost 36.85, plus 13.8 percent against the unconstrained best), Broadway W47 to W48 (delta -0.068) and Broadway W48 to W49 (delta -0.065), each a high-stress detour with the avoided edge marked with a purple ring.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This figure shows the per-edge structure of the substrate's recommendation behavior. Absorbing edges gain rerouted load when the second-order field becomes visible; avoided edges lose load. The asymmetry in the costs, where absorbing routes stay at 32.38 while avoided detours pay plus 13.8 percent, is structurally informative.</p>
-    <p><span class="dlabel">Claims.</span> The substrate's recommendation behavior concentrates on a small set of edges. Six edges, three absorbing and three avoided, account for the bulk of the routing-mode flip between shortest-path and stress-aware routing. The pattern is local in edge space and global in path space, where each edge change propagates corridor-wide.</p>
-    <p><span class="dlabel">Boundaries.</span> Six edges is the top six by magnitude of betweenness change; the actual number of affected edges is larger with diminishing magnitude. The selection comes from the optimization, not from ground-truth foot-traffic data.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The figure predates the colormap-fix pass that the rest of the substrate's render pipeline received. The PRE_VIZFIX label indicates it uses the original sigma colormap, functionally equivalent and visually mismatched with the more recent figures. The render stays semantically correct.</p>
-    <p><span class="dlabel">Things to improve.</span> Re-render with the canonical palette to match the rest of the figure set. Add quantitative annotations showing the full betweenness shift for each route, not only the chosen edge.</p>
-    <p><span class="dlabel">Open questions.</span> The pattern of absorbing and avoided edges feels like it should have a physical analog in active matter or in jamming literature: a small set of high-leverage cells that accept or reject load disproportionately. Is there a name in your field for this kind of structurally asymmetric load redistribution under perturbation?</p>
-  </div>
-
-  <h3>1.5 Soft-mode redistribution under stress-aware routing</h3>
-  <p class="fignum">Figure 5</p>
-  <figure>
-    <img src="../assets/gallery/mobility/06_load_redistribution_under_stress.png" alt="Edge load redistribution under stress-aware routing">
-    <figcaption>
-      <strong>Edge load redistribution under stress-aware routing.</strong> The substrate-wide redistribution of betweenness when the routing cost changes from unit weights to stress-weighted. The left redistribution map colors each edge by its change in betweenness, where red absorbs rerouted load and blue is avoided, with the top absorbing edges (Madison E52 to E53, 5 Ave W54 to W55, Madison E44 to E45) and the top avoided edges (Broadway W45 to W46, W47 to W48, W48 to W49) labeled. The right structural metadata documents the module separation across the corridor (104 undirected boundary crossings: E 33, W 31, S 21, N 19, with zero overlap with the absorbing or avoided edge set) and the key diagnostic: the network shows an allosteric response under a static perturbation field, with a maximum single-edge shift of 0.102 (about 10 percent of total betweenness mass) and mean shortest-path hops moving 13.19 to 13.23 (plus 0.33 percent).
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This is the figure where the substrate-level allostery becomes legible. The redistribution spreads corridor-wide and structured, with red on the new preferred avenues and blue on the old, and the corridor processes the load internally with no boundary leakage, away from the destination and the high-stress hot spots.</p>
-    <p><span class="dlabel">Claims.</span> The substrate shows a corridor-wide soft-mode response to a static perturbation of the routing cost. The response is allosteric: a local change in cost weighting redistributes load globally but stays bounded, with zero leakage across the corridor boundary. The hop-count change is negligible (plus 0.33 percent) while the topological rerouting is significant.</p>
-    <p><span class="dlabel">Boundaries.</span> The static perturbation here is the alpha-weighted stress cost, a single global parameter change. The substrate's response to non-static perturbations (time-varying capacity, dynamic shed permits, real-time pedestrian counts) stays uncharacterized at this scale.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The PRE_VIZFIX render uses an earlier version of the colormap clipping, functionally equivalent and visually slightly different. The 95th-percentile clip excludes a small set of high-magnitude outliers; without the clip the absorbing and avoided structure is harder to read.</p>
-    <p><span class="dlabel">Things to improve.</span> Run the same redistribution analysis under a sequence of perturbations (for example progressively activating each capacity layer one at a time) to characterize the substrate's response curve. Compare against a null model of random perturbations of similar magnitude to confirm the corridor-wide structure is signal.</p>
-    <p><span class="dlabel">Open questions.</span> This is the figure I have been most curious about your read on. The allosteric response under static perturbation, the bounded corridor with no boundary flux, the structured red-blue alternation between absorbing and avoided edges: does this look to you like the soft-mode response near a rigidity transition that you have characterized in tissue or jamming systems? Or is the analogy too thin because the corridor has a different boundary structure and the load redistribution mechanism (A* rerouting) is operationally different from elastic stress propagation?</p>
-  </div>
-
-  <h2>2. Substrate</h2>
-
-  <h3>2.1 Camera-derived stress field</h3>
-  <p class="fignum">Figure 6</p>
-  <figure>
-    <img src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="The corridor's camera-derived stress heatmap">
-    <figcaption>
-      <strong>The corridor's camera-derived stress heatmap (decision-locked Panel B).</strong> The corridor's stress field as a Voronoi-tessellated heatmap, where each cell is one camera's catchment area and the cell color is the per-camera stress score, on the canonical lock range (green low, red high). The full corridor runs from W42nd Street at the bottom through W57th Street at the top. The southwest quadrant near Times Square tends toward red; the northeast quadrant on the East Side tends toward green; the interior shows mixed structure with localized hot spots near subway stations and tourist attractions.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This is the substrate's foundational measurement: the camera-derived stress field at the per-block scale across the corridor. Every downstream figure reads against this. The colormap and range are locked in a project decision record so the field stays stable across renders and downstream analyses.</p>
-    <p><span class="dlabel">Claims.</span> The stress field has structure that is not random and not uniform. The southwest-to-northeast gradient (Times Square hot, East Side cool) corresponds to known pedestrian density patterns. The localized hot spots at subway egress points and tourist attractions appear as smaller cells with high values inside larger cooler regions.</p>
-    <p><span class="dlabel">Boundaries.</span> One hundred eighty-one cameras across the corridor, sampled at thirty-minute cadence. The Voronoi cells are catchment areas, and the cell boundary is the locus of equal nearest-camera distance, not a physically meaningful boundary. The stress score is a regression output, not a direct measurement of pedestrian count.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The stress score regression is calibrated against author lived knowledge as the primary anchor (twelve reference blocks, eight aligned, four partial, zero misaligned). It is not calibrated against ground-truth pedestrian counts, which are not publicly available at this resolution and which commercial vendors offer outside the project budget. The thirty-minute cadence aliases short-duration phenomena such as a parade or a delivery truck blocking a sidewalk.</p>
-    <p><span class="dlabel">Things to improve.</span> Acquire commercial pedestrian count data for a subset of corridor blocks to calibrate the regression against ground truth. Increase camera sampling cadence from 30 minutes toward 5 minutes so the substrate can respond to short-duration events.</p>
-    <p><span class="dlabel">Open questions.</span> The Voronoi tessellation is a static spatial partition that anchors per-camera scores to specific corridor regions. The Sridhar et al. paper on allocentric flocking argues that animals encode bearings to neighbors in either an allocentric (world-anchored) or egocentric (heading-relative) reference frame, and that allocentric encoding is necessary for coherent collective behavior. The Voronoi assignment here is functionally an allocentric anchor, since camera positions are world-fixed and the per-block sigma is anchored to those positions. Does the parallel hold in your reading, or is the analogy stretched because the corridor substrate has no agent-centered frame to compare against?</p>
-  </div>
-
-  <h3>2.2 Cross-street capacity overlay</h3>
-  <p class="fignum">Figure 7</p>
-  <figure>
-    <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Cross-street capacity model overlay in the canonical-affine frame">
-    <figcaption>
-      <strong>Cross-street capacity model overlay in the canonical-affine frame.</strong> The four-layer cross-street capacity model on the corridor's 228 cross-street edges. Panel A is sidewalk width capacity, per-edge capacity factor from planimetric sidewalk width over corridor median width. Panel B is the active sidewalk-shed factor from current DOB permits, with 154 of 228 edges affected. Panel C is the frontage load factor from building class, height, dining permits, public atriums and plaza-as-width contributions, low (red) on high office and dining frontage. Panel D is the combined cross-street capacity, the product of the three preceding layers, which is the effective denominator the routing cost reads against.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This is the substrate's supply-side characterization. The four panels decompose the per-edge capacity factor into its constituent layers, then combine them into the effective denominator the routing cost reads against. The canonical affine alignment makes the corridor read left to right with Lexington vertical, matching the rest of the figure set.</p>
-    <p><span class="dlabel">Claims.</span> The capacity field has structure that is not uniform across edges. Sidewalk width is geometric and stable; sheds are temporal and dynamic (currently 154 of 228 edges affected); frontage load is spatial and structural, concentrated on the avenues with retail and dining; the combined factor multiplies them. The composition is decomposable, so each layer can be activated or deactivated for ablation analyses.</p>
-    <p><span class="dlabel">Boundaries.</span> Four layers appear here; the full capacity model has seven (sidewalk width, sheds, frontage, construction closures, station envelopes, open streets and bike lanes). The four shown are the highest-magnitude. The 228 cross-street edges are the operational scope; avenue edges are handled separately in the routing layer.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The frontage layer combines six independent input datasets, and the per-component contributions are not visible in this aggregated panel. The shed layer is dynamic on the calendar of permit issuance, and the snapshot is a specific date in April 2026.</p>
-    <p><span class="dlabel">Things to improve.</span> Add a fifth panel showing the per-edge construction closure factor. Add a sixth panel showing the time-varying combined capacity, for example capacity during AM rush against midday against PM rush with subway egress weighted by hourly ridership.</p>
-    <p><span class="dlabel">Open questions.</span> The capacity model is multiplicative: each layer is a dimensionless factor near [0.4, 1.4], and the combined factor is their product. The audit pillars suggest the multiplicative structure produces reasonable per-edge values. Is multiplicative composition the right operational form here, or would an additive or otherwise nonlinear composition be more physically defensible? My intuition says multiplicative, because each layer is a fractional reduction of physical capacity, and I am not sure if that intuition is grounded enough.</p>
-  </div>
-
-  <h2>3. Operator</h2>
-
-  <h3>3.1 Laplacian flow axes</h3>
-  <p class="fignum">Figure 8</p>
-  <figure>
-    <img src="../assets/gallery/walkthrough/phase_a_corridor_laplacian_axes_PRE_VIZFIX.png" alt="Corridor Laplacian first four non-trivial flow axes">
-    <figcaption>
-      <strong>Corridor Laplacian L0 (unit weights), first four non-trivial flow axes.</strong> The four lowest non-trivial eigenvectors of the corridor graph's combinatorial Laplacian as node colorings, in a 2x2 grid. The graph has 297 nodes and 503 undirected edges in its giant component. Top left is psi1, the Fiedler vector and dominant north-south flow axis, aligned with the corridor long axis (R-squared 0.97). Top right is psi2, the east-west cross-corridor axis (R-squared 0.22). Bottom left is psi3, a mid-corridor split between north, center and south thirds (R-squared 0.08). Bottom right is psi4, cross-block alternation along the corridor (R-squared 0.07).
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This is the spectral characterization of the corridor graph operator. The Fiedler vector psi1 aligns sharply with the corridor long axis (R-squared 0.97), confirming that the dominant slow mode of the substrate is north-south flow. The next three eigenvectors capture cross-corridor structure, mid-corridor splits and block-by-block alternation.</p>
-    <p><span class="dlabel">Claims.</span> The corridor's spectral structure is dominated by one large-scale mode (psi1, north-south flow) with three smaller-scale modes that capture progressively finer structure. The R-squared values fall sharply from psi1 (0.97) to psi2 (0.22) to psi3 (0.08) and psi4 (0.07), suggesting the corridor's spectral structure is well-approximated by its first eigenvector for many purposes.</p>
-    <p><span class="dlabel">Boundaries.</span> Unit edge weights are used here; the stress-weighted Laplacian produces a different spectrum, with off-diagonal coupling driven by the per-edge stress values. The four eigenvectors shown are the lowest non-trivial; higher eigenvectors capture localized noise and are not analytically meaningful at this scale.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The R-squared values are computed against the corridor long axis fit, so they measure how well each eigenvector aligns with the corridor's principal direction, not the eigenvector's structural significance per se. A high-R-squared eigenvector could still be operationally less important than a low-R-squared eigenvector if the routing layer reads against the latter more directly.</p>
-    <p><span class="dlabel">Things to improve.</span> Compute the same eigenvector decomposition for the stress-weighted Laplacian and overlay the two sets. Identify which directions are stable across both operators (the structural directions of the corridor) and which directions appear only under stress weighting (the directions activated by the stress field).</p>
-    <p><span class="dlabel">Open questions.</span> The eigenvalue gap between psi1 and psi2 is about a factor of two. In a physical context this kind of spectral gap is sometimes read as a measure of how strongly the system's slowest mode dominates. Is that the right read here, or is the gap less meaningful because the corridor is a finite graph with boundary effects and not a continuum system?</p>
-  </div>
-
-  <h3>3.2 Centrality and influence</h3>
-  <p class="fignum">Figure 9</p>
-  <figure>
-    <img src="../assets/gallery/walkthrough/phase_b_corridor_centrality.png" alt="Corridor influence scores, eigenvector and betweenness centrality">
-    <figcaption>
-      <strong>Corridor influence scores (eigenvector centrality and betweenness centrality, unit and stress-weighted).</strong> Four centrality measures in a 2x2 grid, with the top-20 nodes by each measure labeled (n = 297, m = 503). Top left is eigenvector centrality on unit weights, clustering along the central avenues (Madison, 5th Avenue). Top right is eigenvector centrality stress-weighted, shifting markedly toward the northeast where the substrate's importance and its headroom coincide. Bottom left is betweenness centrality on unit shortest paths, a near-continuous spine along the central north-south axis. Bottom right is betweenness centrality on stress-distance shortest paths, shifting to the east.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This figure decomposes corridor influence into four measures and shows how stress weighting reorganizes them. The Jaccard 0.00 between the two eigenvector centralities is striking: the structurally most central nodes under unit weights and the structurally most central low-stress nodes under stress weights are entirely disjoint top-20 sets.</p>
-    <p><span class="dlabel">Claims.</span> Stress weighting changes which nodes the substrate reads as influential. The change is dramatic for eigenvector centrality (Jaccard 0.00) and moderate for betweenness centrality (Jaccard 0.38). The substrate's notion of which nodes matter is not a stable graph-theoretic property; it depends on the cost weighting.</p>
-    <p><span class="dlabel">Boundaries.</span> The top-20 cutoff is a choice; the underlying centrality scores are continuous, and the Jaccard at top-50 or top-100 would be higher.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> Centrality measures are graph-theoretic; they do not directly encode pedestrian-relevant notions of importance such as visibility, accessibility or attractiveness. The substrate's interpretation of influence is structural-substrate influence, not functional-pedestrian influence.</p>
-    <p><span class="dlabel">Things to improve.</span> Compute additional centrality measures (closeness, current-flow betweenness, communicability) and compare. A more complete characterization would help identify which measures stay stable across weightings and which are weighting-sensitive.</p>
-    <p><span class="dlabel">Open questions.</span> The Jaccard 0.00 between the two eigenvector centralities surprised me. I expected substantial overlap because the corridor's structural backbone (Madison, 5th, Park) is geographically stable. Instead the stress weighting picks out a different set of nodes entirely. Does this surprise you, or is it consistent with the weight-sensitive eigenvector reorganization you would expect when the operator's spectrum is moderately degenerate?</p>
-  </div>
-
-  <h3>3.3 Stress-flow coupling</h3>
-  <p class="fignum">Figure 10</p>
-  <figure>
-    <img src="../assets/gallery/walkthrough/phase_c_corridor_stress_flow_coupling_PRE_VIZFIX.png" alt="Stress times flow coupling on the corridor graph">
-    <figcaption>
-      <strong>Stress times flow coupling on the corridor graph.</strong> Four panels on the coupling between camera-derived stress and edge betweenness flow (n = 297, m = 503, alpha = 1.0, spectral off-diagonal 0.048, max betweenness shift 0.1015). Top left is camera-derived stress at corridor intersections, the input to the stress weighting, with the same southwest-hot, northeast-cool gradient at intersection resolution. Top right is edge betweenness under unit shortest paths, where the dense central avenues carry the most flow. Bottom left is edge betweenness under stress-distance shortest paths, where flow shifts to the east side (Madison, Park) and away from central 5th Avenue. Bottom right is the edge load redistribution, the difference between the two betweenness fields, corridor-wide and structured.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This is the operator-level analog of the route comparison figure in Section 1.1. Where that figure showed two specific routes, this figure shows the betweenness field across the entire corridor under the two weightings. The redistribution panel is the substrate's response surface to the stress-weighting perturbation.</p>
-    <p><span class="dlabel">Claims.</span> The substrate's flow field reorganizes under stress weighting in a structured, corridor-wide pattern. The redistribution magnitude is bounded (about 0.1 at the 95th percentile) and distributed, since most edges show some shift. The spectral off-diagonal of 0.048 quantifies the coupling between the unweighted and stress-weighted Laplacian spectra.</p>
-    <p><span class="dlabel">Boundaries.</span> The alpha = 1.0 setting is the canonical lock; alternative alpha values produce qualitatively similar pictures with scaled magnitudes. The shortest-path computation uses Dijkstra on the corridor graph; alternative path-finding produces different fields.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The percentile clipping for the stress display compresses the dynamic range; the true range is wider but visually obscured by outliers. The log-scale colormap on the betweenness panels makes it hard to compare absolute magnitudes between unit and stress weightings.</p>
-    <p><span class="dlabel">Things to improve.</span> Add a fifth panel showing the spectral difference between the two Laplacians as a node-color field, to make the operator-level perturbation directly visible. Currently the perturbation is implicit in the difference between the betweenness fields.</p>
-    <p><span class="dlabel">Open questions.</span> The spectral off-diagonal of 0.048 is small, so the stress weighting is a perturbation, not a regime change. Yet the betweenness redistribution is substantial (max 0.1015, about 10 percent of total mass). The amplification ratio from perturbation magnitude to response magnitude feels like it would be sensitive to whether the corridor operates near a critical regime. Does the ratio of 0.048 perturbation to 0.1 response amplitude look critical to you, or is it firmly in the linear-response regime?</p>
-  </div>
-
-  <h3>3.4 Boundary flux</h3>
-  <p class="fignum">Figure 11</p>
-  <figure>
-    <img src="../assets/gallery/walkthrough/phase_d_corridor_boundary_flux.png" alt="Corridor boundary flux under stress-aware routing">
-    <figcaption>
-      <strong>Corridor boundary flux: how much load redistribution leaks across the corridor boundary.</strong> The substrate's load redistribution under stress-aware routing decomposed into interior edges and boundary-crossing edges, with the corridor boundary treated as a closed surface. The corridor graph highlights the 104 undirected boundary crossings (E 33, W 31, S 21, N 19), color-coded by their change in betweenness. The summary statistic is zero overlap with the absorbing or avoided edge set, so the corridor processes its load internally.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This figure isolates one question: when load redistributes under stress-aware routing, does the redistribution stay inside the corridor or leak across the boundary? The answer is that it stays inside.</p>
-    <p><span class="dlabel">Claims.</span> The corridor is a forward-invariant set with respect to load redistribution under the stress perturbation. The 104 boundary-crossing edges absorb zero of the absorbing and avoided edge set. The redistribution is corridor-internal, suggesting the corridor operates as an autonomous functional unit at this scale.</p>
-    <p><span class="dlabel">Boundaries.</span> The boundary is defined geometrically, the perimeter of the 40th to 59th, Lexington to 8th rectangle. Alternative boundary definitions (camera-coverage hull, planning district, neighborhood) would produce different boundary sets and potentially different leakage patterns.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The zero-leakage finding is for this specific perturbation (stress-weighted against unit-weighted routing) on this specific origin-destination distribution. Other perturbations, such as adding a new origin outside the corridor, would change the boundary flux pattern.</p>
-    <p><span class="dlabel">Things to improve.</span> Test the boundary flux under multiple perturbations and origin distributions. If the corridor consistently shows zero leakage across diverse perturbations the autonomy claim strengthens; if it leaks under some perturbations, characterize those.</p>
-    <p><span class="dlabel">Open questions.</span> The zero-leakage property feels significant. In your tissue or jamming work, do you have an analog for boundary flux as a diagnostic of an autonomous functional unit? My naive read is that the corridor acts like a closed compartment with respect to the stress perturbation, and I am not sure if that compartment-like behavior is the right framing for a routing substrate.</p>
-  </div>
-
-  <h2>4. Validation</h2>
-
-  <h3>4.1 Capacity versus camera stress orthogonality</h3>
-  <p class="fignum">Figure 12</p>
-  <figure>
-    <img src="../assets/gallery/walkthrough/cross_street_capacity_vs_camera_stress.png" alt="Cross-street capacity versus camera-derived stress orthogonality validation">
-    <figcaption>
-      <strong>Cross-street capacity (supply) versus camera-derived stress (demand): orthogonality validation.</strong> The substrate's two principal measurements plotted against each other for 228 cross-street edges (Pearson r = -0.014, Spearman rho = -0.006, R-squared 0.000). The left scatter plots each cross-street edge with x as model-predicted combined capacity and y as one minus camera-derived stress, where the fit line has near-zero slope and the point cloud is dispersed with no visible trend. The right bar chart shows the Pearson correlation at each cumulative model stage, small at every stage and approaching zero as more layers are added.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This is the substrate's most important validation result. The supply side (cross-street capacity model) and the demand side (camera-derived stress field) are orthogonal: knowing one tells you essentially nothing about the other. That orthogonality is what allows the routing cost to carry independent information from each side.</p>
-    <p><span class="dlabel">Claims.</span> The supply and demand layers carry independent signal. The routing cost is therefore not a tautology: the capacity model is not a re-expression of the stress field, and the stress field is not a re-expression of the capacity model. The orthogonality confirms the two measurements measure different things.</p>
-    <p><span class="dlabel">Boundaries.</span> Orthogonality at the per-edge cross-street level. The substrate stays unvalidated for orthogonality at the per-block, per-corridor or per-time-window level. The 228 cross-street edges are the operational scope.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> Orthogonality is a necessary but not sufficient condition for the routing cost to be informative. Two genuinely independent random fields would also produce orthogonality. The result does not validate that either layer is individually accurate; it validates only that they are not redundant.</p>
-    <p><span class="dlabel">Things to improve.</span> Cross-validate with an external supply-side measurement, for example StreetLight pedestrian density data, to check whether the camera stress is orthogonal to that as well. If yes, the substrate's measurements form a basis-like decomposition of pedestrian flow.</p>
-    <p><span class="dlabel">Open questions.</span> The orthogonality result is more dramatic than I expected: I would have predicted some correlation between sidewalk width or shed coverage and camera-derived stress, since wider sidewalks could shift pedestrian density. Instead the correlation is essentially zero. Is this kind of orthogonality result standard in your field as a validation pillar, or is it a peculiarity of the substrate's particular measurement setup?</p>
-  </div>
-
-  <h3>4.2 Lived-knowledge audit</h3>
-  <p class="fignum">Figure 13</p>
-  <figure>
-    <img src="../assets/gallery/walkthrough/cross_street_audit_reference_blocks.png" alt="Lived-knowledge audit against twelve reference blocks">
-    <figcaption>
-      <strong>Lived-knowledge audit against twelve reference blocks.</strong> The substrate's predicted capacity factor at twelve reference cross-street blocks where the author has personal knowledge of pedestrian conditions. The grouped bar chart labels twelve blocks along the x-axis, with predicted combined capacity factor on the y-axis and horizontal lines at the polarity thresholds. Each bar is colored by the audit verdict: green for aligned (8 blocks), yellow for partial (4 blocks) and red for misaligned (0 blocks).
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This is the substrate's primary validation against an external measurement. Author lived knowledge is treated as ground truth for these twelve blocks, and the substrate's predictions are evaluated against the polarity assigned by lived experience. Eight of twelve fully align, four are partial (predicted polarity weaker than lived but in the right direction) and zero are misaligned.</p>
-    <p><span class="dlabel">Claims.</span> The substrate's predictions agree with lived experience at the polarity level on 12 of 12 blocks. The four partial cases are cases where the substrate predicts a milder version of the lived polarity. The zero misalignments suggest the substrate produces no predictions that contradict ground truth at this scale.</p>
-    <p><span class="dlabel">Boundaries.</span> Twelve blocks is a small sample. The lived knowledge is one author's experience; multi-informant validation has not been performed. The polarity thresholds are author-set, not derived from a calibration dataset.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> This is a self-report validation; the author who set the thresholds is the same author whose lived experience defines the ground truth, so confirmation bias is possible. The twelve blocks were chosen because the author had specific opinions about them, which may select for blocks where the substrate is more likely to agree.</p>
-    <p><span class="dlabel">Things to improve.</span> Recruit two or three additional informants who walk the corridor regularly to provide independent polarity assignments on the same twelve blocks. Compute inter-informant agreement and use the consensus polarity as the validation target.</p>
-    <p><span class="dlabel">Open questions.</span> Lived-knowledge audit feels like the right validation strategy for a domain where ground-truth quantitative data is scarce. Does this kind of self-report-anchored validation have an analog in your field, or do you typically have access to more rigorous ground-truth measurements that make this kind of audit unnecessary?</p>
-  </div>
-
-  <h2>5. Extended scenarios</h2>
-
-  <h3>5.1 Time-varying capacity</h3>
-  <p class="fignum">Figure 14</p>
-  <figure>
-    <img src="../assets/gallery/walkthrough/cross_street_time_varying_capacity.png" alt="Time-varying cross-street capacity field">
-    <figcaption>
-      <strong>Time-varying cross-street capacity field.</strong> The substrate's combined capacity factor under four time windows, with subway egress weighted by hourly ridership in each window. The four panels are AM peak, midday, PM peak and off-peak, with the same colormap and range across all four for direct comparison. The most visible changes sit at edges adjacent to high-ridership station egress points, where off-peak capacity is generally higher than peak capacity.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This figure isolates the substrate's only currently active time-varying input: subway egress weighted by hourly ridership. Other capacity layers (sidewalk width, sheds, frontage) stay static at the daily timescale.</p>
-    <p><span class="dlabel">Claims.</span> The substrate's capacity field changes meaningfully across time windows in a structured, station-anchored pattern. AM peak and PM peak both lower capacity at edges near high-ridership stations; midday and off-peak relax those edges. The time-varying behavior is decomposable, with the static capacity as a baseline and the time-varying contribution as a modulation.</p>
-    <p><span class="dlabel">Boundaries.</span> Four time windows is the canonical decomposition; other temporal partitions (hourly, weekday against weekend) have not been computed. The time-varying input is currently subway egress only; sidewalk sheds and other layers do not vary by hour.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> Hourly ridership is from MTA Open Data, which lags real time by several days to a week. The substrate's time-varying capacity is therefore historical-pattern-based, not real-time-responsive.</p>
-    <p><span class="dlabel">Things to improve.</span> Add real-time data sources where available: traffic camera feeds for instantaneous crowd density, the MTA real-time elevator outage feed for accessibility-sensitive routing and the active construction permit feed for shed activations. The substrate's architecture is ready to consume real-time inputs; the data sources are the missing piece.</p>
-    <p><span class="dlabel">Open questions.</span> The time-varying behavior is currently driven only by subway egress, while the substrate's structure is modular, so any per-edge factor can be promoted to a time-varying input. Is there a principled way to think about which capacity layers should be time-varying and which should stay static? My intuition says anything that physically changes within a day (sheds, construction, traffic) should be time-varying, and the data lag makes some of these effectively static for routing purposes.</p>
-  </div>
-
-  <h3>5.2 Symmetric versus asymmetric spillover</h3>
-  <p class="fignum">Figure 15</p>
-  <figure>
-    <img src="../assets/gallery/walkthrough/phase_compare_spillover_modes.png" alt="Symmetric versus asymmetric spillover modes for stress propagation">
-    <figcaption>
-      <strong>Symmetric versus asymmetric spillover modes for stress propagation.</strong> Two coupling models for how stress on one avenue affects neighboring avenues. Top left is symmetric spillover (heat-kernel diffusion, tau = 0.55), where stress diffuses symmetrically: 18 hops, total effective stress 13.20, max edge 0.78, total cost 29.93. Top right is asymmetric spillover (one-step donor to receiver donation, no back-reaction): 18 hops, total effective stress 13.72, max edge 1.04, total cost 30.45. The middle avenue-level bar chart shows a sharp peak at Madison under the asymmetric mode where the donation accumulates from 5th, against a smoother distribution under the symmetric mode. The cumulative-stress chart and metrics table show the asymmetric mode running slightly costlier, a small difference relative to the roughly 30-unit total.
-    </figcaption>
-  </figure>
-  <div class="discussion">
-    <p><span class="dlabel">Remarks.</span> This figure tests two coupling models for cross-avenue stress propagation. The symmetric mode is heat-kernel diffusion, where stress spreads bidirectionally with a time constant. The asymmetric mode is one-step donation, where stress flows from a designated donor avenue to a receiver with no back-reaction.</p>
-    <p><span class="dlabel">Claims.</span> The two coupling models produce structurally similar paths with small but non-zero metric differences. The asymmetric mode produces a higher peak at the receiver avenue (Madison) where the donation accumulates; the symmetric mode produces a flatter distribution. Path-level costs differ by about 0.5 units, small relative to the roughly 30-unit total.</p>
-    <p><span class="dlabel">Boundaries.</span> Two specific coupling models are tested. Other coupling models (full diffusion with different time constants, network-flow donation, adaptive coupling) have not been characterized.</p>
-    <p><span class="dlabel">Limitations and caveats.</span> The choice of donor and receiver avenue in the asymmetric mode is set by the user; alternative pairings would change the results. The symmetric mode's time constant is chosen by hand, and alternative values produce different effective coupling strengths.</p>
-    <p><span class="dlabel">Things to improve.</span> Run both modes across a sweep of coupling parameters to characterize the substrate's response curve. Identify regimes where the two modes diverge meaningfully and regimes where they are operationally equivalent.</p>
-    <p><span class="dlabel">Open questions.</span> The asymmetric coupling mode is unphysical in the strict sense, since real cross-avenue stress propagation has no preferred direction. The substrate uses it because it captures a specific operational pattern, the overflow from a high-stress avenue onto its low-stress neighbor. Is there a more principled way to encode this operational pattern without an asymmetric coupling, or is the asymmetric mode a defensible operational simplification of a structurally bidirectional process?</p>
-  </div>
-
-  <h2>6. Synthesis</h2>
-  <div class="synthesis">
-    <p>The figures characterize the substrate from four directions: the routing demonstration (Section 1), the underlying capacity field (Section 2), the operator-level spectral analysis (Section 3) and the validation against lived knowledge and the orthogonality of supply and demand (Section 4). Each figure carries its own narrower questions above.</p>
-    <p><strong>Is the substrate operating near a rigidity transition?</strong> The corridor shows an allosteric response under static perturbation (Section 1.5); the boundary is forward-invariant (Section 3.4); the supply and demand layers are orthogonal (Section 4.1); the spectral structure is dominated by one large-scale mode with R-squared 0.97 (Section 3.1); and the centrality reorganization under stress weighting is dramatic, with Jaccard 0.00 between the top-20 unit-weighted and stress-weighted eigenvector centrality sets (Section 3.2). These five observations together would be consistent with a system near a rigidity transition where small constraint perturbations produce large, structured, bounded responses. A system well inside the rigid regime would show a more localized, less amplified response, and a system well inside the floppy regime would not maintain the boundary invariance.</p>
-    <p>The figures above are consistent with a system where small constraint changes produce structured, bounded, corridor-wide responses. Whether that should be read as a rigidity transition is an open research question; this section records the hypothesis for transparency, not as a product claim.</p>
-  </div>
-
-  <h2>7. Related references</h2>
-  <p>The literature cited in the per-figure discussions, organized by the domain each piece primarily addresses. The two 2025 papers I came across recently (Sridhar et al. and Sane et al.) are the most direct conceptual bridges between the routing substrate and your physical-systems framing.</p>
-  <h3>Cross-domain anchors</h3>
-  <ul class="refs">
-    <li>Sridhar, V. H., et al. (2025). Allocentric flocking. Nature Communications, 16. Coherent flocking emerges only when individuals encode bearings to neighbors in an allocentric, world-anchored reference frame. The egocentric versus allocentric distinction maps to the first-order versus second-order distinction the substrate operationalizes.</li>
-    <li>Sane, et al. (2025). Generalization at the edge of stability. arXiv:2604.19740. A random dynamical systems framework with a Sharpness Dimension as a complexity measure based on the full Hessian spectrum, arguing that the dimension of the attractor the optimizer explores predicts generalization. Its regularity-gap open question maps to the non-smooth second-order constraint field.</li>
-  </ul>
-  <h3>Active matter and collective behavior</h3>
-  <ul class="refs">
-    <li>Reynolds, C. W. (1987). Flocks, herds and schools: a distributed behavioral model. Proceedings of SIGGRAPH 87, ACM.</li>
-    <li>Vicsek, T., Czirok, A., Ben-Jacob, E., Cohen, I., and Shochet, O. (1995). Novel type of phase transition in a system of self-driven particles. Physical Review Letters, 75(6), 1226.</li>
-    <li>Cucker, F., and Smale, S. (2007). Emergent behavior in flocks. IEEE Transactions on Automatic Control, 52(5), 852-862.</li>
-    <li>Buhl, J., et al. (2006). From disorder to order in marching locusts. Science, 312(5778), 1402-1406.</li>
-    <li>Cavagna, A., et al. (2010). Scale-free correlations in starling flocks. PNAS, 107(26), 11865-11870.</li>
-    <li>Helbing, D., Farkas, I., and Vicsek, T. (2000). Simulating dynamical features of escape panic. Nature, 407(6803), 487-490.</li>
-  </ul>
-  <h3>Human-AI interaction anchors</h3>
-  <ul class="refs">
-    <li>Davis, J. L. (2023). Affordances for machine learning. Proceedings of FAccT 23, 324-332.</li>
-    <li>Evans, S. K., Pearce, K. E., Vitak, J., and Treem, J. W. (2017). Explicating affordances. Journal of Computer-Mediated Communication, 22(1), 35-52.</li>
-    <li>Carney, J. (2020). Thinking avant la lettre: a review of 4E cognition. Evolutionary Studies in Imaginative Culture, 4(1), 77-90.</li>
-    <li>Hoff, K. A., and Bashir, M. (2015). Trust in automation. Human Factors, 57(3), 407-434.</li>
-    <li>D'Amour, A., et al. (2020). Underspecification presents challenges for credibility in modern machine learning. arXiv:2011.03395.</li>
-  </ul>
-  <h3>NYC public data sources powering the substrate</h3>
-  <ul class="refs">
-    <li>NYC Department of City Planning: Planimetric Database (sidewalk widths), Building Footprints, PLUTO, Privately Owned Public Spaces.</li>
-    <li>NYC Department of Buildings: DOB NOW approved permits (active sidewalk shed permits).</li>
-    <li>NYC Department of Transportation: open streets, construction closures, bike routes, pedestrian plazas and bi-annual pedestrian counts.</li>
-    <li>Metropolitan Transportation Authority: subway entrances and exits, hourly ridership, origin-destination ridership, elevator and escalator inventory and station envelopes.</li>
-  </ul>
-
-  <div class="actions">
+  <div class="deck-chrome">
     <a href="executive-summary.html">Executive summary</a>
-    <a href="representation-pipeline.html">Representation pipeline</a>
-    <a href="routing-demo.html">Live routing demo</a>
-    <a href="graph-field-research.html">Graph-field overview</a>
-    <a href="../assets/gallery/documents/pax_report.pdf">Background report (PDF)</a>
+    <span id="slide-indicator">1 / 1</span>
+    <span>
+      <button type="button" id="slide-prev" aria-label="Previous">↑</button>
+      <button type="button" id="slide-next" aria-label="Next">↓</button>
+    </span>
   </div>
+  <script src="slides.js"></script>
 </body>
 </html>

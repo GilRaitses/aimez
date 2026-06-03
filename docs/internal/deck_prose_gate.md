@@ -1,6 +1,6 @@
 # Public deck prose gate
 
-Slide copy in `docs/public/executive-summary.html` and `docs/public/figure-walkthrough.html` must pass the same patterns as `phdPrograms/qualityFilter.yaml` (synthetic contrast, em dashes, intensifiers).
+Slide copy in `docs/public/executive-summary.html` and `docs/public/figure-walkthrough.html` must pass the same patterns as `phdPrograms/qualityFilter.yaml` (synthetic contrast, em dashes, intensifiers). The word **slice** is banned in deck HTML prose.
 
 Before landing deck changes:
 

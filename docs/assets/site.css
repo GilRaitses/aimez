@@ -117,8 +117,24 @@ h1 {
   font-size: 0.86rem;
   font-style: italic;
   letter-spacing: 0.08em;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.65rem;
   text-transform: uppercase;
+}
+
+.hero-linkrow {
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+  max-width: 860px;
+}
+
+.hero-linkrow a {
+  color: #1c4e80;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.hero-linkrow a:hover {
+  text-decoration: underline;
 }
 
 .hero-copy {

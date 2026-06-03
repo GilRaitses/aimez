@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Executive summary (slides) - aimez</title>
-  <meta name="description" content="Slide deck: measured pedestrian graph substrate, public-good civic AI, patent-pending methods, partnership framing for urban tech investors.">
+  <meta name="description" content="Slide deck for Building the Responsible AI City (NY Tech Week): Midtown pedestrian graph demo, NYC open data inventory, panel-specific questions.">
   <link rel="canonical" href="https://aimez.ai/public/executive-summary.html">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="stylesheet" href="public.css">
@@ -23,28 +23,24 @@
       <p class="throughline"><strong>Next:</strong> tonight’s event—who is in the room and what each conversation is about.</p>
     </section>
 
-    <section class="slide slide--process">
+    <section class="slide slide--process slide--dense">
       <p class="slide-tag">Tonight · Building the Responsible AI City</p>
-      <h1>Who is in the room (and what they are working on)</h1>
-      <p class="slide-lead"><strong>Building the Responsible AI City</strong> — Celonis, 70th floor, 1 World Trade Center · AI2030 / Tech Pulse 2030 · NY Tech Week (register on Partiful).</p>
-      <p><strong>Panel 1 (5:25)</strong> — <em>Building the Governable City: AI institutions can trust</em> · workforce, digital infrastructure, practical governance, community benefit.</p>
-      <ul class="slide-detail">
-        <li><strong>Alyssa Harvey Dawson</strong> (facilitator) — AI2030 advisory board; AI governance working group; former CLO.</li>
-        <li><strong>Josh Sirefman</strong> — Co-founder, Sidewalk Labs; former CEO, Michigan Central Innovation District.</li>
-        <li><strong>Josh Chappell</strong> — Head of Engineering, Google Earth Data and Sustainable Cities.</li>
-        <li><strong>Ann Rosenberg</strong> — Global Head of Public Affairs, Celonis (also hosts).</li>
-        <li><strong>Ariel Kennan</strong> — Director, Beeck Center for Social Impact &amp; Innovation (Georgetown).</li>
-      </ul>
-      <p><strong>Panel 2 (6:15)</strong> — <em>The AI Power Map: builders and backers</em> shaping New York’s AI future.</p>
-      <ul class="slide-detail">
-        <li><strong>Alison Rooney</strong> (facilitator) — AI2030 advisory board; capital markets &amp; wealth management.</li>
-        <li><strong>John Lynn</strong> — Co-founder, Quay Acceleration.</li>
-        <li><strong>John Pasmore</strong> — Founder &amp; CEO, Latimer.ai.</li>
-        <li><strong>Randy Wiggins</strong> — Managing Director, NY Global Technology Innovation Hub.</li>
-        <li><strong>Cristina DiGiacomo</strong> — Founder &amp; CEO, 10P1.</li>
-        <li><strong>Hosts:</strong> Ben Christensen (Partnerships, AI2030) · Marie Roker-Jones (Women in AI &amp; NYC partnerships, AI2030).</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> questions to use in <em>your</em> introduction—aimed at these people, not a mobility-vendor pitch.</p>
+      <h1>Who is in the room</h1>
+      <p class="slide-lead"><strong>Celonis</strong>, 70F · 1 WTC · AI2030 / Tech Pulse 2030 · Partiful registration.</p>
+      <div class="slide-roster">
+        <h3>Panel 1 (5:25) — Governable city · facilitator: Alyssa Harvey Dawson (AI2030, governance, former CLO)</h3>
+        <p><strong>Josh Sirefman</strong> — Co-founder, Sidewalk Labs; ex-CEO Michigan Central.</p>
+        <p><strong>Josh Chappell</strong> — Head of Eng., Google Earth Data &amp; Sustainable Cities.</p>
+        <p><strong>Ann Rosenberg</strong> — Global Head of Public Affairs, Celonis.</p>
+        <p><strong>Ariel Kennan</strong> — Director, Beeck Center (Georgetown).</p>
+        <h3>Panel 2 (6:15) — AI power map · facilitator: Alison Rooney (AI2030, capital markets)</h3>
+        <p><strong>John Lynn</strong> — Co-founder, Quay Acceleration.</p>
+        <p><strong>John Pasmore</strong> — CEO, Latimer.ai.</p>
+        <p><strong>Randy Wiggins</strong> — MD, NY Global Technology Innovation Hub.</p>
+        <p><strong>Cristina DiGiacomo</strong> — CEO, 10P1.</p>
+        <h3>Hosts — Ben Christensen · Marie Roker-Jones (AI2030 partnerships &amp; Women in AI NYC)</h3>
+      </div>
+      <p class="throughline"><strong>Next:</strong> questions for your introduction to these panels.</p>
     </section>
 
     <section class="slide slide--process">
@@ -66,25 +62,20 @@
     <section class="slide slide--figure">
       <p class="slide-tag">Substrate · NYC public data inventory</p>
       <h1>Open data and public feeds in the substrate</h1>
-      <p class="slide-lead">Supply-side capacity is built from NYC Open Data and related civic releases; demand-side stress uses public traffic-camera feeds. Graph topology uses public street centerline products. Proprietary pieces are fusion, calibration, and routing cost—not the underlying civic tables.</p>
+      <p class="slide-lead">Public tables and feeds only; proprietary fusion, calibration, and routing cost are not listed here.</p>
       <table class="slide-data">
-        <thead><tr><th>Source (agency / product)</th><th>Role on the corridor graph</th></tr></thead>
+        <thead><tr><th>Source</th><th>Role</th></tr></thead>
         <tbody>
-          <tr><td>NYC DCP — Planimetric Database (sidewalk widths)</td><td>Sidewalk width capacity per cross-street edge</td></tr>
-          <tr><td>NYC DCP — Building footprints &amp; PLUTO</td><td>Frontage load, land use, height context</td></tr>
-          <tr><td>NYC DCP — Privately owned public spaces (POPS)</td><td>Plaza / atrium width contributions where applicable</td></tr>
-          <tr><td>NYC DOB — DOB NOW shed &amp; work permits</td><td>Active sidewalk shed factor (dynamic layer)</td></tr>
-          <tr><td>NYC DOT — Open Streets</td><td>Open-street capacity modifier</td></tr>
-          <tr><td>NYC DOT — Construction / street closures</td><td>Closure and detour capacity impacts</td></tr>
-          <tr><td>NYC DOT — Bike routes &amp; lanes</td><td>Bike-layer capacity factor on eligible edges</td></tr>
-          <tr><td>NYC DOT — Pedestrian plazas</td><td>Plaza-as-width / frontage contributions</td></tr>
-          <tr><td>NYC DOT — Bi-annual pedestrian counts</td><td>Public reference only (avenue stations—coarser than the graph’s block scale)</td></tr>
-          <tr><td>NYC DOT — Traffic camera program (public feeds)</td><td>Demand-side frames → vision stack → per-camera stress</td></tr>
-          <tr><td>MTA — Station entrances &amp; exits</td><td>Station envelope geometry on graph</td></tr>
-          <tr><td>MTA — Hourly / pattern ridership (Open Data)</td><td>Time-varying egress weighting on adjacent edges</td></tr>
-          <tr><td>MTA — Elevator / escalator inventory</td><td>Accessibility-sensitive station context</td></tr>
-          <tr><td>NYC base map / Digital City Map (centerlines)</td><td>Intersection graph topology (fixed snapshot)</td></tr>
-          <tr><td>Dining &amp; street-use permits (city open releases)</td><td>Frontage load — outdoor dining, curb use</td></tr>
+          <tr><td>NYC Digital City Map / centerlines</td><td>Graph topology</td></tr>
+          <tr><td>DOT traffic cameras (public feeds)</td><td>Demand → per-camera stress</td></tr>
+          <tr><td>DCP planimetric sidewalks</td><td>Width capacity</td></tr>
+          <tr><td>DCP PLUTO &amp; footprints</td><td>Frontage / land use</td></tr>
+          <tr><td>DCP POPS</td><td>Plaza width</td></tr>
+          <tr><td>DOB NOW sheds</td><td>Dynamic shed factor</td></tr>
+          <tr><td>DOT open streets, closures, bikes, plazas</td><td>Supply modifiers</td></tr>
+          <tr><td>DOT bi-annual ped counts</td><td>Coarse public reference</td></tr>
+          <tr><td>MTA entrances, ridership, elevators</td><td>Station envelopes &amp; time-varying egress</td></tr>
+          <tr><td>Dining / street-use permits</td><td>Frontage load</td></tr>
         </tbody>
       </table>
       <p class="throughline"><strong>Next:</strong> the problem—why these tables still do not give you walking burden without a measured field on the graph.</p>

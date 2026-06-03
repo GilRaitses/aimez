@@ -15,11 +15,55 @@
 
     <section class="slide slide--title">
       <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt=""><span class="brand-name">aimez</span></div>
-      <p class="slide-tag">Executive summary · NY Tech Week</p>
+      <p class="slide-tag">Executive summary · NY Tech Week · Open Data Week</p>
       <h1>Measured fields on pedestrian graphs</h1>
       <p>A public-good modeling layer for walking cities: open civic data, field-calibrated sensing, and a fixed-graph substrate where route behavior can be tested—not guessed.</p>
       <div class="patent-banner"><strong>Patent pending.</strong> A U.S. provisional application has been filed. This deck describes outcomes and architecture at a high level only. It does not disclose proprietary implementation detail (model fusion, calibration, or specific cost bindings). Not legal advice.</div>
       <p style="font-size:0.82rem;margin-top:0.75rem">Navigate: ↓ or → · <a href="figure-walkthrough.html" style="color:#7eb8d8">Canonical figure deck</a> · <a href="routing-demo.html" style="color:#7eb8d8">Live demo</a></p>
+      <p class="throughline"><strong>Next:</strong> questions to open the conversation in an Open Data Week panel.</p>
+    </section>
+
+    <section class="slide slide--process">
+      <p class="slide-tag">Open Data Week · For your introduction</p>
+      <h1>Questions to put on the table</h1>
+      <p class="slide-lead">Use these when the panel is about open civic data, responsible urban AI, or walking cities—they mirror what the aimez substrate had to answer while building the corridor demo.</p>
+      <ul class="slide-questions">
+        <li>At what spatial resolution does your organization actually trust open data for pedestrian decisions today—block, intersection, or corridor segment?</li>
+        <li>Where does open data end and proprietary mobility data begin in your stack, and who owns the graph when those layers disagree?</li>
+        <li>How do you refresh models when permits, sheds, and closures change faster than your pipeline runs?</li>
+        <li>Can routing or burden metrics be published as a public-good layer on top of open feeds alone, or does every serious deployment require a private vendor lock-in?</li>
+        <li>What validation do you require before a civic pilot goes live—avenue-level counts, block-level volume, or lived-experience audits?</li>
+        <li>For camera-derived features from public DOT feeds: what governance, retention, and transparency rules do you apply before those scores touch a routing product?</li>
+        <li>What would a bounded, reproducible pilot corridor look like if open data and public sensing had to carry the whole supply-and-demand story?</li>
+      </ul>
+      <p class="throughline"><strong>Next:</strong> the full inventory of public datasets and feeds the Midtown substrate actually uses.</p>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="slide-tag">Open Data Week · Public inventory</p>
+      <h1>Open data and public feeds in the substrate</h1>
+      <p class="slide-lead">Supply-side capacity is built from NYC Open Data and related civic releases; demand-side stress uses public traffic-camera feeds. Graph topology uses public street centerline products. Proprietary pieces are fusion, calibration, and routing cost—not the underlying civic tables.</p>
+      <table class="slide-data">
+        <thead><tr><th>Source (agency / product)</th><th>Role on the corridor graph</th></tr></thead>
+        <tbody>
+          <tr><td>NYC DCP — Planimetric Database (sidewalk widths)</td><td>Sidewalk width capacity per cross-street edge</td></tr>
+          <tr><td>NYC DCP — Building footprints &amp; PLUTO</td><td>Frontage load, land use, height context</td></tr>
+          <tr><td>NYC DCP — Privately owned public spaces (POPS)</td><td>Plaza / atrium width contributions where applicable</td></tr>
+          <tr><td>NYC DOB — DOB NOW shed &amp; work permits</td><td>Active sidewalk shed factor (dynamic layer)</td></tr>
+          <tr><td>NYC DOT — Open Streets</td><td>Open-street capacity modifier</td></tr>
+          <tr><td>NYC DOT — Construction / street closures</td><td>Closure and detour capacity impacts</td></tr>
+          <tr><td>NYC DOT — Bike routes &amp; lanes</td><td>Bike-layer capacity factor on eligible edges</td></tr>
+          <tr><td>NYC DOT — Pedestrian plazas</td><td>Plaza-as-width / frontage contributions</td></tr>
+          <tr><td>NYC DOT — Bi-annual pedestrian counts</td><td>Reference / validation context (avenue stations; coarse vs block graph)</td></tr>
+          <tr><td>NYC DOT — Traffic camera program (public feeds)</td><td>Demand-side frames → vision stack → per-camera stress</td></tr>
+          <tr><td>MTA — Station entrances &amp; exits</td><td>Station envelope geometry on graph</td></tr>
+          <tr><td>MTA — Hourly / pattern ridership (Open Data)</td><td>Time-varying egress weighting on adjacent edges</td></tr>
+          <tr><td>MTA — Elevator / escalator inventory</td><td>Accessibility-sensitive station context</td></tr>
+          <tr><td>NYC base map / Digital City Map (centerlines)</td><td>Intersection graph topology (fixed snapshot)</td></tr>
+          <tr><td>Dining &amp; street-use permits (city open releases)</td><td>Frontage load — outdoor dining, curb use</td></tr>
+        </tbody>
+      </table>
+      <p class="throughline"><strong>Next:</strong> the problem—why these tables still do not give you walking burden without a measured field on the graph.</p>
     </section>
 
     <section class="slide slide--process">
@@ -27,12 +71,14 @@
       <h1>Map distance is not walking burden</h1>
       <p>Planners and apps optimize hops or minutes. Pedestrians meet crowding, narrow sidewalks, sheds, station egress, and uneven capacity—local pressure that standard routers do not read.</p>
       <p><strong>Question:</strong> Can we represent that pressure on a graph and compare routes on measured exposure, not inferred comfort?</p>
+      <p class="throughline"><strong>Next:</strong> the bounded Midtown pilot built entirely on the open inventory you just saw.</p>
     </section>
 
     <section class="slide slide--outcome">
       <p class="slide-tag">Outcome</p>
       <h1>First test surface: Midtown corridor</h1>
       <p>40th–59th Streets, Lexington to 8th Avenue. ~300 nodes, decision-locked stress field, multi-layer capacity from NYC Open Data. Same graph, varying fields—suitable for partners who need a bounded pilot.</p>
+      <p class="throughline"><strong>Next:</strong> how open data, field study, and public cameras are synthesized into one substrate.</p>
     </section>
 
     <section class="slide slide--process">
@@ -45,6 +91,7 @@
         <li><strong>Graph construction</strong> — directed pedestrian edges, fixed topology for reproducible tests.</li>
       </ul>
       <p>Substrate = cross-domain synthesis of these layers, not a single vendor feed.</p>
+      <p class="throughline"><strong>Next:</strong> the representation figure—cameras and models becoming a graph field.</p>
     </section>
 
     <section class="slide slide--figure">

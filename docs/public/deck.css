@@ -49,12 +49,54 @@ body {
 .slide--dense h2 { margin-bottom: 0.5rem; }
 .slide--dense .lead { margin-bottom: 0.45rem; }
 
-/* Figure-forward slides */
+/* Multi-panel or full-width figure (centered stack) */
 .slide--figure {
   justify-content: center;
 }
 .slide--figure h2 { margin-bottom: 0.4rem; max-width: none; }
 .slide--figure .lead { margin-bottom: 0.35rem; }
+
+/* Single-panel figure: copy 2/3, figure 1/3 (qualityFilter + layout spec) */
+.slide.slide--split.active {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: center;
+  justify-content: stretch;
+}
+.slide--split .slide-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.slide--split .slide-copy h2 { max-width: none; margin-bottom: 0.5rem; }
+.slide--split .slide-copy .kicker { margin-bottom: 0.5rem; }
+.slide--split .slide-fig {
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  align-self: center;
+}
+.slide--split .slide-fig img {
+  max-height: min(72vh, 560px);
+  width: 100%;
+}
+.slide--split .slide-fig p {
+  max-width: none;
+  margin-top: 0.35rem;
+}
+@media (max-width: 900px) {
+  .slide.slide--split.active {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0.75rem;
+    overflow-y: auto;
+    justify-content: flex-start;
+    padding-top: clamp(2rem, 6vh, 3rem);
+  }
+  .slide--split .slide-fig img { max-height: min(42vh, 380px); }
+}
 
 .kicker {
   color: var(--pink-deep);

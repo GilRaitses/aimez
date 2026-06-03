@@ -3,12 +3,13 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 FILES=("$ROOT/executive-summary.html" "$ROOT/figure-walkthrough.html")
+# Prose checks only on HTML (ignore array.slice in .js)
 FAIL=0
 
 check() {
   local label="$1"
   local pattern="$2"
-  if rg -n -i "$pattern" "${FILES[@]}" 2>/dev/null; then
+  if rg -n -i "$pattern" --glob '*.html' "${FILES[@]}" 2>/dev/null; then
     echo "FAIL: $label"
     FAIL=1
   fi
@@ -22,6 +23,7 @@ check "instead of" 'instead of'
 check "not the ceiling" 'not the ceiling'
 check "not guessed" 'not guessed'
 check "not mid-pitch" 'not mid-pitch'
+check "word slice" '\bslice\b'
 
 if [[ "$FAIL" -eq 0 ]]; then
   echo "OK: no flagged prose patterns."

@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graph-field research - aimez</title>
-  <meta name="description" content="Public overview of the aimez graph-field research program: measured stress on a Midtown pedestrian graph, route cost, loops, and residuals.">
+  <title>Graph-field &amp; corridor modeling - aimez</title>
+  <meta name="description" content="Measured stress fields on a Midtown pedestrian graph: route cost, loops, residuals, and topology as modeling language.">
   <link rel="canonical" href="https://aimez.ai/public/graph-field-research.html">
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <meta property="og:image" content="https://aimez.ai/assets/social/research_program_preview.png">
-  <meta name="theme-color" content="#131c2d">
+  <link rel="stylesheet" href="public.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital@0;1&family=Newsreader:opsz,wght@6..72,400;700&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,27 +21,28 @@
     li { padding-left: 1rem; position: relative; margin-bottom: 0.45rem; font-size: 0.92rem; }
     li::before { content: "•"; position: absolute; left: 0; color: #7eb8d8; }
     figure { margin: 1.35rem 0; background: #fff; border: 1px solid #e5eef5; padding: 0.8rem; }
-    img { width: 100%; height: auto; display: block; }
     figcaption { margin-top: 0.75rem; font-size: 0.82rem; color: #5a6a7c; }
+    .note { background: #f5f9fc; border-left: 3px solid #7eb8d8; padding: 0.9rem 1rem; margin: 1rem 0; font-size: 0.92rem; }
     .nav { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
     .nav a { text-decoration: none; border: 1px solid #7eb8d8; border-radius: 999px; padding: 0.55rem 1rem; font-size: 0.88rem; color: #3a4a5c; }
     a { color: #1c4e80; }
     @media (prefers-color-scheme: dark) {
       body { background: #0e1116; color: #e6e9f0; }
-      .eyebrow, .brand-name { color: #e08a5a; }
+      .eyebrow { color: #e08a5a; }
       .lede, li { color: #98a2b3; }
       figure { background: #161b22; border-color: #232a33; }
       figcaption { color: #98a2b3; }
-      .nav a { color: #e6e9f0; border-color: #7eb8d8; }
+      .note { background: #11161d; }
+      .nav a { color: #e6e9f0; }
       a { color: #7e9bff; }
     }
   </style>
 </head>
 <body>
-  <p style="margin-bottom:1rem"><img src="../assets/aimez-mark.webp" alt="aimez" width="28" height="28" style="vertical-align:middle;margin-right:0.5rem"><span style="font-family:Georgia,serif;font-style:italic;letter-spacing:0.08em;text-transform:uppercase;color:#8f3a12;font-size:0.85rem">aimez</span></p>
+  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
   <div class="eyebrow">Public research overview</div>
-  <h1>Graph-field research</h1>
-  <p class="lede">aimez studies measured fields on pedestrian graphs: camera-derived stress and capacity layers assign route cost to directed edges. The Midtown corridor is the first applied test surface for route behavior, loop residuals, and basis checks.</p>
+  <h1>Graph-field &amp; corridor modeling</h1>
+  <p class="lede">aimez studies measured fields on pedestrian graphs: camera-derived stress and open-data capacity assign route cost to directed edges. The Midtown corridor is the first test surface for route behavior, loop residuals, and basis checks. <strong>Start with the slide decks:</strong> <a href="executive-summary.html">executive summary</a> · <a href="figure-walkthrough.html">canonical figures</a>.</p>
 
   <h2>What the program tests</h2>
   <p>Local edge values change route cost. The stronger question is whether they also produce graph-level structure visible only through loops, residuals, and changes of basis on the same fixed graph.</p>
@@ -51,20 +51,30 @@
   <p>The Manhattan Midtown pedestrian graph holds the graph fixed while the field on its edges varies. Claims stay at the level of route comparisons and proposed loop tests, not a general theory of urban atmosphere.</p>
 
   <figure>
-    <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest versus stress-aware route comparison">
-    <figcaption><strong>Shortest versus stress-aware routing.</strong> Same origin, destination, and hop count; different accumulated stress and exposure profile.</figcaption>
+    <img src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="Camera-derived stress field">
+    <figcaption><strong>Stress field before routing.</strong> Camera-derived topology of pressure on the corridor—the substrate navigation reads.</figcaption>
   </figure>
 
   <figure>
-    <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Cross-street capacity overlay">
-    <figcaption><strong>Capacity layers.</strong> Sidewalk width, sheds, frontage load, and combined capacity on the corridor graph.</figcaption>
+    <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest versus stress-aware route comparison">
+    <figcaption><strong>Navigation layer.</strong> Same origin, destination, and hop count; different accumulated stress.</figcaption>
   </figure>
+
+  <h2 id="topology">Topology as modeling language</h2>
+  <p>Paths, loops, and residuals name tests on the modeled graph—not a claim that Manhattan’s fundamental group has been computed. A route is a path-like trace; a closed walk asks whether local costs cancel or leave a residual; basis checks ask whether patterns persist under an equivalent loop organization.</p>
+  <div class="note"><p>Topology vocabulary formulates probes. It does not replace empirical validation or claim city-wide invariants. Loop-closure results remain work in progress.</p></div>
+  <ul>
+    <li>No homology groups published for the corridor graph in this note.</li>
+    <li>No fundamental-group theorem claimed.</li>
+  </ul>
 
   <h2>Public materials</h2>
   <ul>
+    <li><a href="executive-summary.html">Executive summary (slides)</a></li>
+    <li><a href="figure-walkthrough.html">Canonical figures (slides)</a></li>
     <li><a href="routing-demo.html">Interactive routing demo</a></li>
+    <li><a href="representation-pipeline.html">Representation pipeline</a></li>
     <li><a href="../notes/neighborhood-access-research.html">Neighborhood access and route quality</a></li>
-    <li><a href="corridor-topology-primer.html">Corridor topology primer</a></li>
     <li><a href="../assets/gallery/documents/pax_report.pdf">Background report (PDF)</a></li>
   </ul>
 

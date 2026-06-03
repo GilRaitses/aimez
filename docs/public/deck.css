@@ -1,0 +1,275 @@
+/* Presentation deck — layout from gilraitses.github.io/central-casting walkthrough-deck */
+:root {
+  color-scheme: light dark;
+  --bg: #eef7fc;
+  --card: #ffffff;
+  --ink: #46566a;
+  --muted: #8aa0b2;
+  --blue: #7ec8e3;
+  --blue-deep: #1c4e80;
+  --accent: #8f3a12;
+  --accent-soft: #e08a5a;
+  --pink: #f3b6cd;
+  --pink-deep: #c98a4a;
+  --border: #cfe9f5;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(160deg, #eef7fc 0%, #fbf8f4 100%);
+  overflow: hidden;
+}
+
+.deck { height: 100vh; height: 100dvh; width: 100vw; position: relative; }
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.2rem, 5vh, 3.5rem) clamp(1.2rem, 8vw, 6rem);
+  padding-bottom: clamp(3rem, 10vh, 4.5rem);
+  overflow: hidden;
+  animation: deck-fade 0.35s ease;
+}
+.slide.active { display: flex; }
+.slide--scroll {
+  justify-content: flex-start;
+  padding-top: clamp(2.5rem, 7vh, 3.5rem);
+  overflow-y: auto;
+}
+@keyframes deck-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.kicker {
+  color: var(--accent);
+  font-size: clamp(0.75rem, 1.3vw, 0.95rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.6rem;
+}
+.kicker::before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--pink);
+  margin-right: 0.45rem;
+  vertical-align: middle;
+}
+h1 {
+  font-size: clamp(1.75rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  margin: 0 0 0.75rem;
+  color: var(--blue-deep);
+  font-weight: 700;
+  max-width: 18ch;
+}
+h2 {
+  font-size: clamp(1.35rem, 3.5vw, 2.4rem);
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+  color: var(--blue-deep);
+  font-weight: 700;
+  max-width: 22ch;
+}
+p.lead {
+  font-size: clamp(0.95rem, 1.85vw, 1.35rem);
+  color: var(--ink);
+  max-width: 58ch;
+  margin: 0 0 0.65rem;
+  line-height: 1.45;
+}
+p.sub {
+  font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+  color: var(--accent-soft);
+  margin: 0 0 0.75rem;
+  max-width: 58ch;
+}
+p.grow {
+  font-size: clamp(0.82rem, 1.4vw, 1.05rem);
+  color: var(--muted);
+  max-width: 58ch;
+  margin: 0.5rem 0 0;
+  line-height: 1.4;
+}
+p.grow b { color: var(--blue-deep); }
+
+ul, ol {
+  font-size: clamp(0.9rem, 1.65vw, 1.2rem);
+  max-width: 58ch;
+  margin: 0.2rem 0;
+  padding-left: 1.3rem;
+  line-height: 1.45;
+}
+li { margin-bottom: 0.45rem; }
+li b { color: var(--blue-deep); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.7rem;
+  max-width: 72ch;
+  width: 100%;
+}
+.tile {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.9rem;
+}
+.tile h3 {
+  margin: 0 0 0.25rem;
+  color: var(--accent);
+  font-size: clamp(0.85rem, 1.35vw, 1rem);
+}
+.tile p {
+  margin: 0;
+  font-size: clamp(0.78rem, 1.2vw, 0.92rem);
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.panel {
+  background: #fff8ef;
+  border: 1px solid var(--pink);
+  border-radius: 0.75rem;
+  padding: 0.85rem 1rem;
+  max-width: 58ch;
+  margin-top: 0.5rem;
+}
+.panel p { margin: 0; font-size: clamp(0.88rem, 1.5vw, 1.1rem); }
+
+table {
+  width: 100%;
+  max-width: 72ch;
+  border-collapse: collapse;
+  background: var(--card);
+  border-radius: 0.6rem;
+  overflow: hidden;
+  font-size: clamp(0.72rem, 1.2vw, 0.92rem);
+}
+th, td {
+  text-align: left;
+  padding: 0.38rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+th { color: var(--blue-deep); background: #e6f4fb; font-weight: 600; }
+td.lt { color: var(--accent); font-weight: 600; white-space: nowrap; }
+
+.slide-fig {
+  max-width: min(92vw, 900px);
+  margin: 0.35rem 0;
+}
+.slide-fig img {
+  display: block;
+  width: 100%;
+  max-height: min(48vh, 460px);
+  object-fit: contain;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+.slide-fig p {
+  font-size: clamp(0.75rem, 1.2vw, 0.88rem);
+  color: var(--muted);
+  margin: 0.35rem 0 0;
+  max-width: 58ch;
+}
+
+.links a {
+  display: inline-block;
+  margin: 0.35rem 1rem 0 0;
+  color: var(--blue-deep);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid var(--pink);
+  padding-bottom: 1px;
+}
+.links a:hover { color: var(--accent); }
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: var(--accent);
+  width: 0;
+  z-index: 11;
+  transition: width 0.3s ease;
+}
+.home-link {
+  position: fixed;
+  top: 1rem;
+  left: 1.2rem;
+  z-index: 10;
+  color: var(--blue-deep);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.home-link::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pink);
+  margin-right: 0.35rem;
+  vertical-align: middle;
+}
+.hud {
+  position: fixed;
+  bottom: 1rem;
+  right: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  z-index: 10;
+}
+.count { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.nav-btn {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--blue-deep);
+  font-size: 1.1rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.nav-btn:hover { background: #fdeef4; border-color: var(--pink); }
+.hint {
+  position: fixed;
+  bottom: 1.05rem;
+  left: 1.2rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+  z-index: 10;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e141b;
+    --card: #161b24;
+    --ink: #e6e9f0;
+    --muted: #98a2b3;
+    --blue-deep: #8ab6e8;
+    --accent: #e08a5a;
+    --accent-soft: #e08a5a;
+    --border: #232c38;
+  }
+  body { background: linear-gradient(160deg, #0e141b 0%, #1a1510 100%); }
+  th { background: #1b2632; }
+  .panel { background: #211a14; }
+  .nav-btn:hover { background: #2a2030; }
+}

@@ -4,267 +4,192 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Executive summary (slides) - aimez</title>
-  <meta name="description" content="Slide deck for Building the Responsible AI City (NY Tech Week): Midtown pedestrian graph demo, NYC open data inventory, panel-specific questions.">
+  <meta name="description" content="Slide deck for Building the Responsible AI City: measured pedestrian graph research program.">
   <link rel="canonical" href="https://aimez.ai/public/executive-summary.html">
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <link rel="stylesheet" href="public.css">
-  <link rel="stylesheet" href="slides.css">
+  <link rel="stylesheet" href="deck.css">
 </head>
 <body>
+  <a class="home-link" href="../index.html">aimez</a>
+  <div class="progress" id="progress"></div>
   <div class="deck" id="deck">
 
-    <section class="slide slide--title slide--title-compact">
-      <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt=""><span class="brand-name">aimez</span></div>
-      <p class="slide-tag">Building the Responsible AI City · NY Tech Week</p>
-      <h1>aimez — measured fields on pedestrian graphs</h1>
-      <p>Research program: open civic data + public sensing → fixed-graph substrates where burden, topology, and route behavior can be tested in public.</p>
-      <p><strong>Patent pending.</strong> High-level public deck only; no proprietary implementation detail. Not legal advice.</p>
-      <p class="throughline"><strong>Scroll ↓</strong> — questions (slide 2–3), then roster, substrate, figures. Links only on the last slide.</p>
+    <section class="slide active">
+      <p class="kicker">Building the Responsible AI City · NY Tech Week</p>
+      <h1>aimez</h1>
+      <p class="sub">Measured fields on pedestrian graphs</p>
+      <p class="lead">A research program: open civic data, public sensing, and fixed-graph substrates where walking burden and route behavior can be tested in public—not guessed.</p>
+      <p class="grow"><b>Patent pending.</b> High-level deck only. Arrow keys or space to advance. Links on the last slide only.</p>
     </section>
 
-    <section class="slide slide--process slide--dense">
-      <p class="slide-tag">Slide 2 · Questions (arc I–III)</p>
-      <h1>Questions on the table — legitimacy, stack, adoption</h1>
-      <p class="slide-arc-intro"><strong>Hierarchy:</strong> trust → where the lab sits in urban AI → how institutions adopt. Midtown stress routing is the <em>first</em> demonstration, not the only product the program can become.</p>
-
-      <div class="q-block">
-        <p class="q-block__head"><span class="q-num">I.</span> Legitimacy &amp; governable deployment <span class="q-block__send">· share with: Dawson, Kennan, AI2030 governance</span></p>
-        <p class="q-block__q">When you say AI a regulated city can trust, what evidence bar would you require for a pedestrian model built only on public NYC Open Data and DOT camera feeds—before it is allowed to influence routing or planning tools?</p>
-        <p class="q-block__growth"><strong>Program growth:</strong> governance playbooks, audit templates, and multi-informant field validation—sellable as <em>trust infrastructure</em>, not as another map app.</p>
+    <section class="slide">
+      <p class="kicker">Questions · the arc</p>
+      <h2>Five tiers — not “just routing”</h2>
+      <p class="lead">Midtown stress routing is the first proof object. The program can grow along any tier a partner owns.</p>
+      <div class="grid">
+        <div class="tile"><h3>I · Legitimacy</h3><p>Trust, evidence, governance</p></div>
+        <div class="tile"><h3>II · Platform</h3><p>Earth, Sidewalk lineage, stack fit</p></div>
+        <div class="tile"><h3>III · Civic ops</h3><p>Agency pilots, process, refresh</p></div>
+        <div class="tile"><h3>IV · Capital</h3><p>Public-good funding, reproducibility</p></div>
+        <div class="tile"><h3>V · Workforce</h3><p>Reference impls, graph maintainers</p></div>
       </div>
-
-      <div class="q-block">
-        <p class="q-block__head"><span class="q-num">II.</span> Platform &amp; urban stack position <span class="q-block__send">· share with: Sirefman, Chappell</span></p>
-        <p class="q-block__q">Post-Sidewalk and inside Earth Data / Sustainable Cities: does a bounded corridor graph laboratory belong inside a platform, as an open reference implementation, or as an academic instrument—and who maintains it when the street network changes?</p>
-        <p class="q-block__growth"><strong>Program growth:</strong> an integration layer for geospatial and sustainability stacks (pressure fields, operator readouts) without competing with Maps, Replica, or building-only tools.</p>
-      </div>
-
-      <div class="q-block">
-        <p class="q-block__head"><span class="q-num">III.</span> Civic adoption &amp; operational process <span class="q-block__send">· share with: Rosenberg (Celonis), Beeck Center programs</span></p>
-        <p class="q-block__q">If operational excellence is making process visible: what would a reproducible Midtown pilot look like as a <em>process diagram</em>—data refresh, permit layers, governance sign-off—before anyone calls it a product?</p>
-        <p class="q-block__growth"><strong>Program growth:</strong> agency-ready pilot kits, refresh contracts, and digital-twin-style capacity layers (sheds, egress, closures)—civic infrastructure software, not consumer navigation.</p>
-      </div>
-
-      <p class="throughline"><strong>Next (slide 3):</strong> capital, workforce, and how the program branches beyond routing.</p>
     </section>
 
-    <section class="slide slide--process slide--dense">
-      <p class="slide-tag">Slide 3 · Questions (arc IV–V) + program manifold</p>
-      <h1>Questions on the table — capital, workforce, futures</h1>
-
-      <div class="q-block">
-        <p class="q-block__head"><span class="q-num">IV.</span> Capital &amp; ecosystem fit <span class="q-block__send">· share with: Lynn, Wiggins, Rooney, Pasmore, DiGiacomo</span></p>
-        <p class="q-block__q">What would you fund that stays public-good, corridor-bounded, and reproducible—rather than another closed mobility API—and who owns the graph when open data and public cameras are the only inputs?</p>
-        <p class="q-block__growth"><strong>Program growth:</strong> non-dilutive corridor pilots, open-methodology licensing, and founder tools for <em>graph-native civic AI</em> (fields + operators), not a single vertical “stress router.”</p>
-      </div>
-
-      <div class="q-block">
-        <p class="q-block__head"><span class="q-num">V.</span> Workforce &amp; reproducible reference <span class="q-block__send">· share with: Christensen, Roker-Jones, Dawson (AI2030)</span></p>
-        <p class="q-block__q">Does NYC’s AI workforce pipeline need reference implementations that students and agencies can re-run on the same graph snapshot—and who is accountable for updating the graph when the city reopens a street or closes a shed?</p>
-        <p class="q-block__growth"><strong>Program growth:</strong> curriculum bundles, hackathon substrates, and “graph maintainer” roles—education and civic tech labor, parallel to any routing demo.</p>
-      </div>
-
-      <div class="q-block">
-        <p class="q-block__head"><span class="q-num">↳</span> What aimez is besides Midtown routing</p>
-        <p class="q-block__q">The same open-data + topology machinery supports operator/spectral analysis for planners, time-varying policy layers, multi-corridor kits, spatial-media installations, and cross-domain measurement research—routing is one export, not the program ceiling.</p>
-        <p class="q-block__growth"><strong>Bottom line:</strong> tonight is about finding which branch (governance, platform, ops, capital, workforce) partners want to co-develop; the corridor demo is the proof object, not the business plan.</p>
-      </div>
-
-      <p class="throughline"><strong>Next:</strong> who is in the room tonight—map names to categories I–V.</p>
+    <section class="slide">
+      <p class="kicker">I · Legitimacy</p>
+      <h2>Governable deployment</h2>
+      <p class="lead">“When you say AI a regulated city can trust, what evidence bar would you set for a pedestrian model built only on public NYC data and DOT camera feeds—before it touches a routing product?”</p>
+      <p class="grow"><b>Send to:</b> Alyssa Harvey Dawson, Ariel Kennan, AI2030 governance · <b>Growth:</b> audit playbooks and trust infrastructure—not another map app.</p>
     </section>
 
-    <section class="slide slide--process slide--dense">
-      <p class="slide-tag">Slide 4 · Building the Responsible AI City</p>
-      <h1>Who is in the room</h1>
-      <p class="slide-lead"><strong>Celonis</strong>, 70F · 1 WTC · AI2030 / Tech Pulse 2030 · Partiful registration.</p>
-      <div class="slide-roster">
-        <h3>Panel 1 (5:25) — Governable city · facilitator: Alyssa Harvey Dawson (AI2030, governance, former CLO)</h3>
-        <p><strong>Josh Sirefman</strong> — Co-founder, Sidewalk Labs; ex-CEO Michigan Central.</p>
-        <p><strong>Josh Chappell</strong> — Head of Eng., Google Earth Data &amp; Sustainable Cities.</p>
-        <p><strong>Ann Rosenberg</strong> — Global Head of Public Affairs, Celonis.</p>
-        <p><strong>Ariel Kennan</strong> — Director, Beeck Center (Georgetown).</p>
-        <h3>Panel 2 (6:15) — AI power map · facilitator: Alison Rooney (AI2030, capital markets)</h3>
-        <p><strong>John Lynn</strong> — Co-founder, Quay Acceleration.</p>
-        <p><strong>John Pasmore</strong> — CEO, Latimer.ai.</p>
-        <p><strong>Randy Wiggins</strong> — MD, NY Global Technology Innovation Hub.</p>
-        <p><strong>Cristina DiGiacomo</strong> — CEO, 10P1.</p>
-        <h3>Hosts — Ben Christensen · Marie Roker-Jones (AI2030) → arc <strong>V</strong> (workforce)</h3>
-      </div>
-      <p style="font-size:0.76rem;color:#5a6a7c;margin-top:0.25rem">Dawson/Kennan → <strong>I</strong> · Sirefman/Chappell → <strong>II</strong> · Rosenberg/Kennan → <strong>III</strong> · Lynn/Wiggins/Pasmore/DiGiacomo → <strong>IV</strong></p>
-      <p class="throughline"><strong>Next:</strong> NYC open data inventory.</p>
+    <section class="slide">
+      <p class="kicker">II · Platform</p>
+      <h2>Where the lab sits</h2>
+      <p class="lead">“Post-Sidewalk, and inside Earth Data / Sustainable Cities: does a bounded corridor graph belong in platform product, open reference implementation, or academic instrument—and who maintains it when streets change?”</p>
+      <p class="grow"><b>Send to:</b> Josh Sirefman, Josh Chappell · <b>Growth:</b> pressure-field layer for geospatial / sustainability stacks without competing with Maps.</p>
     </section>
 
-    <section class="slide slide--figure">
-      <p class="slide-tag">Substrate · NYC public data inventory</p>
-      <h1>Open data and public feeds in the substrate</h1>
-      <p class="slide-lead">Public tables and feeds only; proprietary fusion, calibration, and routing cost are not listed here.</p>
-      <table class="slide-data">
+    <section class="slide">
+      <p class="kicker">III · Civic operations</p>
+      <h2>Adoption as process</h2>
+      <p class="lead">“If operational excellence is making process visible: what does a reproducible Midtown pilot look like as refresh, sign-off, and governance—not as a slide deck?”</p>
+      <p class="grow"><b>Send to:</b> Ann Rosenberg (Celonis), Beeck Center · <b>Growth:</b> agency pilot kits and digital-twin capacity layers (sheds, egress, closures).</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">IV · Capital</p>
+      <h2>What gets funded</h2>
+      <p class="lead">“What would you fund that stays public-good, corridor-bounded, and reproducible—rather than another closed mobility API?”</p>
+      <p class="grow"><b>Send to:</b> John Lynn, Randy Wiggins, Alison Rooney, John Pasmore, Cristina DiGiacomo · <b>Growth:</b> graph-native civic AI, open methodology licensing.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">V · Workforce</p>
+      <h2>Reference implementations</h2>
+      <p class="lead">“Does NYC’s AI pipeline need substrates students and agencies can re-run on the same graph snapshot—and who maintains the graph when the city changes?”</p>
+      <p class="grow"><b>Send to:</b> Ben Christensen, Marie Roker-Jones, AI2030 · <b>Growth:</b> curriculum bundles and maintainer roles parallel to any routing demo.</p>
+      <div class="panel">
+        <p><b>Program manifold:</b> operators, policy layers, multi-corridor kits, installations—the corridor demo proves one export, not the ceiling.</p>
+      </div>
+    </section>
+
+    <section class="slide slide--scroll">
+      <p class="kicker">Tonight’s room</p>
+      <h2>Panel 1 · Governable city (5:25)</h2>
+      <div class="grid">
+        <div class="tile"><h3>Alyssa Harvey Dawson</h3><p>Facilitator · AI2030 governance · arc <b>I</b></p></div>
+        <div class="tile"><h3>Josh Sirefman</h3><p>Sidewalk Labs co-founder · arc <b>II</b></p></div>
+        <div class="tile"><h3>Josh Chappell</h3><p>Google Earth Data &amp; Sustainable Cities · arc <b>II</b></p></div>
+        <div class="tile"><h3>Ann Rosenberg</h3><p>Celonis public affairs · arc <b>III</b></p></div>
+        <div class="tile"><h3>Ariel Kennan</h3><p>Beeck Center · arc <b>I</b> / <b>III</b></p></div>
+      </div>
+    </section>
+
+    <section class="slide slide--scroll">
+      <p class="kicker">Tonight’s room</p>
+      <h2>Panel 2 · AI power map (6:15)</h2>
+      <div class="grid">
+        <div class="tile"><h3>Alison Rooney</h3><p>Facilitator · AI2030 · arc <b>IV</b></p></div>
+        <div class="tile"><h3>John Lynn</h3><p>Quay Acceleration · arc <b>IV</b></p></div>
+        <div class="tile"><h3>John Pasmore</h3><p>Latimer.ai · arc <b>IV</b></p></div>
+        <div class="tile"><h3>Randy Wiggins</h3><p>NY Global Tech Innovation Hub · arc <b>IV</b></p></div>
+        <div class="tile"><h3>Cristina DiGiacomo</h3><p>10P1 · arc <b>IV</b></p></div>
+        <div class="tile"><h3>Hosts</h3><p>Christensen &amp; Roker-Jones · AI2030 · arc <b>V</b></p></div>
+      </div>
+      <p class="sub">Celonis · 70F · 1 WTC · AI2030 / Tech Pulse 2030</p>
+    </section>
+
+    <section class="slide slide--scroll">
+      <p class="kicker">Substrate</p>
+      <h2>NYC open data &amp; public feeds</h2>
+      <table>
         <thead><tr><th>Source</th><th>Role</th></tr></thead>
         <tbody>
-          <tr><td>NYC Digital City Map / centerlines</td><td>Graph topology</td></tr>
-          <tr><td>DOT traffic cameras (public feeds)</td><td>Demand → per-camera stress</td></tr>
-          <tr><td>DCP planimetric sidewalks</td><td>Width capacity</td></tr>
-          <tr><td>DCP PLUTO &amp; footprints</td><td>Frontage / land use</td></tr>
-          <tr><td>DCP POPS</td><td>Plaza width</td></tr>
-          <tr><td>DOB NOW sheds</td><td>Dynamic shed factor</td></tr>
-          <tr><td>DOT open streets, closures, bikes, plazas</td><td>Supply modifiers</td></tr>
-          <tr><td>DOT bi-annual ped counts</td><td>Coarse public reference</td></tr>
-          <tr><td>MTA entrances, ridership, elevators</td><td>Station envelopes &amp; time-varying egress</td></tr>
-          <tr><td>Dining / street-use permits</td><td>Frontage load</td></tr>
+          <tr><td class="lt">Graph</td><td>Digital City Map centerlines</td></tr>
+          <tr><td class="lt">Demand</td><td>DOT traffic cameras → stress field</td></tr>
+          <tr><td class="lt">Supply</td><td>DCP sidewalks, PLUTO, POPS, footprints</td></tr>
+          <tr><td class="lt">Supply</td><td>DOB sheds · DOT streets, closures, bikes, plazas</td></tr>
+          <tr><td class="lt">Supply</td><td>MTA stations, ridership, elevators</td></tr>
+          <tr><td class="lt">Supply</td><td>Dining / street-use permits</td></tr>
         </tbody>
       </table>
-      <p class="throughline"><strong>Next:</strong> the problem—why these tables still do not give you walking burden without a measured field on the graph.</p>
+      <p class="grow">Proprietary: fusion, calibration, routing cost—not these tables.</p>
     </section>
 
-    <section class="slide slide--process">
-      <p class="slide-tag">Process · Problem</p>
-      <h1>Map distance is not walking burden</h1>
-      <p>Planners and apps optimize hops or minutes. Pedestrians meet crowding, narrow sidewalks, sheds, station egress, and uneven capacity—local pressure that standard routers do not read.</p>
-      <p><strong>Question:</strong> Can we represent that pressure on a graph and compare routes on measured exposure, not inferred comfort?</p>
-      <p class="throughline"><strong>Next:</strong> the bounded Midtown pilot built entirely on the open inventory you just saw.</p>
+    <section class="slide">
+      <p class="kicker">Problem</p>
+      <h2>Map distance ≠ walking burden</h2>
+      <p class="lead">Apps optimize hops or minutes. Walkers meet crowding, sheds, station egress, and uneven capacity—local pressure standard routers do not read.</p>
+      <p class="lead">Can we represent that pressure on a graph and compare routes on <b>measured exposure</b>, not inferred comfort?</p>
     </section>
 
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome</p>
-      <h1>First test surface: Midtown corridor</h1>
-      <p>40th–59th Streets, Lexington to 8th Avenue. ~300 nodes, decision-locked stress field, multi-layer capacity from NYC Open Data. Same graph, varying fields—suitable for partners who need a bounded pilot.</p>
-      <p class="throughline"><strong>Next:</strong> how open data, field study, and public cameras are synthesized into one substrate.</p>
+    <section class="slide">
+      <p class="kicker">Pilot</p>
+      <h2>Midtown corridor</h2>
+      <p class="lead">40th–59th St, Lexington to 8th Ave · ~300 nodes · decision-locked stress field · multi-layer capacity from NYC Open Data.</p>
+      <p class="lead">Same graph, varying fields—a bounded surface partners can evaluate without city-wide claims.</p>
     </section>
 
-    <section class="slide slide--process">
-      <p class="slide-tag">Process · Methods</p>
-      <h1>Interdisciplinary measurement program</h1>
+    <section class="slide">
+      <p class="kicker">Methods</p>
+      <h2>Three streams → one substrate</h2>
+      <ol>
+        <li><b>Open civic data</b> — supply-side capacity on cross-street edges.</li>
+        <li><b>Public camera sensing</b> — demand-side stress on the graph.</li>
+        <li><b>Field calibration</b> — lived-knowledge audit on reference blocks.</li>
+      </ol>
+      <p class="lead">Stress topology is read <b>before</b> routing is switched on.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Figure</p>
+      <h2>Camera-derived stress (§2.1)</h2>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="Stress heatmap" loading="eager">
+        <p>Decision-locked Voronoi field—the substrate navigation reads.</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Figure</p>
+      <h2>Shortest vs stress-aware</h2>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Route comparison" loading="lazy">
+        <p>Grand Central → Carnegie Hall: equal hops, lower accumulated stress on the stress-aware path (locked demo).</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Validation</p>
+      <h2>What we claim today</h2>
       <ul>
-        <li><strong>Open civic data</strong> — sidewalk width, permits, frontage, transit egress (supply).</li>
-        <li><strong>Field study &amp; lived calibration</strong> — reference blocks, audit against author knowledge (extendable to multi-informant).</li>
-        <li><strong>Public camera sensing</strong> — traffic cameras → vision stack → per-block stress (demand).</li>
-        <li><strong>Graph construction</strong> — directed pedestrian edges, fixed topology for reproducible tests.</li>
+        <li>Stress-aware path dominates shortest on measured stress at equal hops (demo OD).</li>
+        <li>Supply ⊥ demand at cross-street edges (r ≈ 0).</li>
+        <li>Lived-knowledge: 8/12 aligned, 0 misaligned (needs multi-informant).</li>
       </ul>
-      <p>Substrate = cross-domain synthesis of these layers, not a single vendor feed.</p>
-      <p class="throughline"><strong>Next:</strong> the representation figure—cameras and models becoming a graph field.</p>
+      <p class="grow"><b>Open:</b> block-level pedestrian counts; behavioral trials.</p>
     </section>
 
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure · Representation</p>
-      <h1>Sensing → field on the graph</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/cv-pipeline/pipeline_data_flow_strip.png" alt="Pipeline from cameras to route" loading="lazy">
-        <p class="slide-caption">Public cameras → vision models → per-camera stress → spatial assignment → router.</p>
+    <section class="slide">
+      <p class="kicker">After the panels</p>
+      <h2>Share this deck</h2>
+      <p class="lead">Lead with the arc question for their tier. Offer this URL after the conversation—not mid-pitch.</p>
+      <p class="sub">aimez.ai/public/executive-summary.html</p>
+      <div class="links">
+        <a href="figure-walkthrough.html">Canonical figure slides</a>
+        <a href="routing-demo.html">Live routing demo</a>
       </div>
-    </section>
-
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome</p>
-      <h1>Demand and supply stay independent</h1>
-      <p>Cross-street capacity (open data) and camera stress correlate near zero at the edge level (r ≈ −0.014). Routing can combine non-redundant signals instead of re-labeling the same phenomenon twice.</p>
-    </section>
-
-    <section class="slide slide--process">
-      <p class="slide-tag">Process · Emergent topology</p>
-      <h1>Stress field structure comes before routing</h1>
-      <p>Before any path choice, the corridor shows spatial organization: hot southwest (Times Square), cooler east side, station-adjacent hot spots. This is the <strong>topology of measured pressure</strong> on the graph—not yet a recommendation.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure · Camera-derived stress (§2.1)</p>
-      <h1>Decision-locked stress heatmap</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="Camera-derived stress heatmap" loading="lazy">
-        <p class="slide-caption">Voronoi cells from camera catchments; canonical color lock. Foundation for all downstream routing figures.</p>
-      </div>
-    </section>
-
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome</p>
-      <h1>Substrate is legible without navigation</h1>
-      <p>Partners can evaluate the <strong>field</strong> (sensing quality, spatial pattern, calibration) before endorsing route products. Next: supply overlay, then navigation layer built on this base.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure · Supply substrate</p>
-      <h1>Cross-street capacity layers</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Capacity layers" loading="lazy">
-        <p class="slide-caption">Width, sheds, frontage, combined capacity—decomposable for ablation and policy scenarios.</p>
-      </div>
-    </section>
-
-    <section class="slide slide--process">
-      <p class="slide-tag">Process · Navigation layer</p>
-      <h1>Routing reads the substrate—not the reverse</h1>
-      <p>Shortest-hop paths use the graph alone. Stress-aware paths read the measured field on edges. Claims stay at <strong>substrate-level exposure</strong> (accumulated stress, redistribution), not behavioral preference unless independently validated.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure · Routing demonstration</p>
-      <h1>Same hops, different measured exposure</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest vs stress-aware route" loading="lazy">
-        <p class="slide-caption">Grand Central → Carnegie Hall: equal hop count; lower accumulated stress on the stress-aware path in the locked demonstration.</p>
-      </div>
-    </section>
-
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome</p>
-      <h1>Corridor-wide response to cost perturbation</h1>
-      <p>Under stress-weighted routing, load redistributes across the graph with bounded magnitude and no leakage across the corridor boundary in the locked test—suggesting internal reorganization, not a single-edge hack.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure · Redistribution (optional depth)</p>
-      <h1>Soft-mode style rerouting</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/mobility/06_load_redistribution_under_stress.png" alt="Load redistribution" loading="lazy">
-        <p class="slide-caption">Absorbing vs avoided edges when routing cost switches—see canonical deck for operator and validation panels.</p>
-      </div>
-    </section>
-
-    <section class="slide slide--process">
-      <p class="slide-tag">Process · Validation (public claims)</p>
-      <h1>What we say today</h1>
-      <ul>
-        <li>Stress-aware path dominates shortest on measured stress at equal hops (demonstration OD).</li>
-        <li>Supply ⊥ demand at cross-street edges (orthogonality).</li>
-        <li>Lived-knowledge polarity: 8/12 aligned, 0 misaligned on reference blocks (self-report; needs multi-informant).</li>
-        <li><strong>Open:</strong> independent pedestrian counts at block resolution; behavioral trials.</li>
-      </ul>
-    </section>
-
-    <section class="slide slide--process">
-      <p class="slide-tag">Tonight · After the panels</p>
-      <h1>One-line asks by organization (not a vendor meeting)</h1>
-      <p class="slide-lead">Use networking to match <em>their</em> mission to a bounded public demo—share the deck URL, not a procurement conversation.</p>
-      <ul class="slide-detail">
-        <li><strong>Google Earth Data &amp; Sustainable Cities (Chappell):</strong> Is a pedestrian stress field a useful input layer for sustainable-cities work, or out of scope?</li>
-        <li><strong>Sidewalk lineage (Sirefman):</strong> Interest in a corridor-scale governable reference pilot vs platform integration.</li>
-        <li><strong>Beeck Center (Kennan):</strong> Would you cite an open-methodology corridor substrate in civic-innovation or digital-equity programming?</li>
-        <li><strong>Celonis (Rosenberg):</strong> Any path to showcase operational adoption of civic infrastructure pilots inside enterprise partners.</li>
-        <li><strong>AI2030 (Christensen, Roker-Jones, Dawson):</strong> Slot for a reproducible NYC reference implementation in workforce or governance programming.</li>
-        <li><strong>Quay / NY innovation hub (Lynn, Wiggins):</strong> Non-dilutive pilot or intro funding for public-good graph infrastructure.</li>
-        <li><strong>Latimer (Pasmore) / 10P1 (DiGiacomo):</strong> Responsible-AI review lens on public-feed-derived civic models.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> links only on the final slide.</p>
-    </section>
-
-    <section class="slide slide--title slide--title-compact">
-      <p class="slide-tag">After the conversation</p>
-      <h1 style="color:#e8edf2">Send this deck · optional follow-ups</h1>
-      <p style="color:#c4ccd8;font-size:0.88rem"><strong>This URL:</strong> aimez.ai/public/executive-summary.html</p>
-      <p style="color:#98a2b3;font-size:0.78rem;margin-top:0.45rem">Optional if they want depth (can be slow): figure slides · live routing demo.</p>
-      <p style="font-size:0.82rem"><a href="figure-walkthrough.html" style="color:#7eb8d8">Canonical figure slides</a> · <a href="routing-demo.html" style="color:#7eb8d8">Live routing demo</a></p>
-      <p style="margin-top:0.5rem;font-size:0.76rem;color:#98a2b3">Gil Raitses · Syracuse University · patent pending</p>
+      <p class="grow">Gil Raitses · Syracuse University · patent pending</p>
     </section>
 
   </div>
 
-  <div class="deck-chrome">
-    <a href="index.html">Public index</a>
-    <span id="slide-indicator">1 / 1</span>
-    <span>
-      <button type="button" id="slide-prev" aria-label="Previous">↑</button>
-      <button type="button" id="slide-next" aria-label="Next">↓</button>
-    </span>
+  <div class="hud">
+    <button class="nav-btn" id="prev" aria-label="Previous slide">&larr;</button>
+    <span class="count" id="count">1 / 1</span>
+    <button class="nav-btn" id="next" aria-label="Next slide">&rarr;</button>
   </div>
-  <script src="slides.js"></script>
+  <p class="hint">← → or space · layout: <a href="https://gilraitses.github.io/central-casting/walkthrough-deck.html" style="color:inherit">Central Casting deck</a></p>
+  <script src="deck.js"></script>
 </body>
 </html>

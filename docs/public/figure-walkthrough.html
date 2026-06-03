@@ -4,298 +4,105 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Canonical figures (slides) - aimez</title>
-  <meta name="description" content="Slide deck walkthrough: problem, methods, stress field topology, supply substrate, routing on the graph, validation.">
+  <meta name="description" content="Figure slide deck: stress field before routing, supply substrate, validation.">
   <link rel="canonical" href="https://aimez.ai/public/figure-walkthrough.html">
   <link rel="icon" href="../favicon.ico" sizes="any">
-  <link rel="stylesheet" href="public.css">
-  <link rel="stylesheet" href="slides.css">
+  <link rel="stylesheet" href="deck.css">
 </head>
 <body>
+  <a class="home-link" href="executive-summary.html">Executive summary</a>
+  <div class="progress" id="progress"></div>
   <div class="deck" id="deck">
 
-    <section class="slide slide--title">
-      <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt=""><span class="brand-name">aimez</span></div>
-      <p class="slide-tag">Canonical figures</p>
+    <section class="slide active">
+      <p class="kicker">Canonical figures</p>
       <h1>Substrate before navigation</h1>
-      <p class="slide-lead">This deck walks the published figure set in the order the substrate is actually built: measure the field, show its topology, add supply, then turn on routing.</p>
-      <p>Each section moves from what we are doing, to the figure that makes it visible, to what that result unlocks next.</p>
-      <div class="patent-banner"><strong>Patent pending.</strong> Captions describe published figures only. Proprietary fusion, calibration, and cost bindings are not disclosed here.</div>
-      <p class="throughline"><strong>Next:</strong> the problem the corridor graph is meant to make testable.</p>
+      <p class="lead">Published figures in build order: measure → topology → supply → routing → validation.</p>
+      <p class="grow"><b>Patent pending.</b> Published captions only. ← → or space to advance.</p>
     </section>
 
-    <section class="slide slide--process">
-      <p class="slide-tag">§0 · Problem</p>
-      <h1>Urban walking is a graph with hidden load</h1>
-      <p class="slide-lead">We treat Midtown as a fixed pedestrian graph so route behavior can be compared on measured quantities instead of narrative claims about how the city “feels.”</p>
-      <ul class="slide-detail">
-        <li>The graph stays fixed while edge weights change, which separates topology from the field living on it.</li>
-        <li>Local pressure—crowding, capacity, construction, egress—shows up on edges before any recommendation is made.</li>
-        <li>Claims stay at corridor scale; we do not assert a general law for all of Manhattan.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> how three independent measurement streams are fused into one substrate.</p>
-    </section>
-
-    <section class="slide slide--process">
-      <p class="slide-tag">§0 · Methods</p>
-      <h1>Three measurement streams become one substrate</h1>
-      <p class="slide-lead">The substrate is a cross-domain synthesis: public sensing for demand, open civic data for supply, and field calibration so the combined field can be audited.</p>
-      <ul class="slide-detail">
-        <li>Camera-derived stress scores anchor the demand side to observable street conditions at block scale.</li>
-        <li>NYC Open Data capacity layers encode sidewalk width, sheds, frontage load, and related supply constraints on cross-street edges.</li>
-        <li>Lived-knowledge and reference-block checks provide an external polarity test where block-level pedestrian counts are not publicly available.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> the representation figure—how frames become a stress signal on the graph.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Methods · Figure</p>
-      <h1>Representation pipeline on real camera frames</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/cv-pipeline/cv_model_outputs_park_vs_madison.png" alt="CV on real camera frames" loading="lazy">
-        <p class="slide-caption">Park Avenue and Madison Avenue stills with detection and density overlays; the demand signal is tied to public traffic cameras, not synthetic scenes.</p>
+    <section class="slide">
+      <p class="kicker">Methods</p>
+      <h2>Representation pipeline</h2>
+      <div class="slide-fig">
+        <img src="../assets/gallery/cv-pipeline/cv_model_outputs_park_vs_madison.png" alt="CV on camera frames" loading="eager">
+        <p>Real DOT camera frames with model overlays—demand grounded in observation.</p>
       </div>
-      <p class="throughline"><strong>Next:</strong> spatialize those scores on the corridor and read stress topology before any route is drawn.</p>
     </section>
 
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome</p>
-      <h1>Demand is grounded before routing exists</h1>
-      <p class="slide-lead">A partner can evaluate sensing quality and spatial assignment without yet endorsing a navigation product.</p>
-      <ul class="slide-detail">
-        <li>Per-camera scores are anchored to fixed world positions, so the field is allocentric rather than user-relative.</li>
-        <li>The pipeline figure establishes traceability from public feed to graph-ready stress values.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> the decision-locked stress heatmap—the substrate’s primary topology figure (§2.1).</p>
-    </section>
-
-    <section class="slide slide--process">
-      <p class="slide-tag">§2 · Emergent topology</p>
-      <h1>Stress field structure on the graph</h1>
-      <p class="slide-lead">Before path algorithms run, the corridor already shows organized pressure: where it is hot, where it is cool, and where hot spots sit inside larger regions.</p>
-      <ul class="slide-detail">
-        <li>Each Voronoi cell inherits one camera’s score, so block-scale demand is visible as a tessellated surface.</li>
-        <li>Gradients and localized peaks are read as topology of measured pressure, not as route suggestions.</li>
-        <li>Colormap and value range are locked in a decision record so figures remain comparable across renders.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> Figure 6—the camera-derived stress heatmap.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure 6 · §2.1 Camera-derived stress</p>
-      <h1>Decision-locked stress heatmap</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="Stress heatmap" loading="eager">
-        <p class="slide-caption">W42nd through W57th: Times Square and the southwest read hot; the East Side reads cooler; subway and tourist nodes appear as localized peaks inside broader zones.</p>
+    <section class="slide">
+      <p class="kicker">§2.1 · Emergent topology</p>
+      <h2>Camera-derived stress field</h2>
+      <p class="lead">Stress topology on the graph <b>before</b> any path algorithm runs.</p>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="Stress heatmap" loading="lazy">
+        <p>Decision-locked Voronoi heatmap—foundation for all routing figures.</p>
       </div>
-      <p class="throughline"><strong>Next:</strong> why the substrate must be legible on its own before the navigation layer is switched on.</p>
     </section>
 
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome</p>
-      <h1>The field is visible without navigation</h1>
-      <p class="slide-lead">Routing figures in later sections presuppose this surface; if the stress topology is wrong, every downstream path comparison is moot.</p>
-      <ul class="slide-detail">
-        <li>Investors and research partners can agree or disagree on sensing here without conflating the issue with A* or hop count.</li>
-        <li>Every routing panel in §1 should be read against this heatmap as the demand-side backdrop.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> the supply substrate from civic open data—and whether it duplicates demand.</p>
-    </section>
-
-    <section class="slide slide--process">
-      <p class="slide-tag">§2 · Supply substrate</p>
-      <h1>Cross-street capacity from civic open data</h1>
-      <p class="slide-lead">Supply describes how much physical corridor capacity an edge carries, decomposed into layers that can be turned on or off for policy scenarios.</p>
-      <ul class="slide-detail">
-        <li>Sidewalk width, active sheds, and frontage load each enter as a multiplicative factor on cross-street edges.</li>
-        <li>The combined layer is the effective denominator the routing cost can read against measured stress.</li>
-        <li>Additional layers (stations, closures, open streets) extend the same compositional pattern in the full model.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> Figure 7—the four-panel capacity overlay in the canonical affine frame.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure 7 · Capacity overlay</p>
-      <h1>Supply layers in canonical frame</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Capacity layers" loading="lazy">
-        <p class="slide-caption">Width, sheds, and frontage are shown separately, then multiplied into a combined cross-street capacity field aligned with the rest of the figure set.</p>
+    <section class="slide">
+      <p class="kicker">§2.2 · Supply</p>
+      <h2>Cross-street capacity</h2>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Capacity layers" loading="lazy">
+        <p>NYC Open Data layers combined on cross-street edges.</p>
       </div>
-      <p class="throughline"><strong>Next:</strong> the orthogonality check—whether supply and demand measure the same thing twice.</p>
+      <p class="grow"><b>Outcome:</b> supply ⊥ demand (r ≈ 0)—routing is not a tautology.</p>
     </section>
 
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome · Validation preview</p>
-      <h1>Supply and demand measure different things</h1>
-      <p class="slide-lead">At cross-street edges, camera stress and modeled capacity are nearly uncorrelated, so the routing layer is not relabeling one signal under two names.</p>
-      <ul class="slide-detail">
-        <li>Pearson r ≈ −0.014 on 228 cross-street edges in the published orthogonality figure (§4.1).</li>
-        <li>Orthogonality is necessary but not sufficient: it rules out redundancy, not automatic ground truth for either layer alone.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> §1—navigation built on top of this substrate, starting with a single origin–destination comparison.</p>
-    </section>
-
-    <section class="slide slide--process">
-      <p class="slide-tag">§1 · Navigation layer</p>
-      <h1>Routing reads the substrate—not the reverse</h1>
-      <p class="slide-lead">Shortest-hop routing uses the graph alone; stress-aware routing reads the measured field on edges while holding the same topology.</p>
-      <ul class="slide-detail">
-        <li>We report accumulated stress and redistribution on the graph, not inferred pedestrian preference or stated comfort.</li>
-        <li>A dominance claim means the stress-aware path scores better on locked substrate metrics at the same hop count for the demonstration pair.</li>
-        <li>Behavioral validation with independent foot-traffic or panel data remains an open partnership surface.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> Figure 1—Grand Central to Carnegie Hall, shortest versus stress-aware.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure 1 · §1.1 Shortest vs stress-aware</p>
-      <h1>Same hops, different measured exposure</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Route comparison" loading="lazy">
-        <p class="slide-caption">Both paths are nineteen hops; the stress-aware trace lowers total accumulated stress and peak edge stress while the cumulative-stress curves diverge monotonically along the walk.</p>
+    <section class="slide">
+      <p class="kicker">§1.1 · Navigation</p>
+      <h2>Shortest vs stress-aware</h2>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Route comparison" loading="lazy">
+        <p>Same hops; different measured exposure (Grand Central → Carnegie Hall).</p>
       </div>
-      <p class="throughline"><strong>Next:</strong> whether that contrast survives more than one destination from the same origin.</p>
     </section>
 
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome</p>
-      <h1>One OD pair is the anchor, not the whole argument</h1>
-      <p class="slide-lead">Figure 1 is the clearest side-by-side; the program still has to show that the routing layer behaves structurally across a sample of tasks.</p>
-      <ul class="slide-detail">
-        <li>The demonstration OD is locked so partners can reproduce the comparison on the live demo.</li>
-        <li>Generalization is argued with the nine-destination grid and corridor-wide redistribution, not with this panel alone.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> Figure 2—nine destinations from Grand Central with flat and hierarchical modes.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure 2 · §1.2 Destination grid</p>
-      <h1>Nine destinations from one origin</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/mobility/02_feasible_routes_destination_grid.png" alt="Destination grid" loading="lazy">
-        <p class="slide-caption">Flat and hierarchical routing modes diverge on most destinations while the seven-layer capacity model is active; metrics at the foot summarize hops, cost, and max edge stress per task.</p>
+    <section class="slide">
+      <p class="kicker">§1.2 · Navigation</p>
+      <h2>Nine destinations</h2>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/02_feasible_routes_destination_grid.png" alt="Destination grid" loading="lazy">
+        <p>Structural contrast across destinations—not one OD corner case.</p>
       </div>
-      <p class="throughline"><strong>Next:</strong> whether rerouting under stress weighting is local trickery or corridor-scale reorganization.</p>
     </section>
 
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome</p>
-      <h1>The contrast is structural, not a single corner case</h1>
-      <p class="slide-lead">When eight of nine destinations change under the same routing layer, the argument shifts from one scenic comparison to a field-level phenomenon on the graph.</p>
-      <ul class="slide-detail">
-        <li>Hierarchical mode introduces a coarse avenue choice before fine edge routing, which is visible as a different spine in several panels.</li>
-        <li>The grid is still a sample inside the corridor envelope, not a city-wide census of trips.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> Figure 5—betweenness redistribution when routing cost switches to stress-weighted.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure 5 · §1.5 Redistribution</p>
-      <h1>Corridor-wide load redistribution</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/mobility/06_load_redistribution_under_stress.png" alt="Redistribution map" loading="lazy">
-        <p class="slide-caption">Edges that absorb rerouted load (red) and edges that lose it (blue) spread across the corridor; boundary metadata reports no overlap between top absorbing/avoided edges and the boundary-crossing set in the locked run.</p>
+    <section class="slide">
+      <p class="kicker">§1.5 · Redistribution</p>
+      <h2>Corridor-wide response</h2>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/06_load_redistribution_under_stress.png" alt="Redistribution" loading="lazy">
+        <p>Load shifts under stress-weighted cost—not only two polylines.</p>
       </div>
-      <p class="throughline"><strong>Next:</strong> the operator view—how the graph’s spectral and flow readouts change under the same perturbation.</p>
     </section>
 
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome</p>
-      <h1>Graph-level behavior, not only two polylines</h1>
-      <p class="slide-lead">Redistribution shows that changing edge costs reorganizes flow on the whole corridor while hop statistics move only slightly in the locked test.</p>
-      <ul class="slide-detail">
-        <li>Maximum single-edge betweenness shift is on the order of ten percent of mass in the published figure, with mean hop count nearly unchanged.</li>
-        <li>Partners who care about network science can read this panel as the global response surface behind Figure 1.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> §3—operator summary (stress–flow coupling and centrality reorganization).</p>
-    </section>
-
-    <section class="slide slide--process">
-      <p class="slide-tag">§3 · Operator</p>
-      <h1>How the graph operator reorganizes under stress</h1>
-      <p class="slide-lead">The same perturbation that changes two routes also changes which nodes and edges the corridor treats as influential under alternative centrality and flow readouts.</p>
-      <ul class="slide-detail">
-        <li>Laplacian eigenvectors describe slow modes of the corridor; the Fiedler vector aligns with north–south flow in the published spectral figure.</li>
-        <li>Stress-weighting can reshuffle top-centrality sets almost completely (e.g. Jaccard 0.00 between top-20 eigenvector sets in the locked comparison).</li>
-        <li>Operator panels support research partners; they are not required to accept the routing demonstration on their own.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> Figure 10 panel—stress at nodes, unit betweenness, stress betweenness, and their difference field.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure 10 · Stress–flow coupling</p>
-      <h1>From local stress to global flow readout</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/walkthrough/phase_c_corridor_stress_flow_coupling_PRE_VIZFIX.png" alt="Stress flow coupling" loading="lazy">
-        <p class="slide-caption">The four-panel layout moves from camera-derived stress at intersections, to edge betweenness under unit weights, to betweenness under stress distance, to the redistribution field that differences them.</p>
+    <section class="slide">
+      <p class="kicker">§4 · Validation</p>
+      <h2>Orthogonality &amp; audit</h2>
+      <div class="slide-fig">
+        <img src="../assets/gallery/walkthrough/cross_street_capacity_vs_camera_stress.png" alt="Orthogonality" loading="lazy">
+        <p>Supply vs demand scatter—Pearson r ≈ −0.014 on 228 edges.</p>
       </div>
-      <p class="throughline"><strong>Next:</strong> what validation figures close the loop on supply, demand, and lived experience.</p>
     </section>
 
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome</p>
-      <h1>Influence on the graph is cost-dependent</h1>
-      <p class="slide-lead">A corridor that looks “central” under hop-count routing may not be central under stress-aware routing, which matters for any partner thinking about intervention points.</p>
-      <ul class="slide-detail">
-        <li>The redistribution panel in this figure is the operator-level sibling of the route comparison in Figure 1.</li>
-        <li>Spectral off-diagonal coupling between unit and stress-weighted operators is small in magnitude but paired with a sizable betweenness response in the locked run.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> §4 validation—orthogonality scatter and lived-knowledge audit.</p>
-    </section>
-
-    <section class="slide slide--process">
-      <p class="slide-tag">§4 · Validation</p>
-      <h1>What is checked publicly—and what is still open</h1>
-      <p class="slide-lead">Validation separates internal consistency checks (published with limits) from external pedestrian-volume ground truth (partnership-dependent).</p>
-      <ul class="slide-detail">
-        <li>Orthogonality confirms supply and demand are not redundant at the cross-street edge level.</li>
-        <li>The lived-knowledge audit tests polarity predictions on twelve reference blocks where the author has strong prior expectations.</li>
-        <li>Independent block-level pedestrian counts and behavioral trials are explicitly not claimed in this deck.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> Figure 12—the supply-versus-demand scatter.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure 12 · Orthogonality</p>
-      <h1>Supply vs demand at cross-street edges</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/walkthrough/cross_street_capacity_vs_camera_stress.png" alt="Orthogonality validation" loading="lazy">
-        <p class="slide-caption">228 cross-street edges plot combined capacity against one minus camera stress; the fit line is flat and Pearson r is −0.014, with per-stage correlations shrinking as layers accumulate.</p>
+    <section class="slide">
+      <p class="kicker">Close</p>
+      <h2>Back to executive deck</h2>
+      <div class="links">
+        <a href="executive-summary.html">Executive summary</a>
+        <a href="routing-demo.html">Live demo</a>
       </div>
-      <p class="throughline"><strong>Next:</strong> Figure 13—whether modeled capacity polarity matches lived experience on reference blocks.</p>
-    </section>
-
-    <section class="slide slide--figure">
-      <p class="slide-tag">Figure 13 · Lived-knowledge audit</p>
-      <h1>Twelve reference blocks</h1>
-      <div class="slide-figure">
-        <img class="figure-img" src="../assets/gallery/walkthrough/cross_street_audit_reference_blocks.png" alt="Audit blocks" loading="lazy">
-        <p class="slide-caption">Eight blocks align with author lived polarity, four are partial (correct direction, weaker magnitude), and none are misaligned in the published audit.</p>
-      </div>
-      <p class="throughline"><strong>Next:</strong> close the arc—live demo and executive summary for partnership conversation.</p>
-    </section>
-
-    <section class="slide slide--outcome">
-      <p class="slide-tag">Outcome · Close</p>
-      <h1>Substrate, navigation, and open validation in one arc</h1>
-      <p class="slide-lead">The figure set is complete enough to pilot; the missing pieces are external volume data and multi-informant field checks, not another rewrite of the corridor graph.</p>
-      <ul class="slide-detail">
-        <li>Use the executive summary deck for investor framing and partnership asks.</li>
-        <li>Use the routing demo to test origin–destination pairs interactively on the same graph.</li>
-        <li>Patent-pending methods remain at high level in public materials; detailed claim language stays outside this site.</li>
-      </ul>
-      <p class="throughline"><strong>Next:</strong> <a href="routing-demo.html">Interactive routing demo</a> · <a href="executive-summary.html">Executive summary slides</a></p>
     </section>
 
   </div>
 
-  <div class="deck-chrome">
-    <a href="executive-summary.html">Executive summary</a>
-    <span id="slide-indicator">1 / 1</span>
-    <span>
-      <button type="button" id="slide-prev" aria-label="Previous">↑</button>
-      <button type="button" id="slide-next" aria-label="Next">↓</button>
-    </span>
+  <div class="hud">
+    <button class="nav-btn" id="prev" aria-label="Previous">&larr;</button>
+    <span class="count" id="count">1 / 1</span>
+    <button class="nav-btn" id="next" aria-label="Next">&rarr;</button>
   </div>
-  <script src="slides.js"></script>
+  <p class="hint">← → or space</p>
+  <script src="deck.js"></script>
 </body>
 </html>

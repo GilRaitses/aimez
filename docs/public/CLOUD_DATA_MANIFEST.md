@@ -128,12 +128,12 @@ Cloud agents should **read** `manifest.json` and **never fabricate** stress scor
 
 | Field | Value |
 |-------|--------|
-| S3 bucket | _pending_ |
-| S3 prefix | _pending_ |
-| Routing API URL | `https://09nmb9gia3.execute-api.us-east-1.amazonaws.com` (legacy; source not in repo—redeploy `pax/services/routing_demo` or replace) |
-| IST675 synced? | _no / date_ |
-| Raw cameras synced? | _no / date_ |
-| Canonical JSON synced? | _no / date_ |
+| S3 bucket | `aimez-demo-198456344617` (us-east-1, private) |
+| S3 prefix | `s3://aimez-demo-198456344617/aimez-demo/` |
+| Routing API URL | `https://50pl2v7kne.execute-api.us-east-1.amazonaws.com` (redeployed in-repo `pax/services/routing_demo` handler via API Gateway HTTP API; legacy `09nmb9gia3` retired) |
+| IST675 synced? | yes / 2026-06-03 (220 objects under `ist675/`) |
+| Raw cameras synced? | no (no raw frame archive present; derived camera panels ride inside `ist675/`) |
+| Canonical JSON synced? | yes / 2026-06-03 (`pax-canonical/`) |
 
 ---
 

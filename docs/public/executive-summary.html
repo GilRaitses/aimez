@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Executive summary (slides) - aimez</title>
-  <meta name="description" content="Measured pedestrian graph research: Manhattan stress-aware routing, public data, and route choice.">
+  <meta name="description" content="Choosing how we move between places: public stress topology, route choice, and a Manhattan case study.">
   <link rel="canonical" href="https://aimez.ai/public/executive-summary.html">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="stylesheet" href="deck.css">
@@ -24,16 +24,27 @@
     </section>
 
     <section class="slide">
-      <p class="kicker">Public-good case</p>
-      <h2>What this demonstration claims</h2>
-      <p class="lead">Public inputs, a locked Manhattan corridor graph, a camera stress field computed before routing, and route pairs compared on measured exposure at equal hop count.</p>
-      <ul>
-        <li><b>Inputs:</b> NYC Open Data tables plus DOT traffic cameras (inventory on the next slide).</li>
-        <li><b>Audit point:</b> stress topology is fixed before any path algorithm runs.</li>
-        <li><b>Demo result:</b> Grand Central → Carnegie Hall, same hops, lower accumulated camera stress on the stress-aware path.</li>
-        <li><b>Scope:</b> one corridor (~300 nodes), reproducible snapshot, corridor-scale claims only.</li>
-        <li><b>Commercial boundary:</b> fusion, calibration and routing cost function stay proprietary; open tables stay open.</li>
-      </ul>
+      <p class="kicker">Research question</p>
+      <h2>Public-good AI on a measured graph</h2>
+      <p class="lead">Can open inputs support psychophysics-informed learning and emergent-behavior models of camera-derived stress topology, then a routing layer that pairs quality-of-life paths with hop-equivalent shortest-path options?</p>
+      <p class="lead">The corridor demo is the first proof object: same graph, stress fixed before routing, route pairs compared on measured exposure at equal hop count.</p>
+    </section>
+
+    <section class="slide slide--split">
+      <div class="slide-copy">
+        <p class="kicker">Public-good case</p>
+        <h2>What this demonstration claims</h2>
+        <ul>
+          <li><b>Inputs:</b> NYC Open Data tables plus DOT traffic cameras (inventory on a later slide).</li>
+          <li><b>Audit point:</b> stress topology is fixed before any path algorithm runs.</li>
+          <li><b>Demo result:</b> Grand Central → Carnegie Hall, same hops, lower accumulated camera stress on the stress-aware path.</li>
+          <li><b>Scope:</b> one corridor (~300 nodes), reproducible snapshot, corridor-scale claims only.</li>
+          <li><b>Commercial boundary:</b> fusion, calibration and routing cost function stay proprietary; open tables stay open.</li>
+        </ul>
+      </div>
+      <div class="slide-fig">
+        <img src="../assets/gallery/cv-pipeline/cv_model_outputs_park_vs_madison.png" alt="Vision model on DOT camera frames" loading="eager">
+      </div>
     </section>
 
     <section class="slide slide--dense">
@@ -76,6 +87,36 @@
       </div>
     </section>
 
+    <section class="slide">
+      <p class="kicker">Program</p>
+      <h2>One graph, four coupled layers</h2>
+      <ol>
+        <li><b>Stress field.</b> DOT cameras mapped to edge stress on the pedestrian graph.</li>
+        <li><b>Topology.</b> Paths, loops and residuals on the locked corridor graph.</li>
+        <li><b>Forecasting.</b> Short-horizon updates to the stress field before routing runs.</li>
+        <li><b>Route solving.</b> Hop-equivalent and stress-aware paths on the same directed graph.</li>
+      </ol>
+      <p class="lead">Built from NYC open data on a Manhattan corridor graph (40th–59th St, Lexington to 8th Ave, ~300 nodes).</p>
+      <div class="flow" style="margin-top:0.5rem">
+        <span class="node pink">open data</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">stress field</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">topology + forecast</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node pink">routing demo</span>
+      </div>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="kicker">Program · data flow</p>
+      <h2>Open tables through fusion to routing</h2>
+      <div class="slide-fig">
+        <img src="../assets/gallery/cv-pipeline/pipeline_data_flow_strip.png" alt="Pipeline from open data to stress field and routing" loading="lazy">
+        <p>Public NYC tables and DOT cameras feed a decision-locked stress field; proprietary fusion and calibration sit between open inputs and the routing demo.</p>
+      </div>
+    </section>
+
     <section class="slide slide--dense">
       <p class="kicker">Substrate</p>
       <h2>NYC open data and public feeds</h2>
@@ -93,11 +134,16 @@
       <p class="grow">Proprietary layer: fusion, calibration, routing cost. Tables listed here are open.</p>
     </section>
 
-    <section class="slide">
-      <p class="kicker">Problem</p>
-      <h2>Map distance and walking burden diverge</h2>
-      <p class="lead">Apps optimize hops or minutes. Walkers meet crowding, sheds, station egress and uneven capacity. Local pressure sits on the graph where standard routers use hop count alone.</p>
-      <p class="lead">The program represents that pressure on a graph and compares routes on <strong>measured exposure</strong> from the stress field.</p>
+    <section class="slide slide--split">
+      <div class="slide-copy">
+        <p class="kicker">Problem</p>
+        <h2>Map distance and walking burden diverge</h2>
+        <p class="grow">Apps optimize hops or minutes. Walkers meet crowding, sheds, station egress and uneven capacity. Local pressure sits on the graph where standard routers use hop count alone.</p>
+        <p class="grow">The program represents that pressure on a graph and compares routes on <strong>measured exposure</strong> from the stress field.</p>
+      </div>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Capacity layers on the corridor graph" loading="lazy">
+      </div>
     </section>
 
     <section class="slide">
@@ -105,36 +151,41 @@
       <h2>Manhattan corridor (40th–59th St)</h2>
       <p class="lead">Lexington to 8th Ave · ~300 nodes · decision-locked stress field · multi-layer capacity from NYC Open Data.</p>
       <p class="lead">Same graph, varying fields. A bounded surface partners can evaluate at corridor scale.</p>
-      <div class="flow" style="margin-top:0.5rem">
-        <span class="node pink">open data</span>
-        <span class="arrow">&rarr;</span>
-        <span class="node">stress field</span>
-        <span class="arrow">&rarr;</span>
-        <span class="node">routing demo</span>
-        <span class="arrow">&rarr;</span>
-        <span class="node pink">validation</span>
-      </div>
     </section>
 
-    <section class="slide">
-      <p class="kicker">Methods</p>
-      <h2>Three streams → one substrate</h2>
-      <ol>
-        <li><b>Open civic data.</b> Supply-side capacity on cross-street edges.</li>
-        <li><b>Public camera sensing.</b> Demand-side stress on the graph.</li>
-        <li><b>Field calibration.</b> Lived-knowledge audit on reference blocks.</li>
-      </ol>
-      <p class="lead">Stress topology is read before routing is switched on.</p>
+    <section class="slide slide--split">
+      <div class="slide-copy">
+        <p class="kicker">Methods</p>
+        <h2>Three streams → one substrate</h2>
+        <ol>
+          <li><b>Open civic data.</b> Supply-side capacity on cross-street edges.</li>
+          <li><b>Public camera sensing.</b> Demand-side stress on the graph.</li>
+          <li><b>Field calibration.</b> Lived-knowledge audit on reference blocks.</li>
+        </ol>
+        <p class="grow">Stress topology is read before routing is switched on.</p>
+      </div>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/08_hierarchical_routing_with_capacity_layers.png" alt="Hierarchical routing with capacity layers" loading="lazy">
+      </div>
     </section>
 
     <section class="slide slide--split">
       <div class="slide-copy">
         <p class="kicker">Figure</p>
-        <h2>Camera-derived stress (§2.1)</h2>
+        <h2>Camera-derived stress</h2>
         <p class="grow">Decision-locked Voronoi field. The substrate navigation reads.</p>
       </div>
       <div class="slide-fig">
-        <img src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="Stress heatmap" loading="eager">
+        <img src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="Stress heatmap" loading="lazy">
+      </div>
+    </section>
+
+    <section class="slide slide--figure">
+      <p class="kicker">Navigation</p>
+      <h2>Nine origin–destination pairs</h2>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/02_feasible_routes_destination_grid.png" alt="Feasible routes across nine destinations" loading="lazy">
+        <p>Structural contrast across nine corridor ODs: stress-aware paths diverge from hop-minimum paths where the field differs.</p>
       </div>
     </section>
 
@@ -149,15 +200,31 @@
       </div>
     </section>
 
-    <section class="slide">
-      <p class="kicker">Validation</p>
-      <h2>What we claim today</h2>
-      <ul>
-        <li>Stress-aware path dominates shortest on measured stress at equal hops (demo OD).</li>
-        <li>Supply ⊥ demand at cross-street edges (r ≈ 0).</li>
-        <li>Lived-knowledge: 8/12 aligned, 0 misaligned (needs multi-informant).</li>
-      </ul>
-      <p class="grow"><b>Open:</b> block-level pedestrian counts; behavioral trials.</p>
+    <section class="slide slide--split">
+      <div class="slide-copy">
+        <p class="kicker">Corridor response</p>
+        <h2>Load redistribution under stress</h2>
+        <p class="grow">When routing cost weights the stress field, pedestrian load shifts across the full corridor graph.</p>
+      </div>
+      <div class="slide-fig">
+        <img src="../assets/gallery/mobility/06_load_redistribution_under_stress.png" alt="Load redistribution under stress-weighted routing" loading="lazy">
+      </div>
+    </section>
+
+    <section class="slide slide--split">
+      <div class="slide-copy">
+        <p class="kicker">Validation</p>
+        <h2>What we claim today</h2>
+        <ul>
+          <li>Stress-aware path dominates shortest on measured stress at equal hops (demo OD).</li>
+          <li>Supply ⊥ demand at cross-street edges (r ≈ 0).</li>
+          <li>Lived-knowledge: 8/12 aligned, 0 misaligned (needs multi-informant).</li>
+        </ul>
+        <p class="grow"><b>Open:</b> block-level pedestrian counts; behavioral trials.</p>
+      </div>
+      <div class="slide-fig">
+        <img src="../assets/gallery/walkthrough/cross_street_capacity_vs_camera_stress.png" alt="Supply versus demand scatter" loading="lazy">
+      </div>
     </section>
 
     <section class="slide">

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corridor topology primer - aimez</title>
+  <meta name="description" content="How the Midtown pedestrian graph work relates to paths, loops, and residuals, using topology as modeling language rather than a finished theorem.">
+  <link rel="canonical" href="https://aimez.ai/public/corridor-topology-primer.html">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <meta name="theme-color" content="#131c2d">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital@0;1&family=Newsreader:opsz,wght@6..72,400;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.62; color: #3a4a5c; padding: 2rem; background: #fafcfd; max-width: 940px; margin: 0 auto; color-scheme: light dark; }
+    h1 { font-family: Newsreader, serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.6rem; }
+    h2 { font-size: 1.08rem; font-weight: 600; margin: 1.8rem 0 0.7rem; }
+    p { margin-bottom: 1rem; font-size: 0.96rem; }
+    ul { margin: 1rem 0 1rem 1.2rem; }
+    li { margin-bottom: 0.45rem; font-size: 0.93rem; }
+    figure { margin: 1.35rem 0; background: #fff; border: 1px solid #e5eef5; padding: 0.8rem; }
+    img { width: 100%; height: auto; display: block; }
+    figcaption { margin-top: 0.75rem; font-size: 0.82rem; color: #5a6a7c; }
+    .eyebrow { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; margin-bottom: 1rem; }
+    .brandline { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+    .brand-mark { width: 28px; height: 28px; }
+    .brand-name { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; }
+    .note { background: #f5f9fc; border-left: 3px solid #7eb8d8; padding: 0.9rem 1rem; margin: 1rem 0; }
+    .nav { margin-top: 1.5rem; font-size: 0.9rem; }
+    a { color: #1c4e80; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0e1116; color: #e6e9f0; }
+      .eyebrow, .brand-name { color: #e08a5a; }
+      figure { background: #161b22; border-color: #232a33; }
+      figcaption, li { color: #98a2b3; }
+      .note { background: #11161d; }
+      a { color: #7e9bff; }
+    }
+  </style>
+</head>
+<body>
+  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
+  <div class="eyebrow">Public research note</div>
+  <h1>Corridor topology primer</h1>
+
+  <p>This page explains how the Midtown pedestrian-graph work can be read with topology vocabulary (paths, loops, residuals) without claiming a finished homological theorem. It is a modeling frame for the measured stress field and route behavior on a fixed corridor graph.</p>
+
+  <p><a href="routing-demo.html">Interactive routing demo</a> · <a href="graph-field-research.html">Graph-field research overview</a></p>
+
+  <h2>The modeled system</h2>
+  <p>Manhattan Midtown is represented as a pedestrian graph. Camera-derived stress and public capacity layers assign values to directed edges. Routing compares distance-only paths with paths that read the measured field.</p>
+
+  <figure>
+    <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest versus stress-aware route comparison">
+    <figcaption><strong>Routes as traces.</strong> A route comparison is the simplest way to show how a path moves through the modeled graph.</figcaption>
+  </figure>
+
+  <h2>Paths and loops</h2>
+  <p>A route is a path-like trace. A closed walk tests whether local edge costs cancel around a loop or leave a residual. The project uses loops as probes, not as a claim about the fundamental group of the city.</p>
+
+  <h2>Chains, cycles, and residuals</h2>
+  <p>Directed edges can be treated as oriented generators. A route is an ordered sum of edges. A residual is what remains when costs do not cancel around a loop. Basis checks ask whether patterns persist under an equivalent loop organization.</p>
+
+  <figure>
+    <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Capacity and stress layers">
+    <figcaption><strong>Measured layers on the graph.</strong> Stress and capacity make high- and low-pressure regions visible on the corridor.</figcaption>
+  </figure>
+
+  <div class="note"><p>Topology language here formulates tests; it does not replace empirical validation or claim invariants for Manhattan as a whole.</p></div>
+
+  <h2>Scope limits</h2>
+  <ul>
+    <li>No homology groups computed for the corridor graph in this public note.</li>
+    <li>No fundamental-group result claimed.</li>
+    <li>Loop-closure and basis-stability results remain work in progress.</li>
+  </ul>
+
+  <p class="nav"><a href="index.html">All public research pages</a> · <a href="../index.html">aimez home</a></p>
+</body>
+</html>

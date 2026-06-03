@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research program - aimez</title>
+  <meta name="description" content="A graph-field research program studying measured stress fields, route cost, loop closure, residual structure, and basis stability on a Manhattan pedestrian graph.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="aimez">
+  <meta property="og:title" content="aimez - Research program">
+  <meta property="og:description" content="A graph-field research program studying measured stress fields, route cost, loop closure, residual structure, and basis stability on a Manhattan pedestrian graph.">
+  <meta property="og:url" content="https://aimez.ai/notes/research-program.html">
+  <meta property="og:image" content="https://aimez.ai/assets/social/research_program_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="aimez - Research program">
+  <meta name="twitter:description" content="A graph-field research program studying measured stress fields, route cost, loop closure, residual structure, and basis stability on a Manhattan pedestrian graph.">
+  <meta name="twitter:image" content="https://aimez.ai/assets/social/research_program_preview.png">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#131c2d">
+  <meta name="msapplication-TileColor" content="#131c2d">
+  <meta name="msapplication-config" content="../browserconfig.xml">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300..800&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 400;
+      line-height: 1.62;
+      color: #3a4a5c;
+      padding: 2rem;
+      background: #fafcfd;
+      max-width: 920px;
+      margin: 0 auto;
+      color-scheme: light dark;
+    }
+    h1 { font-family: "Newsreader", "IBM Plex Serif", Georgia, serif; font-size: 1.55rem; line-height: 0.98; font-weight: 700; margin-bottom: 0.4rem; letter-spacing: -0.035em; }
+    h2 { font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 1.08rem; line-height: 1.02; letter-spacing: -0.02em; font-weight: 600; margin: 1.9rem 0 0.75rem; }
+    p { margin-bottom: 1rem; font-size: 0.96rem; }
+    .eyebrow { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.74rem; line-height: 1.15; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; margin-bottom: 1rem; }
+    .lede { color: #4b5b6d; font-size: 1rem; }
+    ul { list-style: none; margin: 0.9rem 0; }
+    li { position: relative; padding-left: 1rem; margin-bottom: 0.45rem; font-size: 0.92rem; color: #5a6a7c; }
+    li::before { content: "•"; position: absolute; left: 0; color: #7eb8d8; }
+    figure { margin: 1.35rem 0; background: white; border: 1px solid #e5eef5; padding: 0.8rem; }
+    img { display: block; width: 100%; height: auto; background: #fff; }
+    figcaption { margin-top: 0.75rem; font-size: 0.82rem; color: #5a6a7c; line-height: 1.55; }
+    .actions { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .actions a {
+      color: #3a4a5c;
+      text-decoration: none;
+      border: 1px solid #7eb8d8;
+      border-radius: 999px;
+      padding: 0.55rem 1rem;
+      font-size: 0.88rem;
+    }
+    .actions a:hover { background: #eef7fc; }
+  
+    .brandline {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+    }
+    .brand-name {
+      font-family: "IBM Plex Serif", Georgia, serif;
+      font-size: 0.9rem;
+      line-height: 1.15;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-style: italic;
+      color: #8f3a12;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body { background: #0e1116; color: #e6e9f0; }
+      .eyebrow, .brand-name { color: #e08a5a; }
+      .lede { color: #c4ccd8; }
+      li { color: #98a2b3; }
+      figcaption { color: #98a2b3; }
+      figure { background: #161b22; border-color: #232a33; }
+      img { background: #161b22; }
+      .actions a { color: #e6e9f0; border-color: #7eb8d8; }
+      .actions a:hover { background: rgba(126, 184, 216, 0.18); }
+    }
+  </style>
+</head>
+<body>
+  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
+  <div class="eyebrow">Private research note</div>
+  <h1>Research program</h1>
+  <p class="lede">
+    aimez studies graph fields through measured systems whose local edge values alter route cost while also potentially inducing graph-level structure that only becomes visible when the graph is read through loops, residual patterns, and basis changes. The current project uses a Manhattan pedestrian graph to test a specific structural question about whether local stress values on directed edges merely perturb route cost or whether they generate a higher-order object that becomes visible through loop closure, residual patterns, and basis stability.
+  </p>
+
+  <h2>What the program is trying to understand</h2>
+  <p>
+    The project's formal object is a measured stress field on a pedestrian graph corridor, where camera-derived stress and public capacity layers assign route-cost values to directed edges and adjacent corridor segments. Route comparisons show the first-order effect of those assignments on path cost and exposure, while loop closure provides the operational test for whether those local changes cancel around the graph or leave residual structure that cannot be reduced to the raw local field. Basis checks then ask whether the resulting structure persists when the same graph is read through a different but equivalent organization of its loops.
+  </p>
+
+  <h2>First applied substrate</h2>
+  <p>
+    The Manhattan pedestrian-routing graph is the first applied test surface because it allows the project to hold the graph fixed while varying the field carried by its edges and then measuring the resulting change in route behavior. The central claim is therefore not that Manhattan has a general stress atmosphere, but that measured edge values can be tested for route-cost effects, loop residuals, corridor organization, and basis stability within a concrete graph domain.
+  </p>
+
+  <figure>
+    <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest versus stress-aware route comparison">
+    <figcaption>
+      <strong>Shortest versus stress-aware routing.</strong> Same origin, same destination, same hop count. Different accumulated stress, different exposure profile, different route-cost structure. This is the first visible difference between distance-only routing and routing through a measured graph field whose edge values alter accumulated exposure and cost.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Cross-street capacity overlay">
+    <figcaption>
+      <strong>Corridor-level constraint field.</strong> Sidewalk width, active sheds, frontage load, and combined capacity factor rendered as measured per-block fields. These layers provide adjacent evidence for testing route cost, loop residuals, and corridor-level organization.
+    </figcaption>
+  </figure>
+
+  <h2>Why the work is cross-domain</h2>
+  <p>
+    The Manhattan case keeps the program anchored in a concrete graph, a measured field and visible route behavior whose changes can be inspected directly. The broader program begins only after that anchor is clear, because the larger question concerns when local measurements form a higher-order object that can be tested through routes, loops, residuals and basis changes, which is a stronger standard than general description.
+  </p>
+
+  <h2>Current materials</h2>
+  <ul>
+    <li>Background report on the Midtown graph corridor and route-cost substrate</li>
+    <li><a href="figure-walkthrough.html">Figure walkthrough</a> with claims, boundaries, caveats and open questions</li>
+    <li>CV pipeline appendix showing how per-camera stress lifts to graph-level sigma fields</li>
+    <li>Notes on loop closure, residual structure, basis stability, and adjacent theoretical anchors</li>
+  </ul>
+
+  <div class="actions">
+    <a href="platform.html">The collaboration platform</a>
+    <a href="figure-walkthrough.html">Canonical figure walkthrough</a>
+    <a href="../assets/gallery/documents/pax_report.pdf">Background report (PDF)</a>
+    <a href="../assets/gallery/documents/gil_canonical_walkthrough_for_jen_20260424.pdf">Walkthrough (PDF)</a>
+  </div>
+</body>
+</html>

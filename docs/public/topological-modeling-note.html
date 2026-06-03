@@ -2,81 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Topological modeling note - aimez</title>
-  <meta name="description" content="How the Manhattan stress-topology project relates to algebraic topology language from Hatcher chapters 0-2.">
-  <link rel="icon" href="../favicon.ico" sizes="any">
-  <meta name="theme-color" content="#131c2d">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Newsreader:opsz,wght@6..72,300..800&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.62; color: #3a4a5c; padding: 2rem; background: #fafcfd; max-width: 940px; margin: 0 auto; color-scheme: light dark; }
-    h1 { font-family: "Newsreader", "IBM Plex Serif", Georgia, serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 0.6rem; }
-    h2 { font-size: 1.08rem; font-weight: 600; margin: 1.8rem 0 0.7rem; }
-    p { margin-bottom: 1rem; font-size: 0.96rem; }
-    ul { margin: 1rem 0 1rem 1.2rem; }
-    li { margin-bottom: 0.45rem; font-size: 0.93rem; }
-    figure { margin: 1.35rem 0; background: white; border: 1px solid #e5eef5; padding: 0.8rem; }
-    img { display: block; width: 100%; height: auto; }
-    figcaption { margin-top: 0.75rem; font-size: 0.82rem; color: #5a6a7c; }
-    .eyebrow { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; margin-bottom: 1rem; }
-    .brandline { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
-    .brand-mark { width: 28px; height: 28px; }
-    .brand-name { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; }
-    .note { background: #f5f9fc; border-left: 3px solid #7eb8d8; padding: 0.9rem 1rem; }
-    a { color: #1c4e80; }
-    @media (prefers-color-scheme: dark) {
-      body { background: #0e1116; color: #e6e9f0; }
-      .eyebrow, .brand-name { color: #e08a5a; }
-      figure { background: #161b22; border-color: #232a33; }
-      figcaption, li { color: #98a2b3; }
-      .note { background: #11161d; }
-      a { color: #7e9bff; }
-    }
-  </style>
+  <title>Redirecting…</title>
+  <link rel="canonical" href="https://aimez.ai/public/corridor-topology-primer.html">
+  <meta http-equiv="refresh" content="0; url=https://aimez.ai/public/corridor-topology-primer.html">
 </head>
 <body>
-  <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
-  <div class="eyebrow">Research note</div>
-  <h1>Topological modeling note</h1>
-
-  <p>This note explains how the Manhattan stress-topology project can be described using algebraic topology language from Hatcher chapters 0-2. The goal is not to claim a completed algebraic-topology result. The goal is to show how the project is constructed, what kind of mathematical object it is trying to build, and which topology concepts clarify the questions being asked.</p>
-
-  <p><a href="routing-demo.html">Try the interactive routing demo</a> for a concrete path comparison on the corridor graph.</p>
-
-  <h2>The modeled system</h2>
-  <p>The project uses Manhattan as a model system for studying how stress patterns organize in a city. The city is represented as a pedestrian graph. Camera-derived stress and public capacity layers make high- and low-pressure areas visible on that graph. Routing algorithms are then run on top of the modeled system to ask how paths change when they move through a measured stress topology rather than distance alone.</p>
-
-  <p>The algebraic topology connection is that the project is not only drawing a map. It is building a space, assigning structure to its pieces, and asking whether loops and residuals reveal organization that is not visible from a single route.</p>
-
-  <figure>
-    <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest versus stress-aware route comparison">
-    <figcaption><strong>Routes as traces.</strong> The route comparison is the simplest way to explain paths through the modeled graph.</figcaption>
-  </figure>
-
-  <h2>Chapter 0. Building the space</h2>
-  <p>Hatcher chapter 0 gives language for spaces, maps, quotients, homotopy, deformation retracts, and cell complexes. The useful idea for this project is construction. The raw city is not the mathematical object. The model is the object.</p>
-  <div class="note"><p>This is an analogy, not a theorem. The project does not claim that Manhattan deformation retracts to the graph. It uses the graph as a controlled modeling surface.</p></div>
-
-  <h2>Chapter 1. Routes, paths, and loops</h2>
-  <p>A route through the city graph can be described as a path-like trace. A closed route or corridor circuit can be used as a loop-like probe. A single path can show a route choice, but a loop can test whether local costs cancel or whether a residual remains.</p>
-
-  <h2>Chapter 2. Chains, cycles, boundaries, and residuals</h2>
-  <p>For the Manhattan graph, a directed edge is like an oriented 1-cell for modeling purposes. A route is an ordered traversal of directed edges. A loop is a cycle candidate. A residual is what remains when local edge costs do not cancel around a loop.</p>
-
-  <figure>
-    <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Capacity and stress layers">
-    <figcaption><strong>Modeled city system.</strong> Public capacity layers and camera-derived stress make high- and low-pressure areas visible on the graph.</figcaption>
-  </figure>
-
-  <h2>What this does not prove yet</h2>
-  <ul>
-    <li>It does not compute homology groups for the Manhattan graph.</li>
-    <li>It does not compute a fundamental group.</li>
-    <li>It does not claim completed loop-closure or basis-stability results.</li>
-    <li>It does not treat stress topology as a topological invariant by itself.</li>
-  </ul>
-
-  <p><a href="../index.html">Home</a> · <a href="../notes/research-program.html">Research program</a></p>
+  <p><a href="https://aimez.ai/public/corridor-topology-primer.html">Corridor topology primer</a></p>
 </body>
 </html>

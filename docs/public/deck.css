@@ -55,6 +55,14 @@ body {
 }
 .slide--figure h2 { margin-bottom: 0.4rem; max-width: none; }
 .slide--figure .lead { margin-bottom: 0.35rem; }
+.slide--figure .slide-fig {
+  max-width: min(96vw, 1100px);
+  margin-left: auto;
+  margin-right: auto;
+}
+.slide--figure .slide-fig img {
+  max-height: min(68vh, 640px);
+}
 
 /* Single-panel figure: copy 2/3, figure 1/3 (qualityFilter + layout spec) */
 .slide.slide--split.active {

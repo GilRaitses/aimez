@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# Deck copy gate — patterns from phdPrograms/qualityFilter.yaml (not_x_but_y, em dashes).
+# Deck copy gate — patterns from phdPrograms/qualityFilter.yaml + no operator briefing on public HTML.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 FILES=("$ROOT/executive-summary.html" "$ROOT/figure-walkthrough.html")
-# Prose checks only on HTML (ignore array.slice in .js)
 FAIL=0
 
 check() {
@@ -20,15 +19,16 @@ check "em dash" '—'
 check "not just / not only" 'not (just|only)'
 check "rather than" 'rather than'
 check "instead of" 'instead of'
-check "not the ceiling" 'not the ceiling'
-check "not guessed" 'not guessed'
-check "not mid-pitch" 'not mid-pitch'
 check "word slice" '\bslice\b'
-check "slide meta on title" 'Panel map on slide|Links on the last slide|Who to talk to after'
+check "operator: who to talk" 'who to talk'
+check "operator: slide refs" 'listed on slide|Panel map on slide|Links on the last slide|slide \d'
+check "operator: Tonight/Offer" '<b>Tonight:</b>|<b>Offer:</b>|Send:'
+check "operator: pitch script" 'Open with the Grand Central|matches their role|after the conversation|mid-pitch|conversation deck'
+check "operator: after the panels" 'After the panels'
 
 if [[ "$FAIL" -eq 0 ]]; then
   echo "OK: no flagged prose patterns."
 else
-  echo "See qualityFilter.yaml (phdPrograms repo) for replacements."
+  echo "Operator briefing belongs in docs/internal/executive-summary-briefing.html only."
   exit 1
 fi

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Executive summary (slides) - aimez</title>
-  <meta name="description" content="Slide deck for Building the Responsible AI City: measured pedestrian graph research program.">
+  <meta name="description" content="Measured pedestrian graph research: Manhattan stress-aware routing, public data, and route choice.">
   <link rel="canonical" href="https://aimez.ai/public/executive-summary.html">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="stylesheet" href="deck.css">
@@ -24,11 +24,11 @@
     </section>
 
     <section class="slide">
-      <p class="kicker">Adoption</p>
-      <h2>What civic AI can claim here</h2>
-      <p class="lead">The case is narrow on purpose: public inputs, a locked Manhattan corridor graph, a camera stress field computed before routing, and route pairs compared on measured exposure at equal hop count.</p>
+      <p class="kicker">Public-good case</p>
+      <h2>What this demonstration claims</h2>
+      <p class="lead">Public inputs, a locked Manhattan corridor graph, a camera stress field computed before routing, and route pairs compared on measured exposure at equal hop count.</p>
       <ul>
-        <li><b>Inputs:</b> NYC Open Data tables plus DOT traffic cameras (listed on slide 8).</li>
+        <li><b>Inputs:</b> NYC Open Data tables plus DOT traffic cameras (inventory on the next slide).</li>
         <li><b>Audit point:</b> stress topology is fixed before any path algorithm runs.</li>
         <li><b>Demo result:</b> Grand Central → Carnegie Hall, same hops, lower accumulated camera stress on the stress-aware path.</li>
         <li><b>Scope:</b> one corridor (~300 nodes), reproducible snapshot, corridor-scale claims only.</li>
@@ -37,83 +37,40 @@
     </section>
 
     <section class="slide slide--dense">
-      <p class="kicker">Adoption</p>
-      <h2>Who in the room owns which decision</h2>
-      <p class="lead">Same demo. Five different reasons to care, mapped to tonight’s panels.</p>
+      <p class="kicker">Discussion</p>
+      <h2>Questions the program invites</h2>
       <div class="grid">
         <div class="tile"><h3>Governance</h3><p>What evidence is enough before this model ships inside a consumer routing product?</p></div>
         <div class="tile"><h3>Geospatial platform</h3><p>Is the corridor graph a product layer, an open reference, or a research instrument, and who updates it when streets change?</p></div>
-        <div class="tile"><h3>Agency pilot</h3><p>What does a Midtown pilot look like as refresh cadence, sign-off and documented process?</p></div>
+        <div class="tile"><h3>Agency pilot</h3><p>What does a reproducible Manhattan corridor pilot look like as refresh cadence, sign-off and documented process?</p></div>
         <div class="tile"><h3>Funders</h3><p>What gets funded that stays public-good, corridor-bounded and reproducible?</p></div>
         <div class="tile"><h3>Workforce</h3><p>Can students and agencies re-run the same graph snapshot, and who maintains the graph when the city changes?</p></div>
       </div>
     </section>
 
     <section class="slide slide--dense">
-      <p class="kicker">Panel 1 · questions</p>
-      <h2>Governance and geospatial platform</h2>
-      <div class="arc-pair">
-        <div class="arc-block">
-          <h3>Governance</h3>
-          <p class="q">What evidence bar would you set for a pedestrian model built only on public NYC data and DOT cameras before it touches a routing product?</p>
-          <p class="meta"><b>Tonight:</b> Dawson, Kennan · <b>Offer:</b> open tables, fixed pipeline order, public OD demo for audit</p>
-        </div>
-        <div class="arc-block">
-          <h3>Geospatial platform</h3>
-          <p class="q">Inside Earth / Sustainable Cities: corridor graph as platform layer, open reference, or academic instrument, and who maintains it when streets change?</p>
-          <p class="meta"><b>Tonight:</b> Sirefman, Chappell · <b>Offer:</b> stress field as a geospatial layer on a bounded graph</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide slide--dense">
-      <p class="kicker">Panels 1–2 · questions</p>
-      <h2>Agency pilots and funders</h2>
-      <div class="arc-pair">
-        <div class="arc-block">
-          <h3>Agency pilot</h3>
-          <p class="q">What does a reproducible Midtown pilot look like as refresh, sign-off and governance with agency ownership?</p>
-          <p class="meta"><b>Tonight:</b> Rosenberg, Kennan · <b>Offer:</b> corridor kit with open inputs and a documented refresh story</p>
-        </div>
-        <div class="arc-block">
-          <h3>Funders</h3>
-          <p class="q">What would you fund that stays public-good, corridor-bounded and reproducible?</p>
-          <p class="meta"><b>Tonight:</b> Lynn, Wiggins, Rooney, Pasmore, DiGiacomo · <b>Offer:</b> auditable civic AI with a published methodology boundary</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <p class="kicker">Panel 2 · question</p>
-      <h2>Workforce and graph maintenance</h2>
-      <p class="lead">Does NYC’s AI pipeline need a graph snapshot students and agencies can re-run, and who maintains that snapshot when sheds, closures and cameras change?</p>
-      <p class="grow"><b>Tonight:</b> Christensen, Roker-Jones · <b>Offer:</b> teaching bundle tied to the same Grand Central demo and open tables.</p>
-      <p class="lead">Routing is the visible export. Shed refresh, multi-corridor graphs and installation work sit on the same measured pipeline if a partner funds that scope.</p>
-    </section>
-
-    <section class="slide slide--dense">
-      <p class="kicker">Tonight’s room</p>
-      <h2>Celonis · 1 WTC · AI2030</h2>
+      <p class="kicker">Event</p>
+      <h2>Building the Responsible AI City · Celonis · 1 WTC</h2>
       <div class="grid grid--roster">
         <div>
           <p class="col-head">Panel 1 · Governable city · 5:25</p>
           <div class="grid" style="grid-template-columns:1fr;gap:0.5rem;max-width:none">
-            <div class="tile tile--compact"><h3>Alyssa Harvey Dawson</h3><p>Facilitator · AI2030 · governance</p></div>
-            <div class="tile tile--compact"><h3>Josh Sirefman</h3><p>Sidewalk Labs · geospatial platform</p></div>
-            <div class="tile tile--compact"><h3>Josh Chappell</h3><p>Google Earth Data &amp; Sustainable Cities · geospatial platform</p></div>
-            <div class="tile tile--compact"><h3>Ann Rosenberg</h3><p>Celonis public affairs · agency pilot</p></div>
-            <div class="tile tile--compact"><h3>Ariel Kennan</h3><p>Beeck Center · governance / agency pilot</p></div>
+            <div class="tile tile--compact"><h3>Alyssa Harvey Dawson</h3><p>Facilitator · AI2030</p></div>
+            <div class="tile tile--compact"><h3>Josh Sirefman</h3><p>Sidewalk Labs</p></div>
+            <div class="tile tile--compact"><h3>Josh Chappell</h3><p>Google Earth Data &amp; Sustainable Cities</p></div>
+            <div class="tile tile--compact"><h3>Ann Rosenberg</h3><p>Celonis public affairs</p></div>
+            <div class="tile tile--compact"><h3>Ariel Kennan</h3><p>Beeck Center</p></div>
           </div>
         </div>
         <div>
           <p class="col-head">Panel 2 · AI power map · 6:15</p>
           <div class="grid" style="grid-template-columns:1fr;gap:0.5rem;max-width:none">
-            <div class="tile tile--compact"><h3>Alison Rooney</h3><p>Facilitator · AI2030 · funders</p></div>
-            <div class="tile tile--compact"><h3>John Lynn</h3><p>Quay Acceleration · funders</p></div>
-            <div class="tile tile--compact"><h3>John Pasmore</h3><p>Latimer.ai · funders</p></div>
-            <div class="tile tile--compact"><h3>Randy Wiggins</h3><p>NY Global Tech Innovation Hub · funders</p></div>
-            <div class="tile tile--compact"><h3>Cristina DiGiacomo</h3><p>10P1 · funders</p></div>
-            <div class="tile tile--compact"><h3>Hosts</h3><p>Christensen &amp; Roker-Jones · workforce</p></div>
+            <div class="tile tile--compact"><h3>Alison Rooney</h3><p>Facilitator · AI2030</p></div>
+            <div class="tile tile--compact"><h3>John Lynn</h3><p>Quay Acceleration</p></div>
+            <div class="tile tile--compact"><h3>John Pasmore</h3><p>Latimer.ai</p></div>
+            <div class="tile tile--compact"><h3>Randy Wiggins</h3><p>NY Global Tech Innovation Hub</p></div>
+            <div class="tile tile--compact"><h3>Cristina DiGiacomo</h3><p>10P1</p></div>
+            <div class="tile tile--compact"><h3>Ben Christensen &amp; Marie Roker-Jones</h3><p>AI2030 hosts</p></div>
           </div>
         </div>
       </div>
@@ -145,8 +102,8 @@
 
     <section class="slide">
       <p class="kicker">Pilot</p>
-      <h2>Midtown corridor</h2>
-      <p class="lead">40th–59th St, Lexington to 8th Ave · ~300 nodes · decision-locked stress field · multi-layer capacity from NYC Open Data.</p>
+      <h2>Manhattan corridor (40th–59th St)</h2>
+      <p class="lead">Lexington to 8th Ave · ~300 nodes · decision-locked stress field · multi-layer capacity from NYC Open Data.</p>
       <p class="lead">Same graph, varying fields. A bounded surface partners can evaluate at corridor scale.</p>
       <div class="flow" style="margin-top:0.5rem">
         <span class="node pink">open data</span>
@@ -204,15 +161,15 @@
     </section>
 
     <section class="slide">
-      <p class="kicker">After the panels</p>
-      <h2>Share this deck</h2>
-      <p class="lead">Open with the Grand Central demo, then the adoption slide that matches their role. Offer this URL after the conversation.</p>
+      <p class="kicker">Materials</p>
+      <h2>Further reading</h2>
+      <p class="lead">Gil Raitses · Syracuse University · patent pending</p>
       <p class="sub">aimez.ai/public/executive-summary.html</p>
       <div class="links">
         <a href="figure-walkthrough.html">Canonical figure slides</a>
         <a href="routing-demo.html">Live routing demo</a>
+        <a href="graph-field-research.html">Graph-field research overview</a>
       </div>
-      <p class="grow">Gil Raitses · Syracuse University · patent pending</p>
     </section>
 
   </div>

@@ -35,6 +35,7 @@
       background: #fafcfd;
       max-width: 980px;
       margin: 0 auto;
+      color-scheme: light dark;
     }
     h1 {
       font-family: "Newsreader", "IBM Plex Serif", Georgia, serif;
@@ -102,6 +103,16 @@
       font-size: 0.84rem;
       color: #5a6a7c;
       line-height: 1.55;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0e1116; color: #e6e9f0; }
+      h1, h2 { color: #e6e9f0; }
+      p { color: #c4ccd8; }
+      .eyebrow, .brand-name { color: #e08a5a; }
+      .lede { color: #e6e9f0; }
+      figure { background: #161b22; border-color: #232a33; }
+      img { background: #161b22; }
+      figcaption { color: #98a2b3; }
     }
   </style>
 </head>

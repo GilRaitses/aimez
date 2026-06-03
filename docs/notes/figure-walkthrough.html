@@ -37,6 +37,7 @@
       background: #fafcfd;
       max-width: 920px;
       margin: 0 auto;
+      color-scheme: light dark;
     }
     h1 { font-family: "Newsreader", "IBM Plex Serif", Georgia, serif; font-size: 1.7rem; line-height: 1.0; font-weight: 700; margin-bottom: 0.4rem; letter-spacing: -0.035em; }
     h2 { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 1.18rem; line-height: 1.05; letter-spacing: -0.02em; font-weight: 600; margin: 2.6rem 0 0.6rem; padding-bottom: 0.35rem; border-bottom: 1px solid #e5eef5; }
@@ -67,6 +68,24 @@
     .brandline { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
     .brand-mark { width: 28px; height: 28px; flex: 0 0 auto; }
     .brand-name { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.9rem; line-height: 1.15; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #0e1116; color: #e6e9f0; }
+      h2 { border-bottom-color: #232a33; }
+      h3 { color: #cdd5e0; }
+      .eyebrow, .fignum, .dlabel, .brand-name { color: #e08a5a; }
+      .byline { color: #98a2b3; }
+      .lede { color: #c4ccd8; }
+      .abstract { background: #11161d; border-color: #232a33; }
+      li { color: #98a2b3; }
+      figure { background: #161b22; border-color: #232a33; }
+      img { background: #161b22; }
+      figcaption { color: #98a2b3; }
+      .discussion p { color: #aeb8c4; }
+      code { background: #11151d; }
+      .synthesis { background: #22190f; border-color: #3a2f22; }
+      .actions a { color: #e6e9f0; border-color: #7eb8d8; }
+      .actions a:hover { background: rgba(126, 184, 216, 0.18); }
+    }
   </style>
 </head>
 <body>

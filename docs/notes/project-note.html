@@ -22,6 +22,7 @@
       color: #3a4a5c;
       padding: 2rem;
       background: #fafcfd;
+      color-scheme: light dark;
     }
     h1 { font-family: "Newsreader", "IBM Plex Serif", Georgia, serif; font-size: 1.4rem; line-height: 0.98; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.035em; }
     p { margin-bottom: 1rem; font-size: 0.95rem; }
@@ -61,6 +62,11 @@
       color: #8f3a12;
     }
 
+    @media (prefers-color-scheme: dark) {
+      body { background: #0e1116; color: #e6e9f0; }
+      .brand-name { color: #e08a5a; }
+      li { color: #98a2b3; }
+    }
   </style>
 </head>
 <body>

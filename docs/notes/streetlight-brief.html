@@ -24,6 +24,7 @@
       background: #fafcfd;
       max-width: 900px;
       margin: 0 auto;
+      color-scheme: light dark;
     }
     h1 { font-family: "Newsreader", "IBM Plex Serif", Georgia, serif; font-size: 1.5rem; line-height: 0.98; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.035em; }
     .eyebrow { font-family: "IBM Plex Serif", Georgia, serif; font-size: 0.75rem; line-height: 1.15; letter-spacing: 0.08em; text-transform: uppercase; font-style: italic; color: #8f3a12; margin-bottom: 1rem; }
@@ -108,6 +109,18 @@
       color: #8f3a12;
     }
 
+    @media (prefers-color-scheme: dark) {
+      body { background: #0e1116; color: #e6e9f0; }
+      .eyebrow, .brand-name { color: #e08a5a; }
+      .lede { color: #c4ccd8; }
+      li { color: #98a2b3; }
+      figure { background: #161b22; border-color: #232a33; }
+      img { background: #161b22; }
+      figcaption { color: #98a2b3; }
+      .download { color: #e6e9f0; border-color: #7eb8d8; }
+      .download:hover { background: rgba(126, 184, 216, 0.18); }
+      .disclosure { border-top-color: #232a33; color: #98a2b3; }
+    }
   </style>
 </head>
 <body>

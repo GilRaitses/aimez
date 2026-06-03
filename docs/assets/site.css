@@ -7,6 +7,7 @@
 }
 
 :root {
+  color-scheme: light dark;
   --bg-start: #e8f4fc;
   --bg-mid: #f5e6f0;
   --bg-end: #fdf6e3;
@@ -315,5 +316,50 @@ h1 {
   }
   .hero-copy {
     font-size: 1.08rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #e6e9f0;
+    --text-secondary: #98a2b3;
+  }
+  body {
+    color: var(--text-primary);
+    background: #0e1116;
+  }
+  .kicker {
+    color: #e08a5a;
+  }
+  .direction-grid article,
+  .signup-grid article,
+  .demo-section,
+  .selected-links a {
+    background: #161b22;
+    border-color: #232a33;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  }
+  .selected-links a,
+  .signup-grid a {
+    color: var(--text-primary);
+  }
+  .signup-grid a {
+    border-color: var(--accent);
+  }
+  .selected-links a:hover,
+  .signup-grid a:hover,
+  .link-button:hover {
+    background: rgba(126, 184, 216, 0.22);
+    border-color: var(--accent);
+    color: var(--text-primary);
+  }
+  .link-button {
+    color: var(--text-primary);
+  }
+  .modal-container {
+    background: #161b22;
+  }
+  .patent-note {
+    color: #98a2b3 !important;
   }
 }

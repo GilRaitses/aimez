@@ -37,6 +37,7 @@
       background: #fafcfd;
       max-width: 920px;
       margin: 0 auto;
+      color-scheme: light dark;
     }
     h1 { font-family: "Newsreader", "IBM Plex Serif", Georgia, serif; font-size: 1.55rem; line-height: 0.98; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.035em; }
     h2 { font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 1.08rem; line-height: 1.02; letter-spacing: -0.02em; font-weight: 600; margin: 1.9rem 0 0.75rem; }
@@ -76,6 +77,14 @@
       color: #8f3a12;
     }
 
+    @media (prefers-color-scheme: dark) {
+      body { background: #0e1116; color: #e6e9f0; }
+      .eyebrow, .brand-name { color: #e08a5a; }
+      li { color: #98a2b3; }
+      figure { background: #161b22; border-color: #232a33; }
+      img { background: #161b22; }
+      figcaption { color: #98a2b3; }
+    }
   </style>
 </head>
 <body>

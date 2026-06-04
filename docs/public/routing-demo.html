@@ -173,17 +173,28 @@
 
       function cell(v, cls) { return '<td class="num' + (cls ? ' ' + cls : '') + '">' + v + '</td>'; }
 
+      function legTurns(steps) {
+        if (!steps || !steps.length) return "";
+        var h = "<details style=\"margin:0.4rem 0 0.9rem\"><summary style=\"cursor:pointer;font-size:0.85rem;font-weight:600\">Turn by turn (" + steps.length + " steps on the stress-aware route)</summary><ol style=\"font-size:0.82rem;line-height:1.5;margin:0.4rem 0 0 1.1rem\">";
+        steps.forEach(function (s) {
+          h += "<li>" + s.from + " &rarr; " + s.to + " <span class=\"num\">stress " + s.edge_stress + "</span></li>";
+        });
+        h += "</ol></details>";
+        return h;
+      }
+
       function legTable(m, title) {
         var s = m.shortest, g = m.sigma_aware, c = m.comparison;
-        var hopTxt = c.extra_hops === 0 ? ("Same " + m.hops + " hops") : (c.extra_hops > 0 ? ("+" + c.extra_hops + " hops") : (c.extra_hops + " hops"));
+        var hopTxt = c.extra_hops === 0 ? ("Same " + s.hops + " hops") : (c.extra_hops > 0 ? ("+" + c.extra_hops + " hops") : (c.extra_hops + " hops"));
         var h = "<h3 style=\"font-size:0.95rem;margin:1rem 0 0.4rem\">" + title + "</h3>";
-        h += "<p style=\"font-size:0.88rem;margin-bottom:0.4rem\">" + hopTxt + ", " + c.pct_stress_reduction + "% less accumulated stress, " + c.high_stress_drop + " fewer high-stress blocks (s &gt; 0.80).</p>";
+        h += "<p style=\"font-size:0.88rem;margin-bottom:0.4rem\">" + hopTxt + ", " + c.pct_stress_reduction + "% less accumulated stress, " + c.high_stress_edges_removed + " fewer high-stress blocks (s &gt; 0.80).</p>";
         h += "<table><tr><th>Metric</th><th>Shortest</th><th>Stress-aware</th><th>Change</th></tr><tbody>";
-        h += "<tr><td>Hops</td>" + cell(m.hops) + cell(m.hops + c.extra_hops) + cell(c.extra_hops) + "</tr>";
+        h += "<tr><td>Hops</td>" + cell(s.hops) + cell(g.hops) + cell(c.extra_hops) + "</tr>";
         h += "<tr><td>Total accumulated stress</td>" + cell(s.total_stress) + cell(g.total_stress) + cell("-" + c.pct_stress_reduction + "%", "win") + "</tr>";
         h += "<tr><td>Max single-block stress</td>" + cell(s.max_stress) + cell(g.max_stress) + cell((g.max_stress - s.max_stress).toFixed(2), "win") + "</tr>";
-        h += "<tr><td>High-stress blocks</td>" + cell(s.n_high_stress_edges) + cell(g.n_high_stress_edges) + cell("-" + c.high_stress_drop, "win") + "</tr>";
+        h += "<tr><td>High-stress blocks</td>" + cell(s.n_high_stress_edges) + cell(g.n_high_stress_edges) + cell("-" + c.high_stress_edges_removed, "win") + "</tr>";
         h += "<tr><td>Integral cost (1 + alpha&middot;s)</td>" + cell(s.integral_cost) + cell(g.integral_cost) + cell((g.integral_cost - s.integral_cost).toFixed(2), "win") + "</tr></tbody></table>";
+        h += legTurns(m.turn_by_turn);
         return h;
       }
 
@@ -222,15 +233,15 @@
             headline.className = "headline";
             metricsTitle.hidden = false;
             if (res.j.mode === "itinerary") {
-              headline.textContent = res.j.trip.legs + " legs: " + res.j.trip.pct_stress_reduction + "% lower total stress on the stress-aware itinerary (integral cost " + res.j.trip.sigma_aware_integral_cost + " vs " + res.j.trip.shortest_integral_cost + ").";
+              headline.textContent = res.j.trip.legs + " legs, " + res.j.trip.pct_stress_reduction + "% lower total accumulated stress on the stress-aware itinerary, " + res.j.trip.sigma_aware_total_stress + " vs " + res.j.trip.shortest_total_stress + ".";
               metricsTables.innerHTML = res.j.legs.map(function (leg) {
-                return legTable(leg, leg.origin + " → " + leg.destination);
+                return legTable(leg, leg.origin + " to " + leg.destination);
               }).join("");
               statusEl.textContent = "Itinerary computed live.";
             } else {
-              var m = res.j.metrics;
+              var m = res.j;
               var c = m.comparison;
-              headline.textContent = m.origin + " → " + m.destination + ": " + c.pct_stress_reduction + "% less stress on the stress-aware route.";
+              headline.textContent = m.origin + " to " + m.destination + ", " + c.pct_stress_reduction + "% less stress on the stress-aware route.";
               metricsTables.innerHTML = legTable(m, "This leg");
               statusEl.textContent = "Computed live.";
             }

@@ -25,6 +25,14 @@ check "operator: slide refs" 'listed on slide|Panel map on slide|Links on the la
 check "operator: Tonight/Offer" '<b>Tonight:</b>|<b>Offer:</b>|Send:'
 check "operator: pitch script" 'Open with the Grand Central|matches their role|after the conversation|mid-pitch|conversation deck'
 check "operator: after the panels" 'After the panels'
+check "internal: Build callout" '<b>Build:</b>|Build:'
+check "internal: proof object" 'proof object'
+check "internal: audit surface" 'audit surface'
+check "internal: demo OD" 'demo OD'
+check "internal: OD screenshot" 'OD screenshot'
+check "internal: Audit point label" 'Audit point:'
+check "internal: Commercial boundary label" 'Commercial boundary:'
+check "internal: show funders" 'show funders and agencies'
 
 if [[ "$FAIL" -eq 0 ]]; then
   echo "OK: no flagged prose patterns."

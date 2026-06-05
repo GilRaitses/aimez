@@ -18,16 +18,16 @@
       <p class="kicker">Building the Responsible AI City · NY Tech Week</p>
       <h1>Choosing how we move between places</h1>
       <p class="sub">aimez · more ways to like the walk</p>
-      <p class="lead"><strong>Outcome:</strong> how we engage the city between destinations. Shared stress on a public graph, hop-equivalent routes, and room to meet, gather and move the way people prefer.</p>
+      <p class="lead"><strong>Outcome:</strong> how we engage the city between destinations. Shared stress on a public graph, block-equivalent routes, and room to meet, gather and move the way people prefer.</p>
       <p class="sub">Case study using a vision AI system to reconstruct stress-field topology from DOT camera data and NYC open data on a Manhattan pedestrian graph.</p>
-      <p class="lead">Grand Central → Carnegie Hall: equal hop count; lower accumulated camera stress on the stress-aware path.</p>
+      <p class="lead">Grand Central → Carnegie Hall: equal block count; lower accumulated camera stress on the stress-aware path.</p>
     </section>
 
     <section class="slide">
       <p class="kicker">Research question</p>
       <h2>Public-good AI on a measured graph</h2>
-      <p class="lead">Can open inputs support psychophysics-informed learning and emergent-behavior models of camera-derived stress topology, then a routing layer that pairs quality-of-life paths with hop-equivalent shortest-path options?</p>
-      <p class="lead">The corridor demonstration is the first worked example: same graph, stress fixed before routing, route pairs compared on measured exposure at equal hop count. The measured graph is public so others can re-run it before any navigation product embeds the model.</p>
+      <p class="lead">Can open inputs support psychophysics-informed learning and emergent-behavior models of camera-derived stress topology, then a routing layer that pairs quality-of-life paths with block-equivalent shortest-path options?</p>
+      <p class="lead">The corridor demonstration is the first worked example: same graph, stress fixed before routing, route pairs compared on measured exposure at equal block count. The measured graph is public so others can re-run it before any navigation product embeds the model.</p>
     </section>
 
     <section class="slide slide--split">
@@ -37,7 +37,7 @@
         <ul>
           <li>NYC Open Data tables plus DOT traffic cameras (substrate inventory on a later slide).</li>
           <li>Stress topology is fixed before any path algorithm runs.</li>
-          <li>Grand Central → Carnegie Hall: same hops, lower accumulated camera stress on the stress-aware path.</li>
+          <li>Grand Central → Carnegie Hall: same blocks, lower accumulated camera stress on the stress-aware path.</li>
           <li>One Manhattan corridor (~300 nodes), reproducible snapshot, corridor-scale claims only.</li>
           <li>Open tables stay open; fusion, calibration, and routing cost stay proprietary.</li>
         </ul>
@@ -66,7 +66,7 @@
         <li><b>Stress field.</b> DOT cameras mapped to edge stress on the pedestrian graph.</li>
         <li><b>Topology.</b> Paths, loops and residuals on the locked corridor graph.</li>
         <li><b>Forecasting.</b> Short-horizon updates to the stress field before routing runs.</li>
-        <li><b>Route solving.</b> Hop-equivalent and stress-aware paths on the same directed graph.</li>
+        <li><b>Route solving.</b> Block-equivalent and stress-aware paths on the same directed graph.</li>
       </ol>
       <p class="lead">Built from NYC open data on a Manhattan corridor graph (40th–59th St, Lexington to 8th Ave, ~300 nodes). Four layers on one locked graph keep stress, topology, forecast, and routing inspectable in that order.</p>
       <div class="flow" style="margin-top:0.5rem">
@@ -110,8 +110,8 @@
       <div class="slide-copy">
         <p class="kicker">Problem</p>
         <h2>Map distance and walking burden diverge</h2>
-        <p class="grow">Apps optimize hops or minutes. Walkers meet crowding, sheds, station egress and uneven capacity. Local pressure sits on the graph where standard routers use hop count alone.</p>
-        <p class="grow">The program puts that pressure on a graph and compares routes on <strong>measured exposure</strong> from the stress field, including the walk between destinations that hop-minimum routers rarely surface.</p>
+        <p class="grow">Apps optimize blocks or minutes. Walkers meet crowding, sheds, station egress and uneven capacity. Local pressure sits on the graph where standard routers use block count alone.</p>
+        <p class="grow">The program puts that pressure on a graph and compares routes on <strong>measured exposure</strong> from the stress field, including the walk between destinations that fewest-block routers rarely surface.</p>
       </div>
       <div class="slide-fig">
         <img src="../assets/gallery/mobility/03_burden_overlay_capacity_layers.png" alt="Capacity layers on the corridor graph" loading="lazy">
@@ -157,7 +157,7 @@
       <h2>Nine origin–destination pairs</h2>
       <div class="slide-fig">
         <img src="../assets/gallery/mobility/02_feasible_routes_destination_grid.png" alt="Feasible routes across nine destinations" loading="lazy">
-        <p>Structural contrast across nine corridor ODs: stress-aware paths diverge from hop-minimum paths where the field differs.</p>
+        <p>Structural contrast across nine corridor ODs: stress-aware paths diverge from fewest-block paths where the field differs.</p>
       </div>
     </section>
 
@@ -165,7 +165,7 @@
       <div class="slide-copy">
         <p class="kicker">Figure</p>
         <h2>Shortest and stress-aware routes</h2>
-        <p class="grow">Grand Central → Carnegie Hall: equal hops, lower accumulated stress on the stress-aware path.</p>
+        <p class="grow">Grand Central → Carnegie Hall: equal blocks, lower accumulated stress on the stress-aware path.</p>
       </div>
       <div class="slide-fig">
         <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Route comparison" loading="lazy">
@@ -188,7 +188,7 @@
         <p class="kicker">Validation</p>
         <h2>What we claim today</h2>
         <ul>
-          <li>On Grand Central → Carnegie Hall, the stress-aware path carries lower measured stress at equal hops than the shortest-hop path.</li>
+          <li>On Grand Central → Carnegie Hall, the stress-aware path carries lower measured stress at equal blocks than the shortest-block path.</li>
           <li>Supply ⊥ demand at cross-street edges (r ≈ 0).</li>
           <li>Lived-knowledge check: 8/12 aligned, 0 misaligned (multi-informant study still needed).</li>
         </ul>
@@ -206,7 +206,7 @@
         <li><b>Public graph first.</b> Open tables and camera stress on a locked corridor graph before navigation products embed the model.</li>
         <li><b>Documented order.</b> Stress topology is fixed and published before path algorithms run.</li>
         <li><b>Bounded claims.</b> Corridor-scale demonstrations others can reproduce; proprietary fusion and calibration stay separate from the open inputs.</li>
-        <li><b>Room to choose.</b> Hop-equivalent alternatives so walking between destinations stays a civic choice.</li>
+        <li><b>Room to choose.</b> Block-equivalent alternatives so walking between destinations stays a civic choice.</li>
         <li><b>Shared upkeep.</b> A refresh story when sheds, closures, and cameras change the street.</li>
       </ul>
       <p class="grow">Essay-length context: <a href="what-it-means-to-build.html">what it means to build</a>.</p>

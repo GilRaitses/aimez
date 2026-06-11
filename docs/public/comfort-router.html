@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Observable Comfort Router — aimez</title>
+  <meta name="description" content="Live Manhattan pedestrian routing on street pressure from public DOT feeds, tree shade and Landsat heat. Five route modes, phase map, block-level comparison.">
+  <link rel="canonical" href="https://aimez.ai/public/comfort-router.html">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <meta name="theme-color" content="#0f1419">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600;700&family=Fraunces:opsz,wght@9..144,500;600;700&display=swap');
+    :root {
+      --bg: #0f1419;
+      --surface: #171e26;
+      --surface2: #1e2732;
+      --border: #2a3544;
+      --text: #e8edf4;
+      --muted: #8b9aab;
+      --accent: #5ec4a8;
+      --accent2: #7eb8ff;
+      --warm: #e8a87c;
+      --warn: #e8c07a;
+      --danger: #f08080;
+      --radius: 14px;
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: radial-gradient(ellipse 120% 80% at 50% -20%, #1a2838 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+    .brand { display: flex; align-items: center; gap: .65rem; margin-bottom: .5rem; }
+    .brand img { width: 30px; height: 30px; }
+    .brand span { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--warm); font-weight: 600; }
+    h1 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(1.65rem, 4vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      margin-bottom: .45rem;
+    }
+    .lede { color: var(--muted); font-size: .98rem; max-width: 54ch; }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.15rem 1.25rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.25rem;
+    }
+    .controls { display: grid; grid-template-columns: 1fr 1fr auto; gap: .75rem; align-items: end; }
+    @media (max-width: 720px) { .controls { grid-template-columns: 1fr; } }
+    label { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
+    select, button {
+      font: inherit; border-radius: 10px; border: 1px solid var(--border);
+      background: var(--surface2); color: var(--text); padding: .6rem .75rem; width: 100%;
+    }
+    select:focus, button:focus { outline: 2px solid var(--accent2); outline-offset: 2px; }
+    .btn-primary {
+      background: linear-gradient(135deg, #3d8f7a, var(--accent));
+      border: none; color: #0a1210; font-weight: 700; cursor: pointer;
+      min-width: 8rem; transition: transform .15s, filter .15s;
+    }
+    .btn-primary:hover:not(:disabled) { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: .55; cursor: wait; }
+    .presets { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .85rem; align-items: center; }
+    .presets-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-right: .25rem; }
+    .preset {
+      font-size: .78rem; padding: .38rem .75rem; border-radius: 999px;
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+      cursor: pointer; width: auto; transition: border-color .15s, color .15s, background .15s;
+    }
+    .preset:hover { border-color: var(--accent); color: var(--accent); }
+    .preset.active { background: rgba(94,196,168,.14); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+    #status { font-size: .88rem; color: var(--muted); min-height: 1.4em; margin: .6rem 0 0; }
+    #status.error { color: var(--danger); }
+    #status.ok { color: var(--accent); }
+    .headline {
+      font-family: Fraunces, Georgia, serif;
+      font-size: 1.05rem; color: var(--text); margin-bottom: 1rem; line-height: 1.45;
+    }
+    .strip {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: .65rem; margin-bottom: 1.25rem;
+    }
+    .metric {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 12px;
+      padding: .75rem .85rem; text-align: center;
+      transition: transform .2s, border-color .2s;
+    }
+    .metric:hover { transform: translateY(-2px); border-color: rgba(94,196,168,.35); }
+    .metric .val { font-size: 1.5rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+    .metric .val.neg { color: var(--warn); }
+    .metric .lbl { font-size: .65rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-top: .25rem; }
+    .meta-line {
+      display: flex; flex-wrap: wrap; gap: .5rem 1rem; font-size: .8rem; color: var(--muted);
+      margin-bottom: .75rem; align-items: center;
+    }
+    .badge {
+      font-size: .72rem; padding: .28rem .6rem; border-radius: 8px;
+      background: rgba(232,192,122,.12); border: 1px solid rgba(232,192,122,.3); color: var(--warn);
+    }
+    .badge.ok { background: rgba(94,196,168,.12); border-color: rgba(94,196,168,.35); color: var(--accent); }
+    .grid-routes {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: .75rem; margin-bottom: .75rem;
+    }
+    .route-card {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 12px;
+      padding: .85rem; font-size: .82rem; transition: transform .15s;
+    }
+    .route-card:hover { transform: translateY(-1px); }
+    .route-card h3 { font-size: .88rem; margin-bottom: .55rem; display: flex; align-items: center; gap: .35rem; }
+    .route-card .ico { font-size: 1rem; opacity: .9; }
+    .route-card.shortest h3 { color: #b8c5d4; }
+    .route-card.stress h3 { color: #f09090; }
+    .route-card.shade h3 { color: #6ecf8a; }
+    .route-card.comfort h3 { color: #e8b86d; }
+    .route-card.adaptive h3 { color: var(--warm); }
+    .route-card { border-top: 3px solid var(--border); }
+    .route-card.shortest { border-top-color: #b8c5d4; }
+    .route-card.stress { border-top-color: #f09090; }
+    .route-card.shade { border-top-color: #6ecf8a; }
+    .route-card.comfort { border-top-color: #e8b86d; }
+    .route-card.adaptive { border-top-color: var(--warm); box-shadow: 0 0 0 1px rgba(232,168,124,.15); }
+    .route-card dl { display: grid; grid-template-columns: 1fr auto; gap: .2rem .5rem; }
+    .route-card dt { color: var(--muted); }
+    .route-card dd { font-variant-numeric: tabular-nums; text-align: right; }
+    .results-body { display: flex; flex-direction: column; gap: 1.25rem; }
+    @media (min-width: 900px) {
+      .results-split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 1.25rem; align-items: start; }
+    }
+    .maps { display: grid; gap: 1rem; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: .5rem; }
+    .btn-ghost {
+      font-size: .78rem; padding: .35rem .65rem; width: auto; cursor: pointer;
+      background: transparent; color: var(--muted);
+    }
+    .btn-ghost:hover { color: var(--accent2); border-color: var(--accent2); }
+    .regime-chips { display: flex; flex-wrap: wrap; gap: .35rem; margin: .5rem 0 .65rem; }
+    .chip {
+      font-size: .68rem; padding: .25rem .5rem; border-radius: 6px;
+      background: rgba(126,184,255,.12); border: 1px solid rgba(126,184,255,.3); color: var(--accent2);
+      text-transform: capitalize;
+    }
+    .map-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; cursor: zoom-in;
+    }
+    .map-box h4 { font-size: .78rem; padding: .55rem .85rem; color: var(--muted); border-bottom: 1px solid var(--border); }
+    .map-box img { width: 100%; display: block; background: #0a0e12; }
+    .map-placeholder {
+      min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--muted); font-size: .9rem; padding: 2rem; text-align: center; gap: .5rem;
+    }
+    .load-steps { font-size: .78rem; color: var(--accent2); }
+    .skeleton { animation: pulse 1.4s ease infinite; background: var(--surface2); border-radius: 8px; min-height: 180px; width: 100%; }
+    @keyframes pulse { 0%,100%{opacity:.55} 50%{opacity:1} }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .fade-in { animation: fadeUp .45s ease forwards; }
+    details { margin-top: .5rem; font-size: .78rem; color: var(--muted); }
+    details summary { cursor: pointer; color: var(--accent2); font-weight: 500; }
+    details ol { margin: .4rem 0 0 1.1rem; max-height: 200px; overflow-y: auto; }
+    .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: .78rem; color: var(--muted); }
+    .footer a { color: var(--accent2); }
+    .hidden { display: none !important; }
+    .demo-banner {
+      font-size: .72rem; padding: .35rem .65rem; border-radius: 8px; margin-bottom: 1rem;
+      background: rgba(126,184,255,.1); border: 1px solid rgba(126,184,255,.25); color: var(--accent2);
+    }
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 100;
+      display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+      cursor: zoom-out;
+    }
+    .lightbox img { max-width: 100%; max-height: 92vh; border-radius: 8px; }
+    .compact .grid-routes { grid-template-columns: repeat(2, 1fr); }
+    .compact .strip { grid-template-columns: repeat(3, 1fr); }
+    #debug { font-family: ui-monospace, monospace; font-size: .7rem; white-space: pre-wrap; color: var(--muted); max-height: 200px; overflow: auto; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <header>
+      <div class="brand"><img src="../assets/aimez-mark.webp" alt=""><span>aimez · comfort router</span></div>
+      <h1>Observable Comfort Router</h1>
+      <p class="lede">Same Manhattan walk, five ways to feel it — quieter blocks, more tree shade, cooler surface heat. Pick two corners and watch the routes diverge.</p>
+    </header>
+
+    <p id="demoBanner" class="demo-banner hidden">Lobby demo mode — cycling sample walks every <span id="demoSec">12</span>s</p>
+
+    <section class="panel">
+      <div class="controls">
+        <div><label for="origin">Origin</label><select id="origin"></select></div>
+        <div><label for="dest">Destination</label><select id="dest"></select></div>
+        <div><label>&nbsp;</label><button class="btn-primary" id="routeBtn" type="button">Route</button></div>
+      </div>
+      <div class="presets">
+        <span class="presets-label">Try</span>
+        <span id="presets"></span>
+      </div>
+      <p id="status">Pick two landmarks and click Route.</p>
+    </section>
+
+    <section id="results" class="hidden">
+      <div class="meta-line" id="metaLine"></div>
+      <div class="toolbar">
+        <button type="button" class="btn-ghost" id="copyLink">Copy demo link</button>
+        <span id="latency" class="btn-ghost" style="border:none;cursor:default"></span>
+      </div>
+      <p class="headline" id="headline"></p>
+      <div class="strip" id="strip"></div>
+      <div class="results-body">
+        <div class="results-split">
+          <div class="maps" id="maps"></div>
+          <div>
+            <div class="grid-routes" id="routeGrid"></div>
+            <div id="regimeChips" class="regime-chips"></div>
+            <div id="turnBlock"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="emptyMaps" class="map-box">
+      <div class="map-placeholder" id="placeholder">
+        <span>Route map and phase map appear here after you run a query.</span>
+        <span class="load-steps hidden" id="loadSteps"></span>
+      </div>
+    </section>
+
+    <p class="footer">
+      Heat routing uses Landsat LST on the street graph (greenR framework, Mahajan <em>Ecological Indicators</em> 2024).
+      Built with <a href="https://github.com/GilRaitses/pax">pax</a>.
+      <a href="routing-demo.html">Classic two-mode demo</a> · <a href="index.html">Public pages</a>
+    </p>
+    <pre id="debug" class="hidden"></pre>
+  </div>
+
+  <script>
+  (function () {
+    var API_DEFAULT = "https://50pl2v7kne.execute-api.us-east-1.amazonaws.com";
+    var params = new URLSearchParams(location.search);
+    var FLAGS = {
+      api: params.get("api") || API_DEFAULT,
+      showAdaptive: !params.has("no-adaptive"),
+      showPhaseMap: !params.has("no-phase-map"),
+      showComfort: !params.has("no-comfort"),
+      showAllTurns: params.has("all-turns"),
+      compact: params.has("compact"),
+      debug: params.has("debug"),
+      autoRoute: params.has("auto"),
+      demo: params.has("demo"),
+      demoInterval: parseInt(params.get("demo_interval") || "12", 10) * 1000,
+      noAnimate: params.has("no-animate")
+    };
+    if (FLAGS.compact) document.getElementById("app").classList.add("compact");
+    if (FLAGS.debug) document.getElementById("debug").classList.remove("hidden");
+    if (FLAGS.demo) {
+      document.getElementById("demoBanner").classList.remove("hidden");
+      document.getElementById("demoSec").textContent = String(FLAGS.demoInterval / 1000);
+    }
+
+    var LANDMARKS = [
+      ["grand_central", "Grand Central"],
+      ["carnegie_hall", "Carnegie Hall"],
+      ["times_square", "Times Square"],
+      ["bryant_park", "Bryant Park"],
+      ["rockefeller_center", "Rockefeller Center"],
+      ["moma", "MoMA"],
+      ["columbus_circle", "Columbus Circle"],
+      ["sixth_57", "6th Ave & W 57 St"]
+    ];
+    var PRESETS = [
+      ["grand_central", "carnegie_hall", "Grand Central run"],
+      ["times_square", "bryant_park", "Shade & parks"],
+      ["sixth_57", "columbus_circle", "57th to the Park"]
+    ];
+    var ROUTES = [
+      ["shortest", "Shortest", "shortest", "◎"],
+      ["sigma_aware", "Pressure-aware", "stress", "◇"],
+      ["shade_aware", "Shade-aware", "shade", "♣"],
+      ["comfort_aware", "Comfort-aware", "comfort", "☀"],
+      ["adaptive_aware", "Adaptive comfort", "adaptive", "✦"]
+    ];
+    var THERMAL_QUALITY = {
+      insufficient: "Street thermal data unavailable",
+      proximate: "Satellite heat only",
+      validated: "Street thermal validated"
+    };
+    var CLAIM_LABEL = {
+      canopy_comfort_only: "Canopy comfort claim only",
+      full_heat_claim: "Full heat claim allowed"
+    };
+
+    var oSel = document.getElementById("origin");
+    var dSel = document.getElementById("dest");
+    var presetButtons = [];
+    LANDMARKS.forEach(function (lm) {
+      [oSel, dSel].forEach(function (sel) {
+        var o = document.createElement("option");
+        o.value = lm[0]; o.textContent = lm[1]; sel.appendChild(o);
+      });
+    });
+    oSel.value = params.get("origin") || "grand_central";
+    dSel.value = params.get("dest") || "carnegie_hall";
+
+    var presetEl = document.getElementById("presets");
+    PRESETS.forEach(function (p, i) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "preset"; b.textContent = p[2];
+      b.onclick = function () { setActivePreset(i); oSel.value = p[0]; dSel.value = p[1]; runRoute(); };
+      presetEl.appendChild(b);
+      presetButtons.push(b);
+    });
+
+    function setActivePreset(idx) {
+      presetButtons.forEach(function (b, i) {
+        b.classList.toggle("active", i === idx);
+      });
+    }
+
+    function fmt(n, d) { return n == null || isNaN(n) ? "—" : Number(n).toFixed(d == null ? 1 : d); }
+    function fmtScene(iso) {
+      if (!iso) return "";
+      try {
+        var d = new Date(iso);
+        return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+      } catch (e) { return iso; }
+    }
+
+    function humanThermal(tv) {
+      if (!tv || !tv.match_quality) return "";
+      var q = THERMAL_QUALITY[tv.match_quality] || tv.match_quality;
+      var c = CLAIM_LABEL[tv.demo_thermal_label_allowed] || (tv.demo_thermal_label_allowed || "").replace(/_/g, " ");
+      return q + " · " + c;
+    }
+
+    function animateCount(el, end, opts) {
+      if (FLAGS.noAnimate || end == null || isNaN(end)) {
+        el.textContent = (opts.prefix || "") + fmt(end, opts.decimals) + (opts.suffix || "");
+        return;
+      }
+      var duration = opts.duration || 700;
+      var start = 0;
+      var t0 = null;
+      function frame(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        var v = start + (end - start) * eased;
+        el.textContent = (opts.prefix || "") + v.toFixed(opts.decimals) + (opts.suffix || "");
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function buildMetric(label, value, opts) {
+      opts = opts || {};
+      var id = "m" + Math.random().toString(36).slice(2, 8);
+      var neg = opts.neg ? " neg" : "";
+      var title = opts.title ? ' title="' + opts.title + '"' : "";
+      var html = '<div class="metric fade-in"' + title + '><div class="val' + neg + '" id="' + id + '">—</div><div class="lbl">' + label + '</div></div>';
+      setTimeout(function () {
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (opts.integer) {
+          animateCount(el, value, { decimals: 0, suffix: "", duration: 500 });
+        } else {
+          animateCount(el, value, { decimals: opts.decimals || 1, suffix: opts.suffix || "", duration: 700 });
+        }
+      }, 40);
+      return html;
+    }
+
+    function routeCard(title, data, cls, icon) {
+      if (!data) return "";
+      var h = '<article class="route-card ' + cls + ' fade-in"><h3><span class="ico">' + icon + '</span>' + title + '</h3><dl>';
+      [["Blocks", data.hops], ["Block pressure", fmt(data.mean_stress, 2)], ["Mean canopy", fmt(data.mean_canopy, 1)],
+       ["Mean LST °C", fmt(data.mean_lst, 1)], ["High-pressure blocks", data.n_high_stress_edges]].forEach(function (r) {
+        h += "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>";
+      });
+      return h + "</dl></article>";
+    }
+
+    function renderRegimeChips(steps) {
+      if (!steps || !steps.length) return "";
+      var seen = {};
+      var h = "";
+      steps.forEach(function (s) {
+        if (s.comfort_regime && !seen[s.comfort_regime]) {
+          seen[s.comfort_regime] = true;
+          h += '<span class="chip">' + s.comfort_regime.replace(/_/g, " ") + "</span>";
+        }
+      });
+      return h;
+    }
+
+    function renderTurnByTurn(tb) {
+      if (!tb) return "";
+      var keys = FLAGS.showAllTurns ? Object.keys(tb) : ["adaptive_aware"];
+      var h = "";
+      keys.forEach(function (k) {
+        var steps = tb[k];
+        if (!steps || !steps.length) return;
+        var open = !FLAGS.showAllTurns ? " open" : "";
+        h += "<details" + open + "><summary>Steps · " + k.replace(/_/g, " ") + " (" + steps.length + " blocks)</summary><ol>";
+        steps.forEach(function (s) {
+          var extra = s.comfort_regime ? " · " + s.comfort_regime.replace(/_/g, " ") : "";
+          h += "<li>" + s.from + " → " + s.to + extra + "</li>";
+        });
+        h += "</ol></details>";
+      });
+      if (!FLAGS.showAllTurns && Object.keys(tb).length > 1) {
+        h += '<p style="margin-top:.5rem;font-size:.75rem"><button type="button" class="btn-ghost" id="showAllTurns">Show all route steps</button></p>';
+      }
+      return h;
+    }
+
+    function openLightbox(src, alt) {
+      var lb = document.createElement("div");
+      lb.className = "lightbox";
+      lb.innerHTML = '<img alt="' + (alt || "") + '" src="' + src + '">';
+      lb.onclick = function () { document.body.removeChild(lb); };
+      document.body.appendChild(lb);
+    }
+
+    function buildHeadline(c) {
+      var parts = [];
+      if (c.pct_stress_reduction > 0) parts.push(fmt(c.pct_stress_reduction, 1) + "% less exposure on the pressure-aware path");
+      if (c.pct_shade_gain > 0) parts.push(fmt(c.pct_shade_gain, 1) + "% more canopy on the shade path");
+      if (c.pct_heat_avoidance > 0) parts.push(fmt(c.pct_heat_avoidance, 1) + "% cooler in mean surface temperature");
+      return parts.length ? parts.join(" · ") + "." : "Five routes computed on the same street graph.";
+    }
+
+    function render(data) {
+      var c = data.comparison || {};
+      document.getElementById("results").classList.remove("hidden");
+      document.getElementById("emptyMaps").classList.add("hidden");
+
+      var lst = data.lst_metadata || {};
+      var tv = data.thermal_validation || {};
+      var metaHtml = "<strong>" + data.origin + "</strong> → <strong>" + data.destination + "</strong>";
+      if (lst.scene_datetime) metaHtml += " · Landsat scene " + fmtScene(lst.scene_datetime);
+      if (lst.eo_cloud_cover != null) metaHtml += " · Cloud cover " + fmt(lst.eo_cloud_cover, 1) + "%";
+      if (tv.match_quality) {
+        var cls = tv.demo_thermal_label_allowed === "full_heat_claim" ? " ok" : "";
+        metaHtml += ' <span class="badge' + cls + '">' + humanThermal(tv) + "</span>";
+      }
+      document.getElementById("metaLine").innerHTML = metaHtml;
+      document.getElementById("headline").textContent = buildHeadline(c);
+
+      document.getElementById("strip").innerHTML =
+        buildMetric("Exposure cut", c.pct_stress_reduction, { suffix: "%", decimals: 1 }) +
+        buildMetric("Shade gain", c.pct_shade_gain, { suffix: "%", decimals: 1 }) +
+        buildMetric("Heat avoidance", c.pct_heat_avoidance, { suffix: "%", decimals: 1, neg: c.pct_heat_avoidance < 0,
+          title: c.pct_heat_avoidance < 0 ? "Comfort path may trade mean LST for shade or blocks" : "" }) +
+        buildMetric("LST hotspots", c.hotspot_blocks_crossed, { integer: true }) +
+        buildMetric("Adaptive canopy", c.pct_adaptive_canopy_gain, { suffix: "%", decimals: 1 }) +
+        buildMetric("Congestion hotspots", c.stress_hotspot_blocks_crossed, { integer: true });
+
+      var grid = document.getElementById("routeGrid");
+      grid.innerHTML = "";
+      ROUTES.forEach(function (r) {
+        if (r[0] === "comfort_aware" && !FLAGS.showComfort) return;
+        if (r[0] === "adaptive_aware" && !FLAGS.showAdaptive) return;
+        grid.innerHTML += routeCard(r[1], data[r[0]], r[2], r[3]);
+      });
+
+      var adaptiveSteps = (data.turn_by_turn || {}).adaptive_aware;
+      document.getElementById("regimeChips").innerHTML = renderRegimeChips(adaptiveSteps);
+      document.getElementById("turnBlock").innerHTML = renderTurnByTurn(data.turn_by_turn);
+      var showAllBtn = document.getElementById("showAllTurns");
+      if (showAllBtn) {
+        showAllBtn.onclick = function () {
+          FLAGS.showAllTurns = true;
+          document.getElementById("turnBlock").innerHTML = renderTurnByTurn(data.turn_by_turn);
+        };
+      }
+
+      var maps = document.getElementById("maps");
+      maps.innerHTML = "";
+      if (data.png_base64) {
+        var src = "data:image/png;base64," + data.png_base64;
+        maps.innerHTML += '<div class="map-box fade-in"><h4>Four-panel route comparison · click to enlarge</h4><img alt="Route comparison map" src="' + src + '"></div>';
+        maps.querySelector("img").onclick = function (e) { e.stopPropagation(); openLightbox(src, "Route comparison"); };
+      }
+      if (FLAGS.showPhaseMap && data.phase_map_png_base64) {
+        var psrc = "data:image/png;base64," + data.phase_map_png_base64;
+        maps.innerHTML += '<div class="map-box fade-in"><h4>Comfort regime phase map · click to enlarge</h4><img alt="Phase map" src="' + psrc + '"></div>';
+        maps.lastElementChild.querySelector("img").onclick = function (e) { e.stopPropagation(); openLightbox(psrc, "Phase map"); };
+      }
+
+      if (FLAGS.debug) {
+        document.getElementById("debug").textContent = JSON.stringify({ comparison: c, thermal_validation: tv }, null, 2);
+      }
+    }
+
+    function setStatus(msg, kind) {
+      var el = document.getElementById("status");
+      el.textContent = msg;
+      el.className = kind || "";
+    }
+
+    var loadTimer;
+    function startLoadAnimation() {
+      var steps = ["Routing on street graph…", "Scoring pressure and shade…", "Rendering map panels…"];
+      var i = 0;
+      var el = document.getElementById("loadSteps");
+      el.classList.remove("hidden");
+      el.textContent = steps[0];
+      loadTimer = setInterval(function () {
+        i = (i + 1) % steps.length;
+        el.textContent = steps[i];
+      }, 1800);
+    }
+    function stopLoadAnimation() {
+      clearInterval(loadTimer);
+      document.getElementById("loadSteps").classList.add("hidden");
+    }
+
+    function runRoute() {
+      if (oSel.value === dSel.value) {
+        setStatus("Pick two different landmarks.", "error");
+        return;
+      }
+      PRESETS.forEach(function (p, i) {
+        if (p[0] === oSel.value && p[1] === dSel.value) setActivePreset(i);
+      });
+      var btn = document.getElementById("routeBtn");
+      btn.disabled = true;
+      setStatus("Computing routes on live engine…");
+      document.getElementById("results").classList.add("hidden");
+      document.getElementById("emptyMaps").classList.remove("hidden");
+      document.getElementById("placeholder").innerHTML = '<div class="skeleton"></div><span class="load-steps" id="loadSteps">Routing on street graph…</span>';
+      startLoadAnimation();
+
+      var t0 = performance.now();
+      fetch(FLAGS.api, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ origin: oSel.value, destination: dSel.value })
+      })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (!res.ok || res.j.error) throw new Error(res.j.error || res.j.detail || "Request failed");
+          stopLoadAnimation();
+          document.getElementById("latency").textContent = Math.round(performance.now() - t0) + " ms";
+          render(res.j);
+          setStatus("Live route computed.", "ok");
+        })
+        .catch(function (e) {
+          stopLoadAnimation();
+          document.getElementById("results").classList.add("hidden");
+          document.getElementById("emptyMaps").classList.remove("hidden");
+          document.getElementById("placeholder").innerHTML = "<span>Engine unavailable. Check API or try again.</span>";
+          setStatus("Error: " + e.message, "error");
+        })
+        .finally(function () { btn.disabled = false; });
+    }
+
+    document.getElementById("routeBtn").onclick = runRoute;
+    document.getElementById("copyLink").onclick = function () {
+      var u = new URL(location.href);
+      u.searchParams.set("origin", oSel.value);
+      u.searchParams.set("dest", dSel.value);
+      u.searchParams.delete("auto");
+      navigator.clipboard.writeText(u.toString()).then(function () {
+        setStatus("Demo link copied.", "ok");
+      }).catch(function () {
+        setStatus(u.toString(), "ok");
+      });
+    };
+
+    var demoIdx = 0;
+    function startDemoLoop() {
+      function cycle() {
+        var p = PRESETS[demoIdx % PRESETS.length];
+        demoIdx++;
+        setActivePreset((demoIdx - 1) % PRESETS.length);
+        oSel.value = p[0]; dSel.value = p[1];
+        runRoute();
+      }
+      cycle();
+      setInterval(cycle, FLAGS.demoInterval);
+    }
+
+    if (FLAGS.demo) startDemoLoop();
+    else if (FLAGS.autoRoute) runRoute();
+  })();
+  </script>
+</body>
+</html>

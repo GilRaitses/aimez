@@ -8,7 +8,7 @@ We operate a measured decision surface for pedestrian movement in Manhattan: a s
 
 ## Why out-of-home advertising is the first buyer
 
-Out-of-home (OOH) advertising sells exposure: how many qualified people pass a billboard, transit shelter or storefront, and how long they linger. Foot-traffic exposure is the entire currency of the category. Three reasons it is the right first market:
+Out-of-home (OOH) advertising sells exposure: how many qualified people pass a billboard, transit shelter or storefront and how long they linger. Foot-traffic exposure is the entire currency of the category. Three reasons it is the right first market:
 
 - It buys a data product, not an app. We do not need a billion users; we need one exposure metric a media owner trusts.
 - The incumbent measure is weak. Counts come from modeled mobile-location panels and static traffic estimates, with no model of why a block draws or repels foot traffic.
@@ -24,7 +24,7 @@ Geopath, StreetMetrics and panel vendors report counts and impressions from mobi
 
 ## First pilot
 
-One corridor, one metric, one buyer. Pick a high-inventory midtown stretch, produce a comfort-weighted exposure index for each panel location, and compare it against the media owner's existing impression numbers on the same blocks. The deliverable is a single ranked table plus maps. Success is the owner agreeing the index reorders their inventory in a way their current data missed.
+One corridor, one metric, one buyer. Pick a high-inventory midtown stretch, produce a comfort-weighted exposure index for each panel location and compare it against the media owner's existing impression numbers on the same blocks. The deliverable is a single ranked table plus maps. Success is the owner agreeing the index reorders their inventory in a way their current data missed.
 
 ## Pricing
 

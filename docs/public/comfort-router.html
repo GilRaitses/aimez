@@ -235,9 +235,10 @@
     </section>
 
     <p class="footer">
-      Heat routing uses Landsat LST on the street graph (greenR framework, Mahajan <em>Ecological Indicators</em> 2024).
+      Heat routing uses Landsat surface temperature on the street graph (greenR framework, Mahajan <em>Ecological Indicators</em> 2024).
+      Surface temperature is not pedestrian-height air temperature; on parallel avenues the difference a walker feels is governed by upwind conditions the satellite does not see.
       Built with <a href="https://github.com/GilRaitses/pax">pax</a>.
-      <a href="routing-demo.html">Classic two-mode demo</a> · <a href="index.html">Public pages</a>
+      <a href="village-pilot.html">Village pilot</a> · <a href="routing-demo.html">Classic two-mode demo</a> · <a href="index.html">Public pages</a>
     </p>
     <pre id="debug" class="hidden"></pre>
   </div>
@@ -279,7 +280,7 @@
     var PRESETS = [
       ["grand_central", "carnegie_hall", "Grand Central run"],
       ["times_square", "bryant_park", "Shade & parks"],
-      ["sixth_57", "columbus_circle", "57th to the Park"]
+      ["sixth_57", "columbus_circle", "Upwind contrast to the Park"]
     ];
     var ROUTES = [
       ["shortest", "Shortest", "shortest", "◎"],
@@ -294,7 +295,7 @@
       validated: "Street thermal validated"
     };
     var CLAIM_LABEL = {
-      canopy_comfort_only: "Canopy comfort claim only",
+      canopy_comfort_only: "Surface heat only, see note",
       full_heat_claim: "Full heat claim allowed"
     };
 

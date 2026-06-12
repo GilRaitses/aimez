@@ -1,0 +1,57 @@
+\documentclass[10pt]{article}
+\usepackage[letterpaper,margin=0.7in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{RGB}{19,28,45}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\renewcommand{\arraystretch}{1.25}
+\pagestyle{empty}
+\newcommand{\sect}[1]{\vspace{5pt}{\large\bfseries\color{accent}#1}\vspace{2pt}\hrule\vspace{3pt}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+
+{\LARGE\bfseries Go-to-market executive summary, in five layers}\\[3pt]
+{\color{accent}\textbf{aimez}} \quad strategy summary \quad June 2026
+
+Each layer stands alone in conversation. Start at whichever layer the listener cares about; the layers below are the support.
+
+\sect{Layer 1: Product}
+A measured decision surface for pedestrian movement in Manhattan. A street graph where every block carries validated layers (street pressure, tree canopy, surface heat) and an engine that returns five comparable routes with per-block statistics and confidence in one call. Consumers see routes; the asset is the surface underneath, which knows where people walk and how each block feels. Proof: the Grand Central to Carnegie Hall case (\texttt{fig\_case\_gc\_carnegie}).
+
+\sect{Layer 2: Moat}
+The validation and provenance discipline, not the routing code. Every layer carries a manifest with input hashes; every claim has an allowed and not-allowed list; audits are cheap enough to run the same morning a doubt is raised. Live proof this week: a tree-level audit caught the canopy layer crediting side-street trees to avenue corners, withdrew a published claim and replaced the mechanism within one day (\texttt{fig\_case\_upwind}). A competitor can re-weight public data; they cannot shortcut the discipline that catches that class of error.
+
+\sect{Layer 3: Beachhead, out-of-home advertising}
+OOH sells foot-traffic exposure as its entire currency and buys data products rather than apps. The offer: a comfort-weighted exposure index per panel location with a confidence score and a provenance trail. Incumbent counts say how many; the surface explains why a block draws or repels walkers and how long they linger. Pilot: one corridor, one metric, one media owner, success defined as the index reordering inventory in a way the current data missed. Mechanics proof: the Village dog-park case (\texttt{fig\_case\_village}), flip threshold about 11 DBH-inches per 100 m.
+
+\sect{Layer 4: Adjacent markets}
+In priority order behind the beachhead: outdoor-workforce heat compliance under tightening occupational rules, municipal resilience and transportation offices that buy static heat reports today, real estate walkability indices, last-mile logistics routing. Each reuses the same surface with a different cost weighting; none needs a consumer user base.
+
+\sect{Layer 5: Motion and asks}
+Motion: paid pilot study, then a per-market annual data license. Land one media owner, expand to brand-side buyers. Research leg: NSF SBIR Phase I pitch submitted. Asks in order: go-to-market judgment, adjacent paid work near decision systems, a milestone-gated investor look after the pitch lands and a pilot signs.
+
+\sect{Layer summary}
+\begin{tabularx}{\textwidth}{@{}lYl@{}}
+\toprule
+\textbf{Layer} & \textbf{The one line} & \textbf{Proof point} \\
+\midrule
+Product & A measured decision surface for foot traffic & GC to Carnegie case \\
+Moat & Validation and provenance, not the routing code & The canopy audit catch \\
+Beachhead & A comfort-weighted exposure index for OOH & The Village dog-park case \\
+Adjacent & Same surface, different cost weighting & Compliance, cities, real estate \\
+Motion & Paid pilot then license; three layered asks & NSF pitch submitted \\
+\bottomrule
+\end{tabularx}
+
+\sect{Honest caveats}
+OOH measurement is standards-driven, so an independent index has to be benchmarked before owners adopt it. Comfort-to-dwell is a hypothesis the first pilot exists to test. Mobile-location panels out-scale us, so the pitch stays on explanatory quality rather than raw coverage. All heat readings are surface temperature until street-level measurement exists.
+
+\end{document}

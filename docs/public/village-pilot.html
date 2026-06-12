@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Village dog-park pilot - aimez</title>
+  <meta name="description" content="Greenwich Village pedestrian routing pilot on tree shade and surface heat alone: 50 ranked routes from the Washington Square dog run to the Gansevoort Peninsula dog run.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="aimez">
+  <meta property="og:title" content="aimez - Village dog-park pilot">
+  <meta property="og:description" content="Routing on tree shade and surface heat, no cameras: where trees actually change the walk.">
+  <meta property="og:url" content="https://aimez.ai/public/village-pilot.html">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <meta name="theme-color" content="#131c2d">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@0,400;0,600&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "IBM Plex Sans", system-ui, sans-serif; color: #1b2330; background: #fbfbfd; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 2.4rem 1.6rem 4rem; }
+    .eyebrow { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: #6b7280; margin-bottom: 0.4rem; }
+    h1 { font-family: "IBM Plex Serif", Georgia, serif; font-size: 1.9rem; line-height: 1.2; color: #131c2d; margin-bottom: 0.8rem; }
+    h2 { font-size: 1.15rem; color: #131c2d; margin: 1.8rem 0 0.5rem; }
+    p { margin-bottom: 0.8rem; }
+    .lede { font-size: 1.08rem; color: #2b3543; }
+    figure { margin: 1.2rem 0; }
+    img { width: 100%; border: 1px solid #e3e6ec; border-radius: 6px; }
+    figcaption { font-size: 0.85rem; color: #6b7280; margin-top: 0.4rem; }
+    table { border-collapse: collapse; width: 100%; font-size: 0.9rem; margin: 0.8rem 0; }
+    th, td { border-bottom: 1px solid #e3e6ec; padding: 0.4rem 0.6rem; text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    a { color: #1d4ea0; }
+    .foot { font-size: 0.82rem; color: #6b7280; font-style: italic; margin-top: 1.6rem; }
+  </style>
+</head>
+<body>
+  <div class="eyebrow">Public research pilot</div>
+  <h1>Village dog-park pilot: routing on trees and heat alone</h1>
+
+  <p class="lede">
+    This pilot routes a pedestrian from the Washington Square Park dog run to the Gansevoort Peninsula dog run in Hudson River Park using only two layers: tree shade from the city street tree census and surface heat from a 39-scene Landsat median. No camera or crowd layer is used, by design. The question is simple: across every reasonable route, where does tree cover actually change the walk?
+  </p>
+
+  <h2>The routes</h2>
+  <figure>
+    <img src="assets/village/fig_village_routes.png" alt="Map of 50 routes between the two dog runs colored by shade-weighted heat exposure rank">
+    <figcaption>Fifty routes ranked by shade-weighted heat exposure. The shortest route is also the lowest-exposure route; tree cover reorders the middle of the field.</figcaption>
+  </figure>
+
+  <h2>What each route accumulates</h2>
+  <figure>
+    <img src="assets/village/fig_village_exposure.png" alt="Per-route cumulative exposure curves, raw versus shade-weighted">
+    <figcaption>Cumulative heat exposure along the top routes, raw and shade-weighted. Where the two orderings differ is where trees change the ranking.</figcaption>
+  </figure>
+
+  <h2>Top ten routes</h2>
+  <table>
+    <thead><tr><th>Shade rank</th><th>Length rank</th><th>Length m</th><th>Mean LST C</th><th>Canopy share pct</th></tr></thead>
+    <tbody>
+<tr><td>1</td><td>1</td><td>1788</td><td>35.7</td><td>77</td></tr>
+<tr><td>2</td><td>10</td><td>1800</td><td>35.8</td><td>77</td></tr>
+<tr><td>3</td><td>24</td><td>1804</td><td>35.7</td><td>77</td></tr>
+<tr><td>4</td><td>29</td><td>1810</td><td>36.0</td><td>77</td></tr>
+<tr><td>5</td><td>30</td><td>1811</td><td>35.6</td><td>74</td></tr>
+<tr><td>6</td><td>7</td><td>1794</td><td>35.7</td><td>76</td></tr>
+<tr><td>7</td><td>41</td><td>1814</td><td>35.7</td><td>74</td></tr>
+<tr><td>8</td><td>18</td><td>1802</td><td>35.8</td><td>74</td></tr>
+<tr><td>9</td><td>39</td><td>1813</td><td>35.9</td><td>77</td></tr>
+<tr><td>10</td><td>9</td><td>1800</td><td>35.6</td><td>73</td></tr>
+    </tbody>
+  </table>
+  <p>
+    The best route by shade-weighted exposure (Washington Square South, West 4th Street, Jane Street, then the Hudson River esplanade) is also the shortest. Below it, routes that rank well on length fall and leafier routes rise: the route ranked tenth by length rises to second once shade is weighted.
+  </p>
+
+  <h2>The threshold: when do trees matter</h2>
+  <p>
+    Tree cover changes a route ranking only above a cutoff. At the working shade assumption (a full tree tunnel removes at most forty percent of exposure), a canopy density difference of about eleven trunk-diameter inches per hundred meters always flips a ranking; below roughly three the difference never decides, and between them length and heat decide. This is the regime where trees differentiate routes. On the wide avenues, where frontage canopy is sparse, the same layer rarely clears the cutoff, which is the contrast this pilot exists to show.
+  </p>
+
+  <p class="foot">
+    Surface temperature is not pedestrian-height air temperature. The canopy proxy is the 2015 street tree census, joined per block face. The shade cap is assumed rather than measured, and the flip threshold depends on it. See also the <a href="comfort-router.html">comfort router</a> and the <a href="index.html">public pages</a>.
+  </p>
+</body>
+</html>

@@ -8,6 +8,49 @@
   <link rel="canonical" href="https://aimez.ai/public/comfort-router.html">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <meta name="theme-color" content="#0f1419">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- three r0.149 as a single ES module (examples/js classic globals were removed
+       in r0.149). We copy the frozen module namespace into an extensible global
+       `THREE` so the classic viewer code below keeps using window.THREE, and we
+       load each addon guarded: a CDN failure for any addon degrades gracefully
+       (the mesh still renders) instead of blanking the viewer. jsdelivr only. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+    import * as THREE_NS from 'three';
+    const THREE = Object.assign({}, THREE_NS);   // module namespace is sealed; copy to extend
+    window.THREE = THREE;
+    const addons = { orbit: false, composer: false, sao: false };
+    async function tryLoad(path) {
+      try { return await import(path); }
+      catch (e) { console.warn('[three addon] failed:', path, e && e.message); return null; }
+    }
+    (async () => {
+      const oc = await tryLoad('three/addons/controls/OrbitControls.js');
+      if (oc && oc.OrbitControls) { THREE.OrbitControls = oc.OrbitControls; addons.orbit = true; }
+      const ec = await tryLoad('three/addons/postprocessing/EffectComposer.js');
+      const rp = await tryLoad('three/addons/postprocessing/RenderPass.js');
+      const sp = await tryLoad('three/addons/postprocessing/ShaderPass.js');
+      if (ec && ec.EffectComposer && rp && rp.RenderPass && sp && sp.ShaderPass) {
+        THREE.EffectComposer = ec.EffectComposer;
+        THREE.RenderPass = rp.RenderPass;
+        THREE.ShaderPass = sp.ShaderPass;
+        addons.composer = true;
+        const sao = await tryLoad('three/addons/postprocessing/SAOPass.js');
+        if (sao && sao.SAOPass) { THREE.SAOPass = sao.SAOPass; addons.sao = true; }
+      }
+      window.__threeAddons = addons;
+      window.__threeReady = true;
+      window.dispatchEvent(new Event('three-ready'));
+    })();
+  </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600;700&family=Fraunces:opsz,wght@9..144,500;600;700&display=swap');
     :root {
@@ -182,6 +225,67 @@
     .compact .grid-routes { grid-template-columns: repeat(2, 1fr); }
     .compact .strip { grid-template-columns: repeat(3, 1fr); }
     #debug { font-family: ui-monospace, monospace; font-size: .7rem; white-space: pre-wrap; color: var(--muted); max-height: 200px; overflow: auto; margin-top: 1rem; }
+
+    /* --- time of day (thermal bins) --- */
+    .time-panel { margin-top: .85rem; padding-top: .85rem; border-top: 1px solid var(--border); }
+    .time-head { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+    .time-head label { margin-bottom: 0; }
+    .switch { display: inline-flex; align-items: center; gap: .45rem; cursor: pointer; width: auto; }
+    .switch input { width: auto; }
+    .time-controls { display: grid; grid-template-columns: minmax(180px, 1fr) 2fr auto; gap: .75rem; align-items: end; margin-top: .65rem; }
+    @media (max-width: 720px) { .time-controls { grid-template-columns: 1fr; } }
+    .time-controls.disabled { opacity: .4; pointer-events: none; }
+    input[type=range] { width: 100%; accent-color: var(--accent); }
+    .time-readout { font-size: .82rem; color: var(--accent2); font-variant-numeric: tabular-nums; min-width: 9rem; text-align: right; }
+    select.day-sel { padding: .55rem .7rem; }
+
+    /* --- thermal summary + why-this-turn --- */
+    #thermalBlock { margin-bottom: 1.25rem; }
+    .thermal-head { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin-bottom: .6rem; }
+    .thermal-head h2 { font-family: Fraunces, Georgia, serif; font-size: 1.05rem; font-weight: 600; }
+    .thermal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: .65rem; }
+    .thermal-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: .7rem .8rem; border-top: 3px solid var(--border); }
+    .thermal-card.shortest { border-top-color: #b8c5d4; }
+    .thermal-card.stress { border-top-color: #f09090; }
+    .thermal-card.shade { border-top-color: #6ecf8a; }
+    .thermal-card.comfort { border-top-color: #e8b86d; }
+    .thermal-card.adaptive { border-top-color: var(--warm); box-shadow: 0 0 0 1px rgba(232,168,124,.15); }
+    .thermal-card h4 { font-size: .82rem; margin-bottom: .45rem; }
+    .thermal-card dl { display: grid; grid-template-columns: 1fr auto; gap: .15rem .5rem; font-size: .8rem; }
+    .thermal-card dt { color: var(--muted); }
+    .thermal-card dd { font-variant-numeric: tabular-nums; text-align: right; }
+    .why-turn { margin-top: 1rem; }
+    .why-turn table { width: 100%; border-collapse: collapse; font-size: .78rem; font-variant-numeric: tabular-nums; }
+    .why-turn th { text-align: right; color: var(--muted); font-weight: 600; padding: .25rem .5rem; border-bottom: 1px solid var(--border); font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; }
+    .why-turn th:first-child, .why-turn td:first-child { text-align: left; }
+    .why-turn td { padding: .25rem .5rem; border-bottom: 1px solid rgba(42,53,68,.5); }
+    .why-turn .hot { color: var(--warm); }
+    .why-turn .hotter { color: var(--danger); }
+    .why-turn-scroll { max-height: 280px; overflow-y: auto; }
+
+    /* --- thermal layer map --- */
+    #layerSection { margin-bottom: 1.25rem; }
+    .layer-toggles { display: flex; flex-wrap: wrap; gap: .4rem; margin: .5rem 0 .65rem; align-items: center; }
+    .layer-toggle {
+      font-size: .76rem; padding: .35rem .7rem; border-radius: 999px; width: auto; cursor: pointer;
+      background: transparent; border: 1px solid var(--border); color: var(--muted); transition: all .15s;
+    }
+    .layer-toggle:hover { border-color: var(--accent2); color: var(--accent2); }
+    .layer-toggle.active { background: rgba(126,184,255,.16); border-color: var(--accent2); color: var(--accent2); font-weight: 600; }
+    .layer-toggle:disabled { opacity: .35; cursor: not-allowed; }
+    /* 3D thermal viewer host: no basemap; background follows the system color scheme */
+    #layerMap { height: 520px; border-radius: var(--radius); border: 1px solid var(--border);
+      background: var(--viewer-bg); overflow: hidden; touch-action: none; cursor: grab; }
+    #layerMap:active { cursor: grabbing; }
+    #layerMap canvas { display: block; }
+    :root { --viewer-bg: radial-gradient(ellipse 90% 80% at 50% 10%, #16202c 0%, #0a0e12 70%); }
+    @media (prefers-color-scheme: light) {
+      :root { --viewer-bg: radial-gradient(ellipse 90% 80% at 50% 10%, #f4f8fc 0%, #dde6ef 70%); }
+    }
+    .viewer-hint { font-size: .72rem; color: var(--muted); margin-top: .35rem; }
+    .leaflet-container { background: #0a0e12; }
+    .layer-note { font-size: .74rem; color: var(--warn); margin-top: .55rem; }
+    .layer-legend { font-size: .72rem; color: var(--muted); margin-top: .35rem; }
   </style>
 </head>
 <body>
@@ -204,6 +308,27 @@
         <span class="presets-label">Try</span>
         <span id="presets"></span>
       </div>
+      <div class="time-panel">
+        <div class="time-head">
+          <label class="switch"><input type="checkbox" id="timeToggle"> <span>Time of day (modeled thermal)</span></label>
+          <span class="badge">MRT modeled · UTCI provisional</span>
+        </div>
+        <div class="time-controls disabled" id="timeControls">
+          <div>
+            <label for="daySel">Day</label>
+            <select id="daySel" class="day-sel">
+              <option value="solstice">Summer solstice (Jun 21)</option>
+              <option value="equinox">Equinox (Sep 22)</option>
+              <option value="winter">Winter solstice (Dec 21)</option>
+            </select>
+          </div>
+          <div>
+            <label for="hourSlider">Hour (Eastern)</label>
+            <input type="range" id="hourSlider" min="8" max="18" step="1" value="13">
+          </div>
+          <div class="time-readout" id="timeReadout">Summer · 1 PM</div>
+        </div>
+      </div>
       <p id="status">Pick two landmarks and click Route.</p>
     </section>
 
@@ -215,6 +340,7 @@
       </div>
       <p class="headline" id="headline"></p>
       <div class="strip" id="strip"></div>
+      <div id="thermalBlock" class="hidden"></div>
       <div class="results-body">
         <div class="results-split">
           <div class="maps" id="maps"></div>
@@ -227,6 +353,19 @@
       </div>
     </section>
 
+    <section id="layerSection" class="panel hidden">
+      <div class="thermal-head">
+        <h2>Thermal layer stack</h2>
+        <span class="badge" id="layerBinBadge"></span>
+      </div>
+      <p class="lede" style="font-size:.85rem;margin-bottom:.4rem">Manhattan as a 3D heat surface: buildings rise by height, colored by the active thermal field for the selected time of day. Drag to orbit, scroll to zoom.</p>
+      <div class="layer-toggles" id="layerToggles"></div>
+      <div id="layerMap"></div>
+      <div class="layer-legend" id="layerLegend"></div>
+      <p class="viewer-hint">3D surface clipped to the Manhattan landmass (no basemap); drag to rotate, scroll to zoom.</p>
+      <p class="layer-note">MRT modeled (static LST). UTCI provisional (placeholder air temp / proxy wind / placeholder RH). Central Park canopy 12 m proxy.</p>
+    </section>
+
     <section id="emptyMaps" class="map-box">
       <div class="map-placeholder" id="placeholder">
         <span>Route map and phase map appear here after you run a query.</span>
@@ -237,6 +376,7 @@
     <p class="footer">
       Heat routing uses Landsat surface temperature on the street graph (greenR framework, Mahajan <em>Ecological Indicators</em> 2024).
       Surface temperature is not pedestrian-height air temperature; on parallel avenues the difference a walker feels is governed by upwind conditions the satellite does not see.
+      <strong>Thermal layers honesty:</strong> MRT is modeled (uses a static LST composite, not per-bin surface temperature); UTCI is provisional (placeholder air temp, proxy wind, placeholder relative humidity); Central Park canopy height is a 12 m DBH proxy, not survey.
       Built with <a href="https://github.com/GilRaitses/pax">pax</a>.
       <a href="village-pilot.html">Village pilot</a> · <a href="routing-demo.html">Classic two-mode demo</a> · <a href="index.html">Public pages</a>
     </p>
@@ -299,6 +439,27 @@
       canopy_comfort_only: "Surface heat only, see note",
       full_heat_claim: "Full heat claim allowed"
     };
+    var THERMAL_MODES = [
+      ["shortest", "Shortest", "shortest"],
+      ["sigma_aware", "Pressure-aware", "stress"],
+      ["shade_aware", "Shade-aware", "shade"],
+      ["comfort_aware", "Comfort-aware", "comfort"],
+      ["adaptive_aware", "Adaptive comfort", "adaptive"]
+    ];
+    var DAY_LABEL = { solstice: "Summer", equinox: "Equinox", winter: "Winter" };
+    var DAY_MAX_HOUR = { solstice: 18, equinox: 18, winter: 16 };
+    var LAYER_ORDER = [
+      ["shadow", "Shadow"], ["mrt", "MRT"], ["utci", "UTCI"], ["svf", "SVF"], ["lst", "LST"]
+    ];
+    // Thermal 3D data is hosted on S3+CloudFront in production; relative when local.
+    var DATA_BASE = (params.get("data") != null) ? params.get("data")
+      : (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:") ? ""
+      : "https://d27wzslw8escv2.cloudfront.net/";
+    var LAYERS_INDEX_URL = DATA_BASE + "thermal_layers/layers_index.json";
+    function hourLabel(h) {
+      var hh = ((h + 11) % 12) + 1;
+      return hh + " " + (h < 12 ? "AM" : (h === 12 ? "PM" : "PM"));
+    }
 
     var oSel = document.getElementById("origin");
     var dSel = document.getElementById("dest");
@@ -326,6 +487,51 @@
         b.classList.toggle("active", i === idx);
       });
     }
+
+    // --- time of day (thermal bin) controls ---
+    var timeToggle = document.getElementById("timeToggle");
+    var timeControls = document.getElementById("timeControls");
+    var daySel = document.getElementById("daySel");
+    var hourSlider = document.getElementById("hourSlider");
+    var timeReadout = document.getElementById("timeReadout");
+
+    function currentBin() {
+      if (!timeToggle.checked) return null;
+      var day = daySel.value;
+      var hh = ("0" + hourSlider.value).slice(-2);
+      return day + "_" + hh;
+    }
+    function syncTimeReadout() {
+      var day = daySel.value;
+      var maxH = DAY_MAX_HOUR[day] || 18;
+      hourSlider.max = String(maxH);
+      if (Number(hourSlider.value) > maxH) hourSlider.value = String(maxH);
+      timeReadout.textContent = DAY_LABEL[day] + " · " + hourLabel(Number(hourSlider.value));
+    }
+    function syncTimeEnabled() {
+      timeControls.classList.toggle("disabled", !timeToggle.checked);
+    }
+    timeToggle.onchange = function () {
+      syncTimeEnabled();
+      if (document.getElementById("results") && !document.getElementById("results").classList.contains("hidden")) runRoute();
+      if (!timeToggle.checked) document.getElementById("layerSection").classList.add("hidden");
+    };
+    daySel.onchange = function () { syncTimeReadout(); if (timeToggle.checked) runRoute(); };
+    hourSlider.oninput = syncTimeReadout;
+    hourSlider.onchange = function () { if (timeToggle.checked) runRoute(); };
+    // init from URL (?time_bin=solstice_13)
+    (function initTimeFromUrl() {
+      var tb = params.get("time_bin");
+      if (tb && /^(solstice|equinox|winter)_\d{2}$/.test(tb)) {
+        var p = tb.split("_");
+        daySel.value = p[0];
+        timeToggle.checked = true;
+        syncTimeReadout();
+        hourSlider.value = String(Number(p[1]));
+      }
+      syncTimeReadout();
+      syncTimeEnabled();
+    })();
 
     function fmt(n, d) { return n == null || isNaN(n) ? "—" : Number(n).toFixed(d == null ? 1 : d); }
     function fmtScene(iso) {
@@ -432,12 +638,788 @@
       document.body.appendChild(lb);
     }
 
+    function renderThermal(data) {
+      var block = document.getElementById("thermalBlock");
+      var thermal = data.thermal;
+      if (!thermal || !data.time_bin) {
+        block.classList.add("hidden");
+        block.innerHTML = "";
+        return;
+      }
+      var anySummary = THERMAL_MODES.some(function (m) {
+        return thermal[m[0]] && thermal[m[0]].summary && thermal[m[0]].summary.legs_with_thermal;
+      });
+      if (!anySummary) {
+        block.classList.remove("hidden");
+        block.innerHTML = '<div class="thermal-head"><h2>Modeled thermal · ' + data.time_bin +
+          '</h2></div><p class="lede" style="font-size:.85rem">No per-edge thermal data for this bin (try a summer-solstice hour).</p>';
+        return;
+      }
+      var h = '<div class="thermal-head"><h2>Modeled thermal · ' + data.time_bin +
+        '</h2><span class="badge">MRT modeled (static LST) · UTCI provisional</span></div>';
+      h += '<div class="thermal-grid">';
+      THERMAL_MODES.forEach(function (m) {
+        var t = thermal[m[0]];
+        if (!t || !t.summary) return;
+        var s = t.summary;
+        h += '<div class="thermal-card ' + m[2] + ' fade-in"><h4>' + m[1] + '</h4><dl>' +
+          '<dt>Mean MRT</dt><dd>' + fmt(s.mean_mrt_c, 1) + ' °C</dd>' +
+          '<dt>Max MRT</dt><dd>' + fmt(s.max_mrt_c, 1) + ' °C</dd>' +
+          '<dt>Mean UTCI</dt><dd>' + fmt(s.mean_utci_c, 1) + ' °C</dd>' +
+          '<dt>Mean shade</dt><dd>' + fmt((s.mean_shade_fraction || 0) * 100, 0) + ' %</dd>' +
+          '<dt>Blocks</dt><dd>' + (s.legs_with_thermal == null ? "—" : s.legs_with_thermal) + '</dd>' +
+          '</dl></div>';
+      });
+      h += '</div>';
+
+      var adaptive = thermal.adaptive_aware;
+      if (adaptive && adaptive.legs && adaptive.legs.length) {
+        h += '<div class="why-turn"><details open><summary style="cursor:pointer;color:var(--accent2);font-weight:500;margin-bottom:.4rem">' +
+          'Why this turn — adaptive path per-block decomposition (' + adaptive.legs.length + ' blocks)</summary>' +
+          '<div class="why-turn-scroll"><table><thead><tr><th>#</th><th>Block</th><th>MRT °C</th><th>Shade %</th><th>SVF</th><th>UTCI °C</th></tr></thead><tbody>';
+        adaptive.legs.forEach(function (leg, i) {
+          var mrt = leg.mrt_c;
+          var cls = mrt != null && mrt >= 55 ? "hotter" : (mrt != null && mrt >= 48 ? "hot" : "");
+          var label = (leg.from || leg.to) ? ((leg.from || "·") + " → " + (leg.to || "·")) : "street block";
+          h += '<tr><td>' + (i + 1) + '</td><td>' + label + '</td>' +
+            '<td class="' + cls + '">' + fmt(mrt, 1) + '</td>' +
+            '<td>' + fmt((leg.shade_fraction || 0) * 100, 0) + '</td>' +
+            '<td>' + fmt(leg.svf, 2) + '</td>' +
+            '<td>' + fmt(leg.utci_c, 1) + '</td></tr>';
+        });
+        h += '</tbody></table></div></details></div>';
+      }
+      block.innerHTML = h;
+      block.classList.remove("hidden");
+    }
+
     function buildHeadline(c) {
       var parts = [];
       if (c.pct_stress_reduction > 0) parts.push(fmt(c.pct_stress_reduction, 1) + "% less exposure on the pressure-aware path");
       if (c.pct_shade_gain > 0) parts.push(fmt(c.pct_shade_gain, 1) + "% more canopy on the shade path");
       if (c.pct_heat_avoidance > 0) parts.push(fmt(c.pct_heat_avoidance, 1) + "% cooler in mean surface temperature");
       return parts.length ? parts.join(" · ") + "." : "Five routes computed on the same street graph.";
+    }
+
+    // --- thermal layer viewer: three.js 3D Manhattan heat surface (no basemap) ---
+    // Replaces the flat Leaflet image overlays (which painted a rectangle over the
+    // rivers). Geometry is clipped to the Manhattan landmass; colors come from the
+    // active thermal field for the selected time bin.
+    var THERMAL3D_URL = DATA_BASE + "thermal_layers/thermal3d.json";
+    var LAYER_LABELS = { mrt: "Mean radiant temp", shadow: "Shadow", svf: "Sky view factor" };
+    var LAYER_UNITS = { mrt: "°C", shadow: "fraction shaded", svf: "0–1" };
+    var T3D_LAYERS = { mrt: 1, shadow: 1, svf: 1 };  // layers the 3D viewer can color
+    var activeLayerKey = "mrt";
+
+    var BUILDINGS3D_URL = DATA_BASE + "thermal_layers/buildings3d.json";
+    var LOD2_INDEX_URL = DATA_BASE + "thermal_layers/lod2/lod2_index.json";
+
+    // Resolve once the ES-module bootstrap has exposed window.THREE (+ attempted
+    // addons). The module is deferred, so this is normally already true by the
+    // time a route is run; the timeout keeps a stalled CDN from hanging forever.
+    function whenThree() {
+      return new Promise(function (resolve) {
+        if (window.__threeReady) return resolve();
+        var done = false;
+        function go() { if (!done) { done = true; resolve(); } }
+        window.addEventListener("three-ready", go, { once: true });
+        setTimeout(go, 9000);
+      });
+    }
+
+    var Thermal3D = (function () {
+      var data = null, loading = null, scene, cam, renderer, controls, mesh, raf = null;
+      var host, colAttr;
+      // near-LOD vector buildings (LoD1 extruded prisms)
+      var bdata = null, bLoading = null, bGroup = null, bTiles = [], bMat = null, bBuilt = false;
+      // closest-LOD true massing (LoD2, NYC DOITT 3D model) -- whole island,
+      // streamed as spatial tiles that lazy-load/dispose by camera frustum.
+      var l2idx = null, l2Loading = null, l2Group = null, l2Mat = null;
+      var l2Built = false;                  // manifest loaded + group ready
+      var l2Loaded = {};                    // tile.id -> { mesh, colorAttr, items, center }
+      var l2Frustum = null, l2ProjM = null, l2LastT = 0;
+      var L2_LOAD_R = 135, L2_DISPOSE_R = 175;   // local-unit load/keep radii (hysteresis)
+      var l2ForceHidden = false;            // test-only A/B override
+      // active field (so a LOD switch recolors buildings with the current layer/bin)
+      var curLayer = "mrt", curBin = null;
+      // post-processing
+      var composer = null, renderPass = null, saoPass = null, outlinePass = null;
+      var normalRT = null, normalMat = null, usePost = false;
+      // 3-tier LOD state + hysteresis (camera-to-target distance; far view ~570).
+      // far = heightfield, near = LoD1 prisms, close = LoD2 massing (+ LoD1 outside coverage).
+      var LOD_NEAR_ENTER = 175, LOD_NEAR_EXIT = 235;
+      var LOD_CLOSE_ENTER = 88, LOD_CLOSE_EXIT = 128;
+      var lodState = "far";           // "far" | "near" | "close"
+      var heightTarget = 1, heightOpac = 1;   // heightfield fade
+      var bldTarget = 0, bldOpac = 0;         // LoD1 buildings fade
+      var l2Target = 0, l2Opac = 0;           // LoD2 massing fade
+      var clock = null;
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+      function ramp(stops, t) {
+        t = Math.max(0, Math.min(1, t));
+        for (var i = 1; i < stops.length; i++) {
+          if (t <= stops[i][0]) {
+            var p = stops[i - 1], q = stops[i];
+            var f = (t - p[0]) / (q[0] - p[0] || 1);
+            return [lerp(p[1], q[1], f), lerp(p[2], q[2], f), lerp(p[3], q[3], f)];
+          }
+        }
+        var l = stops[stops.length - 1]; return [l[1], l[2], l[3]];
+      }
+      var INFERNO = [[0,0,0,4],[0.25,87,16,110],[0.5,188,55,84],[0.75,249,142,9],[1,252,255,164]];
+      var VIRIDIS = [[0,68,1,84],[0.5,33,145,140],[1,253,231,37]];
+      var SHADE = [[0,255,224,150],[1,36,58,92]]; // sunlit (warm) -> shaded (cool/dark)
+
+      function colorFor(layer, bin, i) {
+        var v, t, rgb;
+        if (layer === "mrt") {
+          v = (data.mrt[bin] || [])[i];
+          if (v == null || v <= 0) return [70, 78, 90];
+          t = (v - data.mrt_range[0]) / (data.mrt_range[1] - data.mrt_range[0]);
+          rgb = ramp(INFERNO, t);
+        } else if (layer === "shadow") {
+          v = (data.shade[bin] || [])[i];
+          if (v == null) return [70, 78, 90];
+          rgb = ramp(SHADE, v);
+        } else { // svf
+          v = data.svf[i];
+          if (v == null) return [70, 78, 90];
+          rgb = ramp(VIRIDIS, v);
+        }
+        return rgb;
+      }
+
+      function setColors(layer, bin) {
+        if (!mesh) return;
+        var g = data.grid, n = g.nx * g.ny, arr = colAttr.array;
+        var hasBin = (layer === "svf") || (data[layer === "shadow" ? "shade" : "mrt"] || {})[bin];
+        for (var i = 0; i < n; i++) {
+          var c = hasBin ? colorFor(layer, bin, i) : [70, 78, 90];
+          arr[i * 3] = c[0] / 255; arr[i * 3 + 1] = c[1] / 255; arr[i * 3 + 2] = c[2] / 255;
+        }
+        colAttr.needsUpdate = true;
+      }
+
+      function build() {
+        var g = data.grid, nx = g.nx, ny = g.ny, cell = g.cell_m;
+        var SCALE = 200 / (nx * cell), EXAG = 2.6;
+        var cx = (nx * cell) / 2, cz = (ny * cell) / 2;
+        var pos = new Float32Array(nx * ny * 3);
+        var col = new Float32Array(nx * ny * 3);
+        for (var r = 0; r < ny; r++) for (var c = 0; c < nx; c++) {
+          var i = r * nx + c;
+          pos[i * 3] = (c * cell - cx) * SCALE;
+          pos[i * 3 + 1] = data.height_m[i] * SCALE * EXAG;
+          pos[i * 3 + 2] = (r * cell - cz) * SCALE;
+        }
+        var idx = [];
+        function land(i) { return data.land[i] === 1; }
+        for (var r2 = 0; r2 < ny - 1; r2++) for (var c2 = 0; c2 < nx - 1; c2++) {
+          var a = r2 * nx + c2, b = a + 1, d = a + nx, e = d + 1;
+          if (land(a) && land(b) && land(d) && land(e)) {
+            idx.push(a, d, b, b, d, e);
+          }
+        }
+        var geo = new THREE.BufferGeometry();
+        geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+        colAttr = new THREE.BufferAttribute(col, 3);
+        geo.setAttribute("color", colAttr);
+        geo.setIndex(idx);
+        geo.computeVertexNormals();
+        var mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.82, metalness: 0.02, side: THREE.DoubleSide, transparent: true, opacity: 1 });
+        mesh = new THREE.Mesh(geo, mat);
+        scene.add(mesh);
+        // auto-frame the camera to the actual island bounding box
+        geo.computeBoundingBox();
+        var bb = geo.boundingBox, ctr = new THREE.Vector3(), size = new THREE.Vector3();
+        bb.getCenter(ctr); bb.getSize(size);
+        var span = Math.max(size.x, size.z);
+        cam.position.set(ctr.x + span * 0.55, ctr.y + span * 0.85, ctr.z + span * 1.15);
+        if (controls) { controls.target.copy(ctr); controls.update(); } else { cam.lookAt(ctr); }
+      }
+
+      // ---- near-LOD: extruded vector buildings (map-style) ----
+      // 2D ear-clipping for a simple CCW polygon ring [[x,z],...] -> index triples
+      function triangulate(ring) {
+        var n = ring.length, V = [], tris = [];
+        for (var i = 0; i < n; i++) V.push(i);
+        function area2(a, b, c) {
+          return (ring[b][0] - ring[a][0]) * (ring[c][1] - ring[a][1]) -
+                 (ring[c][0] - ring[a][0]) * (ring[b][1] - ring[a][1]);
+        }
+        function inTri(a, b, c, p) {
+          var d1 = area2(a, b, p), d2 = area2(b, c, p), d3 = area2(c, a, p);
+          var neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+          var pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+          return !(neg && pos);
+        }
+        var guard = 0;
+        while (V.length > 3 && guard++ < 4 * n) {
+          var clipped = false;
+          for (var vi = 0; vi < V.length; vi++) {
+            var a = V[(vi + V.length - 1) % V.length], b = V[vi], c = V[(vi + 1) % V.length];
+            if (area2(a, b, c) <= 0) continue;       // reflex or collinear
+            var ear = true;
+            for (var k = 0; k < V.length; k++) {
+              var p = V[k];
+              if (p === a || p === b || p === c) continue;
+              if (inTri(a, b, c, p)) { ear = false; break; }
+            }
+            if (ear) { tris.push(a, b, c); V.splice(vi, 1); clipped = true; break; }
+          }
+          if (!clipped) break;  // degenerate; bail with what we have
+        }
+        if (V.length === 3) tris.push(V[0], V[1], V[2]);
+        return tris;
+      }
+
+      function buildBuildings() {
+        if (bBuilt || !bdata) return;
+        var fr = bdata.frame, Q = fr.quant, xz = bdata.xz, hh = bdata.h, gis = bdata.gi, np = bdata.n;
+        var ex = bdata.extent_local, minx = ex.x[0], minz = ex.z[0];
+        var TS = 24;  // tile size (local units) -> spatial tiles for frustum culling
+        var TX = Math.max(1, Math.ceil((ex.x[1] - minx) / TS));
+        var tileMap = {};  // key -> { pos:[], items:[] }
+        var pi = 0;  // pointer into xz (pairs)
+        var count = bdata.count;
+        for (var bi = 0; bi < count; bi++) {
+          var npts = np[bi], h = hh[bi] / Q;
+          var ring = [];
+          for (var p = 0; p < npts; p++) {
+            ring.push([xz[pi] / Q, xz[pi + 1] / Q]); pi += 2;
+          }
+          // centroid (for tile assignment; color uses precomputed grid index)
+          var cxs = 0, czs = 0;
+          for (var q = 0; q < npts; q++) { cxs += ring[q][0]; czs += ring[q][1]; }
+          cxs /= npts; czs /= npts;
+          var tx = Math.floor((cxs - minx) / TS), tz = Math.floor((czs - minz) / TS);
+          var key = tx + "_" + tz;
+          var tile = tileMap[key];
+          if (!tile) { tile = tileMap[key] = { pos: [], items: [] }; }
+          var startV = tile.pos.length / 3;
+          var tris = triangulate(ring);
+          // roof (at y=h)
+          for (var ti = 0; ti < tris.length; ti += 3) {
+            var ra = ring[tris[ti]], rb = ring[tris[ti + 1]], rc = ring[tris[ti + 2]];
+            tile.pos.push(ra[0], h, ra[1], rb[0], h, rb[1], rc[0], h, rc[1]);
+          }
+          // walls (each edge -> 2 tris, base y=0 to roof y=h)
+          for (var w = 0; w < npts; w++) {
+            var a0 = ring[w], a1 = ring[(w + 1) % npts];
+            tile.pos.push(a0[0], 0, a0[1], a1[0], 0, a1[1], a1[0], h, a1[1]);
+            tile.pos.push(a0[0], 0, a0[1], a1[0], h, a1[1], a0[0], h, a0[1]);
+          }
+          var vCount = tile.pos.length / 3 - startV;
+          tile.items.push({ start: startV, count: vCount, gi: gis[bi] });
+        }
+        bGroup = new THREE.Group();
+        bGroup.visible = false;
+        bMat = new THREE.MeshStandardMaterial({
+          vertexColors: true, roughness: 0.92, metalness: 0.0,
+          flatShading: true, side: THREE.DoubleSide, transparent: true, opacity: 0
+        });
+        bTiles = [];
+        Object.keys(tileMap).forEach(function (key) {
+          var t = tileMap[key];
+          var nV = t.pos.length / 3;
+          if (nV === 0) return;
+          var geo = new THREE.BufferGeometry();
+          geo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(t.pos), 3));
+          var carr = new Float32Array(nV * 3);
+          var cAttr = new THREE.BufferAttribute(carr, 3);
+          geo.setAttribute("color", cAttr);
+          geo.computeBoundingSphere();
+          var m = new THREE.Mesh(geo, bMat);
+          m.frustumCulled = true;
+          bGroup.add(m);
+          bTiles.push({ mesh: m, colorAttr: cAttr, items: t.items });
+        });
+        scene.add(bGroup);
+        bBuilt = true;
+        colorBuildings(curLayer, curBin);
+      }
+
+      function colorBuildings(layer, bin) {
+        if (!bBuilt) return;
+        for (var t = 0; t < bTiles.length; t++) {
+          var tile = bTiles[t], arr = tile.colorAttr.array, items = tile.items;
+          for (var i = 0; i < items.length; i++) {
+            var it = items[i], c = colorFor(layer, bin, it.gi);
+            var r = c[0] / 255, g = c[1] / 255, b = c[2] / 255;
+            var end = (it.start + it.count) * 3;
+            for (var v = it.start * 3; v < end; v += 3) { arr[v] = r; arr[v + 1] = g; arr[v + 2] = b; }
+          }
+          tile.colorAttr.needsUpdate = true;
+        }
+      }
+
+      function ensureBuildings() {
+        if (bBuilt) return Promise.resolve(true);
+        if (bLoading) return bLoading;
+        bLoading = fetch(BUILDINGS3D_URL).then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (j) {
+            if (!j || typeof THREE === "undefined") return false;
+            bdata = j; buildBuildings(); return true;
+          }).catch(function (e) { console.warn("[buildings3d] load failed", e); return false; });
+        return bLoading;
+      }
+
+      // ---- closest-LOD: true LoD2 building massing (setbacks/tapers/roofs) ----
+      // Whole-island coverage as independent spatial tiles (manifest lod2_index.json).
+      // Only tiles intersecting the camera frustum (within a load radius) are fetched
+      // and built; tiles leaving view are disposed to keep the browser memory bounded.
+      function colorTileRec(rec, layer, bin) {
+        var arr = rec.colorAttr.array, items = rec.items;
+        for (var i = 0; i < items.length; i++) {
+          var it = items[i], c = colorFor(layer, bin, it[2]);   // [start,count,gi]
+          var r = c[0] / 255, g = c[1] / 255, b = c[2] / 255;
+          var end = (it[0] + it[1]) * 3;
+          for (var v = it[0] * 3; v < end; v += 3) { arr[v] = r; arr[v + 1] = g; arr[v + 2] = b; }
+        }
+        rec.colorAttr.needsUpdate = true;
+      }
+
+      function loadL2Tile(tile) {
+        l2Loaded[tile.id] = { loading: true };
+        var dir = DATA_BASE + "thermal_layers/lod2/";
+        fetch(dir + tile.bin).then(function (r) { return r.ok ? r.arrayBuffer() : null; })
+          .then(function (buf) {
+            if (!buf || !l2Group) { delete l2Loaded[tile.id]; return; }
+            var q = tile.q, ox = q.ox, oy = q.oy, oz = q.oz, step = q.step;
+            var vN = tile.vN, i16 = new Int16Array(buf);
+            var pos = new Float32Array(vN * 3);
+            for (var v = 0; v < vN; v++) {
+              pos[v * 3]     = ox + i16[v * 3]     * step;
+              pos[v * 3 + 1] = oy + i16[v * 3 + 1] * step;
+              pos[v * 3 + 2] = oz + i16[v * 3 + 2] * step;
+            }
+            var geo = new THREE.BufferGeometry();
+            geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+            var carr = new Float32Array(vN * 3);
+            var cAttr = new THREE.BufferAttribute(carr, 3);
+            geo.setAttribute("color", cAttr);
+            geo.computeVertexNormals();   // non-indexed soup -> flat per-tri normals
+            geo.computeBoundingSphere();
+            var m = new THREE.Mesh(geo, l2Mat);
+            m.frustumCulled = true;
+            l2Group.add(m);
+            var rec = { mesh: m, colorAttr: cAttr, items: tile.items, center: tile.center };
+            l2Loaded[tile.id] = rec;
+            colorTileRec(rec, curLayer, curBin);
+            applyLodVisibility();
+          })
+          .catch(function () { delete l2Loaded[tile.id]; });
+      }
+
+      function disposeL2Tile(id) {
+        var rec = l2Loaded[id];
+        if (!rec || rec.loading) return;
+        if (rec.mesh) {
+          l2Group.remove(rec.mesh);
+          if (rec.mesh.geometry) rec.mesh.geometry.dispose();
+        }
+        delete l2Loaded[id];
+      }
+
+      // stream tiles by camera frustum + load radius; runs only at closest tier.
+      function updateLod2Tiles(now) {
+        if (!l2Built || !l2idx) return;
+        if (lodState === "far") {           // fully zoomed out -> free all
+          var ids = Object.keys(l2Loaded);
+          if (ids.length) { for (var k = 0; k < ids.length; k++) disposeL2Tile(ids[k]); applyLodVisibility(); }
+          return;
+        }
+        if (lodState !== "close") return;   // only stream at closest tier
+        if (now - l2LastT < 110) return;    // throttle
+        l2LastT = now;
+        l2ProjM.multiplyMatrices(cam.projectionMatrix, cam.matrixWorldInverse);
+        l2Frustum.setFromProjectionMatrix(l2ProjM);
+        var cp = cam.position, changed = false;
+        var tiles = l2idx.tiles;
+        for (var i = 0; i < tiles.length; i++) {
+          var t = tiles[i];
+          var d = cp.distanceTo(t.center);
+          var inView = l2Frustum.intersectsBox(t.box);
+          var loaded = !!l2Loaded[t.id];
+          if (!loaded && inView && d < L2_LOAD_R) { loadL2Tile(t); changed = true; }
+          else if (loaded && (!inView || d > L2_DISPOSE_R)) { disposeL2Tile(t.id); changed = true; }
+        }
+        if (changed) applyLodVisibility();
+      }
+
+      function colorLod2(layer, bin) {
+        if (!l2Built) return;
+        var ids = Object.keys(l2Loaded);
+        for (var i = 0; i < ids.length; i++) {
+          var rec = l2Loaded[ids[i]];
+          if (rec && !rec.loading) colorTileRec(rec, layer, bin);
+        }
+      }
+
+      function ensureLod2() {
+        if (l2Built) return Promise.resolve(true);
+        if (l2Loading) return l2Loading;
+        l2Loading = fetch(LOD2_INDEX_URL).then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (idx) {
+            if (!idx || !idx.tiles || !idx.tiles.length || typeof THREE === "undefined") return false;
+            l2idx = idx;
+            // precompute per-tile AABB + center in the shared local frame
+            for (var i = 0; i < idx.tiles.length; i++) {
+              var b = idx.tiles[i].bbox;
+              idx.tiles[i].box = new THREE.Box3(
+                new THREE.Vector3(b.x0, b.y0, b.z0), new THREE.Vector3(b.x1, b.y1, b.z1));
+              idx.tiles[i].center = new THREE.Vector3((b.x0 + b.x1) / 2, (b.y0 + b.y1) / 2, (b.z0 + b.z1) / 2);
+            }
+            l2Mat = new THREE.MeshStandardMaterial({
+              vertexColors: true, roughness: 0.9, metalness: 0.0,
+              flatShading: true, side: THREE.DoubleSide, transparent: true, opacity: 0
+            });
+            l2Group = new THREE.Group(); l2Group.visible = false; scene.add(l2Group);
+            l2Frustum = new THREE.Frustum(); l2ProjM = new THREE.Matrix4();
+            l2Built = true;
+            updateLod2Tiles(performance.now());
+            return true;
+          })
+          .catch(function (e) { console.warn("[lod2] index load failed", e); return false; });
+        return l2Loading;
+      }
+
+      // hide LoD1 prisms whose tile center is covered by a LOADED LoD2 tile, so
+      // closest zoom shows real massing where streamed and LoD1 as fallback (no holes).
+      function applyLodVisibility() {
+        var close = (lodState === "close") && l2Built && !l2ForceHidden;
+        var recs = close ? Object.keys(l2Loaded).map(function (k) { return l2Loaded[k]; })
+                              .filter(function (r) { return r && r.mesh; }) : [];
+        for (var i = 0; i < bTiles.length; i++) {
+          var bs = bTiles[i].mesh.geometry.boundingSphere, covered = false;
+          if (close && bs) {
+            for (var j = 0; j < recs.length; j++) {
+              var box = recs[j].mesh.geometry.boundingBox || null;
+              if (!box) { recs[j].mesh.geometry.computeBoundingBox(); box = recs[j].mesh.geometry.boundingBox; }
+              if (box && bs.center.x >= box.min.x && bs.center.x <= box.max.x &&
+                         bs.center.z >= box.min.z && bs.center.z <= box.max.z) { covered = true; break; }
+            }
+          }
+          bTiles[i].mesh.visible = !covered;
+        }
+      }
+
+      // ---- adaptive depth+normal Sobel outline (screen-space, ~1px) ----
+      var OutlineShader = {
+        uniforms: {
+          tDiffuse: { value: null }, tNormal: { value: null }, tDepth: { value: null },
+          resolution: { value: null }, cameraNear: { value: 0.1 }, cameraFar: { value: 5000 },
+          depthScale: { value: 1.0 }, normalThresh: { value: 0.5 },
+          edgeColor: { value: null }, edgeStrength: { value: 0.9 }, fade: { value: 1.0 }
+        },
+        vertexShader:
+          "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }",
+        fragmentShader: [
+          "#include <packing>",
+          "varying vec2 vUv;",
+          "uniform sampler2D tDiffuse, tNormal, tDepth;",
+          "uniform vec2 resolution;",
+          "uniform float cameraNear, cameraFar, depthScale, normalThresh, edgeStrength, fade;",
+          "uniform vec3 edgeColor;",
+          "float vz(vec2 uv){ float d = texture2D(tDepth, uv).x; return perspectiveDepthToViewZ(d, cameraNear, cameraFar); }",
+          "vec3 vn(vec2 uv){ return texture2D(tNormal, uv).xyz * 2.0 - 1.0; }",
+          "void main(){",
+          "  vec4 base = texture2D(tDiffuse, vUv);",
+          "  vec2 px = 1.0 / resolution;",
+          "  float dC = vz(vUv);",
+          "  float dL = vz(vUv + vec2(-px.x,0.0)), dR = vz(vUv + vec2(px.x,0.0));",
+          "  float dD = vz(vUv + vec2(0.0,-px.y)), dU = vz(vUv + vec2(0.0,px.y));",
+          "  float dist = -dC;",
+          // background (no geometry): depth at/after far plane -> no outline
+          "  float bg = step(cameraFar * 0.85, dist);",
+          "  float depthEdge = abs(dL + dR - 2.0*dC) + abs(dU + dD - 2.0*dC);",
+          // distance-adaptive threshold: grows with view distance so far buildings
+          // don't over-outline; depthScale is the camera-distance knob from JS.
+          "  float dThresh = (0.0035 * dist + 0.015) * depthScale;",
+          "  float de = step(dThresh, depthEdge);",
+          "  vec3 nC = vn(vUv);",
+          "  float ne = (1.0 - dot(nC, vn(vUv+vec2(-px.x,0.0)))) + (1.0 - dot(nC, vn(vUv+vec2(px.x,0.0))))",
+          "           + (1.0 - dot(nC, vn(vUv+vec2(0.0,-px.y)))) + (1.0 - dot(nC, vn(vUv+vec2(0.0,px.y))));",
+          "  float nedge = step(normalThresh, ne);",
+          "  float edge = clamp(max(de, nedge), 0.0, 1.0) * (1.0 - bg) * edgeStrength * fade;",
+          "  gl_FragColor = vec4(mix(base.rgb, edgeColor, edge), base.a);",
+          "}"
+        ].join("\n")
+      };
+
+      function setupPost(w, h) {
+        if (!THREE.EffectComposer || !THREE.RenderPass || !THREE.ShaderPass) return false;
+        try {
+          var dpr = renderer.getPixelRatio();
+          var pw = Math.floor(w * dpr), ph = Math.floor(h * dpr);
+          normalRT = new THREE.WebGLRenderTarget(pw, ph, { minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter });
+          normalRT.depthTexture = new THREE.DepthTexture(pw, ph);
+          normalRT.depthTexture.type = THREE.UnsignedIntType;
+          normalMat = new THREE.MeshNormalMaterial({ flatShading: true });
+          composer = new THREE.EffectComposer(renderer);
+          composer.setSize(w, h);
+          renderPass = new THREE.RenderPass(scene, cam);
+          renderPass.clearAlpha = 0;
+          composer.addPass(renderPass);
+          if (THREE.SAOPass) {
+            try {
+              saoPass = new THREE.SAOPass(scene, cam, false, true);
+              saoPass.params.output = (THREE.SAOPass.OUTPUT && THREE.SAOPass.OUTPUT.Default) || 0;
+              saoPass.params.saoIntensity = 0.0009;
+              saoPass.params.saoScale = 8;
+              saoPass.params.saoKernelRadius = 28;
+              saoPass.params.saoBlur = true;
+              saoPass.params.saoBlurRadius = 6;
+              composer.addPass(saoPass);
+            } catch (e) { console.warn("[SAOPass] init failed", e); saoPass = null; }
+          }
+          outlinePass = new THREE.ShaderPass(OutlineShader);
+          outlinePass.uniforms.resolution.value = new THREE.Vector2(pw, ph);
+          outlinePass.uniforms.cameraNear.value = cam.near;
+          outlinePass.uniforms.cameraFar.value = cam.far;
+          outlinePass.uniforms.edgeColor.value = new THREE.Color(0x05070a);
+          outlinePass.uniforms.tNormal.value = normalRT.texture;
+          outlinePass.uniforms.tDepth.value = normalRT.depthTexture;
+          composer.addPass(outlinePass);
+          usePost = true;
+          return true;
+        } catch (e) {
+          console.warn("[post] setup failed; falling back to plain render", e);
+          usePost = false; composer = null; return false;
+        }
+      }
+
+      function start() {
+        host = document.getElementById("layerMap");
+        var w = host.clientWidth, h = host.clientHeight;
+        scene = new THREE.Scene();
+        cam = new THREE.PerspectiveCamera(48, w / h, 0.1, 5000);
+        cam.position.set(70, 150, 230);
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(w, h);
+        renderer.setClearColor(0x000000, 0); // transparent -> shows theme-aware host bg
+        host.innerHTML = "";
+        host.appendChild(renderer.domElement);
+        scene.add(new THREE.HemisphereLight(0xffffff, 0x33404d, 0.9));
+        var dl = new THREE.DirectionalLight(0xffffff, 0.9); dl.position.set(120, 260, 90); scene.add(dl);
+        var dl2 = new THREE.DirectionalLight(0xbcd0e6, 0.25); dl2.position.set(-140, 120, -80); scene.add(dl2);
+        if (THREE.OrbitControls) {  // optional: a controls CDN failure must not blank the mesh
+          controls = new THREE.OrbitControls(cam, renderer.domElement);
+          controls.enableDamping = true; controls.dampingFactor = 0.08;
+          controls.target.set(0, 6, 0); controls.maxPolarAngle = Math.PI * 0.49;
+          controls.minDistance = 12; controls.maxDistance = 1200;
+        }
+        build();
+        setupPost(w, h);
+        clock = new THREE.Clock();
+        (function loop() {
+          raf = requestAnimationFrame(loop);
+          if (controls) controls.update();
+          var dt = clock ? clock.getDelta() : 0.016;
+          updateLOD();
+          updateLod2Tiles(performance.now());
+          fade(dt);
+          renderFrame();
+        })();
+        window.addEventListener("resize", onResize);
+      }
+
+      function camDist() {
+        var t = controls ? controls.target : new THREE.Vector3(0, 6, 0);
+        return cam.position.distanceTo(t);
+      }
+
+      function updateLOD() {
+        var d = camDist();
+        var prev = lodState;
+        // far <-> near
+        if (lodState === "far" && d < LOD_NEAR_ENTER) lodState = "near";
+        else if (lodState === "near" && d > LOD_NEAR_EXIT) lodState = "far";
+        // near <-> close (only meaningful once near)
+        if (lodState === "near" && d < LOD_CLOSE_ENTER) lodState = "close";
+        else if (lodState === "close" && d > LOD_CLOSE_EXIT) lodState = "near";
+
+        if (lodState === "far") {
+          heightTarget = 1; bldTarget = 0; l2Target = 0;
+        } else if (lodState === "near") {
+          heightTarget = 0; bldTarget = 1; l2Target = 0;
+          if (!bBuilt) ensureBuildings();
+        } else { // close: LoD2 massing where covered, LoD1 elsewhere
+          heightTarget = 0; bldTarget = 1; l2Target = 1;
+          if (!bBuilt) ensureBuildings();
+          if (!l2Built) ensureLod2();
+        }
+        if (prev !== lodState) applyLodVisibility();
+        // distance-adaptive outline knob: grow depth threshold with distance and
+        // fade edges out in the far view (screen-size cutoff for tiny buildings).
+        if (outlinePass) {
+          var ds = Math.max(0.6, Math.min(6.0, d / 90));
+          outlinePass.uniforms.depthScale.value = ds;
+          outlinePass.uniforms.fade.value = lerp(0.25, 1.0, Math.max(bldOpac, l2Opac));
+        }
+      }
+
+      function fade(dt) {
+        var k = Math.min(1, dt * 4.0);
+        heightOpac = lerp(heightOpac, heightTarget, k);
+        bldOpac = lerp(bldOpac, bldTarget, k);
+        l2Opac = lerp(l2Opac, l2Target, k);
+        if (mesh) {
+          mesh.material.opacity = heightOpac;
+          mesh.visible = heightOpac > 0.02;
+        }
+        if (bGroup && bMat) {
+          bMat.opacity = bldOpac;
+          bGroup.visible = bldOpac > 0.02;
+        }
+        if (l2Group && l2Mat) {
+          l2Mat.opacity = l2Opac;
+          l2Group.visible = !l2ForceHidden && l2Opac > 0.02;
+        }
+      }
+
+      function renderFrame() {
+        if (usePost && composer) {
+          // normal + depth prepass for the outline (flat-shaded view normals)
+          var prevOverride = scene.overrideMaterial;
+          var prevBg = scene.background;
+          scene.overrideMaterial = normalMat;
+          renderer.setRenderTarget(normalRT);
+          renderer.clear();
+          renderer.render(scene, cam);
+          renderer.setRenderTarget(null);
+          scene.overrideMaterial = prevOverride;
+          scene.background = prevBg;
+          composer.render();
+        } else {
+          renderer.render(scene, cam);
+        }
+      }
+
+      function onResize() {
+        if (!renderer || !host) return;
+        var w = host.clientWidth, h = host.clientHeight;
+        cam.aspect = w / h; cam.updateProjectionMatrix(); renderer.setSize(w, h);
+        if (composer) {
+          var dpr = renderer.getPixelRatio();
+          var pw = Math.floor(w * dpr), ph = Math.floor(h * dpr);
+          composer.setSize(w, h);
+          if (normalRT) normalRT.setSize(pw, ph);
+          if (outlinePass) outlinePass.uniforms.resolution.value.set(pw, ph);
+        }
+      }
+
+      function ensure() {
+        if (data) return Promise.resolve(true);
+        if (loading) return loading;
+        loading = whenThree()
+          .then(function () { return fetch(THERMAL3D_URL); })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (j) {
+            if (!j || typeof THREE === "undefined" || !THREE.WebGLRenderer) return false;
+            data = j; start(); return true;
+          }).catch(function (e) { console.warn("[thermal3d] load failed", e); return false; });
+        return loading;
+      }
+      function hasBin(layer, bin) {
+        if (layer === "svf") return true;
+        return !!(data && (data[layer === "shadow" ? "shade" : "mrt"] || {})[bin]);
+      }
+      function show(layer, bin) {
+        curLayer = layer; curBin = bin;
+        if (data && mesh) setColors(layer, bin);
+        if (bBuilt) colorBuildings(layer, bin);
+        if (l2Built) colorLod2(layer, bin);
+      }
+      function dbg() {
+        return {
+          ready: !!data, dist: data ? +camDist().toFixed(1) : null,
+          lodState: lodState, usePost: usePost, sao: !!saoPass,
+          bBuilt: bBuilt, bTiles: bTiles.length,
+          l2Built: l2Built, l2Manifest: l2idx ? l2idx.tiles.length : 0,
+          l2Loaded: Object.keys(l2Loaded).length,
+          bldOpac: +bldOpac.toFixed(2), l2Opac: +l2Opac.toFixed(2),
+          heightOpac: +heightOpac.toFixed(2),
+          addons: window.__threeAddons || null
+        };
+      }
+      function dolly(factor) {  // test helper: scale camera-to-target distance
+        if (!cam || !controls) return;
+        var t = controls.target;
+        cam.position.sub(t).multiplyScalar(factor).add(t);
+        controls.update();
+      }
+      function setOutline(o) {  // test helper for visual tuning of the outline pass
+        if (!outlinePass) return;
+        if (o.color != null) outlinePass.uniforms.edgeColor.value = new THREE.Color(o.color);
+        if (o.strength != null) outlinePass.uniforms.edgeStrength.value = o.strength;
+        if (o.normalThresh != null) outlinePass.uniforms.normalThresh.value = o.normalThresh;
+      }
+      function forceLod1(on) {  // test helper: A/B at identical camera (hide LoD2)
+        l2ForceHidden = !!on;
+        if (on) {
+          if (l2Group) l2Group.visible = false;
+          for (var i = 0; i < bTiles.length; i++) bTiles[i].mesh.visible = true;
+        } else {
+          applyLodVisibility();
+        }
+      }
+      function focusLocal(o) {  // test helper: aim camera at a local (x,y,z) point
+        if (!cam || !controls) return;
+        var tx = o.x || 0, ty = (o.y == null ? 8 : o.y), tz = o.z || 0;
+        var dist = o.dist || 70, az = (o.az == null ? 0.6 : o.az), el = (o.el == null ? 0.42 : o.el);
+        controls.target.set(tx, ty, tz);
+        cam.position.set(
+          tx + dist * Math.cos(el) * Math.sin(az),
+          ty + dist * Math.sin(el),
+          tz + dist * Math.cos(el) * Math.cos(az)
+        );
+        controls.update();
+        updateLOD();
+      }
+      return { ensure: ensure, show: show, hasBin: hasBin, resize: onResize, dbg: dbg, dolly: dolly, setOutline: setOutline, focusLocal: focusLocal, ensureLod2: ensureLod2, forceLod1: forceLod1 };
+    })();
+    window.__thermal3d = Thermal3D;
+
+    function setActiveLayer(key, bin) {
+      activeLayerKey = key;
+      Thermal3D.show(key, bin);
+      var legend = document.getElementById("layerLegend");
+      var avail = Thermal3D.hasBin(key, bin);
+      legend.textContent = LAYER_LABELS[key] + " · " + LAYER_UNITS[key] +
+        (avail ? "" : " · not exported for this bin (3D covers summer-solstice bins)");
+      Array.prototype.forEach.call(document.querySelectorAll(".layer-toggle"), function (btn) {
+        btn.classList.toggle("active", btn.dataset.layer === key);
+      });
+    }
+
+    function renderLayerSection(bin) {
+      var section = document.getElementById("layerSection");
+      if (!bin) { section.classList.add("hidden"); return; }
+      section.classList.remove("hidden");
+      document.getElementById("layerBinBadge").textContent = bin;
+      Thermal3D.ensure().then(function (ok) {
+        if (!ok) {
+          document.getElementById("layerLegend").textContent = "3D thermal viewer unavailable (could not load thermal3d.json or WebGL).";
+          return;
+        }
+        var toggles = document.getElementById("layerToggles");
+        toggles.innerHTML = "";
+        LAYER_ORDER.forEach(function (lo) {
+          var key = lo[0];
+          if (!T3D_LAYERS[key]) return; // 3D supports mrt / shadow / svf
+          var btn = document.createElement("button");
+          btn.type = "button"; btn.className = "layer-toggle";
+          btn.dataset.layer = key; btn.textContent = lo[1];
+          btn.onclick = function () { setActiveLayer(key, bin); };
+          toggles.appendChild(btn);
+        });
+        var pref = T3D_LAYERS[activeLayerKey] ? activeLayerKey : "mrt";
+        setActiveLayer(pref, bin);
+        setTimeout(Thermal3D.resize, 60);
+      });
     }
 
     function render(data) {
@@ -498,8 +1480,11 @@
         maps.lastElementChild.querySelector("img").onclick = function (e) { e.stopPropagation(); openLightbox(psrc, "Phase map"); };
       }
 
+      renderThermal(data);
+      renderLayerSection(data.time_bin || null);
+
       if (FLAGS.debug) {
-        document.getElementById("debug").textContent = JSON.stringify({ comparison: c, thermal_validation: tv }, null, 2);
+        document.getElementById("debug").textContent = JSON.stringify({ comparison: c, thermal_validation: tv, time_bin: data.time_bin, thermal_bins_available: data.thermal_bins_available }, null, 2);
       }
     }
 
@@ -543,10 +1528,13 @@
       startLoadAnimation();
 
       var t0 = performance.now();
+      var reqBody = { origin: oSel.value, destination: dSel.value };
+      var bin = currentBin();
+      if (bin) reqBody.time_bin = bin;
       fetch(FLAGS.api, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ origin: oSel.value, destination: dSel.value })
+        body: JSON.stringify(reqBody)
       })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (res) {
@@ -571,6 +1559,8 @@
       var u = new URL(location.href);
       u.searchParams.set("origin", oSel.value);
       u.searchParams.set("dest", dSel.value);
+      var cb = currentBin();
+      if (cb) u.searchParams.set("time_bin", cb); else u.searchParams.delete("time_bin");
       u.searchParams.delete("auto");
       navigator.clipboard.writeText(u.toString()).then(function () {
         setStatus("Demo link copied.", "ok");

@@ -1,0 +1,9 @@
+# Thermal 3D data is served from S3 + CloudFront, not committed to the repo
+docs/public/thermal_layers/
+
+# Local e2e / verification harness
+e2e/
+
+# OS / misc cruft
+.DS_Store
+**/.DS_Store

@@ -3,23 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Content-Security-Policy (P1-1 defense-in-depth). connect-src structurally
+       enforces the ?api=/?data= allowlist (prod API + CloudFront + self + localhost
+       for dev). script-src keeps 'unsafe-inline' because this is a single-file app
+       with inline <script>/importmap blocks; the primary XSS defense is the DOM
+       textContent construction below, not the CSP. img-src allows data: for the
+       base64 route PNGs. (frame-ancestors is intentionally omitted: it is ignored
+       in a <meta> CSP and must be sent as an HTTP header; GitHub Pages cannot set
+       headers, so clickjacking hardening is tracked as a separate hosting concern.) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://50pl2v7kne.execute-api.us-east-1.amazonaws.com https://d27wzslw8escv2.cloudfront.net https://cdn.jsdelivr.net https://unpkg.com http://localhost:* http://127.0.0.1:*; img-src 'self' data:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; base-uri 'self'">
   <title>Observable Comfort Router — aimez</title>
   <meta name="description" content="Live Manhattan pedestrian routing on street pressure from public DOT feeds, tree shade and Landsat heat. Five route modes, phase map, block-level comparison.">
   <link rel="canonical" href="https://aimez.ai/public/comfort-router.html">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <meta name="theme-color" content="#0f1419">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- SRI: third-party CDN assets are pinned with sha384 Subresource Integrity +
+       crossorigin="anonymous" so a tampered CDN response is rejected by the browser.
+       Hashes are for the exact pinned versions (leaflet 1.9.4 on unpkg). -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
   <!-- three r0.149 as a single ES module (examples/js classic globals were removed
        in r0.149). We copy the frozen module namespace into an extensible global
        `THREE` so the classic viewer code below keeps using window.THREE, and we
        load each addon guarded: a CDN failure for any addon degrades gracefully
        (the mesh still renders) instead of blanking the viewer. jsdelivr only. -->
+  <!-- SRI for ES modules: import maps support an "integrity" map (sha384) that the
+       browser enforces on every matching module fetch (static + dynamic import),
+       including the addons resolved through the "three/addons/" prefix below. A
+       browser that does not understand the key ignores it and the imports still
+       resolve, so this is a strict-where-supported, graceful-elsewhere pin. ES
+       module fetches from a CDN already use CORS, so no crossorigin attr is needed
+       on the inline importmap/module tags. -->
   <script type="importmap">
   {
     "imports": {
       "three": "https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.module.js",
       "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/"
+    },
+    "integrity": {
+      "https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.module.js": "sha384-12YogFBvdVetjPVfxidCU7NzjtjvSQnNeVzUAtopFVGtoco6uyZfxHwbAU1E6nB9",
+      "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/controls/OrbitControls.js": "sha384-HpA03OvhMON4T/4Rx+P8S25ePeMAaMaoXBPR8e/GiG1r6j0b/p6Q2zfu3ZHoX9Xj",
+      "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/postprocessing/EffectComposer.js": "sha384-SX/8Dndap0CFTN7NwkELsM5wV4aZr3U/Fn3HkdhwPG8HF04Gwp2S0R6netNOJIco",
+      "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/postprocessing/RenderPass.js": "sha384-J5RAwjDaiGdrAx5MkmFcZtGamVvtYxBBcb1IcNwuyddWhcDgqI4rWQSeup1MyGTt",
+      "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/postprocessing/ShaderPass.js": "sha384-+ICQZE/l6jh2t4p8+8viGfi5Oor3ZhaO7iEqxqyRDyxLZJQdZlN9F9o1ix8N9Pc1",
+      "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/postprocessing/SAOPass.js": "sha384-iy1pEVgoXa32jw/0cD0bNbXtbjF37SdW791GLIy2AistiuE0eB9dCjt0EkjtOVGJ"
     }
   }
   </script>
@@ -195,7 +222,7 @@
       background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
       overflow: hidden; cursor: zoom-in;
     }
-    .map-box h4 { font-size: .78rem; padding: .55rem .85rem; color: var(--muted); border-bottom: 1px solid var(--border); }
+    .map-box h3 { font-size: .78rem; font-weight: 600; padding: .55rem .85rem; color: var(--muted); border-bottom: 1px solid var(--border); }
     .map-box img { width: 100%; display: block; background: #0a0e12; }
     .map-placeholder {
       min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -208,7 +235,12 @@
     .fade-in { animation: fadeUp .45s ease forwards; }
     details { margin-top: .5rem; font-size: .78rem; color: var(--muted); }
     details summary { cursor: pointer; color: var(--accent2); font-weight: 500; }
-    details ol { margin: .4rem 0 0 1.1rem; max-height: 200px; overflow-y: auto; }
+    details ol { margin: .4rem 0 0 1.1rem; }
+    /* P2-3 a11y: the clipped turn-by-turn list lives in a focusable scroll wrapper
+       (tabindex/role/aria-label applied in JS) so keyboard users can scroll it and
+       axe scrollable-region-focusable passes. */
+    .turn-scroll { max-height: 200px; overflow-y: auto; }
+    .turn-scroll:focus-visible, .why-turn-scroll:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
     .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: .78rem; color: var(--muted); }
     .footer a { color: var(--accent2); }
     .hidden { display: none !important; }
@@ -235,14 +267,28 @@
     .time-controls { display: grid; grid-template-columns: minmax(180px, 1fr) 2fr auto; gap: .75rem; align-items: end; margin-top: .65rem; }
     @media (max-width: 720px) { .time-controls { grid-template-columns: 1fr; } }
     .time-controls.disabled { opacity: .4; pointer-events: none; }
-    input[type=range] { width: 100%; accent-color: var(--accent); }
+    /* P3 touch targets (WCAG 2.5.8): the time toggle checkbox and the hour-slider
+       thumb were 13px / 16px; enlarge both to >=24px hit targets. */
+    #timeToggle { width: 24px; height: 24px; accent-color: var(--accent); cursor: pointer; flex: none; }
+    input[type=range] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 24px; background: transparent; cursor: pointer; margin: 0;
+    }
+    input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: var(--border); }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none; width: 24px; height: 24px; margin-top: -9px;
+      border-radius: 50%; background: var(--accent); border: 2px solid var(--surface); cursor: pointer;
+    }
+    input[type=range]::-moz-range-track { height: 6px; border-radius: 3px; background: var(--border); }
+    input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border: 2px solid var(--surface); border-radius: 50%; background: var(--accent); cursor: pointer; }
+    input[type=range]:focus { outline: 2px solid var(--accent2); outline-offset: 2px; }
     .time-readout { font-size: .82rem; color: var(--accent2); font-variant-numeric: tabular-nums; min-width: 9rem; text-align: right; }
     select.day-sel { padding: .55rem .7rem; }
 
     /* --- thermal summary + why-this-turn --- */
     #thermalBlock { margin-bottom: 1.25rem; }
     .thermal-head { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin-bottom: .6rem; }
-    .thermal-head h2 { font-family: Fraunces, Georgia, serif; font-size: 1.05rem; font-weight: 600; }
+    .thermal-head h2, .thermal-head h3 { font-family: Fraunces, Georgia, serif; font-size: 1.05rem; font-weight: 600; }
     .thermal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: .65rem; }
     .thermal-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: .7rem .8rem; border-top: 3px solid var(--border); }
     .thermal-card.shortest { border-top-color: #b8c5d4; }
@@ -286,9 +332,48 @@
     .leaflet-container { background: #0a0e12; }
     .layer-note { font-size: .74rem; color: var(--warn); margin-top: .55rem; }
     .layer-legend { font-size: .72rem; color: var(--muted); margin-top: .35rem; }
+    /* P3 color-not-only (WCAG 1.4.1): a printed value-to-color scale for the 3D
+       thermal field so magnitude is carried by numbers, not the color ramp alone. */
+    .layer-scale { margin-top: .4rem; max-width: 320px; }
+    .layer-scale .legend-bar { height: 12px; border-radius: 4px; border: 1px solid var(--border); }
+    .layer-scale .legend-ticks { display: flex; justify-content: space-between; gap: .5rem;
+      font-size: .68rem; color: var(--muted); margin-top: .2rem; font-variant-numeric: tabular-nums; }
+    /* P3 color-not-only: the why-this-turn MRT cells use color for hot/hotter; the
+       numeric °C value already carries magnitude, and this adds a non-color text
+       band marker (▲ / ▲▲) so the heat band survives grayscale / color-blind view. */
+    .why-turn .band { font-size: .7rem; margin-left: .3rem; letter-spacing: -.04em; }
+
+    /* P3 skip link + screen-reader-only utility (WCAG 2.4.1 Bypass Blocks). */
+    .skip-link {
+      position: absolute; left: 8px; top: -48px; z-index: 200;
+      background: var(--accent); color: #07120f; padding: .55rem .9rem; border-radius: 8px;
+      font-weight: 700; font-size: .85rem; transition: top .15s;
+    }
+    .skip-link:focus { top: 8px; outline: 2px solid var(--accent2); outline-offset: 2px; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* P3 prefers-reduced-motion (WCAG 2.2.2 / 2.3.3): collapse all CSS animations
+       and transitions to effectively instant for users who request reduced motion.
+       The count-up, OrbitControls damping and LOD cross-fades are gated in JS. */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        transition-delay: 0s !important;
+        scroll-behavior: auto !important;
+      }
+      .skip-link { transition: none !important; }
+    }
   </style>
 </head>
 <body>
+  <!-- P3 (WCAG 2.4.1): skip link is the first focusable element, jumping past the
+       header straight to the main landmark. -->
+  <a class="skip-link" href="#mainContent">Skip to content</a>
   <div class="wrap" id="app">
     <header>
       <div class="brand"><img src="../assets/aimez-mark.webp" alt=""><span>aimez · comfort router</span></div>
@@ -296,6 +381,9 @@
       <p class="lede">Same Manhattan walk, five ways to feel it — quieter blocks, more tree shade, cooler surface heat. Pick two corners and watch the routes diverge.</p>
     </header>
 
+    <!-- P3 (axe landmark-one-main / region): a single <main> landmark wraps all the
+         interactive content so no content sits outside a landmark. -->
+    <main id="mainContent">
     <p id="demoBanner" class="demo-banner hidden">Lobby demo mode — cycling sample walks every <span id="demoSec">12</span>s</p>
 
     <section class="panel">
@@ -329,10 +417,19 @@
           <div class="time-readout" id="timeReadout">Summer · 1 PM</div>
         </div>
       </div>
-      <p id="status">Pick two landmarks and click Route.</p>
+      <!-- P2-3 a11y (F2): role=status + aria-live announces every status transition
+           ("Computing routes…" / "Live route computed." / error text) to screen readers. -->
+      <p id="status" role="status" aria-live="polite">Pick two landmarks and click Route.</p>
     </section>
 
-    <section id="results" class="hidden">
+    <!-- P2-3 a11y (F2): the results region is a named landmark and a polite live
+         region, so the route outcome (headline, metrics, cards) is announced when it
+         appears instead of being revealed silently. -->
+    <section id="results" class="hidden" role="region" aria-label="Route results" aria-live="polite">
+      <!-- P3 heading order: a stable H2 anchors the results outline so the H3/H4
+           subsection headings below never jump a level from the page H1, regardless
+           of whether the optional thermal block is present. -->
+      <h2 class="sr-only">Route results</h2>
       <div class="meta-line" id="metaLine"></div>
       <div class="toolbar">
         <button type="button" class="btn-ghost" id="copyLink">Copy demo link</button>
@@ -362,7 +459,8 @@
       <div class="layer-toggles" id="layerToggles"></div>
       <div id="layerMap"></div>
       <div class="layer-legend" id="layerLegend"></div>
-      <p class="viewer-hint">3D surface clipped to the Manhattan landmass (no basemap); drag to rotate, scroll to zoom.</p>
+      <div class="layer-scale" id="layerScale"></div>
+      <p class="viewer-hint">3D surface clipped to the Manhattan landmass (no basemap); drag to rotate, scroll to zoom. Keyboard: focus the map (Tab), then arrow keys orbit and + / − zoom. The per-route MRT, UTCI and shade values are also listed as text in the thermal summary cards above.</p>
       <p class="layer-note">MRT modeled (static LST). UTCI provisional (placeholder air temp / proxy wind / placeholder RH). Central Park canopy 12 m proxy.</p>
     </section>
 
@@ -373,22 +471,44 @@
       </div>
     </section>
 
-    <p class="footer">
+    <pre id="debug" class="hidden"></pre>
+    </main>
+
+    <!-- P3 (axe region): footer is a contentinfo landmark, not a stray <p>. -->
+    <footer class="footer">
       Heat routing uses Landsat surface temperature on the street graph (greenR framework, Mahajan <em>Ecological Indicators</em> 2024).
       Surface temperature is not pedestrian-height air temperature; on parallel avenues the difference a walker feels is governed by upwind conditions the satellite does not see.
       <strong>Thermal layers honesty:</strong> MRT is modeled (uses a static LST composite, not per-bin surface temperature); UTCI is provisional (placeholder air temp, proxy wind, placeholder relative humidity); Central Park canopy height is a 12 m DBH proxy, not survey.
       Built with <a href="https://github.com/GilRaitses/pax">pax</a>.
       <a href="village-pilot.html">Village pilot</a> · <a href="routing-demo.html">Classic two-mode demo</a> · <a href="index.html">Public pages</a>
-    </p>
-    <pre id="debug" class="hidden"></pre>
+    </footer>
   </div>
 
   <script>
   (function () {
     var API_DEFAULT = "https://50pl2v7kne.execute-api.us-east-1.amazonaws.com";
+    var CLOUDFRONT_DEFAULT = "https://d27wzslw8escv2.cloudfront.net/";
     var params = new URLSearchParams(location.search);
+
+    // --- P1-1: allowlist for ?api= / ?data= overrides ---
+    // Only the known prod API origin, the CloudFront data origin, and
+    // localhost/127.0.0.1 (any port/scheme, for local dev) are honored. Any other
+    // value is ignored and the caller falls back to the production default, so a
+    // crafted ?api=https://attacker.example link can no longer point the page at
+    // an attacker-controlled response body.
+    function isLocalHost(h) { return h === "localhost" || h === "127.0.0.1"; }
+    function allowOverrideUrl(raw) {
+      if (raw == null || raw === "") return null;
+      var u;
+      try { u = new URL(raw, location.href); } catch (e) { return null; }
+      if (isLocalHost(u.hostname)) return raw;
+      if (u.origin === "https://50pl2v7kne.execute-api.us-east-1.amazonaws.com") return raw;
+      if (u.origin === "https://d27wzslw8escv2.cloudfront.net") return raw;
+      return null;
+    }
+
     var FLAGS = {
-      api: params.get("api") || API_DEFAULT,
+      api: allowOverrideUrl(params.get("api")) || API_DEFAULT,
       showAdaptive: !params.has("no-adaptive"),
       showPhaseMap: !params.has("no-phase-map"),
       showComfort: !params.has("no-comfort"),
@@ -406,6 +526,39 @@
       document.getElementById("demoBanner").classList.remove("hidden");
       document.getElementById("demoSec").textContent = String(FLAGS.demoInterval / 1000);
     }
+
+    // P3 prefers-reduced-motion (WCAG 2.2.2 / 2.3.3): single live source of truth.
+    // The count-up, OrbitControls damping and LOD cross-fades read this; CSS handles
+    // the rest. Read live (not cached) so an OS toggle mid-session is honored.
+    function prefersReducedMotion() {
+      return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    }
+
+    // --- P1-1: safe DOM construction helpers ---
+    // All API-derived strings flow through textContent (createTextNode) instead of
+    // innerHTML string concatenation, so response fields can never be parsed as HTML.
+    function elem(tag, opts, children) {
+      var n = document.createElement(tag);
+      if (opts) {
+        if (opts.class != null) n.className = opts.class;
+        if (opts.text != null) n.textContent = opts.text;
+        if (opts.title != null) n.title = opts.title;
+        if (opts.open) n.open = true;
+        if (opts.attrs) {
+          Object.keys(opts.attrs).forEach(function (k) { n.setAttribute(k, opts.attrs[k]); });
+        }
+      }
+      if (children) {
+        children.forEach(function (c) {
+          if (c == null) return;
+          n.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+        });
+      }
+      return n;
+    }
+    function clearNode(n) { while (n.firstChild) n.removeChild(n.firstChild); }
+    // base64 validation before a data:image/png URL is built from API bytes.
+    function isValidBase64(s) { return typeof s === "string" && /^[A-Za-z0-9+/=\s]+$/.test(s); }
 
     var LANDMARKS = [
       ["grand_central", "Grand Central"],
@@ -452,9 +605,18 @@
       ["shadow", "Shadow"], ["mrt", "MRT"], ["utci", "UTCI"], ["svf", "SVF"], ["lst", "LST"]
     ];
     // Thermal 3D data is hosted on S3+CloudFront in production; relative when local.
-    var DATA_BASE = (params.get("data") != null) ? params.get("data")
-      : (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:") ? ""
-      : "https://d27wzslw8escv2.cloudfront.net/";
+    // P1-1: the ?data= override is allowlisted the same way as ?api= (prod CloudFront,
+    // prod API, or localhost). A localhost page may also pass an empty ?data= to force
+    // relative fetches. Anything else falls back to the environment default.
+    var DATA_LOCAL = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:");
+    var DATA_DEFAULT = DATA_LOCAL ? "" : CLOUDFRONT_DEFAULT;
+    var DATA_BASE = (function () {
+      var raw = params.get("data");
+      if (raw == null) return DATA_DEFAULT;
+      if (raw === "" && DATA_LOCAL) return "";
+      var ok = allowOverrideUrl(raw);
+      return ok != null ? raw : DATA_DEFAULT;
+    })();
     var LAYERS_INDEX_URL = DATA_BASE + "thermal_layers/layers_index.json";
     function hourLabel(h) {
       var hh = ((h + 11) % 12) + 1;
@@ -550,7 +712,8 @@
     }
 
     function animateCount(el, end, opts) {
-      if (FLAGS.noAnimate || end == null || isNaN(end)) {
+      // P3: reduced-motion users get the final value with no count-up tween.
+      if (FLAGS.noAnimate || prefersReducedMotion() || end == null || isNaN(end)) {
         el.textContent = (opts.prefix || "") + fmt(end, opts.decimals) + (opts.suffix || "");
         return;
       }
@@ -587,110 +750,179 @@
     }
 
     function routeCard(title, data, cls, icon) {
-      if (!data) return "";
-      var h = '<article class="route-card ' + cls + ' fade-in"><h3><span class="ico">' + icon + '</span>' + title + '</h3><dl>';
+      if (!data) return null;
+      var card = elem("article", { class: "route-card " + cls + " fade-in" });
+      card.appendChild(elem("h3", null, [elem("span", { class: "ico", text: icon }), title]));
+      var dl = elem("dl");
       [["Blocks", data.hops], ["Block pressure", fmt(data.mean_stress, 2)], ["Mean canopy", fmt(data.mean_canopy, 1)],
        ["Mean LST °C", fmt(data.mean_lst, 1)], ["High-pressure blocks", data.n_high_stress_edges]].forEach(function (r) {
-        h += "<dt>" + r[0] + "</dt><dd>" + r[1] + "</dd>";
+        dl.appendChild(elem("dt", { text: r[0] }));
+        dl.appendChild(elem("dd", { text: r[1] == null ? "—" : String(r[1]) }));
       });
-      return h + "</dl></article>";
+      card.appendChild(dl);
+      return card;
     }
 
     function renderRegimeChips(steps) {
-      if (!steps || !steps.length) return "";
+      var frag = document.createDocumentFragment();
+      if (!steps || !steps.length) return frag;
       var seen = {};
-      var h = "";
       steps.forEach(function (s) {
         if (s.comfort_regime && !seen[s.comfort_regime]) {
           seen[s.comfort_regime] = true;
-          h += '<span class="chip">' + s.comfort_regime.replace(/_/g, " ") + "</span>";
+          frag.appendChild(elem("span", { class: "chip", text: String(s.comfort_regime).replace(/_/g, " ") }));
         }
       });
-      return h;
+      return frag;
     }
 
     function renderTurnByTurn(tb) {
-      if (!tb) return "";
+      var frag = document.createDocumentFragment();
+      if (!tb) return frag;
       var keys = FLAGS.showAllTurns ? Object.keys(tb) : ["adaptive_aware"];
-      var h = "";
       keys.forEach(function (k) {
         var steps = tb[k];
         if (!steps || !steps.length) return;
-        var open = !FLAGS.showAllTurns ? " open" : "";
-        h += "<details" + open + "><summary>Steps · " + k.replace(/_/g, " ") + " (" + steps.length + " blocks)</summary><ol>";
+        var details = elem("details", { open: !FLAGS.showAllTurns });
+        details.appendChild(elem("summary", { text: "Steps · " + String(k).replace(/_/g, " ") + " (" + steps.length + " blocks)" }));
+        var ol = elem("ol");
         steps.forEach(function (s) {
-          var extra = s.comfort_regime ? " · " + s.comfort_regime.replace(/_/g, " ") : "";
-          h += "<li>" + s.from + " → " + s.to + extra + "</li>";
+          var extra = s.comfort_regime ? " · " + String(s.comfort_regime).replace(/_/g, " ") : "";
+          ol.appendChild(elem("li", { text: (s.from == null ? "" : s.from) + " → " + (s.to == null ? "" : s.to) + extra }));
         });
-        h += "</ol></details>";
+        // P2-3 a11y (F1): wrap the clipped <ol> in a focusable scroll region so a
+        // keyboard user can reach and scroll it (axe scrollable-region-focusable).
+        details.appendChild(elem("div", {
+          class: "turn-scroll",
+          attrs: {
+            tabindex: "0", role: "region",
+            "aria-label": "Turn-by-turn steps for " + String(k).replace(/_/g, " ") + " (scrollable list)"
+          }
+        }, [ol]));
+        frag.appendChild(details);
       });
       if (!FLAGS.showAllTurns && Object.keys(tb).length > 1) {
-        h += '<p style="margin-top:.5rem;font-size:.75rem"><button type="button" class="btn-ghost" id="showAllTurns">Show all route steps</button></p>';
+        var p = elem("p", { attrs: { style: "margin-top:.5rem;font-size:.75rem" } });
+        p.appendChild(elem("button", { class: "btn-ghost", text: "Show all route steps", attrs: { type: "button", id: "showAllTurns" } }));
+        frag.appendChild(p);
       }
-      return h;
+      return frag;
     }
 
     function openLightbox(src, alt) {
-      var lb = document.createElement("div");
-      lb.className = "lightbox";
-      lb.innerHTML = '<img alt="' + (alt || "") + '" src="' + src + '">';
+      var lb = elem("div", { class: "lightbox" });
+      var img = elem("img", { attrs: { alt: alt || "" } });
+      img.src = src;  // src is a locally built, base64-validated data: URL (no attribute breakout)
+      lb.appendChild(img);
       lb.onclick = function () { document.body.removeChild(lb); };
       document.body.appendChild(lb);
+    }
+
+    // P1-6: surface a clear low-confidence caveat near the thermal cards. Every bin
+    // (including off-summer equinox/winter) is driven by a single static summer
+    // Landsat LST composite, so MRT/UTCI are modeled and uncalibrated; off-summer
+    // bins are flagged as not reliable.
+    function thermalCaveat(bin) {
+      var day = String(bin).split("_")[0];
+      var isSummer = day === "solstice";
+      var note = elem("p", { class: "layer-note" });
+      if (isSummer) {
+        note.textContent = "MRT and UTCI here are modeled and uncalibrated (mrt_calibrated is false). " +
+          "They come from a single static summer Landsat surface-temperature composite, so read the numeric cards as indicative, not measured.";
+      } else {
+        note.style.color = "var(--danger)";
+        note.textContent = "Low confidence for this off-summer bin (" + (DAY_LABEL[day] || "non-summer") + "). " +
+          "MRT and UTCI are modeled on a static summer Landsat surface temperature, so equinox and winter values are not reliable. " +
+          "Treat the numeric cards below as illustrative only.";
+      }
+      return note;
     }
 
     function renderThermal(data) {
       var block = document.getElementById("thermalBlock");
       var thermal = data.thermal;
+      clearNode(block);
       if (!thermal || !data.time_bin) {
         block.classList.add("hidden");
-        block.innerHTML = "";
         return;
       }
+      var bin = String(data.time_bin);
+      block.classList.remove("hidden");
       var anySummary = THERMAL_MODES.some(function (m) {
         return thermal[m[0]] && thermal[m[0]].summary && thermal[m[0]].summary.legs_with_thermal;
       });
+
+      var head = elem("div", { class: "thermal-head" }, [elem("h3", { text: "Modeled thermal · " + bin })]);
+      if (anySummary) head.appendChild(elem("span", { class: "badge", text: "MRT modeled (static LST) · UTCI provisional" }));
+      block.appendChild(head);
+      block.appendChild(thermalCaveat(bin));
+
       if (!anySummary) {
-        block.classList.remove("hidden");
-        block.innerHTML = '<div class="thermal-head"><h2>Modeled thermal · ' + data.time_bin +
-          '</h2></div><p class="lede" style="font-size:.85rem">No per-edge thermal data for this bin (try a summer-solstice hour).</p>';
+        block.appendChild(elem("p", { class: "lede", attrs: { style: "font-size:.85rem" },
+          text: "No per-edge thermal data for this bin (try a summer-solstice hour)." }));
         return;
       }
-      var h = '<div class="thermal-head"><h2>Modeled thermal · ' + data.time_bin +
-        '</h2><span class="badge">MRT modeled (static LST) · UTCI provisional</span></div>';
-      h += '<div class="thermal-grid">';
+
+      var gridEl = elem("div", { class: "thermal-grid" });
       THERMAL_MODES.forEach(function (m) {
         var t = thermal[m[0]];
         if (!t || !t.summary) return;
         var s = t.summary;
-        h += '<div class="thermal-card ' + m[2] + ' fade-in"><h4>' + m[1] + '</h4><dl>' +
-          '<dt>Mean MRT</dt><dd>' + fmt(s.mean_mrt_c, 1) + ' °C</dd>' +
-          '<dt>Max MRT</dt><dd>' + fmt(s.max_mrt_c, 1) + ' °C</dd>' +
-          '<dt>Mean UTCI</dt><dd>' + fmt(s.mean_utci_c, 1) + ' °C</dd>' +
-          '<dt>Mean shade</dt><dd>' + fmt((s.mean_shade_fraction || 0) * 100, 0) + ' %</dd>' +
-          '<dt>Blocks</dt><dd>' + (s.legs_with_thermal == null ? "—" : s.legs_with_thermal) + '</dd>' +
-          '</dl></div>';
+        var card = elem("div", { class: "thermal-card " + m[2] + " fade-in" }, [elem("h4", { text: m[1] })]);
+        var dl = elem("dl");
+        [["Mean MRT", fmt(s.mean_mrt_c, 1) + " °C"], ["Max MRT", fmt(s.max_mrt_c, 1) + " °C"],
+         ["Mean UTCI", fmt(s.mean_utci_c, 1) + " °C"], ["Mean shade", fmt((s.mean_shade_fraction || 0) * 100, 0) + " %"],
+         ["Blocks", s.legs_with_thermal == null ? "—" : String(s.legs_with_thermal)]].forEach(function (row) {
+          dl.appendChild(elem("dt", { text: row[0] }));
+          dl.appendChild(elem("dd", { text: row[1] }));
+        });
+        card.appendChild(dl);
+        gridEl.appendChild(card);
       });
-      h += '</div>';
+      block.appendChild(gridEl);
 
       var adaptive = thermal.adaptive_aware;
       if (adaptive && adaptive.legs && adaptive.legs.length) {
-        h += '<div class="why-turn"><details open><summary style="cursor:pointer;color:var(--accent2);font-weight:500;margin-bottom:.4rem">' +
-          'Why this turn — adaptive path per-block decomposition (' + adaptive.legs.length + ' blocks)</summary>' +
-          '<div class="why-turn-scroll"><table><thead><tr><th>#</th><th>Block</th><th>MRT °C</th><th>Shade %</th><th>SVF</th><th>UTCI °C</th></tr></thead><tbody>';
+        var details = elem("details", { open: true });
+        details.appendChild(elem("summary", {
+          attrs: { style: "cursor:pointer;color:var(--accent2);font-weight:500;margin-bottom:.4rem" },
+          text: "Why this turn — adaptive path per-block decomposition (" + adaptive.legs.length + " blocks)"
+        }));
+        var table = elem("table");
+        var trh = elem("tr");
+        ["#", "Block", "MRT °C", "Shade %", "SVF", "UTCI °C"].forEach(function (htxt) { trh.appendChild(elem("th", { text: htxt })); });
+        table.appendChild(elem("thead", null, [trh]));
+        var tbody = elem("tbody");
         adaptive.legs.forEach(function (leg, i) {
           var mrt = leg.mrt_c;
           var cls = mrt != null && mrt >= 55 ? "hotter" : (mrt != null && mrt >= 48 ? "hot" : "");
           var label = (leg.from || leg.to) ? ((leg.from || "·") + " → " + (leg.to || "·")) : "street block";
-          h += '<tr><td>' + (i + 1) + '</td><td>' + label + '</td>' +
-            '<td class="' + cls + '">' + fmt(mrt, 1) + '</td>' +
-            '<td>' + fmt((leg.shade_fraction || 0) * 100, 0) + '</td>' +
-            '<td>' + fmt(leg.svf, 2) + '</td>' +
-            '<td>' + fmt(leg.utci_c, 1) + '</td></tr>';
+          var tr = elem("tr");
+          tr.appendChild(elem("td", { text: String(i + 1) }));
+          tr.appendChild(elem("td", { text: label }));
+          // P3 color-not-only (WCAG 1.4.1): the numeric °C is the value scale, plus a
+          // text band label so "hot"/"very hot" is not conveyed by color alone.
+          var mrtTd = elem("td", { class: cls });
+          mrtTd.appendChild(document.createTextNode(fmt(mrt, 1)));
+          if (cls) mrtTd.appendChild(elem("span", { class: "band", text: cls === "hotter" ? " (very hot)" : " (hot)" }));
+          tr.appendChild(mrtTd);
+          tr.appendChild(elem("td", { text: fmt((leg.shade_fraction || 0) * 100, 0) }));
+          tr.appendChild(elem("td", { text: fmt(leg.svf, 2) }));
+          tr.appendChild(elem("td", { text: fmt(leg.utci_c, 1) }));
+          tbody.appendChild(tr);
         });
-        h += '</tbody></table></div></details></div>';
+        table.appendChild(tbody);
+        // P2-3 a11y (F1): focusable scroll region so the clipped per-block table is
+        // keyboard-scrollable (axe scrollable-region-focusable).
+        details.appendChild(elem("div", {
+          class: "why-turn-scroll",
+          attrs: {
+            tabindex: "0", role: "region",
+            "aria-label": "Why this turn — per-block thermal decomposition (scrollable)"
+          }
+        }, [table]));
+        block.appendChild(elem("div", { class: "why-turn" }, [details]));
       }
-      block.innerHTML = h;
-      block.classList.remove("hidden");
     }
 
     function buildHeadline(c) {
@@ -740,6 +972,14 @@
       var l2Frustum = null, l2ProjM = null, l2LastT = 0;
       var L2_LOAD_R = 135, L2_DISPOSE_R = 175;   // local-unit load/keep radii (hysteresis)
       var l2ForceHidden = false;            // test-only A/B override
+      // P2-8: bounded LRU buffer cache of parsed LoD2 tile geometries. A tile that
+      // leaves the frustum is detached from the scene and parked here (geometry +
+      // color buffer retained); orbiting back to it reuses the geometry instead of
+      // re-fetching the .bin and re-parsing/re-normaling it (the wave1_perf 2.7x churn).
+      var l2Cache = {};                     // id -> rec (mesh detached from group, geometry kept)
+      var l2CacheOrder = [];                // LRU queue of cached ids (oldest first)
+      var L2_CACHE_MAX = 48;                // bound resident-but-offscreen tile geometries
+      var l2CacheHits = 0, l2CacheMisses = 0;  // instrumentation for tests
       // active field (so a LOD switch recolors buildings with the current layer/bin)
       var curLayer = "mrt", curBin = null;
       // post-processing
@@ -754,6 +994,9 @@
       var bldTarget = 0, bldOpac = 0;         // LoD1 buildings fade
       var l2Target = 0, l2Opac = 0;           // LoD2 massing fade
       var clock = null;
+      // P2-4: WebGL context-loss recovery state. loseCtxExt is captured at renderer
+      // build time (the extension must be fetched from a live context, not a lost one).
+      var ctxLost = false, ctxRestores = 0, loseCtxExt = null;
 
       function lerp(a, b, t) { return a + (b - a) * t; }
       function ramp(stops, t) {
@@ -980,7 +1223,51 @@
         rec.colorAttr.needsUpdate = true;
       }
 
+      // P2-8 LRU helpers. The cache is keyed by tile.id; ids are moved to the end of
+      // l2CacheOrder on touch and the oldest are truly disposed past L2_CACHE_MAX.
+      function cacheTouch(id) {
+        var k = l2CacheOrder.indexOf(id);
+        if (k !== -1) l2CacheOrder.splice(k, 1);
+        l2CacheOrder.push(id);
+      }
+      function cacheEvict() {
+        while (l2CacheOrder.length > L2_CACHE_MAX) {
+          var id = l2CacheOrder.shift();
+          var rec = l2Cache[id];
+          delete l2Cache[id];
+          if (rec && rec.mesh && rec.mesh.geometry) rec.mesh.geometry.dispose();
+        }
+      }
+      function cacheClear() {   // used on context-loss rebuild: GPU buffers are invalid
+        var ids = Object.keys(l2Cache);
+        for (var i = 0; i < ids.length; i++) {
+          var rec = l2Cache[ids[i]];
+          if (rec && rec.mesh && rec.mesh.geometry) { try { rec.mesh.geometry.dispose(); } catch (e) {} }
+        }
+        l2Cache = {}; l2CacheOrder = [];
+      }
+      function cachePop(id) {   // remove an id from the cache (no dispose) and return its rec
+        var rec = l2Cache[id];
+        if (!rec) return null;
+        delete l2Cache[id];
+        var k = l2CacheOrder.indexOf(id);
+        if (k !== -1) l2CacheOrder.splice(k, 1);
+        return rec;
+      }
+
       function loadL2Tile(tile) {
+        // P2-8: cache hit -> re-attach the retained geometry to the scene group and
+        // skip the fetch + Int16->Float32 parse + computeVertexNormals entirely.
+        var cached = cachePop(tile.id);
+        if (cached && cached.mesh) {
+          if (l2Group) l2Group.add(cached.mesh);
+          l2Loaded[tile.id] = cached;
+          l2CacheHits++;
+          colorTileRec(cached, curLayer, curBin);   // recolor for the active layer/bin
+          applyLodVisibility();
+          return;
+        }
+        l2CacheMisses++;
         l2Loaded[tile.id] = { loading: true };
         var dir = DATA_BASE + "thermal_layers/lod2/";
         fetch(dir + tile.bin).then(function (r) { return r.ok ? r.arrayBuffer() : null; })
@@ -1015,11 +1302,18 @@
       function disposeL2Tile(id) {
         var rec = l2Loaded[id];
         if (!rec || rec.loading) return;
-        if (rec.mesh) {
-          l2Group.remove(rec.mesh);
-          if (rec.mesh.geometry) rec.mesh.geometry.dispose();
-        }
         delete l2Loaded[id];
+        // P2-8: detach from the rendered group (so far/off-frustum tiles stop drawing
+        // and stop counting toward resident geometry) but keep the parsed geometry in
+        // the bounded LRU cache so a re-entry is a re-attach, not a re-fetch+re-parse.
+        if (rec.mesh) {
+          if (l2Group) l2Group.remove(rec.mesh);
+          if (rec.mesh.geometry) {
+            l2Cache[id] = rec;
+            cacheTouch(id);
+            cacheEvict();
+          }
+        }
       }
 
       // stream tiles by camera frustum + load radius; runs only at closest tier.
@@ -1202,12 +1496,32 @@
         renderer.setClearColor(0x000000, 0); // transparent -> shows theme-aware host bg
         host.innerHTML = "";
         host.appendChild(renderer.domElement);
+        // P3 a11y (F3): give the canvas a role + accessible name (the colored heat
+        // field is non-text content), make it keyboard-focusable, and wire arrow/+/-
+        // keyboard orbit so the viewer is operable without a mouse. The same MRT/UTCI/
+        // shade numbers are also exposed as text in the thermal summary cards above.
+        var cvs = renderer.domElement;
+        cvs.setAttribute("role", "img");
+        cvs.setAttribute("tabindex", "0");
+        cvs.setAttribute("aria-label",
+          "Interactive 3D map of Manhattan as a heat surface: buildings rise by height and are colored by the selected thermal field for the chosen time of day. " +
+          "The per-route mean radiant temperature, UTCI and shade values are also listed as text in the thermal summary cards above this map. " +
+          "Use the arrow keys to orbit and the plus or minus keys to zoom.");
+        cvs.addEventListener("keydown", onCanvasKey, false);
+        // P2-4: WebGL context-loss handlers. Without preventDefault the browser will
+        // not fire 'restored' and the canvas blanks permanently; with it, we pause the
+        // RAF loop on loss and rebuild the renderer/scene on restore.
+        renderer.domElement.addEventListener("webglcontextlost", onContextLost, false);
+        renderer.domElement.addEventListener("webglcontextrestored", onContextRestored, false);
+        try { loseCtxExt = renderer.getContext().getExtension("WEBGL_lose_context"); } catch (e) { loseCtxExt = null; }
         scene.add(new THREE.HemisphereLight(0xffffff, 0x33404d, 0.9));
         var dl = new THREE.DirectionalLight(0xffffff, 0.9); dl.position.set(120, 260, 90); scene.add(dl);
         var dl2 = new THREE.DirectionalLight(0xbcd0e6, 0.25); dl2.position.set(-140, 120, -80); scene.add(dl2);
         if (THREE.OrbitControls) {  // optional: a controls CDN failure must not blank the mesh
           controls = new THREE.OrbitControls(cam, renderer.domElement);
-          controls.enableDamping = true; controls.dampingFactor = 0.08;
+          // P3 reduced-motion: damping (inertial drift after release) is motion the
+          // user did not directly cause, so disable it when reduced motion is set.
+          controls.enableDamping = !prefersReducedMotion(); controls.dampingFactor = 0.08;
           controls.target.set(0, 6, 0); controls.maxPolarAngle = Math.PI * 0.49;
           controls.minDistance = 12; controls.maxDistance = 1200;
         }
@@ -1226,9 +1540,112 @@
         window.addEventListener("resize", onResize);
       }
 
+      // P2-4: pause rendering the instant the GL context is lost. preventDefault is
+      // required so the browser keeps the canvas alive and later fires 'restored'.
+      function onContextLost(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        ctxLost = true;
+        if (raf != null) { cancelAnimationFrame(raf); raf = null; }
+        console.warn("[thermal3d] WebGL context lost — render loop paused, awaiting restore");
+      }
+      // P2-4: rebuild the renderer/scene from the CPU-side data (which survives the
+      // loss) so the viewer recovers instead of staying blank.
+      function onContextRestored() {
+        ctxRestores++;
+        console.warn("[thermal3d] WebGL context restored — rebuilding viewer");
+        rebuild();
+      }
+
+      function rebuild() {
+        if (!data) { ctxLost = false; return; }
+        if (raf != null) { cancelAnimationFrame(raf); raf = null; }
+        // Detach listeners from the dead canvas and let it go; start() builds a fresh
+        // renderer/canvas. All GPU-side objects (mesh/buildings/LoD2/post targets) are
+        // invalid after a context loss, so reset their build state and let the normal
+        // ensure*/LOD paths rebuild them lazily from the retained JSON (data/bdata/l2idx).
+        if (renderer) {
+          var dead = renderer.domElement;
+          if (dead) {
+            dead.removeEventListener("webglcontextlost", onContextLost, false);
+            dead.removeEventListener("webglcontextrestored", onContextRestored, false);
+          }
+          try { renderer.dispose(); } catch (e) {}
+        }
+        window.removeEventListener("resize", onResize);
+        mesh = null; colAttr = null;
+        bBuilt = false; bGroup = null; bTiles = []; bMat = null; bLoading = null;
+        l2Built = false; l2Group = null; l2Mat = null; l2Loaded = {}; l2Loading = null;
+        l2Frustum = null; l2ProjM = null;
+        cacheClear();                       // cached LoD2 geometries are invalid GPU buffers now
+        l2CacheHits = 0; l2CacheMisses = 0;
+        composer = null; renderPass = null; saoPass = null; outlinePass = null;
+        normalRT = null; normalMat = null; usePost = false;
+        lodState = "far"; heightTarget = 1; heightOpac = 1;
+        bldTarget = 0; bldOpac = 0; l2Target = 0; l2Opac = 0;
+        start();                            // fresh renderer + scene + mesh + RAF loop
+        show(curLayer, curBin);             // recolor the rebuilt heightfield mesh
+        ctxLost = false;
+      }
+
       function camDist() {
         var t = controls ? controls.target : new THREE.Vector3(0, 6, 0);
         return cam.position.distanceTo(t);
+      }
+
+      // P3 a11y (F3): keyboard orbit/zoom. Rotates the camera around the controls
+      // target in spherical coords (or zooms) so the 3D viewer is fully operable
+      // from the keyboard, matching the on-screen hint and the canvas aria-label.
+      function keyOrbit(dAz, dEl, zoom) {
+        if (!cam || !controls) return;
+        var t = controls.target;
+        var ox = cam.position.x - t.x, oy = cam.position.y - t.y, oz = cam.position.z - t.z;
+        var r = Math.sqrt(ox * ox + oy * oy + oz * oz) || 1;
+        var theta = Math.atan2(ox, oz);
+        var phi = Math.acos(Math.max(-1, Math.min(1, oy / r)));
+        theta += dAz; phi += dEl;
+        phi = Math.max(0.05, Math.min(Math.PI * 0.49, phi));
+        r *= (zoom || 1);
+        r = Math.max(controls.minDistance || 12, Math.min(controls.maxDistance || 1200, r));
+        cam.position.set(
+          t.x + r * Math.sin(phi) * Math.sin(theta),
+          t.y + r * Math.cos(phi),
+          t.z + r * Math.sin(phi) * Math.cos(theta)
+        );
+        controls.update();
+        updateLOD();
+      }
+      function onCanvasKey(e) {
+        var step = 0.18;
+        switch (e.key) {
+          case "ArrowLeft": keyOrbit(-step, 0, 1); break;
+          case "ArrowRight": keyOrbit(step, 0, 1); break;
+          case "ArrowUp": keyOrbit(0, -step, 1); break;
+          case "ArrowDown": keyOrbit(0, step, 1); break;
+          case "+": case "=": keyOrbit(0, 0, 0.85); break;
+          case "-": case "_": keyOrbit(0, 0, 1.18); break;
+          default: return;
+        }
+        e.preventDefault();
+      }
+
+      // P3 color-not-only (WCAG 1.4.1): expose the active field's value->color ramp
+      // and numeric range so the UI can print a value scale next to the colored mesh.
+      function legend(layer) {
+        var stops, min, max, unit;
+        if (layer === "mrt") {
+          stops = INFERNO;
+          min = (data && data.mrt_range) ? data.mrt_range[0] : null;
+          max = (data && data.mrt_range) ? data.mrt_range[1] : null;
+          unit = "°C";
+        } else if (layer === "shadow") {
+          stops = SHADE; min = 0; max = 1; unit = "fraction shaded";
+        } else {
+          stops = VIRIDIS; min = 0; max = 1; unit = "0–1";
+        }
+        var css = stops.map(function (s) {
+          return "rgb(" + Math.round(s[1]) + "," + Math.round(s[2]) + "," + Math.round(s[3]) + ") " + Math.round(s[0] * 100) + "%";
+        }).join(", ");
+        return { gradient: "linear-gradient(90deg, " + css + ")", min: min, max: max, unit: unit };
       }
 
       function updateLOD() {
@@ -1262,7 +1679,8 @@
       }
 
       function fade(dt) {
-        var k = Math.min(1, dt * 4.0);
+        // P3 reduced-motion: snap LOD opacity targets instantly (no cross-fade).
+        var k = prefersReducedMotion() ? 1 : Math.min(1, dt * 4.0);
         heightOpac = lerp(heightOpac, heightTarget, k);
         bldOpac = lerp(bldOpac, bldTarget, k);
         l2Opac = lerp(l2Opac, l2Target, k);
@@ -1340,6 +1758,8 @@
           bBuilt: bBuilt, bTiles: bTiles.length,
           l2Built: l2Built, l2Manifest: l2idx ? l2idx.tiles.length : 0,
           l2Loaded: Object.keys(l2Loaded).length,
+          l2Cached: l2CacheOrder.length, l2CacheHits: l2CacheHits, l2CacheMisses: l2CacheMisses,
+          ctxLost: ctxLost, ctxRestores: ctxRestores,
           bldOpac: +bldOpac.toFixed(2), l2Opac: +l2Opac.toFixed(2),
           heightOpac: +heightOpac.toFixed(2),
           addons: window.__threeAddons || null
@@ -1379,17 +1799,46 @@
         controls.update();
         updateLOD();
       }
-      return { ensure: ensure, show: show, hasBin: hasBin, resize: onResize, dbg: dbg, dolly: dolly, setOutline: setOutline, focusLocal: focusLocal, ensureLod2: ensureLod2, forceLod1: forceLod1 };
+      // P2-4 test helpers: drive the WEBGL_lose_context extension to simulate a
+      // GPU context loss/restore so the recovery path can be verified headlessly.
+      function loseContext() {
+        if (!loseCtxExt) return false;
+        loseCtxExt.loseContext();
+        return true;
+      }
+      function restoreContext() {
+        if (!loseCtxExt) return false;
+        loseCtxExt.restoreContext();
+        return true;
+      }
+      return { ensure: ensure, show: show, hasBin: hasBin, legend: legend, resize: onResize, dbg: dbg, dolly: dolly, setOutline: setOutline, focusLocal: focusLocal, ensureLod2: ensureLod2, forceLod1: forceLod1, loseContext: loseContext, restoreContext: restoreContext };
     })();
     window.__thermal3d = Thermal3D;
 
     function setActiveLayer(key, bin) {
       activeLayerKey = key;
       Thermal3D.show(key, bin);
-      var legend = document.getElementById("layerLegend");
+      var legendEl = document.getElementById("layerLegend");
       var avail = Thermal3D.hasBin(key, bin);
-      legend.textContent = LAYER_LABELS[key] + " · " + LAYER_UNITS[key] +
+      legendEl.textContent = LAYER_LABELS[key] + " · " + LAYER_UNITS[key] +
         (avail ? "" : " · not exported for this bin (3D covers summer-solstice bins)");
+      // P3 color-not-only (WCAG 1.4.1): print a value->color scale (gradient bar with
+      // numeric min / mid / max) so the colored mesh field is also readable as numbers.
+      var scaleEl = document.getElementById("layerScale");
+      clearNode(scaleEl);
+      if (avail) {
+        var info = Thermal3D.legend(key);
+        var bar = elem("div", { class: "legend-bar", attrs: { "aria-hidden": "true" } });
+        bar.style.background = info.gradient;
+        scaleEl.appendChild(bar);
+        function tick(v) { return v == null ? "—" : String(Math.round(v * 10) / 10); }
+        var mid = (info.min != null && info.max != null) ? (info.min + info.max) / 2 : null;
+        var ticks = elem("div", { class: "legend-ticks" });
+        ticks.appendChild(elem("span", { text: tick(info.min) + " " + info.unit }));
+        ticks.appendChild(elem("span", { text: tick(mid) }));
+        ticks.appendChild(elem("span", { text: tick(info.max) + " " + info.unit }));
+        scaleEl.appendChild(ticks);
+      }
       Array.prototype.forEach.call(document.querySelectorAll(".layer-toggle"), function (btn) {
         btn.classList.toggle("active", btn.dataset.layer === key);
       });
@@ -1429,14 +1878,18 @@
 
       var lst = data.lst_metadata || {};
       var tv = data.thermal_validation || {};
-      var metaHtml = "<strong>" + data.origin + "</strong> → <strong>" + data.destination + "</strong>";
-      if (lst.scene_datetime) metaHtml += " · Landsat scene " + fmtScene(lst.scene_datetime);
-      if (lst.eo_cloud_cover != null) metaHtml += " · Cloud cover " + fmt(lst.eo_cloud_cover, 1) + "%";
+      var metaLine = document.getElementById("metaLine");
+      clearNode(metaLine);
+      metaLine.appendChild(elem("strong", { text: data.origin == null ? "" : String(data.origin) }));
+      metaLine.appendChild(document.createTextNode(" → "));
+      metaLine.appendChild(elem("strong", { text: data.destination == null ? "" : String(data.destination) }));
+      if (lst.scene_datetime) metaLine.appendChild(document.createTextNode(" · Landsat scene " + fmtScene(lst.scene_datetime)));
+      if (lst.eo_cloud_cover != null) metaLine.appendChild(document.createTextNode(" · Cloud cover " + fmt(lst.eo_cloud_cover, 1) + "%"));
       if (tv.match_quality) {
-        var cls = tv.demo_thermal_label_allowed === "full_heat_claim" ? " ok" : "";
-        metaHtml += ' <span class="badge' + cls + '">' + humanThermal(tv) + "</span>";
+        var badgeCls = tv.demo_thermal_label_allowed === "full_heat_claim" ? "badge ok" : "badge";
+        metaLine.appendChild(document.createTextNode(" "));
+        metaLine.appendChild(elem("span", { class: badgeCls, text: humanThermal(tv) }));
       }
-      document.getElementById("metaLine").innerHTML = metaHtml;
       document.getElementById("headline").textContent = buildHeadline(c);
 
       document.getElementById("strip").innerHTML =
@@ -1449,36 +1902,45 @@
         buildMetric("Congestion hotspots", c.stress_hotspot_blocks_crossed, { integer: true });
 
       var grid = document.getElementById("routeGrid");
-      grid.innerHTML = "";
+      clearNode(grid);
       ROUTES.forEach(function (r) {
         if (r[0] === "comfort_aware" && !FLAGS.showComfort) return;
         if (r[0] === "adaptive_aware" && !FLAGS.showAdaptive) return;
-        grid.innerHTML += routeCard(r[1], data[r[0]], r[2], r[3]);
+        var card = routeCard(r[1], data[r[0]], r[2], r[3]);
+        if (card) grid.appendChild(card);
       });
 
       var adaptiveSteps = (data.turn_by_turn || {}).adaptive_aware;
-      document.getElementById("regimeChips").innerHTML = renderRegimeChips(adaptiveSteps);
-      document.getElementById("turnBlock").innerHTML = renderTurnByTurn(data.turn_by_turn);
+      var chips = document.getElementById("regimeChips");
+      clearNode(chips);
+      chips.appendChild(renderRegimeChips(adaptiveSteps));
+      var turnBlock = document.getElementById("turnBlock");
+      clearNode(turnBlock);
+      turnBlock.appendChild(renderTurnByTurn(data.turn_by_turn));
       var showAllBtn = document.getElementById("showAllTurns");
       if (showAllBtn) {
         showAllBtn.onclick = function () {
           FLAGS.showAllTurns = true;
-          document.getElementById("turnBlock").innerHTML = renderTurnByTurn(data.turn_by_turn);
+          var tBlock = document.getElementById("turnBlock");
+          clearNode(tBlock);
+          tBlock.appendChild(renderTurnByTurn(data.turn_by_turn));
         };
       }
 
       var maps = document.getElementById("maps");
-      maps.innerHTML = "";
-      if (data.png_base64) {
-        var src = "data:image/png;base64," + data.png_base64;
-        maps.innerHTML += '<div class="map-box fade-in"><h4>Four-panel route comparison · click to enlarge</h4><img alt="Route comparison map" src="' + src + '"></div>';
-        maps.querySelector("img").onclick = function (e) { e.stopPropagation(); openLightbox(src, "Route comparison"); };
+      clearNode(maps);
+      function buildMapBox(b64, title, alt) {
+        if (!isValidBase64(b64)) return;
+        var src = "data:image/png;base64," + b64;
+        var box = elem("div", { class: "map-box fade-in" }, [elem("h3", { text: title })]);
+        var img = elem("img", { attrs: { alt: alt } });
+        img.src = src;
+        img.onclick = function (e) { e.stopPropagation(); openLightbox(src, alt); };
+        box.appendChild(img);
+        maps.appendChild(box);
       }
-      if (FLAGS.showPhaseMap && data.phase_map_png_base64) {
-        var psrc = "data:image/png;base64," + data.phase_map_png_base64;
-        maps.innerHTML += '<div class="map-box fade-in"><h4>Comfort regime phase map · click to enlarge</h4><img alt="Phase map" src="' + psrc + '"></div>';
-        maps.lastElementChild.querySelector("img").onclick = function (e) { e.stopPropagation(); openLightbox(psrc, "Phase map"); };
-      }
+      if (data.png_base64) buildMapBox(data.png_base64, "Four-panel route comparison · click to enlarge", "Route comparison map");
+      if (FLAGS.showPhaseMap && data.phase_map_png_base64) buildMapBox(data.phase_map_png_base64, "Comfort regime phase map · click to enlarge", "Phase map");
 
       renderThermal(data);
       renderLayerSection(data.time_bin || null);
@@ -1499,18 +1961,28 @@
       var steps = ["Routing on street graph…", "Scoring pressure and shade…", "Rendering map panels…"];
       var i = 0;
       var el = document.getElementById("loadSteps");
+      if (!el) return;  // P1-4: placeholder may have been replaced by a concurrent teardown
       el.classList.remove("hidden");
       el.textContent = steps[0];
       loadTimer = setInterval(function () {
         i = (i + 1) % steps.length;
-        el.textContent = steps[i];
+        var e2 = document.getElementById("loadSteps");
+        if (!e2) { clearInterval(loadTimer); return; }
+        e2.textContent = steps[i];
       }, 1800);
     }
     function stopLoadAnimation() {
       clearInterval(loadTimer);
-      document.getElementById("loadSteps").classList.add("hidden");
+      // P1-4: #loadSteps can already be gone if a prior catch rewrote the placeholder;
+      // null-guard so a second teardown cannot throw on a removed node.
+      var el = document.getElementById("loadSteps");
+      if (el) el.classList.add("hidden");
     }
 
+    // P1-4: single in-flight controller. presets and the time controls all funnel
+    // through runRoute(); starting a new route aborts any request still in flight so
+    // overlapping calls cannot (a) crash the teardown or (b) render stale results.
+    var routeAbort = null;
     function runRoute() {
       if (oSel.value === dSel.value) {
         setStatus("Pick two different landmarks.", "error");
@@ -1519,6 +1991,11 @@
       PRESETS.forEach(function (p, i) {
         if (p[0] === oSel.value && p[1] === dSel.value) setActivePreset(i);
       });
+      // cancel any prior in-flight request; the newest selection wins.
+      if (routeAbort) { try { routeAbort.abort(); } catch (e) {} }
+      var controller = ("AbortController" in window) ? new AbortController() : null;
+      routeAbort = controller;
+
       var btn = document.getElementById("routeBtn");
       btn.disabled = true;
       setStatus("Computing routes on live engine…");
@@ -1528,16 +2005,18 @@
       startLoadAnimation();
 
       var t0 = performance.now();
-      var reqBody = { origin: oSel.value, destination: dSel.value };
+      var reqBody = { origin: oSel.value, destination: dSel.value, substrate: "manhattan_v1" };
       var bin = currentBin();
       if (bin) reqBody.time_bin = bin;
       fetch(FLAGS.api, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(reqBody)
+        body: JSON.stringify(reqBody),
+        signal: controller ? controller.signal : undefined
       })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (res) {
+          if (controller && controller.signal.aborted) return;  // superseded
           if (!res.ok || res.j.error) throw new Error(res.j.error || res.j.detail || "Request failed");
           stopLoadAnimation();
           document.getElementById("latency").textContent = Math.round(performance.now() - t0) + " ms";
@@ -1545,13 +2024,17 @@
           setStatus("Live route computed.", "ok");
         })
         .catch(function (e) {
+          if (e && e.name === "AbortError") return;  // request was superseded by a newer route; ignore
           stopLoadAnimation();
           document.getElementById("results").classList.add("hidden");
           document.getElementById("emptyMaps").classList.remove("hidden");
           document.getElementById("placeholder").innerHTML = "<span>Engine unavailable. Check API or try again.</span>";
           setStatus("Error: " + e.message, "error");
         })
-        .finally(function () { btn.disabled = false; });
+        .finally(function () {
+          if (routeAbort === controller) routeAbort = null;
+          btn.disabled = false;
+        });
     }
 
     document.getElementById("routeBtn").onclick = runRoute;

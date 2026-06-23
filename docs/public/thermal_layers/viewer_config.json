@@ -1,0 +1,10 @@
+{
+  "lodNearEnter": 175,
+  "lodNearExit": 235,
+  "lodCloseEnter": 88,
+  "lodCloseExit": 128,
+  "layers": ["pressure", "mrt", "shadow", "svf"],
+  "flyPresets": ["island", "midtown", "westVillage", "gcCarnegie"],
+  "pressureUrl": "thermal_layers/pressure_island.json",
+  "provenance": "NYCDOT / NYCTMC camera feeds · block pressure (sigma)"
+}

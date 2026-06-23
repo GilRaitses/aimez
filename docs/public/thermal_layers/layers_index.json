@@ -1,0 +1,1779 @@
+{
+  "generated_at_utc": "2026-06-20T03:06:28.480260+00:00",
+  "crs": "EPSG:4326",
+  "max_px": 2000,
+  "bins": [
+    "equinox_08",
+    "equinox_09",
+    "equinox_10",
+    "equinox_11",
+    "equinox_12",
+    "equinox_13",
+    "equinox_14",
+    "equinox_15",
+    "equinox_16",
+    "equinox_17",
+    "equinox_18",
+    "solstice_08",
+    "solstice_09",
+    "solstice_10",
+    "solstice_11",
+    "solstice_12",
+    "solstice_13",
+    "solstice_14",
+    "solstice_15",
+    "solstice_16",
+    "solstice_17",
+    "solstice_18",
+    "winter_08",
+    "winter_09",
+    "winter_10",
+    "winter_11",
+    "winter_12",
+    "winter_13",
+    "winter_14",
+    "winter_15",
+    "winter_16"
+  ],
+  "bins_available": [
+    "equinox_08",
+    "equinox_09",
+    "equinox_10",
+    "equinox_11",
+    "equinox_12",
+    "equinox_13",
+    "equinox_14",
+    "equinox_15",
+    "equinox_16",
+    "equinox_17",
+    "equinox_18",
+    "solstice_08",
+    "solstice_09",
+    "solstice_10",
+    "solstice_11",
+    "solstice_12",
+    "solstice_13",
+    "solstice_14",
+    "solstice_15",
+    "solstice_16",
+    "solstice_17",
+    "solstice_18",
+    "winter_08",
+    "winter_09",
+    "winter_10",
+    "winter_11",
+    "winter_12",
+    "winter_13",
+    "winter_14",
+    "winter_15",
+    "winter_16"
+  ],
+  "global_notes": [
+    "MRT is modeled and uses a static LST composite (not per-bin surface temperature).",
+    "UTCI is provisional: placeholder air temp, proxy wind, placeholder RH.",
+    "Central Park canopy height is a 12 m DBH proxy, not survey data."
+  ],
+  "utci_inputs": {
+    "tdb_c": 30.0,
+    "wind_ms": 1.0,
+    "rh_pct": 50.0,
+    "provenance": {
+      "tr": "modeled_mrt",
+      "tdb": "placeholder",
+      "v": "proxy",
+      "rh": "placeholder"
+    }
+  },
+  "static": {
+    "lst": {
+      "file": "thermal_layers/lst.png",
+      "label": "Land surface temperature",
+      "bounds_wsen_4326": [
+        -74.028879,
+        40.696788,
+        -73.902659,
+        40.883086
+      ],
+      "value_range": [
+        24.01,
+        42.55
+      ],
+      "unit": "degC",
+      "cmap": "inferno",
+      "note": "Observed Landsat surface temperature composite (NOT pedestrian-height air temp)."
+    },
+    "svf": {
+      "file": "thermal_layers/svf.png",
+      "label": "Sky view factor",
+      "bounds_wsen_4326": [
+        -74.047826,
+        40.681909,
+        -73.906609,
+        40.880232
+      ],
+      "value_range": [
+        0.06,
+        1.0
+      ],
+      "unit": "0..1",
+      "cmap": "viridis",
+      "note": "Fraction of sky hemisphere visible (0=canyon, 1=open). Static, bin-independent."
+    },
+    "pressure_island": {
+      "file": "thermal_layers/pressure_island.json",
+      "label": "Block pressure (camera stress)",
+      "value_range": [
+        0.0,
+        1.0
+      ],
+      "unit": "sigma",
+      "cmap": "pressure_ylor",
+      "note": "Island-wide node stress from NYCDOT / NYCTMC camera feeds; midtown pilot methodology scaled."
+    }
+  },
+  "per_bin": {
+    "equinox_08": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_08.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_08.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          20.73,
+          34.53
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_08.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          27.9,
+          31.5
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "equinox_09": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_09.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_09.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          26.39,
+          43.75
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_09.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.4,
+          33.9
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "equinox_10": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_10.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_10.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          28.8,
+          48.75
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_10.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.0,
+          35.1
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "equinox_11": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_11.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_11.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.81,
+          51.18
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_11.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.3,
+          35.8
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "equinox_12": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_12.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_12.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.37,
+          52.64
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_12.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.4,
+          36.1
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "equinox_13": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_13.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_13.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.78,
+          53.22
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_13.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.6,
+          36.3
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "equinox_14": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_14.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_14.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.88,
+          53.26
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_14.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.6,
+          36.3
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "equinox_15": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_15.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_15.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.89,
+          50.06
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_15.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.3,
+          35.5
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "equinox_16": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_16.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_16.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          28.26,
+          45.75
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_16.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.9,
+          34.4
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "equinox_17": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_17.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_17.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          25.51,
+          39.53
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_17.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.2,
+          32.8
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "equinox_18": {
+      "shadow": {
+        "file": "thermal_layers/shadow_equinox_18.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_equinox_18.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          18.47,
+          32.43
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_equinox_18.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          27.3,
+          31.0
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_08": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_08.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_08.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          27.63,
+          42.41
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_08.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.7,
+          33.5
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_09": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_09.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_09.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.77,
+          48.08
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_09.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.3,
+          35.0
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_10": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_10.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_10.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          31.16,
+          52.21
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_10.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.7,
+          36.0
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_11": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_11.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_11.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          33.22,
+          55.84
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_11.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          31.2,
+          36.9
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_12": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_12.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_12.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          35.77,
+          56.94
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_12.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          31.8,
+          37.2
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_13": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_13.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_13.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          38.44,
+          57.57
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_13.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          32.5,
+          37.4
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_14": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_14.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_14.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          36.09,
+          56.85
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_14.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          31.9,
+          37.2
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_15": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_15.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_15.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          32.54,
+          54.34
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_15.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          31.0,
+          36.5
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_16": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_16.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_16.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          31.12,
+          51.45
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_16.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.6,
+          35.8
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_17": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_17.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_17.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.93,
+          47.67
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_17.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          30.3,
+          34.9
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "solstice_18": {
+      "shadow": {
+        "file": "thermal_layers/shadow_solstice_18.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_solstice_18.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          27.84,
+          42.29
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_solstice_18.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.8,
+          33.5
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "winter_08": {
+      "shadow": {
+        "file": "thermal_layers/shadow_winter_08.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_winter_08.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          15.33,
+          32.26
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_winter_08.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          26.5,
+          30.9
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "winter_09": {
+      "shadow": {
+        "file": "thermal_layers/shadow_winter_09.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_winter_09.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          19.26,
+          37.99
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_winter_09.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          27.5,
+          32.4
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "winter_10": {
+      "shadow": {
+        "file": "thermal_layers/shadow_winter_10.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_winter_10.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          23.18,
+          42.38
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_winter_10.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          28.6,
+          33.5
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "winter_11": {
+      "shadow": {
+        "file": "thermal_layers/shadow_winter_11.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_winter_11.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          24.9,
+          44.73
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_winter_11.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.0,
+          34.1
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "winter_12": {
+      "shadow": {
+        "file": "thermal_layers/shadow_winter_12.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_winter_12.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          25.67,
+          45.68
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_winter_12.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.2,
+          34.4
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "winter_13": {
+      "shadow": {
+        "file": "thermal_layers/shadow_winter_13.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_winter_13.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          25.63,
+          45.2
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_winter_13.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          29.2,
+          34.3
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "winter_14": {
+      "shadow": {
+        "file": "thermal_layers/shadow_winter_14.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_winter_14.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          24.61,
+          43.43
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_winter_14.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          28.9,
+          33.8
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "winter_15": {
+      "shadow": {
+        "file": "thermal_layers/shadow_winter_15.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_winter_15.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          21.47,
+          36.55
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_winter_15.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          28.1,
+          32.0
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    },
+    "winter_16": {
+      "shadow": {
+        "file": "thermal_layers/shadow_winter_16.png",
+        "label": "Shadow (sun-blocked)",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681886,
+          -73.906588,
+          40.880232
+        ],
+        "value_range": [
+          0.0,
+          1.0
+        ],
+        "unit": "0..1",
+        "cmap": "shadow_grey",
+        "note": "Building+tree sun-blocked fraction for the bin (S1 shadow, canopy-raster aware)."
+      },
+      "mrt": {
+        "file": "thermal_layers/mrt_winter_16.png",
+        "label": "Mean radiant temperature",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          15.0,
+          31.82
+        ],
+        "unit": "degC",
+        "cmap": "inferno",
+        "note": "Modeled MRT (pvlib beam + SVF diffuse + LST longwave + shadow). Uses a STATIC LST composite."
+      },
+      "utci": {
+        "file": "thermal_layers/utci_winter_16.png",
+        "label": "UTCI feels-like",
+        "bounds_wsen_4326": [
+          -74.047826,
+          40.681909,
+          -73.906609,
+          40.880232
+        ],
+        "value_range": [
+          26.4,
+          30.8
+        ],
+        "unit": "degC",
+        "cmap": "magma",
+        "note": "Provisional: PLACEHOLDER air temp (30C) / PROXY wind (1 m/s) / PLACEHOLDER RH (50%) until anchors land."
+      }
+    }
+  }
+}

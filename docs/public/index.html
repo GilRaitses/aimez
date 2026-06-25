@@ -28,7 +28,7 @@
   <h2 style="font-family:Newsreader,serif;font-size:1.15rem;margin:1.5rem 0 0.5rem;color:#1c4e80;">pax — pedestrian comfort routing</h2>
   <ul>
     <li><a href="executive-summary.html"><strong>Executive summary (slides)</strong></a><span>Full-screen deck: claims, discussion questions, figures. ← → to advance.</span></li>
-    <li><a href="comfort-router.html"><strong>Comfort router (live)</strong></a><span>Five routing modes: crowd-avoiding, shade-seeking, heat-aware, adaptive comfort. Time-of-day heat model. Flagship live demo.</span></li>
+    <li><a href="comfort-router.html"><strong>Comfort router (live)</strong></a><span>Five routing modes: shortest, crowd-avoiding, shade-seeking, comfort-aware, adaptive. Time-of-day radiant heat model. Flagship live demo.</span></li>
     <li><a href="routing-demo.html"><strong>Routing demo (classic)</strong></a><span>Shortest vs crowd-avoiding on the Manhattan island walk graph. Single leg or multi-stop itinerary.</span></li>
     <li><a href="figure-walkthrough.html"><strong>Canonical figures (slides)</strong></a><span>Figure deck — stress field before routing.</span></li>
     <li><a href="representation-pipeline.html"><strong>Representation pipeline</strong></a><span>Camera frames through CV models to graph stress.</span></li>
@@ -107,5 +107,80 @@
   </script>
 
   <p class="home" style="margin-top:1.5rem;"><a href="../index.html">← aimez home</a></p>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SHARE THIS WORK — LinkedIn-ready copy for the aimez.ai research program
+       Copy the text inside the <pre> block to paste directly into LinkedIn.
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <h2 id="share" style="font-family:Newsreader,serif;font-size:1.15rem;margin:2rem 0 0.5rem;color:#1c4e80;">Share this work</h2>
+  <p style="font-size:0.88rem;color:#4b5b6d;margin-bottom:0.75rem;">LinkedIn-ready text for both research programs. Copy and paste.</p>
+
+  <details style="margin-bottom:1rem;background:#fff;border:1px solid #e2e8ee;border-radius:0.6rem;padding:0.75rem 1rem;">
+    <summary style="font-weight:600;cursor:pointer;font-size:0.94rem;color:#1c4e80;">pax — research platform post</summary>
+    <pre style="margin-top:0.75rem;white-space:pre-wrap;font-size:0.84rem;color:#3a4a5c;line-height:1.6;background:#f7f9fc;padding:0.75rem;border-radius:0.4rem;border:1px solid #e2e8ee;">aimez.ai is a one-person AI research lab. The work is about grounding AI systems in measured physical environments and documenting exactly where that grounding holds and where it doesn't.
+
+pax routes pedestrians on the full Manhattan island walk graph (4,567 nodes, 15,788 edges) using five cost encodings: shortest, crowd-avoiding, shade-seeking, comfort-aware, and adaptive. Physical world model layers — crowd pressure from NYC DOT cameras, surface heat from Landsat, mean radiant temperature from a precomputed SOLWEIG physics model, street-tree canopy from LiDAR — drive Dijkstra edge weights.
+
+The whitepaper documents a specific gap and a partial closure: comfort-aware and adaptive routes now use a 31-bin time-of-day thermal model as live edge weights. The gap between that precomputed model and live atmospheric data is not closed. The paper traces it to source, quantifies it, and proposes three closure mechanisms. This is one city, one season, five encodings on an open-data testbed.
+
+Every narrated route number is labeled as live, partially live, or deferred.
+
+Interactive demo: https://aimez.ai/public/comfort-router.html
+Executive summary: https://aimez.ai/public/executive-summary.html
+Whitepaper: https://gilraitses.github.io/research/pax-comfort-routing/
+
+#pedestrianrouting #physicalAI #worldmodels #opendata #urbanAI</pre>
+  </details>
+
+  <details style="margin-bottom:1rem;background:#fff;border:1px solid #e2e8ee;border-radius:0.6rem;padding:0.75rem 1rem;">
+    <summary style="font-weight:600;cursor:pointer;font-size:0.94rem;color:#1c4e80;">ORCAST — research platform post</summary>
+    <pre style="margin-top:0.75rem;white-space:pre-wrap;font-size:0.84rem;color:#3a4a5c;line-height:1.6;background:#f7f9fc;padding:0.75rem;border-radius:0.4rem;border:1px solid #e2e8ee;">New preprint from aimez.ai: evidence-bounded encounter forecasting for cetacean observation data.
+
+ORCAST forecasts killer whale encounter probability for the San Juan Islands from acoustic and sighting records. The system uses gate-bounded confidence display: every probability shown on the map is traceable to a source measurement. Human-in-the-loop moderation gates any forecast that falls outside the evidence envelope.
+
+The second ORCAST whitepaper documents a general grounding architecture for physical-world AI systems: measuring the rate at which model outputs bind to source citations vs. generate unsupported claims.
+
+Live platform: https://orcast-h0.vercel.app
+Whitepaper 1 (encounter forecasting): https://gilraitses.github.io/research/orcast/orcast-whitepaper-1.pdf
+Whitepaper 2 (evidence-bound grounding): https://gilraitses.github.io/research/orcast/orcast-whitepaper-2-grounding.pdf
+
+#physicalAI #wildlifeAI #evidenceboundedAI #marineconservation</pre>
+  </details>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       GIF ASSETS — animated demo captures for social and slides
+       Record these from the live demos and save to assets/social/gifs/.
+       Each spec below describes what the clip should show and its target duration.
+       ═══════════════════════════════════════════════════════════════════════
+
+  GIF 1 — comfort-router 3D map: route trace animation
+    Source: https://aimez.ai/public/comfort-router.html
+    Action: compute Grand Central → Carnegie Hall, comfort-aware mode; capture the
+            animated route trace over the 3D block mesh as the path draws in
+    Duration: ~4s loop
+    Save to: assets/social/gifs/pax_comfort_route_trace.gif
+
+  GIF 2 — comfort-router time-of-day heat panel
+    Source: comfort-router.html → heat chart panel (31-bin thermal strip)
+    Action: scroll through time bins so the thermal gradient animates across the strip
+    Duration: ~3s loop
+    Save to: assets/social/gifs/pax_heat_panel_timelapse.gif
+
+  GIF 3 — routing-demo.html mode comparison
+    Source: https://aimez.ai/public/routing-demo.html
+    Action: switch between shortest and crowd-avoiding; show the path updating on the map
+    Duration: ~4s loop
+    Save to: assets/social/gifs/pax_mode_comparison.gif
+
+  GIF 4 — ORCAST probability map
+    Source: https://orcast-h0.vercel.app
+    Action: pan over the San Juan Islands encounter probability heatmap
+    Duration: ~3s loop
+    Save to: assets/social/gifs/orcast_probability_map.gif
+
+  To record: use QuickTime screen recording → crop → convert with ffmpeg:
+    ffmpeg -i clip.mov -vf "fps=15,scale=800:-1:flags=lanczos" -loop 0 output.gif
+  ═══════════════════════════════════════════════════════════════════════ -->
+
 </body>
 </html>

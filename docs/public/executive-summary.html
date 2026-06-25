@@ -37,7 +37,7 @@
         <ul>
           <li>NYC Open Data tables plus DOT traffic cameras (substrate inventory on a later slide).</li>
           <li>Stress topology is fixed before any path algorithm runs.</li>
-          <li>Grand Central → Carnegie Hall: same blocks, lower accumulated camera stress on the stress-aware path.</li>
+          <li>Grand Central → Carnegie Hall: same blocks, lower accumulated camera stress on the crowd-avoiding path.</li>
           <li>Traffic cameras, satellite heat data, and NYC Open Data on Midtown streets (42nd–59th, 3rd–9th Ave). Reproducible snapshot. Claims bounded to this area.</li>
           <li>Open tables stay open; fusion, calibration, and routing cost stay proprietary.</li>
         </ul>
@@ -66,7 +66,7 @@
         <li><b>Stress field.</b> DOT cameras mapped to edge stress on the pedestrian graph.</li>
         <li><b>Topology.</b> Paths, loops and residuals on the locked corridor graph.</li>
         <li><b>Forecasting.</b> Short-horizon updates to the stress field before routing runs.</li>
-        <li><b>Route solving.</b> Block-equivalent and stress-aware paths on the same directed graph.</li>
+        <li><b>Route solving.</b> Block-equivalent and crowd-avoiding paths on the same directed graph.</li>
       </ol>
       <p class="lead">Traffic cameras, satellite heat data, a physics-based shade model, and NYC street tree data on one verified map. Five routing options, built in sequence so each layer can be checked independently before routing runs.</p>
       <div class="flow" style="margin-top:0.5rem">
@@ -157,15 +157,15 @@
       <h2>Nine origin–destination pairs</h2>
       <div class="slide-fig">
         <img src="../assets/gallery/mobility/02_feasible_routes_destination_grid.png" alt="Feasible routes across nine destinations" loading="lazy">
-        <p>Structural contrast across nine Midtown origin–destination pairs: stress-aware and comfort-aware paths diverge from fewest-block paths where the stress field and thermal burden differ.</p>
+        <p>Structural contrast across nine Midtown origin–destination pairs: crowd-avoiding and comfort-aware paths diverge from fewest-block paths where crowding and thermal burden differ.</p>
       </div>
     </section>
 
     <section class="slide slide--split">
       <div class="slide-copy">
         <p class="kicker">Figure</p>
-        <h2>Shortest and stress-aware routes</h2>
-        <p class="grow">Grand Central → Carnegie Hall: equal blocks, lower accumulated stress on the stress-aware path.</p>
+        <h2>Shortest and crowd-avoiding routes</h2>
+        <p class="grow">Grand Central → Carnegie Hall: equal blocks, lower accumulated stress on the crowd-avoiding path.</p>
       </div>
       <div class="slide-fig">
         <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Route comparison" loading="lazy">
@@ -188,7 +188,7 @@
         <p class="kicker">Validation</p>
         <h2>What we claim today</h2>
         <ul>
-          <li>On Grand Central → Carnegie Hall, the stress-aware path carries lower measured stress at equal blocks than the shortest-block path.</li>
+          <li>On Grand Central → Carnegie Hall, the crowd-avoiding path carries lower measured stress at equal blocks than the shortest-block path.</li>
           <li>Supply ⊥ demand at cross-street edges (r ≈ 0).</li>
           <li>Lived-knowledge check: 8/12 aligned, 0 misaligned (multi-informant study still needed).</li>
         </ul>

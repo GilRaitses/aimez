@@ -2180,15 +2180,9 @@
       }
       // Show first tip after first route completes
       var origRender = render;
-      // #region agent log
-      fetch('http://127.0.0.1:7397/ingest/0ea0ff01-4ad7-4878-96b3-9cc4cffeed16',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ba4f2b'},body:JSON.stringify({sessionId:'ba4f2b',location:'comfort-router.html:initTooltips',message:'render reassignment attempt',data:{renderType:typeof render,canReassign: (function(){try{var f=render;render=f;return true;}catch(e){return false;}})()},timestamp:Date.now(),hypothesisId:'H2',runId:'run1'})}).catch(function(){});
-      // #endregion
       if (typeof render === "function") {
         render = function (data) {
           origRender(data);
-          // #region agent log
-          fetch('http://127.0.0.1:7397/ingest/0ea0ff01-4ad7-4878-96b3-9cc4cffeed16',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ba4f2b'},body:JSON.stringify({sessionId:'ba4f2b',location:'comfort-router.html:render-wrapper',message:'render wrapper called',data:{tipIdx:tipIdx},timestamp:Date.now(),hypothesisId:'H2',runId:'run1'})}).catch(function(){});
-          // #endregion
           if (tipIdx === 0) showTip(TIPS[0]);
         };
       }

@@ -25,20 +25,87 @@
   <h1>Public research pages</h1>
   <p class="lede">These pages are written for visitors from the main site or an external profile. They avoid private working notes. Older <code>/notes/…</code> URLs redirect here when they used to point at draft material.</p>
 
+  <h2 style="font-family:Newsreader,serif;font-size:1.15rem;margin:1.5rem 0 0.5rem;color:#1c4e80;">pax — pedestrian comfort routing</h2>
   <ul>
-    <li><a href="executive-summary.html"><strong>Executive summary (slides)</strong></a><span>Full-screen deck: claims, discussion questions, single- and multi-panel figures. ← → to advance.</span></li>
-    <li><a href="figure-walkthrough.html"><strong>Canonical figures (slides)</strong></a><span>Figure deck—stress field before routing.</span></li>
+    <li><a href="executive-summary.html"><strong>Executive summary (slides)</strong></a><span>Full-screen deck: claims, discussion questions, figures. ← → to advance.</span></li>
+    <li><a href="comfort-router.html"><strong>Comfort router (live)</strong></a><span>Five routing modes: crowd-avoiding, shade-seeking, heat-aware, adaptive comfort. Time-of-day heat model. Flagship live demo.</span></li>
+    <li><a href="routing-demo.html"><strong>Routing demo (classic)</strong></a><span>Shortest vs crowd-avoiding on the Manhattan island walk graph. Single leg or multi-stop itinerary.</span></li>
+    <li><a href="figure-walkthrough.html"><strong>Canonical figures (slides)</strong></a><span>Figure deck — stress field before routing.</span></li>
     <li><a href="representation-pipeline.html"><strong>Representation pipeline</strong></a><span>Camera frames through CV models to graph stress.</span></li>
-    <li><a href="comfort-router.html"><strong>Comfort router (live)</strong></a><span>Five route modes: pressure, shade, Landsat heat, adaptive comfort, phase map. Flagship live demo.</span></li>
-    <li><a href="village-pilot.html"><strong>Village dog-park pilot</strong></a><span>Routing on tree shade and surface heat alone, no cameras: 50 ranked routes and where trees actually change the walk.</span></li>
-    <li><a href="routing-demo.html"><strong>Routing demo (classic)</strong></a><span>Interactive shortest vs stress-aware routing on the Midtown corridor (single leg or multi-stop).</span></li>
-    <li><a href="what-it-means-to-build.html"><strong>What it means to build this</strong></a><span>Why the measured graph, auditable order, and bounded corridor claims matter for civic AI.</span></li>
+    <li><a href="village-pilot.html"><strong>Village dog-park pilot</strong></a><span>Routing on tree shade and surface heat alone, no cameras.</span></li>
+    <li><a href="what-it-means-to-build.html"><strong>What it means to build this</strong></a><span>Why the measured graph, auditable order, and bounded data claims matter for civic AI.</span></li>
     <li><a href="graph-field-research.html"><strong>Graph-field &amp; corridor modeling</strong></a><span>Program overview plus topology section (paths, loops, residuals).</span></li>
     <li><a href="../notes/neighborhood-access-research.html"><strong>Neighborhood access and route quality</strong></a><span>Why map distance can miss walking burden and lived access.</span></li>
     <li><a href="media-environment-and-routing.html"><strong>Media, environment, and routing</strong></a><span>Environment as representation and route traces over a measured field.</span></li>
     <li><a href="spatial-media-installation.html"><strong>Spatial media installation sketch</strong></a><span>Room-scale installation concept from the measured city field.</span></li>
   </ul>
 
-  <p class="home"><a href="../index.html">← aimez home</a></p>
+  <h2 style="font-family:Newsreader,serif;font-size:1.15rem;margin:1.5rem 0 0.5rem;color:#1c4e80;">ORCAST — cetacean encounter forecasting</h2>
+  <ul>
+    <li><a href="https://orcast-h0.vercel.app" target="_blank"><strong>ORCAST live platform</strong></a><span>Killer whale encounter forecasting for the San Juan Islands. Gate-bounded confidence display, step-log citation binding, human-in-the-loop moderation.</span></li>
+    <li><a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-1.pdf" target="_blank"><strong>Whitepaper 1 (PDF)</strong></a><span>Evidence-bounded encounter forecasting: honest-model architecture for effort-biased wildlife observation data.</span></li>
+    <li><a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-2-grounding.pdf" target="_blank"><strong>Whitepaper 2 (PDF)</strong></a><span>Evidence-bound grounding for physical-world AI systems: measuring claim-to-evidence binding rates.</span></li>
+  </ul>
+
+  <h2 style="font-family:Newsreader,serif;font-size:1.15rem;margin:1.5rem 0 0.5rem;color:#1c4e80;">Research papers</h2>
+  <ul>
+    <li><a href="https://gilraitses.github.io/research/pax-comfort-routing/Raitses_PhysicalWorldRoutingAgents_2026.pdf" target="_blank"><strong>Physical-World-Model-Driven Adaptive Routing (PDF)</strong></a><span>Comfort routing with per-bin MRT from a precomputed SOLWEIG model. Gap to live weather documented. 2026 preprint.</span></li>
+    <li><a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-1.pdf" target="_blank"><strong>ORCAST: Evidence-Bounded Encounter Forecasting (PDF)</strong></a><span>Gate-bounded confidence for effort-biased acoustic wildlife data. 2026 preprint.</span></li>
+  </ul>
+
+  <h2 style="font-family:Newsreader,serif;font-size:1.15rem;margin:1.5rem 0 0.5rem;color:#1c4e80;">Early access</h2>
+  <p style="font-size:0.9rem;color:#4b5b6d;margin-bottom:0.75rem;">If you want early access to the pax routing platform or ORCAST, or to follow research updates, send your email and I will follow up.</p>
+  <form id="aimez-access-form" style="max-width:480px;">
+    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.6rem;">
+      <input id="ai-email" type="email" placeholder="Your email" required autocomplete="email"
+        style="flex:1;min-width:200px;padding:0.55rem 0.75rem;border:1px solid #c8d4e0;border-radius:6px;font:inherit;font-size:0.94rem;color:#3a4a5c;">
+      <button type="submit" id="ai-submit"
+        style="background:#1c4e80;color:#fff;border:none;border-radius:6px;padding:0.55rem 1.2rem;font:inherit;font-weight:600;cursor:pointer;">
+        Request access
+      </button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.35rem;margin-bottom:0.6rem;font-size:0.88rem;color:#3a4a5c;">
+      <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+        <input type="checkbox" id="ai-pax" style="accent-color:#1c4e80;"> pax comfort routing app
+      </label>
+      <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+        <input type="checkbox" id="ai-orcast" style="accent-color:#1c4e80;"> ORCAST encounter forecasting
+      </label>
+    </div>
+    <div id="ai-status" style="font-size:0.88rem;color:#4b5b6d;min-height:1.2em;"></div>
+  </form>
+  <script>
+  (function() {
+    var form = document.getElementById("aimez-access-form");
+    var status = document.getElementById("ai-status");
+    var btn = document.getElementById("ai-submit");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var email = document.getElementById("ai-email").value.trim();
+      if (!email) { status.textContent = "Please enter your email."; return; }
+      btn.disabled = true; status.textContent = "Sending...";
+      fetch("https://s2ao4uale0.execute-api.us-east-1.amazonaws.com", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          pax_early_access: document.getElementById("ai-pax").checked,
+          orcast_early_access: document.getElementById("ai-orcast").checked,
+          source: "aimez.ai"
+        })
+      }).then(function(r) { return r.json().then(function(j) { return {ok:r.ok,j:j}; }); })
+        .then(function(res) {
+          if (!res.ok || res.j.error) throw new Error(res.j.error || "could not send");
+          status.textContent = "Signed up. I will be in touch.";
+          form.reset();
+        })
+        .catch(function(err) {
+          status.textContent = "Could not send (" + err.message + "). Email gilraitses@gmail.com directly.";
+        })
+        .finally(function() { btn.disabled = false; });
+    });
+  })();
+  </script>
+
+  <p class="home" style="margin-top:1.5rem;"><a href="../index.html">← aimez home</a></p>
 </body>
 </html>

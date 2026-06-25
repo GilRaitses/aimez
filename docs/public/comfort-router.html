@@ -404,7 +404,7 @@
     <header>
       <div class="brand"><img src="../assets/aimez-mark.webp" alt=""><span>aimez · comfort router</span></div>
       <h1>Observable Comfort Router</h1>
-      <p class="lede">Routing apps return the shortest path. They don't measure what the walk feels like. This system does — camera-derived street pressure, satellite heat load, and tree shade from public data, on a full Manhattan island walk graph. Five cost encodings on the same graph, same solver: different paths because the cost function changes.</p>
+      <p class="lede">Routing apps return the shortest path. They don't measure what the walk feels like. This system does: how crowded each block is, measured from traffic cameras; how much heat and shade each block carries, from satellite data and tree canopy. Five ways to weight the same routes. The path changes depending on which you choose.</p>
     </header>
 
     <!-- P3 (axe landmark-one-main / region): a single <main> landmark wraps all the
@@ -425,7 +425,7 @@
       <div class="time-panel">
         <div class="time-head">
           <label class="switch"><input type="checkbox" id="timeToggle"> <span>Time of day (modeled thermal)</span></label>
-          <span class="badge">MRT modeled · UTCI provisional</span>
+          <span class="badge">Heat estimate (modeled) · Comfort index (provisional)</span>
         </div>
         <div class="time-controls disabled" id="timeControls">
           <div>
@@ -443,8 +443,8 @@
           <div class="time-readout" id="timeReadout">Summer · 1 PM</div>
         </div>
         <p id="gapCallout" class="gap-callout hidden" aria-live="polite">
-          Viewer layer updated. Comfort and adaptive routes now use per-bin MRT from the precomputed 31-bin thermal model — not live sensor data, but time-aware from the SOLWEIG physical output.
-          Shortest and pressure-aware routes are unchanged (stress-only weights).
+          Viewer layer updated. Comfort-aware and adaptive routes now use estimated radiant heat for this time of day, from a physics model using building geometry and satellite data. Not a live weather reading.
+          Shortest, crowd-avoiding, and shade-seeking routes are unchanged.
         </p>
       </div>
       <!-- P2-3 a11y (F2): role=status + aria-live announces every status transition
@@ -490,8 +490,8 @@
       <div id="layerMap"></div>
       <div class="layer-legend" id="layerLegend"></div>
       <div class="layer-scale" id="layerScale"></div>
-      <p class="viewer-hint">3D surface clipped to the Manhattan landmass (no basemap); drag to rotate, scroll to zoom. Keyboard: focus the map (Tab), then arrow keys orbit and + / − zoom. The per-route MRT, UTCI and shade values are also listed as text in the thermal summary cards above.</p>
-      <p class="layer-note">MRT modeled (static LST). UTCI provisional (placeholder air temp / proxy wind / placeholder RH). Central Park canopy 12 m proxy.</p>
+      <p class="viewer-hint">3D surface clipped to the Manhattan landmass (no basemap); drag to rotate, scroll to zoom. Keyboard: focus the map (Tab), then arrow keys orbit and + / − zoom. Radiant heat, comfort index, and shade values for each route are also listed in the thermal summary cards above.</p>
+      <p class="layer-note">Radiant heat and comfort index are modeled from satellite surface temperature and building geometry, not from live weather. Central Park canopy height is estimated from tree survey data, not ground measurement.</p>
     </section>
 
     <section id="emptyMaps" class="map-box">
@@ -508,12 +508,12 @@
     <footer class="footer">
       <strong>Graph:</strong> manhattan_v1 — full Manhattan island pedestrian walk graph, 4,567 nodes.
       <strong>Data surface:</strong> Midtown corridor (42nd–59th St, 3rd–9th Ave), where camera stress and thermal data have been assembled.
-      Routing weights computed at graph-build time from July 2024 Landsat LST composite. The time-of-day selector updates the thermal viewer layer; routing weights are static. This gap (the route uses build-time data, not request-time data) is the primary finding of the companion paper.
+      For comfort-aware and adaptive routes, weights update with the selected time of day using hour-by-hour heat estimates from a physics model. For shortest and crowd-avoiding routes, weights are fixed from a July 2024 satellite composite. The remaining gap between the precomputed model and live weather data is documented in the companion paper.
       <br>
       Heat routing uses Landsat surface temperature on the street graph (greenR framework, Mahajan <em>Ecological Indicators</em> 2024).
       Surface temperature is not pedestrian-height air temperature; on parallel avenues the difference a walker feels is governed by upwind conditions the satellite does not see.
-      <strong>Thermal layers honesty:</strong> MRT is modeled (static LST composite, not per-bin surface temperature); UTCI is provisional (proxy air temp, proxy wind, proxy humidity); Central Park canopy height is a 12 m DBH proxy, not survey.
-      Deferred tools (not yet implemented): <em>fetch_environmental</em> (live weather at routing time), <em>fetch_instruments</em> (sensor coverage per edge). Minimal closure: one API call per request.
+      <strong>What the thermal layers are:</strong> Radiant heat and comfort index are modeled from a 2024 satellite surface temperature composite and building geometry, not from live weather data. Tree canopy is estimated from NYC street tree records. These are physics-model outputs, not real-time readings.
+      Not yet implemented: <em>live weather at routing time</em> (would close the heat model gap) and <em>sensor coverage per block</em> (would show which blocks have direct camera readings vs estimates). One weather API call per routing request would close the heat model gap.
       Built with <a href="https://github.com/GilRaitses/pax">pax</a>.
       <a href="village-pilot.html">Village pilot</a> · <a href="routing-demo.html">Classic two-mode demo</a> · <a href="index.html">Public pages</a>
     </footer>
@@ -614,9 +614,9 @@
     ];
     var ROUTES = [
       ["shortest", "Shortest", "shortest", "◎"],
-      ["sigma_aware", "Pressure-aware", "stress", "◇"],
-      ["shade_aware", "Shade-aware", "shade", "♣"],
-      ["comfort_aware", "Comfort-aware", "comfort", "☀"],
+      ["sigma_aware", "Crowd-avoiding", "stress", "◇"],
+      ["shade_aware", "Shade-seeking", "shade", "♣"],
+      ["comfort_aware", "Heat-aware", "comfort", "☀"],
       ["adaptive_aware", "Adaptive comfort", "adaptive", "✦"]
     ];
     var THERMAL_QUALITY = {
@@ -630,15 +630,15 @@
     };
     var THERMAL_MODES = [
       ["shortest", "Shortest", "shortest"],
-      ["sigma_aware", "Pressure-aware", "stress"],
-      ["shade_aware", "Shade-aware", "shade"],
-      ["comfort_aware", "Comfort-aware", "comfort"],
+      ["sigma_aware", "Crowd-avoiding", "stress"],
+      ["shade_aware", "Shade-seeking", "shade"],
+      ["comfort_aware", "Heat-aware", "comfort"],
       ["adaptive_aware", "Adaptive comfort", "adaptive"]
     ];
     var DAY_LABEL = { solstice: "Summer", equinox: "Equinox", winter: "Winter" };
     var DAY_MAX_HOUR = { solstice: 18, equinox: 18, winter: 16 };
     var LAYER_ORDER = [
-      ["pressure", "Block pressure"], ["shadow", "Shadow"], ["mrt", "MRT"], ["utci", "UTCI"], ["svf", "SVF"], ["lst", "LST"]
+      ["pressure", "Block pressure"], ["shadow", "Shadow"], ["mrt", "Radiant heat"], ["utci", "Comfort index"], ["svf", "Sky exposure"], ["lst", "Surface temp"]
     ];
     // Thermal 3D data is hosted on S3+CloudFront in production; relative when local.
     // P1-1: the ?data= override is allowlisted the same way as ?api= (prod CloudFront,
@@ -2085,11 +2085,14 @@
           var cached = (typeof CANONICAL_ROUTES !== "undefined") && CANONICAL_ROUTES[cacheKey];
           if (cached) {
             render(cached);
-            setStatus("[Cached result — live engine unavailable]", "ok");
+            setStatus("Showing a precomputed result (live routing engine unavailable).", "ok");
           } else {
             document.getElementById("results").classList.add("hidden");
             document.getElementById("emptyMaps").classList.remove("hidden");
-            document.getElementById("placeholder").innerHTML = "<span>Engine unavailable. No cached result for this pair. Try Grand Central \u2192 Carnegie Hall.</span>";
+            var offlineMsg = (cacheKey === "sixth_57:park_mid_59")
+              ? "This route uses a special corridor connection that requires the live engine. Try Grand Central \u2192 Carnegie Hall instead."
+              : "Live routing is unavailable and this pair has no precomputed result. Try Grand Central \u2192 Carnegie Hall, which works offline.";
+            document.getElementById("placeholder").innerHTML = "<span>" + offlineMsg + "</span>";
             setStatus("Engine unavailable: " + e.message, "error");
           }
         })
@@ -2163,7 +2166,7 @@
         },
         {
           trigger: "afterBinChange",
-          text: "Changing the time of day updates the thermal viewer and now also changes the comfort and adaptive routing weights \u2014 per-bin MRT from the precomputed SOLWEIG model drives edge costs. Shortest and pressure-aware paths use stress weights only."
+          text: "Changing the time of day now affects the comfort and shade routes, which use hour-by-hour heat estimates from a physics model. Shortest and crowd-avoiding routes are unchanged."
         }
       ];
       if (sessionStorage.getItem("tipsDone")) return;

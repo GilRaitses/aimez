@@ -19,15 +19,15 @@
       <h1>Choosing how we move between places</h1>
       <p class="sub">aimez · more ways to like the walk</p>
       <p class="lead"><strong>Outcome:</strong> how we engage the city between destinations. Shared stress on a public graph, block-equivalent routes, and room to meet, gather and move the way people prefer.</p>
-      <p class="sub">Case study using a vision AI system to reconstruct stress-field topology from DOT camera data and NYC open data on the full Manhattan island walk graph (4,567 nodes, 15,788 edges). Physical world model data (cameras, Landsat, SOLWEIG thermal) assembled for the Midtown data surface.</p>
-      <p class="lead">Grand Central → Carnegie Hall: equal block count; five routing cost encodings; comfort-aware route uses per-bin MRT from precomputed SOLWEIG model.</p>
+      <p class="sub">Case study using traffic cameras and satellite data to measure crowding and heat across Midtown sidewalks, then route around them.</p>
+      <p class="lead">Grand Central → Carnegie Hall: same distance, five different routes. The comfort route selects shadier, cooler blocks based on a time-of-day heat model.</p>
     </section>
 
     <section class="slide">
       <p class="kicker">Research question</p>
       <h2>Public-good AI on a measured graph</h2>
-      <p class="lead">Can open inputs support psychophysics-informed learning and emergent-behavior models of camera-derived stress topology, then a routing layer that pairs quality-of-life paths with block-equivalent shortest-path options?</p>
-      <p class="lead">The corridor demonstration is the first worked example: same graph, stress fixed before routing, route pairs compared on measured exposure at equal block count. The measured graph is public so others can re-run it before any navigation product embeds the model.</p>
+      <p class="lead">Can open data from cameras and satellites measure where walking feels hard, and route around it? Can that routing be transparent, reproducible, and checked before it ships in a consumer product?</p>
+      <p class="lead">The Midtown demonstration is the first worked example: the same origin and destination, the measured crowding and heat pattern across streets fixed before routing, five paths compared on the same block budget. The inputs are public so others can re-run it independently.</p>
     </section>
 
     <section class="slide slide--split">
@@ -38,7 +38,7 @@
           <li>NYC Open Data tables plus DOT traffic cameras (substrate inventory on a later slide).</li>
           <li>Stress topology is fixed before any path algorithm runs.</li>
           <li>Grand Central → Carnegie Hall: same blocks, lower accumulated camera stress on the stress-aware path.</li>
-          <li>Manhattan island walk graph (4,567 nodes, 15,788 edges); physical world model data for Midtown data surface (42nd–59th St, 3rd–9th Ave); reproducible snapshot; corridor-scale data claims.</li>
+          <li>Traffic cameras, satellite heat data, and NYC Open Data on Midtown streets (42nd–59th, 3rd–9th Ave). Reproducible snapshot. Claims bounded to this area.</li>
           <li>Open tables stay open; fusion, calibration, and routing cost stay proprietary.</li>
         </ul>
       </div>
@@ -68,7 +68,7 @@
         <li><b>Forecasting.</b> Short-horizon updates to the stress field before routing runs.</li>
         <li><b>Route solving.</b> Block-equivalent and stress-aware paths on the same directed graph.</li>
       </ol>
-      <p class="lead">Built from NYC open data on the full Manhattan island walk graph (4,567 nodes, 15,788 edges). Physical world model data for the Midtown data surface (42nd–59th St, 3rd–9th Ave): DOT cameras, Landsat LST, SOLWEIG thermal model, tree canopy. Five routing encodings on one locked graph keep stress, topology, thermal, and routing inspectable in order.</p>
+      <p class="lead">Traffic cameras, satellite heat data, a physics-based shade model, and NYC street tree data on one verified map. Five routing options, built in sequence so each layer can be checked independently before routing runs.</p>
       <div class="flow" style="margin-top:0.5rem">
         <span class="node pink">open data</span>
         <span class="arrow">&rarr;</span>

@@ -248,6 +248,20 @@
     .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: .78rem; color: var(--muted); }
     .footer a { color: var(--accent2); }
     .hidden { display: none !important; }
+    .gap-callout {
+      margin-top: .55rem; padding: .5rem .75rem; border-radius: 6px;
+      background: rgba(248,180,100,.08); border: 1px solid rgba(248,180,100,.3);
+      font-size: .8rem; color: var(--muted); line-height: 1.45;
+    }
+    .gap-callout sub { font-size: .72em; }
+    .tooltip-overlay {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
+      max-width: 320px; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem 1.1rem; font-size: .82rem;
+      line-height: 1.5; color: var(--text);
+    }
+    .tooltip-overlay p { margin: 0 0 .6rem; }
+    .tooltip-overlay button { font-size: .78rem; padding: .3rem .7rem; border-radius: 6px; }
     .demo-banner {
       font-size: .72rem; padding: .35rem .65rem; border-radius: 8px; margin-bottom: 1rem;
       background: rgba(126,184,255,.1); border: 1px solid rgba(126,184,255,.25); color: var(--accent2);
@@ -390,7 +404,7 @@
     <header>
       <div class="brand"><img src="../assets/aimez-mark.webp" alt=""><span>aimez · comfort router</span></div>
       <h1>Observable Comfort Router</h1>
-      <p class="lede">Pedestrian comfort optimization for Manhattan — block pressure from NYCDOT / NYCTMC cameras, sidewalk capacity, tree shade, and modeled radiant heat. Default demo: Grand Central → Carnegie Hall.</p>
+      <p class="lede">Routing apps return the shortest path. They don't measure what the walk feels like. This system does — camera-derived street pressure, satellite heat load, and tree shade from public data, on a full Manhattan island walk graph. Five cost encodings on the same graph, same solver: different paths because the cost function changes.</p>
     </header>
 
     <!-- P3 (axe landmark-one-main / region): a single <main> landmark wraps all the
@@ -428,6 +442,10 @@
           </div>
           <div class="time-readout" id="timeReadout">Summer · 1 PM</div>
         </div>
+        <p id="gapCallout" class="gap-callout hidden" aria-live="polite">
+          Viewer layer updated for this time of day. Routing weights use the build-time satellite bake — they do not change with the time slider.
+          This gap (the route uses W(t<sub>bake</sub>), not W(t)) is the paper's primary finding.
+        </p>
       </div>
       <!-- P2-3 a11y (F2): role=status + aria-live announces every status transition
            ("Computing routes…" / "Live route computed." / error text) to screen readers. -->
@@ -488,9 +506,14 @@
 
     <!-- P3 (axe region): footer is a contentinfo landmark, not a stray <p>. -->
     <footer class="footer">
+      <strong>Graph:</strong> manhattan_v1 — full Manhattan island pedestrian walk graph, 4,567 nodes.
+      <strong>Data surface:</strong> Midtown corridor (42nd–59th St, 3rd–9th Ave), where camera stress and thermal data have been assembled.
+      Routing weights computed at graph-build time from July 2024 Landsat LST composite. The time-of-day selector updates the thermal viewer layer; routing weights are static. This gap (the route uses build-time data, not request-time data) is the primary finding of the companion paper.
+      <br>
       Heat routing uses Landsat surface temperature on the street graph (greenR framework, Mahajan <em>Ecological Indicators</em> 2024).
       Surface temperature is not pedestrian-height air temperature; on parallel avenues the difference a walker feels is governed by upwind conditions the satellite does not see.
-      <strong>Thermal layers honesty:</strong> MRT is modeled (uses a static LST composite, not per-bin surface temperature); UTCI is provisional (placeholder air temp, proxy wind, placeholder relative humidity); Central Park canopy height is a 12 m DBH proxy, not survey.
+      <strong>Thermal layers honesty:</strong> MRT is modeled (static LST composite, not per-bin surface temperature); UTCI is provisional (proxy air temp, proxy wind, proxy humidity); Central Park canopy height is a 12 m DBH proxy, not survey.
+      Deferred tools (not yet implemented): <em>fetch_environmental</em> (live weather at routing time), <em>fetch_instruments</em> (sensor coverage per edge). Minimal closure: one API call per request.
       Built with <a href="https://github.com/GilRaitses/pax">pax</a>.
       <a href="village-pilot.html">Village pilot</a> · <a href="routing-demo.html">Classic two-mode demo</a> · <a href="index.html">Public pages</a>
     </footer>
@@ -584,9 +607,9 @@
       ["park_mid_59", "Central Park (between 6th & 7th)"]
     ];
     var PRESETS = [
-      ["grand_central", "carnegie_hall", "Grand Central run"],
-      ["times_square", "bryant_park", "Shade & parks"],
-      ["columbus_circle", "bryant_park", "Midtown crossing"]
+      ["grand_central", "carnegie_hall", "Five encodings (flagship)"],
+      ["sixth_57", "park_mid_59", "Adaptive regime (57th edge)"],
+      ["times_square", "bryant_park", "Shade & parks"]
     ];
     var ROUTES = [
       ["shortest", "Shortest", "shortest", "◎"],
@@ -2090,6 +2113,71 @@
 
     if (FLAGS.demo) startDemoLoop();
     else if (FLAGS.autoRoute) runRoute();
+
+    // B4 gap callout: show when time bin changes while a route result is displayed
+    var lastRouteOrigin = null, lastRouteDest = null;
+    var gapCallout = document.getElementById("gapCallout");
+    (function installGapCallout() {
+      var origRunRoute = runRoute;
+      // Track last routed OD so we know if bin changed without new route
+      var origFetch = window.fetch;
+      // Show callout after any time-bin change when results are visible
+      function onBinChange() {
+        var results = document.getElementById("results");
+        if (results && !results.classList.contains("hidden")) {
+          gapCallout.classList.remove("hidden");
+        }
+      }
+      daySel.addEventListener("change", onBinChange);
+      hourSlider.addEventListener("change", onBinChange);
+      // Hide callout when a new route is computed
+      var origOnRoute = document.getElementById("routeBtn").onclick;
+      document.getElementById("routeBtn").onclick = function () {
+        gapCallout.classList.add("hidden");
+        if (origOnRoute) origOnRoute.call(this);
+      };
+    })();
+
+    // First-interaction tooltips (session-scoped, dismiss on click)
+    (function initTooltips() {
+      var TIPS = [
+        {
+          trigger: "afterRoute",
+          text: "These five numbers show the same walk, five ways. The route changes because the cost function changes — not the solver or the graph."
+        },
+        {
+          trigger: "afterBinChange",
+          text: "Changing the time of day updates the thermal viewer layer. The routing weights are baked from a fixed satellite composite — they don\u2019t change with the slider. That gap between the viewer and the route is what this system documents."
+        }
+      ];
+      if (sessionStorage.getItem("tipsDone")) return;
+      var tipIdx = 0;
+      var overlay = document.createElement("div");
+      overlay.className = "tooltip-overlay";
+      overlay.setAttribute("role", "complementary");
+      overlay.setAttribute("aria-label", "System tip");
+      document.body.appendChild(overlay);
+      function showTip(tip) {
+        if (!tip) { overlay.remove(); sessionStorage.setItem("tipsDone", "1"); return; }
+        overlay.innerHTML = "<p>" + tip.text + "</p><button id='tipDismiss'>Got it</button>";
+        document.getElementById("tipDismiss").onclick = function () { tipIdx++; showTip(TIPS[tipIdx]); };
+      }
+      // Show first tip after first route completes
+      var origRender = render;
+      if (typeof render === "function") {
+        render = function (data) {
+          origRender(data);
+          if (tipIdx === 0) showTip(TIPS[0]);
+        };
+      }
+      // Show second tip after first bin change
+      function afterBinChange() {
+        if (tipIdx === 1) showTip(TIPS[1]);
+      }
+      daySel.addEventListener("change", afterBinChange);
+      hourSlider.addEventListener("change", afterBinChange);
+    })();
+
   })();
   </script>
 </body>

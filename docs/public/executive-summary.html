@@ -19,8 +19,8 @@
       <h1>Choosing how we move between places</h1>
       <p class="sub">aimez · more ways to like the walk</p>
       <p class="lead"><strong>Outcome:</strong> how we engage the city between destinations. Shared stress on a public graph, block-equivalent routes, and room to meet, gather and move the way people prefer.</p>
-      <p class="sub">Case study using a vision AI system to reconstruct stress-field topology from DOT camera data and NYC open data on a Manhattan pedestrian graph.</p>
-      <p class="lead">Grand Central → Carnegie Hall: equal block count; lower accumulated camera stress on the stress-aware path.</p>
+      <p class="sub">Case study using a vision AI system to reconstruct stress-field topology from DOT camera data and NYC open data on the full Manhattan island walk graph (4,567 nodes, 15,788 edges). Physical world model data (cameras, Landsat, SOLWEIG thermal) assembled for the Midtown data surface.</p>
+      <p class="lead">Grand Central → Carnegie Hall: equal block count; five routing cost encodings; comfort-aware route uses per-bin MRT from precomputed SOLWEIG model.</p>
     </section>
 
     <section class="slide">
@@ -38,7 +38,7 @@
           <li>NYC Open Data tables plus DOT traffic cameras (substrate inventory on a later slide).</li>
           <li>Stress topology is fixed before any path algorithm runs.</li>
           <li>Grand Central → Carnegie Hall: same blocks, lower accumulated camera stress on the stress-aware path.</li>
-          <li>One Manhattan corridor (~300 nodes), reproducible snapshot, corridor-scale claims only.</li>
+          <li>Manhattan island walk graph (4,567 nodes, 15,788 edges); physical world model data for Midtown data surface (42nd–59th St, 3rd–9th Ave); reproducible snapshot; corridor-scale data claims.</li>
           <li>Open tables stay open; fusion, calibration, and routing cost stay proprietary.</li>
         </ul>
       </div>
@@ -68,7 +68,7 @@
         <li><b>Forecasting.</b> Short-horizon updates to the stress field before routing runs.</li>
         <li><b>Route solving.</b> Block-equivalent and stress-aware paths on the same directed graph.</li>
       </ol>
-      <p class="lead">Built from NYC open data on a Manhattan corridor graph (40th–59th St, Lexington to 8th Ave, ~300 nodes). Four layers on one locked graph keep stress, topology, forecast, and routing inspectable in that order.</p>
+      <p class="lead">Built from NYC open data on the full Manhattan island walk graph (4,567 nodes, 15,788 edges). Physical world model data for the Midtown data surface (42nd–59th St, 3rd–9th Ave): DOT cameras, Landsat LST, SOLWEIG thermal model, tree canopy. Five routing encodings on one locked graph keep stress, topology, thermal, and routing inspectable in order.</p>
       <div class="flow" style="margin-top:0.5rem">
         <span class="node pink">open data</span>
         <span class="arrow">&rarr;</span>
@@ -120,9 +120,9 @@
 
     <section class="slide">
       <p class="kicker">Pilot</p>
-      <h2>Manhattan corridor (40th–59th St)</h2>
-      <p class="lead">Lexington to 8th Ave · ~300 nodes · decision-locked stress field · multi-layer capacity from NYC Open Data.</p>
-      <p class="lead">Same graph, varying fields. One reproducible corridor snapshot at a time: evidence at corridor scale before any city-wide rollout.</p>
+      <h2>Manhattan island walk graph — Midtown data surface</h2>
+      <p class="lead">Full island graph: 4,567 nodes · 15,788 edges · Battery Park to Inwood. Midtown data surface: 42nd–59th St, 3rd–9th Ave · camera stress (71.96% direct coverage) · Landsat LST · 31-bin SOLWEIG thermal model · street tree canopy.</p>
+      <p class="lead">Same graph, varying cost encodings. Five routing strategies: shortest, pressure-aware, shade-aware, comfort-aware, adaptive. Open-OD routing for any Manhattan lat/lng via tile spatial index.</p>
     </section>
 
     <section class="slide slide--split">
@@ -157,7 +157,7 @@
       <h2>Nine origin–destination pairs</h2>
       <div class="slide-fig">
         <img src="../assets/gallery/mobility/02_feasible_routes_destination_grid.png" alt="Feasible routes across nine destinations" loading="lazy">
-        <p>Structural contrast across nine corridor ODs: stress-aware paths diverge from fewest-block paths where the field differs.</p>
+        <p>Structural contrast across nine Midtown origin–destination pairs: stress-aware and comfort-aware paths diverge from fewest-block paths where the stress field and thermal burden differ.</p>
       </div>
     </section>
 
@@ -176,7 +176,7 @@
       <div class="slide-copy">
         <p class="kicker">Corridor response</p>
         <h2>Load redistribution under stress</h2>
-        <p class="grow">When routing cost weights the stress field, pedestrian load shifts across the full corridor graph. The pattern holds across many origin–destination pairs, beyond one demonstration walk.</p>
+        <p class="grow">When routing cost weights the stress field and thermal model, pedestrian load shifts across the Manhattan island walk graph. The pattern holds across canonical origin–destination pairs, and comfort-aware routing shifts further with per-bin MRT.</p>
       </div>
       <div class="slide-fig">
         <img src="../assets/gallery/mobility/06_load_redistribution_under_stress.png" alt="Load redistribution under stress-weighted routing" loading="lazy">
@@ -203,9 +203,9 @@
       <p class="kicker">Why this shape</p>
       <h2>What it means to build this way</h2>
       <ul>
-        <li><b>Public graph first.</b> Open tables and camera stress on a locked corridor graph before navigation products embed the model.</li>
-        <li><b>Documented order.</b> Stress topology is fixed and published before path algorithms run.</li>
-        <li><b>Bounded claims.</b> Corridor-scale demonstrations others can reproduce; proprietary fusion and calibration stay separate from the open inputs.</li>
+        <li><b>Public graph first.</b> Open tables and camera stress on the full Manhattan island walk graph before navigation products embed the model.</li>
+        <li><b>Documented order.</b> Stress topology and thermal model are fixed and published before path algorithms run.</li>
+        <li><b>Bounded claims.</b> Midtown data surface demonstrations others can reproduce; precomputed models documented with calibration status and seasonal limitations.</li>
         <li><b>Room to choose.</b> Block-equivalent alternatives so walking between destinations stays a civic choice.</li>
         <li><b>Shared upkeep.</b> A refresh story when sheds, closures, and cameras change the street.</li>
       </ul>

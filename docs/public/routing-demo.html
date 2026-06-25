@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Routing demo: stress-aware pedestrian routing - aimez</title>
-  <meta name="description" content="Interactive demo of comfort-aware pedestrian routing in the Midtown corridor. Build a multi-stop walk and compare shortest, stress-aware, shade-aware, comfort, and adaptive-comfort routes per leg and for the full trip.">
+  <meta name="description" content="Interactive demo of comfort-aware pedestrian routing on the Manhattan island walk graph (4,567 nodes). Compare shortest, pressure-aware, shade-aware, comfort-aware, and adaptive-comfort routes. Comfort and adaptive routes use per-bin MRT from the precomputed SOLWEIG model.">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="stylesheet" href="public.css">
   <meta name="theme-color" content="#131c2d">
@@ -65,7 +65,7 @@
 <body>
   <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
   <h1>Routing demo: stress-aware pedestrian routing</h1>
-  <p class="lede">Landmarks sit in the Midtown corridor (streets 42–59, avenues 3–9), routed on the canonical corridor graph. Pick a simple origin and destination, or build a multi-stop walk (for example Grand Central → Times Square → Carnegie Hall → Grand Central). Each analysis returns a multi-panel comparison figure — shortest, stress-aware, shade-aware, comfort, and adaptive-comfort routes plus a comfort phase map — and a metrics table summarizing the shortest vs stress-aware trade-off. Results load only after you run the analysis; nothing is precomputed on this page.</p>
+  <p class="lede">Nine named landmarks on the Manhattan island walk graph (4,567 nodes, 15,788 edges), Midtown data surface. Pick an origin and destination, or build a multi-stop walk (Grand Central → Times Square → Carnegie Hall → Grand Central). Each analysis returns a multi-panel comparison figure — shortest, pressure-aware, shade-aware, comfort-aware, and adaptive-comfort routes plus a comfort phase map — and a metrics table. Comfort and adaptive routes use per-bin MRT from the precomputed 31-bin SOLWEIG model. Results load only after you run the analysis; nothing is precomputed on this page.</p>
 
   <div class="controls">
     <div class="tabs">
@@ -93,7 +93,7 @@
   <div id="metricsTables"></div>
 
   <h2>How it works</h2>
-  <p>Public traffic-camera frames become a per-block stress field on the canonical Midtown-corridor graph. The router runs A* with edge cost <code>1 + alpha * stress</code> (alpha = 1.0 in this demo) so calmer blocks are cheaper. Each leg returns a shortest (block-minimizing) path and a stress-aware path, plus shade-aware, comfort (LST + shade), and adaptive-comfort variants — all on the same corridor graph. The comparison figure shows these routes side by side with a comfort phase map; the metrics table below summarizes the shortest vs stress-aware comparison.</p>
+  <p>Public traffic-camera frames become a per-block stress field on the Manhattan island walk graph. Five routing cost encodings run on the same graph with the same Dijkstra solver: shortest (distance only), pressure-aware (camera stress penalty, alpha = 0.088), shade-aware (tree canopy penalty), comfort-aware (Landsat LST + canopy), and adaptive-comfort (per-edge regime from comfort regime classification). Comfort and adaptive routes use per-bin MRT from the precomputed 31-bin SOLWEIG physical model — building geometry, solar angle, shadow patterns per time bin. The comparison figure shows these routes side by side with a comfort phase map; the metrics table summarizes differences across encodings.</p>
   <p class="note">Patent pending on broader diagnostic-infrastructure concepts. Built with the <a href="https://github.com/GilRaitses/pax">pax</a> routing engine. <a href="../index.html">Home</a></p>
 
   <script>

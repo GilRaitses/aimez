@@ -64,10 +64,6 @@
           <p>Manhattan is the first applied test domain for measured stress fields, directed edges, route cost, loop closure, residual structure, corridor organization, and basis checks.</p>
         </article>
         <article>
-          <h3>Physical world model fusion and community sensing</h3>
-          <p>Sparse, effort-biased field observations become defensible forecasts through gate-bounded statistical models, managed AI agents with step-log provenance, and human-authority promotion. Applied to Southern Resident killer whale encounter forecasting in the San Juan Islands.</p>
-        </article>
-        <article>
           <h3>Human-centered AI and commitment boundaries</h3>
           <p>Human-AI work examines the point where an output leaves an interface and enters a situation with role, timing, risk, and relationship constraints.</p>
         </article>
@@ -75,32 +71,6 @@
           <h3>Emergent intelligence and simulation</h3>
           <p>Biological and material systems provide models for how local interactions, state changes, and physical constraints create behavior across larger scales.</p>
         </article>
-      </div>
-    </section>
-
-    <section class="program-section">
-      <h2>Projects</h2>
-      <div class="direction-grid">
-
-        <article>
-          <h3>orcast</h3>
-          <p>Physical world model fusion for orca encounter forecasting and community platform for field researchers. Gate-bounded negative-binomial encounter model with PSTH acoustic kernels, a nine-table DynamoDB system of record, managed AI agents with step-log provenance, and citizen science moderation. Every map cell traces to the data that earned its confidence.</p>
-          <p style="margin-top:0.6rem;">
-            <a href="https://orcast-h0.vercel.app" target="_blank" rel="noopener">Live app</a> &middot;
-            <a href="https://github.com/GilRaitses/orcast" target="_blank" rel="noopener">Repo</a>
-          </p>
-        </article>
-
-        <article>
-          <h3>pax</h3>
-          <p>Stress-aware pathfinding infrastructure for Manhattan. Camera-derived sigma stress fields drive cost-surface routing; decision-valued map infrastructure (arXiv:2602.11295) logs which representation parameters preserve route identity and which cross a fracture boundary. The routing demo runs the system live on the Grand Central to Carnegie Hall corridor.</p>
-          <p style="margin-top:0.6rem;">
-            <a href="public/routing-demo.html">Routing demo</a> &middot;
-            <a href="https://arxiv.org/abs/2602.11295" target="_blank" rel="noopener">arXiv:2602.11295</a> &middot;
-            <a href="public/graph-field-research.html">Research overview</a>
-          </p>
-        </article>
-
       </div>
     </section>
 
@@ -115,16 +85,80 @@
       </p>
     </section>
 
+    <!-- ── orcast project ─────────────────────────────────────────────── -->
+    <section class="program-section" id="orcast">
+      <h2>orcast — gate-bounded encounter forecasting</h2>
+      <p>
+        A live system for Southern Resident killer whale encounter forecasting in the San Juan Islands.
+        Every displayed confidence value is bounded by a statistical gate battery — phase-shuffled null test,
+        time-rescaling goodness-of-fit, held-out deviance skill, and PIT calibration — and traceable
+        through a per-cell provenance drilldown to the acoustic detections and kernel fits that produced it.
+        The current effective confidence is 0%. That is the correct answer: the deviance skill is negative.
+      </p>
+      <p>
+        The system also produces a grounding quality benchmark. Injecting the surface planner step-log as RAG
+        context reduces the unsupported scientific claim rate from 60–91% (Maps-only geospatial grounding
+        baseline) to 0%, by transforming the query from open-domain science to closed artifact-reference.
+        The companion paper extends this metric to AI planning systems as an evaluation primitive for
+        evidence-bound intermediate representations.
+      </p>
+
+      <!-- Panel gallery: swap placeholder divs for <img> or <video> once GIFs are captured -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.5rem 0;">
+        <a href="https://orcast-h0.vercel.app/" target="_blank" style="text-decoration:none;color:inherit;">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a3a6b,#2e6da4);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.5);">forecast map demo</div>
+            <div style="padding:0.8rem 0.9rem;">
+              <strong style="font-size:0.9rem;">Forecast map</strong>
+              <p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Gate-bounded confidence per map cell. Click any cell to trace provenance.</p>
+            </div>
+          </div>
+        </a>
+        <a href="https://orcast-h0.vercel.app/gates" target="_blank" style="text-decoration:none;color:inherit;">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1f3a5f,#3d5e8c);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.5);">gates panel demo</div>
+            <div style="padding:0.8rem 0.9rem;">
+              <strong style="font-size:0.9rem;">Integrity conditions</strong>
+              <p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Full gate battery with named conditions, PSTH visuals, and equations.</p>
+            </div>
+          </div>
+        </a>
+        <a href="https://orcast-h0.vercel.app/ask" target="_blank" style="text-decoration:none;color:inherit;">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1c3d5a,#2d6080);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.5);">sighting check demo</div>
+            <div style="padding:0.8rem 0.9rem;">
+              <strong style="font-size:0.9rem;">Sighting check + evidence upload</strong>
+              <p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Describe or upload field evidence. Bedrock narration from structured skill context.</p>
+            </div>
+          </div>
+        </a>
+        <a href="https://orcast-h0.vercel.app/explore?planner=1" target="_blank" style="text-decoration:none;color:inherit;">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1e3554,#2d5278);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.5);">surface planner demo</div>
+            <div style="padding:0.8rem 0.9rem;">
+              <strong style="font-size:0.9rem;">Surface planner routing</strong>
+              <p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Managed AI agent dispatches panel sequence. Plan-then-execute, step-log provenance.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <p class="links">
+        <a href="https://orcast-h0.vercel.app" target="_blank">Live demo</a> &middot;
+        <a href="https://github.com/gilraitses/orcast" target="_blank">GitHub</a> &middot;
+        <a href="mailto:gilraitses@gmail.com?subject=orcast%20whitepaper">Request whitepapers</a>
+      </p>
+    </section>
+
     <section class="program-section">
       <h2>Selected work</h2>
       <div class="selected-links">
-        <a href="https://orcast-h0.vercel.app" target="_blank" rel="noopener">orcast: live encounter forecast</a>
-        <a href="public/routing-demo.html">pax: routing demo (Manhattan)</a>
         <a href="public/executive-summary.html">Executive summary (slides)</a>
         <a href="public/index.html">Public research pages (index)</a>
         <a href="public/graph-field-research.html">Graph-field &amp; corridor modeling</a>
-        <a href="https://arxiv.org/abs/2602.11295" target="_blank" rel="noopener">arXiv:2602.11295 — decision-valued maps</a>
+        <a href="public/spatial-media-installation.html">Installation sketch</a>
         <a href="https://gilraitses.github.io/">Papers and white papers</a>
+        <a href="https://orcast-h0.vercel.app" target="_blank">orcast — encounter forecasting (live)</a>
       </div>
     </section>
 
@@ -132,13 +166,18 @@
       <h2>Follow or work together</h2>
       <div class="signup-grid">
         <article>
+          <h3>orcast whitepapers</h3>
+          <p>Two papers: evidence-bounded encounter forecasting architecture, and a grounding quality measurement framework for AI reasoning chains. Email to receive them when arXiv submissions are live.</p>
+          <a href="mailto:gilraitses@gmail.com?subject=orcast%20whitepapers">Send me the papers</a>
+        </article>
+        <article>
           <h3>Research updates</h3>
-          <p>Use this path for occasional updates on research notes, public demos, paper releases, and site changes.</p>
+          <p>Occasional updates on research notes, public demos, paper releases, and site changes across the program.</p>
           <a href="mailto:gilraitses@gmail.com?subject=aimez%20research%20updates">Join research updates</a>
         </article>
         <article>
           <h3>Collaboration and outreach</h3>
-          <p>Use this path for project inquiries, institutional contact, event invitations, research collaboration, or direct work together.</p>
+          <p>Project inquiries, institutional contact, event invitations, research collaboration, or direct work together.</p>
           <a href="mailto:gilraitses@gmail.com?subject=aimez%20collaboration%20or%20outreach">Start a conversation</a>
         </article>
       </div>

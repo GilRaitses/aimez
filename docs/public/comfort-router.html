@@ -506,7 +506,7 @@
 
     <!-- P3 (axe region): footer is a contentinfo landmark, not a stray <p>. -->
     <footer class="footer">
-      <strong>Graph:</strong> manhattan_v1 — full Manhattan island pedestrian walk graph, 4,567 nodes.
+      <strong>Graph:</strong> manhattan_v1 — full Manhattan island pedestrian walk graph, 4,567 nodes, 15,788 edges.
       <strong>Data surface:</strong> Midtown corridor (42nd–59th St, 3rd–9th Ave), where camera stress and thermal data have been assembled.
       For comfort-aware and adaptive routes, weights update with the selected time of day using hour-by-hour heat estimates from a physics model. For shortest and crowd-avoiding routes, weights are fixed from a July 2024 satellite composite. The remaining gap between the precomputed model and live weather data is documented in the companion paper.
       <br>
@@ -616,8 +616,8 @@
       ["shortest", "Shortest", "shortest", "◎"],
       ["sigma_aware", "Crowd-avoiding", "stress", "◇"],
       ["shade_aware", "Shade-seeking", "shade", "♣"],
-      ["comfort_aware", "Heat-aware", "comfort", "☀"],
-      ["adaptive_aware", "Adaptive comfort", "adaptive", "✦"]
+      ["comfort_aware", "Comfort-aware", "comfort", "☀"],
+      ["adaptive_aware", "Adaptive", "adaptive", "✦"]
     ];
     var THERMAL_QUALITY = {
       insufficient: "Street thermal data unavailable",
@@ -632,8 +632,8 @@
       ["shortest", "Shortest", "shortest"],
       ["sigma_aware", "Crowd-avoiding", "stress"],
       ["shade_aware", "Shade-seeking", "shade"],
-      ["comfort_aware", "Heat-aware", "comfort"],
-      ["adaptive_aware", "Adaptive comfort", "adaptive"]
+      ["comfort_aware", "Comfort-aware", "comfort"],
+      ["adaptive_aware", "Adaptive", "adaptive"]
     ];
     var DAY_LABEL = { solstice: "Summer", equinox: "Equinox", winter: "Winter" };
     var DAY_MAX_HOUR = { solstice: 18, equinox: 18, winter: 16 };
@@ -963,8 +963,8 @@
 
     function buildHeadline(c) {
       var parts = [];
-      if (c.pct_stress_reduction > 0) parts.push(fmt(c.pct_stress_reduction, 1) + "% less exposure on the pressure-aware path");
-      if (c.pct_shade_gain > 0) parts.push(fmt(c.pct_shade_gain, 1) + "% more canopy on the shade path");
+      if (c.pct_stress_reduction > 0) parts.push(fmt(c.pct_stress_reduction, 1) + "% less exposure on the crowd-avoiding path");
+      if (c.pct_shade_gain > 0) parts.push(fmt(c.pct_shade_gain, 1) + "% more canopy on the shade-seeking path");
       if (c.pct_heat_avoidance > 0) parts.push(fmt(c.pct_heat_avoidance, 1) + "% cooler in mean surface temperature");
       return parts.length ? parts.join(" · ") + "." : "Five routes computed on the same street graph.";
     }

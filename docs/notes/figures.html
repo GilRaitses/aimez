@@ -41,7 +41,7 @@
   <p class="lede">Figures produced across the aimez research program, gathered here so the camera pipeline, the routing work and the validation results can be read in one place.</p>
 
   <h2>Camera vision pipeline</h2>
-  <p>The pipeline reads public traffic-camera frames and turns them into a continuous stress field that routing can use. The stages run from camera frame through computer-vision detection to an interpolated field and a Pareto route.</p>
+  <p>The pipeline reads public traffic-camera frames and turns them into a continuous crowd pressure field that routing can use. The stages run from camera frame through computer-vision detection to an interpolated field and a Pareto route.</p>
   <figure>
     <img src="../assets/gallery/cv-pipeline/pipeline_data_flow_strip.png" alt="Pipeline data flow from camera to route output">
     <figcaption>The full pipeline: 82 cameras feed YOLO and CLIP models, which produce a per-camera stress value from 0 to 1, interpolated by Voronoi and inverse-distance weighting and consumed by an A* Pareto router that returns a route.</figcaption>
@@ -71,7 +71,7 @@
   </figure>
   <figure>
     <img src="../assets/gallery/mobility/04_risk_heatmap_camera_stress.png" alt="Risk heatmap from camera stress">
-    <figcaption>A risk heatmap built from the camera stress field, marking the areas a stress-aware route works to avoid.</figcaption>
+    <figcaption>A risk heatmap built from the camera crowd pressure field, marking the areas a crowd-avoiding route works to avoid.</figcaption>
   </figure>
   <figure>
     <img src="../assets/gallery/mobility/06_load_redistribution_under_stress.png" alt="Load redistribution under stress">

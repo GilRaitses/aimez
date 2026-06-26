@@ -134,14 +134,14 @@
 
   <h2>What the demonstration does</h2>
   <p>
-    The substrate models pedestrian routing on the Midtown corridor (40th to 59th Streets, Lexington Avenue to 8th Avenue) as a graph problem. A camera-derived stress field supplies the pedestrian-exposure signal; a seven-layer cross-street capacity model, built from public NYC Open Data, supplies the corridor-capacity signal. The routing layer combines the two into edge costs and then compares shortest-path routing with stress-aware routing across the corridor graph.
+    The substrate models pedestrian routing on the Midtown corridor (40th to 59th Streets, Lexington Avenue to 8th Avenue) as a graph problem. A camera-derived crowd pressure field supplies the pedestrian-exposure signal; a seven-layer cross-street capacity model, built from public NYC Open Data, supplies the corridor-capacity signal. The routing layer combines the two into edge costs and then compares shortest-path routing with crowd-avoiding routing across the Manhattan island walk graph.
   </p>
 
   <figure>
-    <img src="../assets/gallery/streetlight/route_comparison_figure.png" alt="Shortest versus stress-aware route comparison">
+    <img src="../assets/gallery/streetlight/route_comparison_figure.png" alt="Shortest versus crowd-avoiding route comparison">
     <figcaption>
-      <strong>Shortest versus stress-aware routing for Grand Central to Carnegie Hall.</strong>
-      Same nineteen hops. The stress-aware route accumulates 13.38 units of stress versus 17.09 for the shortest route (a 21.7 percent reduction), with sixteen fewer high-stress edges and a lower maximum single-edge stress. This edge-level contrast is the empirical claim the validation dataset is meant to test.
+      <strong>Shortest versus crowd-avoiding routing for Grand Central to Carnegie Hall.</strong>
+      Same nineteen hops. The crowd-avoiding route accumulates 13.38 units of stress versus 17.09 for the shortest route (a 21.7 percent reduction), with sixteen fewer high-stress edges and a lower maximum single-edge stress. This edge-level contrast is the empirical claim the validation dataset is meant to test.
     </figcaption>
   </figure>
 
@@ -160,7 +160,7 @@
 
   <h2>Academic context</h2>
   <p>
-    This work is being developed as academic research affiliated with Syracuse University. The current public demonstration studies a measured pedestrian graph, a camera-derived stress field, public capacity layers, and route-cost behavior in Midtown Manhattan. The StreetLight conversation is specifically about validating that public mobility demonstration against empirical pedestrian volume data.
+    This work is being developed as academic research affiliated with Syracuse University. The current public demonstration studies a measured pedestrian graph, a camera-derived crowd pressure field, public capacity layers, and route-cost behavior in Midtown Manhattan. The StreetLight conversation is specifically about validating that public mobility demonstration against empirical pedestrian volume data.
   </p>
 
   <h2>One-page brief</h2>

@@ -74,13 +74,43 @@
       </div>
     </section>
 
-    <section class="program-section demo-section">
-      <h2>Selected demo</h2>
+    <!-- ── pax project ────────────────────────────────────────────────── -->
+    <section class="program-section" id="pax">
+      <h2>pax — comfort routing on the Manhattan island walk graph</h2>
       <p>
-        The routing demo runs the system on a worked example, Grand Central to Carnegie Hall, with a camera-derived stress field, route toggles and the route metrics. It is the clearest public demonstration of the tool. The neighborhood access note gives the wider context for why route quality differs from map distance.
+        pax routes pedestrians on the full Manhattan island walk graph (4,567 nodes, 15,788 edges) using five cost encodings: shortest, crowd-avoiding, shade-seeking, comfort-aware, and adaptive. Physical world model layers, crowd pressure from NYC DOT cameras, mean radiant temperature from a precomputed SOLWEIG model, and street-tree canopy, are assembled on the Midtown data surface and drive Dijkstra edge weights. Comfort-aware and adaptive routes now use a 31-bin time-of-day thermal model; the gap to live atmospheric data is documented as the research problem. Every narrated value is labeled live, partially live, or deferred.
       </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.5rem 0;">
+        <a href="public/comfort-router.html" style="text-decoration:none;color:inherit;">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1c4e80,#2e8bc0);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.6);">comfort router (live)</div>
+            <div style="padding:0.8rem 0.9rem;"><strong style="font-size:0.9rem;">Comfort router</strong><p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Five routing modes with a time-of-day radiant heat model. Flagship live demo.</p></div>
+          </div>
+        </a>
+        <a href="public/executive-summary.html" style="text-decoration:none;color:inherit;">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1f3a5f,#3d6e9c);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.6);">executive summary</div>
+            <div style="padding:0.8rem 0.9rem;"><strong style="font-size:0.9rem;">Executive summary</strong><p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Full-screen deck: claims, figures, discussion questions.</p></div>
+          </div>
+        </a>
+        <a href="public/figure-walkthrough.html" style="text-decoration:none;color:inherit;">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a4466,#2d7088);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.6);">figure walkthrough</div>
+            <div style="padding:0.8rem 0.9rem;"><strong style="font-size:0.9rem;">Canonical figures</strong><p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Stress field before routing, figure by figure.</p></div>
+          </div>
+        </a>
+        <a href="public/routing-demo.html" style="text-decoration:none;color:inherit;">
+          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
+            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1c3d5a,#2d6080);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.6);">routing demo (classic)</div>
+            <div style="padding:0.8rem 0.9rem;"><strong style="font-size:0.9rem;">Routing demo</strong><p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Shortest vs crowd-avoiding on the island walk graph.</p></div>
+          </div>
+        </a>
+      </div>
+
       <p class="links">
-        <a href="public/routing-demo.html">Routing demo: how the routing system works</a> &middot;
+        <a href="public/comfort-router.html">Live demo</a> &middot;
+        <a href="https://gilraitses.github.io/research/pax-comfort-routing/Raitses_PhysicalWorldRoutingAgents_2026.pdf" target="_blank">Whitepaper (PDF)</a> &middot;
         <a href="notes/neighborhood-access-research.html">Neighborhood access research</a>
       </p>
     </section>

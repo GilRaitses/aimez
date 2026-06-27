@@ -27,30 +27,30 @@
 <body>
   <p class="eyebrow">Public · Representation pipeline</p>
   <h1>From camera frames to graph stress</h1>
-  <p class="lede">This is category <strong>A</strong> in the <a href="executive-summary.html">executive summary</a> map: how sensing becomes a field the router can read. It matches the IST 675 demonstration narrative at a high level; the full course appendix HTML lives outside this repo unless synced to AWS (see <a href="CLOUD_DATA_MANIFEST.md">manifest</a>).</p>
+  <p class="lede">This is category <strong>A</strong> in the <a href="executive-summary.html">executive summary</a> map for how sensing becomes a field the router can read. It matches the IST 675 demonstration narrative at a high level; the full course appendix HTML lives outside this repo unless synced to AWS (see <a href="CLOUD_DATA_MANIFEST.md">manifest</a>).</p>
 
   <h2>Stages</h2>
   <ol>
-    <li><strong>Ingest</strong> — Public NYC traffic camera frames on a fixed cadence (corridor-scale camera manifest).</li>
-    <li><strong>Perceive</strong> — YOLO (pedestrians/vehicles), CLIP scene semantics, Detectron2 density; fused into a per-camera stress score in [0, 1].</li>
-    <li><strong>Spatialize</strong> — Voronoi tessellation from camera positions; optional IDW smoothing between cells.</li>
-    <li><strong>Graph bind</strong> — Stress assigned to corridor intersections and directed edges; combined with Open Data capacity layers for routing cost.</li>
-    <li><strong>Route</strong> — Shortest vs crowd-avoiding (live demo: <a href="routing-demo.html">routing demo</a>).</li>
+    <li><strong>Ingest.</strong> Public NYC traffic camera frames on a fixed cadence (corridor-scale camera manifest).</li>
+    <li><strong>Perceive.</strong> YOLO (pedestrians/vehicles), CLIP scene semantics, Detectron2 density; fused into a per-camera stress score in [0, 1].</li>
+    <li><strong>Spatialize.</strong> Voronoi tessellation from camera positions; optional IDW smoothing between cells.</li>
+    <li><strong>Graph bind.</strong> Stress assigned to corridor intersections and directed edges; combined with Open Data capacity layers for routing cost.</li>
+    <li><strong>Route.</strong> Shortest vs crowd-avoiding (live <a href="routing-demo.html">routing demo</a>).</li>
   </ol>
 
   <figure>
     <img src="../assets/gallery/cv-pipeline/pipeline_data_flow_strip.png" alt="Pipeline from cameras through CV models to route output">
-    <figcaption>End-to-end data flow: many cameras feed vision models; per-camera stress is interpolated to the graph; A* returns a path. Figure count in caption reflects the April 2026 corridor lock (gallery asset).</figcaption>
+    <figcaption>End-to-end data flow. Many cameras feed vision models; per-camera stress is interpolated to the graph; A* returns a path. Figure count in caption reflects the April 2026 corridor lock (gallery asset).</figcaption>
   </figure>
 
   <figure>
     <img src="../assets/gallery/cv-pipeline/camera_voronoi_assignment.png" alt="Voronoi tessellation colored by camera stress">
-    <figcaption>Camera coverage with Voronoi cells colored by measured stress—allocentric anchoring of each score to a corridor region.</figcaption>
+    <figcaption>Camera coverage with Voronoi cells colored by measured stress, allocentric anchoring of each score to a corridor region.</figcaption>
   </figure>
 
   <figure>
     <img src="../assets/gallery/cv-pipeline/cv_model_outputs_park_vs_madison.png" alt="CV outputs on Park vs Madison camera frames">
-    <figcaption><strong>Original camera data in-repo:</strong> This composite shows <em>real traffic-camera frames</em> with model overlays (detections and density), not synthetic scenes. Raw frame archives are not stored in git; only derived figures and JSON stress tables ship with the site and pax routing service.</figcaption>
+    <figcaption><strong>Original camera data in-repo.</strong> This composite shows <em>real traffic-camera frames</em> with model overlays (detections and density), not synthetic scenes. Raw frame archives are not stored in git; only derived figures and JSON stress tables ship with the site and pax routing service.</figcaption>
   </figure>
 
   <h2>What is not on this page</h2>

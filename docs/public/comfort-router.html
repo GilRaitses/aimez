@@ -12,7 +12,7 @@
        in a <meta> CSP and must be sent as an HTTP header; GitHub Pages cannot set
        headers, so clickjacking hardening is tracked as a separate hosting concern.) -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://50pl2v7kne.execute-api.us-east-1.amazonaws.com https://d27wzslw8escv2.cloudfront.net https://cdn.jsdelivr.net https://unpkg.com http://localhost:* http://127.0.0.1:*; img-src 'self' data:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; base-uri 'self'">
-  <title>Observable Comfort Router — aimez</title>
+  <title>Observable Comfort Router - aimez</title>
   <meta name="description" content="Live Manhattan pedestrian routing on street pressure from public DOT feeds, tree shade and Landsat heat. Five route modes, phase map, block-level comparison.">
   <link rel="canonical" href="https://aimez.ai/public/comfort-router.html">
   <link rel="icon" href="../favicon.ico" sizes="any">
@@ -403,14 +403,14 @@
   <div class="wrap" id="app">
     <header>
       <div class="brand"><img src="../assets/aimez-mark.webp" alt=""><span>aimez · comfort router</span></div>
-      <h1>pax — Comfort Router</h1>
-      <p class="lede">Routing apps return the shortest path. They don't measure what the walk feels like. This system does: how crowded each block is, measured from traffic cameras; how much heat and shade each block carries, from satellite data and tree canopy. Five ways to weight the same routes. The path changes depending on which you choose.</p>
+      <h1>pax Comfort Router</h1>
+      <p class="lede">Routing apps return the shortest path. They don't measure what the walk feels like. This system does. It measures how crowded each block is, from traffic cameras, and how much heat and shade each block carries, from satellite data and tree canopy. Five ways to weight the same routes. The path changes depending on which you choose.</p>
     </header>
 
     <!-- P3 (axe landmark-one-main / region): a single <main> landmark wraps all the
          interactive content so no content sits outside a landmark. -->
     <main id="mainContent">
-    <p id="demoBanner" class="demo-banner hidden">Lobby demo mode — cycling sample walks every <span id="demoSec">12</span>s</p>
+    <p id="demoBanner" class="demo-banner hidden">Lobby demo mode, cycling sample walks every <span id="demoSec">12</span>s</p>
 
     <section class="panel">
       <div class="controls">
@@ -485,12 +485,12 @@
         <h2>Thermal layer stack</h2>
         <span class="badge" id="layerBinBadge"></span>
       </div>
-      <p class="lede" style="font-size:.85rem;margin-bottom:.4rem">Manhattan as a 3D heat surface: buildings rise by height, colored by the active thermal field for the selected time of day. Drag to orbit, scroll to zoom.</p>
+      <p class="lede" style="font-size:.85rem;margin-bottom:.4rem">Manhattan as a 3D heat surface. Buildings rise by height, colored by the active thermal field for the selected time of day. Drag to orbit, scroll to zoom.</p>
       <div class="layer-toggles" id="layerToggles"></div>
       <div id="layerMap"></div>
       <div class="layer-legend" id="layerLegend"></div>
       <div class="layer-scale" id="layerScale"></div>
-      <p class="viewer-hint">3D surface clipped to the Manhattan landmass (no basemap); drag to rotate, scroll to zoom. Keyboard: focus the map (Tab), then arrow keys orbit and + / − zoom. Radiant heat, comfort index, and shade values for each route are also listed in the thermal summary cards above.</p>
+      <p class="viewer-hint">3D surface clipped to the Manhattan landmass (no basemap); drag to rotate, scroll to zoom. With the keyboard, focus the map (Tab), then arrow keys orbit and + / − zoom. Radiant heat, comfort index, and shade values for each route are also listed in the thermal summary cards above.</p>
       <p class="layer-note">Radiant heat and comfort index are modeled from satellite surface temperature and building geometry, not from live weather. Central Park canopy height is estimated from tree survey data, not ground measurement.</p>
     </section>
 
@@ -506,14 +506,14 @@
 
     <!-- P3 (axe region): footer is a contentinfo landmark, not a stray <p>. -->
     <footer class="footer">
-      <strong>Graph:</strong> manhattan_v1 — full Manhattan island pedestrian walk graph, 4,567 nodes, 15,788 edges.
-      <strong>Data surface:</strong> Midtown corridor (42nd–59th St, 3rd–9th Ave), where camera stress and thermal data have been assembled.
+      <strong>Graph</strong> manhattan_v1 is the full Manhattan island pedestrian walk graph, 4,567 nodes, 15,788 edges.
+      <strong>Data surface</strong> is the Midtown corridor (42nd-59th St, 3rd-9th Ave), where camera stress and thermal data have been assembled.
       For comfort-aware and adaptive routes, weights update with the selected time of day using hour-by-hour heat estimates from a physics model. For shortest and crowd-avoiding routes, weights are fixed from a July 2024 satellite composite. The remaining gap between the precomputed model and live weather data is documented in the companion paper.
       <br>
       Heat routing uses Landsat surface temperature on the street graph (greenR framework, Mahajan <em>Ecological Indicators</em> 2024).
       Surface temperature is not pedestrian-height air temperature; on parallel avenues the difference a walker feels is governed by upwind conditions the satellite does not see.
-      <strong>What the thermal layers are:</strong> Radiant heat and comfort index are modeled from a 2024 satellite surface temperature composite and building geometry, not from live weather data. Tree canopy is estimated from NYC street tree records. These are physics-model outputs, not real-time readings.
-      Not yet implemented: <em>live weather at routing time</em> (would close the heat model gap) and <em>sensor coverage per block</em> (would show which blocks have direct camera readings vs estimates). One weather API call per routing request would close the heat model gap.
+      <strong>The thermal layers.</strong> Radiant heat and comfort index are modeled from a 2024 satellite surface temperature composite and building geometry, not from live weather data. Tree canopy is estimated from NYC street tree records. These are physics-model outputs, not real-time readings.
+      Not yet implemented, <em>live weather at routing time</em> (would close the heat model gap) and <em>sensor coverage per block</em> (would show which blocks have direct camera readings vs estimates). One weather API call per routing request would close the heat model gap.
       Built with <a href="https://github.com/GilRaitses/pax">pax</a>.
       <a href="village-pilot.html">Village pilot</a> · <a href="routing-demo.html">Classic two-mode demo</a> · <a href="index.html">Public pages</a>
     </footer>

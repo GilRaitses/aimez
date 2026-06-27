@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Routing demo: stress-aware pedestrian routing - aimez</title>
+  <title>Routing demo, stress-aware pedestrian routing - aimez</title>
   <meta name="description" content="Interactive demo of comfort-aware pedestrian routing on the Manhattan island walk graph (4,567 nodes). Compare shortest, pressure-aware, shade-aware, comfort-aware, and adaptive-comfort routes. Comfort and adaptive routes use per-bin MRT from the precomputed SOLWEIG model.">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="stylesheet" href="public.css">
@@ -64,8 +64,8 @@
 </head>
 <body>
   <div class="brandline"><img class="brand-mark" src="../assets/aimez-mark.webp" alt="aimez mark"><span class="brand-name">aimez</span></div>
-  <h1>Routing demo: stress-aware pedestrian routing</h1>
-  <p class="lede">Nine Midtown Manhattan landmarks. Pick an origin and destination, or build a multi-stop walk (Grand Central → Times Square → Carnegie Hall → Grand Central). Each analysis returns a comparison showing five ways to route the same trip: shortest distance, crowd-avoiding, shade-seeking, heat-aware, and adaptive comfort. Comfort and heat-aware routes use hour-by-hour heat estimates that update with the time of day. Results load only after you run the analysis.</p>
+  <h1>Routing demo, stress-aware pedestrian routing</h1>
+  <p class="lede">Nine Midtown Manhattan landmarks. Pick an origin and destination, or build a multi-stop walk (Grand Central → Times Square → Carnegie Hall → Grand Central). Each analysis returns a comparison showing five ways to route the same trip. The modes are shortest distance, crowd-avoiding, shade-seeking, heat-aware, and adaptive comfort. Comfort and heat-aware routes use hour-by-hour heat estimates that update with the time of day. Results load only after you run the analysis.</p>
 
   <div class="controls">
     <div class="tabs">
@@ -93,7 +93,7 @@
   <div id="metricsTables"></div>
 
   <h2>How it works</h2>
-  <p>NYC DOT traffic cameras measure crowding on each block. That crowding data is combined with satellite heat readings and tree shade to produce five ways to route the same trip: shortest (distance only), crowd-avoiding (lower weight on busy blocks), shade-seeking (favors tree canopy), heat-aware (combines satellite surface temperature with shade), and adaptive comfort (applies different rules to each block based on whether it runs hot, shady, or crowded). Heat-aware and adaptive routes use hour-by-hour heat estimates from a physics model that accounts for building shadows and sun angle. The comparison figure shows these routes side by side with a block-level comfort map.</p>
+  <p>NYC DOT traffic cameras measure crowding on each block. That crowding data is combined with satellite heat readings and tree shade to produce five ways to route the same trip. The modes are shortest (distance only), crowd-avoiding (lower weight on busy blocks), shade-seeking (favors tree canopy), heat-aware (combines satellite surface temperature with shade), and adaptive comfort (applies different rules to each block based on whether it runs hot, shady, or crowded). Heat-aware and adaptive routes use hour-by-hour heat estimates from a physics model that accounts for building shadows and sun angle. The comparison figure shows these routes side by side with a block-level comfort map.</p>
   <p class="note">Patent pending on broader diagnostic-infrastructure concepts. Built with the <a href="https://github.com/GilRaitses/pax">pax</a> routing engine. <a href="../index.html">Home</a></p>
 
   <script>

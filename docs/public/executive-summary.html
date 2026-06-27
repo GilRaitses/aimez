@@ -18,16 +18,16 @@
       <p class="kicker">Building the Responsible AI City · NY Tech Week</p>
       <h1>Choosing how we move between places</h1>
       <p class="sub">aimez · more ways to like the walk</p>
-      <p class="lead"><strong>Outcome:</strong> how we engage the city between destinations. Shared stress on a public graph, block-equivalent routes, and room to meet, gather and move the way people prefer.</p>
+      <p class="lead"><strong>The outcome</strong> is how we engage the city between destinations. Shared stress on a public graph, block-equivalent routes, and room to meet, gather and move the way people prefer.</p>
       <p class="sub">Case study using traffic cameras and satellite data to measure crowding and heat across Midtown sidewalks, then route around them.</p>
-      <p class="lead">Grand Central → Carnegie Hall: same distance, five different routes. The comfort route selects shadier, cooler blocks based on a time-of-day heat model.</p>
+      <p class="lead">Grand Central → Carnegie Hall, same distance, five different routes. The comfort route selects shadier, cooler blocks based on a time-of-day heat model.</p>
     </section>
 
     <section class="slide">
       <p class="kicker">Research question</p>
       <h2>Public-good AI on a measured graph</h2>
       <p class="lead">Can open data from cameras and satellites measure where walking feels hard, and route around it? Can that routing be transparent, reproducible, and checked before it ships in a consumer product?</p>
-      <p class="lead">The Midtown demonstration is the first worked example: the same origin and destination, the measured crowding and heat pattern across streets fixed before routing, five paths compared on the same block budget. The inputs are public so others can re-run it independently.</p>
+      <p class="lead">The Midtown demonstration is the first worked example, with the same origin and destination, the measured crowding and heat pattern across streets fixed before routing, five paths compared on the same block budget. The inputs are public so others can re-run it independently.</p>
     </section>
 
     <section class="slide slide--split">
@@ -37,8 +37,8 @@
         <ul>
           <li>NYC Open Data tables plus DOT traffic cameras (substrate inventory on a later slide).</li>
           <li>Stress topology is fixed before any path algorithm runs.</li>
-          <li>Grand Central → Carnegie Hall: same blocks, lower accumulated camera stress on the crowd-avoiding path.</li>
-          <li>Traffic cameras, satellite heat data, and NYC Open Data on Midtown streets (42nd–59th, 3rd–9th Ave). Reproducible snapshot. Claims bounded to this area.</li>
+          <li>Grand Central → Carnegie Hall, same blocks, lower accumulated camera stress on the crowd-avoiding path.</li>
+          <li>Traffic cameras, satellite heat data, and NYC Open Data on Midtown streets (42nd-59th, 3rd-9th Ave). Reproducible snapshot. Claims bounded to this area.</li>
           <li>Open tables stay open; fusion, calibration, and routing cost stay proprietary.</li>
         </ul>
       </div>
@@ -103,7 +103,7 @@
           <tr><td class="lt">Supply</td><td>Dining / street-use permits</td></tr>
         </tbody>
       </table>
-      <p class="grow">Proprietary layer: fusion, calibration, routing cost. Tables listed here are open.</p>
+      <p class="grow">The proprietary layer is fusion, calibration, routing cost. Tables listed here are open.</p>
     </section>
 
     <section class="slide slide--split">
@@ -120,9 +120,9 @@
 
     <section class="slide">
       <p class="kicker">Pilot</p>
-      <h2>Manhattan island walk graph — Midtown data surface</h2>
-      <p class="lead">Full island graph: 4,567 nodes · 15,788 edges · Battery Park to Inwood. Midtown data surface: 42nd–59th St, 3rd–9th Ave · camera stress (71.96% direct coverage) · Landsat LST · 31-bin SOLWEIG thermal model · street tree canopy.</p>
-      <p class="lead">Same graph, varying cost encodings. Five routing strategies: shortest, crowd-avoiding, shade-seeking, comfort-aware, adaptive. Open-OD routing for any Manhattan lat/lng via tile spatial index.</p>
+      <h2>Manhattan island walk graph, Midtown data surface</h2>
+      <p class="lead">Full island graph, 4,567 nodes · 15,788 edges · Battery Park to Inwood. Midtown data surface, 42nd-59th St, 3rd-9th Ave · camera stress (71.96% direct coverage) · Landsat LST · 31-bin SOLWEIG thermal model · street tree canopy.</p>
+      <p class="lead">Same graph, varying cost encodings. The five routing strategies are shortest, crowd-avoiding, shade-seeking, comfort-aware, adaptive. Open-OD routing for any Manhattan lat/lng via tile spatial index.</p>
     </section>
 
     <section class="slide slide--split">
@@ -154,10 +154,10 @@
 
     <section class="slide slide--figure">
       <p class="kicker">Multi-panel figure</p>
-      <h2>Nine origin–destination pairs</h2>
+      <h2>Nine origin-destination pairs</h2>
       <div class="slide-fig">
         <img src="../assets/gallery/mobility/02_feasible_routes_destination_grid.png" alt="Feasible routes across nine destinations" loading="lazy">
-        <p>Structural contrast across nine Midtown origin–destination pairs: crowd-avoiding and comfort-aware paths diverge from fewest-block paths where crowding and thermal burden differ.</p>
+        <p>Structural contrast across nine Midtown origin-destination pairs, where crowd-avoiding and comfort-aware paths diverge from fewest-block paths where crowding and thermal burden differ.</p>
       </div>
     </section>
 
@@ -165,7 +165,7 @@
       <div class="slide-copy">
         <p class="kicker">Figure</p>
         <h2>Shortest and crowd-avoiding routes</h2>
-        <p class="grow">Grand Central → Carnegie Hall: equal blocks, lower accumulated stress on the crowd-avoiding path.</p>
+        <p class="grow">Grand Central → Carnegie Hall, equal blocks, lower accumulated stress on the crowd-avoiding path.</p>
       </div>
       <div class="slide-fig">
         <img src="../assets/gallery/mobility/01_fastest_route_vs_feasible_route_comparison.png" alt="Route comparison" loading="lazy">
@@ -176,7 +176,7 @@
       <div class="slide-copy">
         <p class="kicker">Corridor response</p>
         <h2>Load redistribution under stress</h2>
-        <p class="grow">When routing cost weights the stress field and thermal model, pedestrian load shifts across the Manhattan island walk graph. The pattern holds across canonical origin–destination pairs, and comfort-aware routing shifts further with per-bin MRT.</p>
+        <p class="grow">When routing cost weights the stress field and thermal model, pedestrian load shifts across the Manhattan island walk graph. The pattern holds across canonical origin-destination pairs, and comfort-aware routing shifts further with per-bin MRT.</p>
       </div>
       <div class="slide-fig">
         <img src="../assets/gallery/mobility/06_load_redistribution_under_stress.png" alt="Load redistribution under stress-weighted routing" loading="lazy">
@@ -190,9 +190,9 @@
         <ul>
           <li>On Grand Central → Carnegie Hall, the crowd-avoiding path carries lower measured stress at equal blocks than the shortest-block path.</li>
           <li>Supply ⊥ demand at cross-street edges (r ≈ 0).</li>
-          <li>Lived-knowledge check: 8/12 aligned, 0 misaligned (multi-informant study still needed).</li>
+          <li>Lived-knowledge check showed 8/12 aligned, 0 misaligned (multi-informant study still needed).</li>
         </ul>
-        <p class="grow">Still to test: block-level pedestrian counts and behavioral trials.</p>
+        <p class="grow">Block-level pedestrian counts and behavioral trials are still to test.</p>
       </div>
       <div class="slide-fig">
         <img src="../assets/gallery/walkthrough/cross_street_capacity_vs_camera_stress.png" alt="Supply versus demand scatter" loading="lazy">
@@ -209,7 +209,7 @@
         <li><b>Room to choose.</b> Block-equivalent alternatives so walking between destinations stays a civic choice.</li>
         <li><b>Shared upkeep.</b> A refresh story when sheds, closures, and cameras change the street.</li>
       </ul>
-      <p class="grow">Essay-length context: <a href="what-it-means-to-build.html">what it means to build</a>.</p>
+      <p class="grow">Essay-length context lives in <a href="what-it-means-to-build.html">what it means to build</a>.</p>
     </section>
 
     <section class="slide">

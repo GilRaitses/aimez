@@ -30,8 +30,8 @@ class of error.
 
 ## Layer 3: Beachhead, out-of-home advertising
 
-OOH sells foot-traffic exposure as its entire currency and buys data products
-rather than apps. The offer: a comfort-weighted exposure index per panel
+OOH sells foot-traffic exposure as its entire currency and buys data products,
+not apps. The offer: a comfort-weighted exposure index per panel
 location with a confidence score and a provenance trail. Incumbent counts from
 mobile-location panels say how many; the surface explains why a block draws or
 repels walkers and how long they linger. Pilot design: one corridor, one
@@ -78,5 +78,5 @@ signs.
 OOH measurement is standards-driven, so an independent index has to be
 benchmarked before owners adopt it. Comfort-to-dwell is a hypothesis the first
 pilot exists to test. Mobile-location panels out-scale us, so the pitch stays
-on explanatory quality rather than raw coverage. All heat readings are surface
+on explanatory quality, not raw coverage. All heat readings are surface
 temperature until street-level measurement exists.

@@ -1,14 +1,14 @@
 # Cloud agent data manifest (aimez + pax demos)
 
-**Purpose:** Tell a cloud agent (or local operator) what already exists in git, what must be copied from a laptop to AWS, and how to wire interactive demos.  
-**Last updated:** 2026-06-03 (America/New_York).  
-**Audience:** Operators syncing `IST675`, raw camera samples, or canonical JSON artifacts for EC2/Lambda demos.
+This manifest tells a cloud agent (or local operator) what already exists in git, what must be copied from a laptop to AWS, and how to wire interactive demos.  
+Last updated 2026-06-03 (America/New_York).  
+It is written for operators syncing `IST675`, raw camera samples, or canonical JSON artifacts for EC2/Lambda demos.
 
 ---
 
 ## 1. Already in GitHub (no AWS copy required for static site)
 
-### aimez (`GilRaitses/aimez`) — GitHub Pages root `docs/`
+### aimez (`GilRaitses/aimez`), GitHub Pages root `docs/`
 
 | Resource | Path | Use |
 |----------|------|-----|
@@ -19,9 +19,9 @@
 | Gallery PNGs | `docs/assets/gallery/mobility/`, `cv-pipeline/`, `walkthrough/` | All walkthrough images |
 | PDFs | `docs/assets/gallery/documents/pax_report.pdf`, `streetlight_one_pager.pdf` | Downloads |
 
-**Camera imagery note:** Repo includes **derived** figures with real frames embedded in composites (e.g. `cv-pipeline/cv_model_outputs_park_vs_madison.png`). It does **not** include raw frame archives or the full IST 675 appendix tree.
+**Camera imagery note.** Repo includes **derived** figures with real frames embedded in composites (e.g. `cv-pipeline/cv_model_outputs_park_vs_madison.png`). It does **not** include raw frame archives or the full IST 675 appendix tree.
 
-### pax (`GilRaitses/pax`) — routing API data
+### pax (`GilRaitses/pax`), routing API data
 
 | Resource | Path | Use |
 |----------|------|-----|
@@ -47,7 +47,7 @@ Copy these to a **single S3 prefix or EC2 directory** (suggested layout below). 
 | `IST675/ist_675_final_proj_core/demonstration/` (sibling assets) | Slides, images, notes referenced by appendix | Same |
 | `IST675/ist_675_final_proj_core/demonstration/notes/SPEAKER_NOTES.md` | Speaker notes | Agent context only |
 
-**IST 675 vs aimez public pages:** Course appendix may include additional panels and narrative not duplicated on aimez.ai. After sync, either serve appendix from S3/CloudFront or extract missing assets into `docs/assets/gallery/appendix/` in aimez.
+**IST 675 vs aimez public pages.** Course appendix may include additional panels and narrative not duplicated on aimez.ai. After sync, either serve appendix from S3/CloudFront or extract missing assets into `docs/assets/gallery/appendix/` in aimez.
 
 ### Raw camera data (optional; for retraining / new figures)
 
@@ -118,9 +118,9 @@ Cloud agents should **read** `manifest.json` and **never fabricate** stress scor
 
 1. Clone `aimez` + `pax` on instance (or use workspace copies).
 2. If `manifest.json` lists S3 paths, `aws s3 sync` IST675 and canonical JSON into local paths.
-3. Deploy routing API: `pip install -r pax/services/routing_demo/requirements.txt`; run handler smoke test; expose via API Gateway or uvicorn + HTTPS (see README).
+3. Deploy the routing API. Run `pip install -r pax/services/routing_demo/requirements.txt`, run the handler smoke test, then expose via API Gateway or uvicorn + HTTPS (see README).
 4. Point `docs/public/routing-demo.html` API base URL at deployed endpoint (query `?api=` for testing).
-5. For static-only investor review: GitHub Pages needs no AWS; share `https://aimez.ai/public/executive-summary.html`.
+5. For static-only investor review, GitHub Pages needs no AWS. Share `https://aimez.ai/public/executive-summary.html`.
 
 ---
 

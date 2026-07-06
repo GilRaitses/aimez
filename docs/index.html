@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>aimez | measured systems and research tooling</title>
-  <meta name="description" content="aimez is a public home for research on measured fields, spatial reasoning, human-centered AI, simulation, decision systems, and research tooling.">
+  <title>aimez | evidence models and research tools</title>
+  <meta name="description" content="aimez builds evidence models and tools for decisions about complex physical systems.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="aimez">
   <meta property="og:title" content="aimez">
-  <meta property="og:description" content="Research on measured fields, spatial reasoning, human-centered AI, simulation, decision systems, and research tooling.">
+  <meta property="og:description" content="Evidence models and tools for decisions about complex physical systems.">
   <meta property="og:url" content="https://aimez.ai/">
   <meta property="og:image" content="https://aimez.ai/assets/social/research_program_preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="aimez">
-  <meta name="twitter:description" content="Research on measured fields, spatial reasoning, human-centered AI, simulation, decision systems, and research tooling.">
+  <meta name="twitter:description" content="Evidence models and tools for decisions about complex physical systems.">
   <meta name="twitter:image" content="https://aimez.ai/assets/social/research_program_preview.png">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
@@ -31,67 +31,47 @@
   <main class="program-home">
     <section class="hero-section">
       <div class="brand-lockup">
-        <img class="brand-mark" src="assets/aimez-mark.webp" alt="aimez mark">
         <h1>aimez</h1>
       </div>
-      <p class="kicker">measured systems, human spaces, research tools</p>
+      <p class="kicker">evidence models for physical systems</p>
       <p class="hero-linkrow">
-        <a href="https://aimez.ai/public/">public pages</a> &middot;
-        <a href="public/routing-demo.html">routing demo</a> &middot;
+        <a href="https://aimez.ai/public/">research outputs</a> &middot;
+        <a href="public/comfort-router.html">friend demo</a> &middot;
         <a href="https://github.com/GilRaitses/aimez">repo</a> &middot;
-        <a href="public/executive-summary.html">executive summary</a>
+        <a href="mailto:gilraitses@gmail.com?subject=aimez%20research%20updates">contact</a>
       </p>
       <p class="hero-copy">
-        aimez is the public home for a research program about how local measurements become structure people can reason with. The work connects spatial AI, simulation, human-centered AI, decision-support systems, signal modeling, and agentic research workflows through one recurring problem of what becomes visible when a field, graph, interface, or artifact is tested against the conditions that receive it.
+        aimez builds evidence models and tools for decisions about complex physical systems. The work turns sparse observations, physical constraints and audit records into representations that can be inspected before they guide a route, forecast, paper or tool.
       </p>
     </section>
 
     <section class="program-section">
-      <h2>Research identity</h2>
+      <h2>Company</h2>
       <p>
-        The program studies measured systems where local observations do more than describe isolated points. Camera stress values, route costs, biological signals, interface actions, and document states become useful only after their relation to a larger structure is made explicit.
-      </p>
-      <p>
-        A second layer comes from craft training and sensory judgment. Culinary work taught long-horizon iteration, taste calibration, preference formation, and evaluation through repeated contact with material constraints. That discipline now shows up in how the research treats tools, diagrams, pages, routes, and papers as objects that must survive use by other people.
+        The company works on the evidence gap between complex physical environments and the records available when people make decisions. Each project starts with a concrete representation problem, then publishes the artifact, demo or paper that exposes the boundary of the evidence.
       </p>
     </section>
 
-    <section class="program-section">
-      <h2>Current directions</h2>
-      <div class="direction-grid">
-        <article>
-          <h3>Graph fields and route behavior</h3>
-          <p>Manhattan is the first applied test domain for measured stress fields, directed edges, route cost, loop closure, residual structure, corridor organization, and basis checks.</p>
-        </article>
-        <article>
-          <h3>Human-centered AI and commitment boundaries</h3>
-          <p>Human-AI work examines the point where an output leaves an interface and enters a situation with role, timing, risk, and relationship constraints.</p>
-        </article>
-        <article>
-          <h3>Emergent intelligence and simulation</h3>
-          <p>Biological and material systems provide models for how local interactions, state changes, and physical constraints create behavior across larger scales.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ── pax project ────────────────────────────────────────────────── -->
-    <section class="program-section" id="pax">
-      <h2>pax, comfort routing on the Manhattan island walk graph</h2>
+    <section class="program-section" id="friend">
+      <h2>friend, current product</h2>
       <p>
-        pax routes pedestrians on the full Manhattan island walk graph (4,567 nodes, 15,788 edges) using five cost encodings, shortest, crowd-avoiding, shade-seeking, comfort-aware, and adaptive. Physical world model layers, crowd pressure from NYC DOT cameras, mean radiant temperature from a precomputed SOLWEIG model, and street-tree canopy, are assembled on the Midtown data surface and drive Dijkstra edge weights. Comfort-aware and adaptive routes now use a 31-bin time-of-day thermal model; the gap to live atmospheric data is documented as the research problem. Every narrated value is labeled live, partially live, or deferred.
+        friend is a city-scale evidence model of Manhattan, joining fragmented observations, camera-derived crowd pressure, a precomputed radiant-temperature layer and street-tree canopy into a block-scale representation of pedestrian conditions on the Manhattan walk graph.
+      </p>
+      <p>
+        Routing is the first application on top of that representation. Five cost encodings read the same evidence layers to compare shortest, crowd-avoiding, shade-seeking, comfort-aware and adaptive routes. Every narrated value is labeled live, partially live or deferred.
       </p>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.5rem 0;">
         <a href="public/comfort-router.html" style="text-decoration:none;color:inherit;">
           <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
             <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1c4e80,#2e8bc0);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.6);">comfort router (live)</div>
-            <div style="padding:0.8rem 0.9rem;"><strong style="font-size:0.9rem;">Comfort router</strong><p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Five routing modes with a time-of-day radiant heat model. Flagship live demo.</p></div>
+            <div style="padding:0.8rem 0.9rem;"><strong style="font-size:0.9rem;">Comfort router</strong><p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Five routing modes over the same evidence model, with a time-of-day thermal layer live. Flagship demo.</p></div>
           </div>
         </a>
         <a href="public/executive-summary.html" style="text-decoration:none;color:inherit;">
           <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
             <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1f3a5f,#3d6e9c);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.6);">executive summary</div>
-            <div style="padding:0.8rem 0.9rem;"><strong style="font-size:0.9rem;">Executive summary</strong><p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Full-screen deck of claims, figures, discussion questions.</p></div>
+            <div style="padding:0.8rem 0.9rem;"><strong style="font-size:0.9rem;">Executive summary</strong><p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Full-screen deck of claims, figures and discussion questions.</p></div>
           </div>
         </a>
         <a href="public/figure-walkthrough.html" style="text-decoration:none;color:inherit;">
@@ -109,111 +89,60 @@
       </div>
 
       <p class="links">
-        <a href="public/comfort-router.html">Live demo</a> &middot;
+        <a href="public/comfort-router.html">friend demo</a> &middot;
         <a href="https://gilraitses.github.io/research/pax-comfort-routing/Raitses_PhysicalWorldRoutingAgents_2026.pdf" target="_blank">Whitepaper (PDF)</a> &middot;
         <a href="notes/neighborhood-access-research.html">Neighborhood access research</a>
       </p>
     </section>
 
-    <!-- ── orcast project ─────────────────────────────────────────────── -->
-    <section class="program-section" id="orcast">
-      <h2>orcast, an orchestrated research workbench for whale behavioral analysis and live orca encounter forecasting</h2>
-      <p>
-        orcast pairs a chat-driven, orchestrated console with provenance-traced analysis for whale science
-        and a live orca encounter forecast for the San Juan Islands.
-      </p>
-      <p>
-        The forecast targets Southern Resident killer whale encounters.
-        Every displayed confidence value is bounded by a statistical gate battery (phase-shuffled null test,
-        time-rescaling goodness-of-fit, held-out deviance skill, and PIT calibration) and traceable
-        through a per-cell provenance drilldown to the acoustic detections and kernel fits that produced it.
-        The current effective confidence is 0%. That is the correct answer, because the deviance skill is negative.
-      </p>
-      <p>
-        The system also produces a grounding quality benchmark. Injecting the surface planner step-log as RAG
-        context reduces the unsupported scientific claim rate from 60-100% (Maps-only geospatial grounding
-        baseline) to 0%, by transforming the query from open-domain science to closed artifact-reference.
-        The companion paper extends this metric to orchestrator-in-the-loop agentic systems as an evaluation primitive for
-        evidence-bound intermediate representations.
-      </p>
-
-      <!-- Panel gallery -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.5rem 0;">
-        <a href="https://orcast-h0.vercel.app/" target="_blank" style="text-decoration:none;color:inherit;">
-          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
-            <img src="assets/orcast-gifs/forecast.gif" alt="forecast map demo" loading="lazy" style="aspect-ratio:16/9;width:100%;object-fit:cover;display:block;">
-            <div style="padding:0.8rem 0.9rem;">
-              <strong style="font-size:0.9rem;">Forecast map</strong>
-              <p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Gate-bounded confidence per map cell. Click any cell to trace provenance.</p>
-            </div>
-          </div>
-        </a>
-        <a href="https://orcast-h0.vercel.app/gates" target="_blank" style="text-decoration:none;color:inherit;">
-          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
-            <img src="assets/orcast-gifs/gates.gif" alt="gates panel demo" loading="lazy" style="aspect-ratio:16/9;width:100%;object-fit:cover;display:block;">
-            <div style="padding:0.8rem 0.9rem;">
-              <strong style="font-size:0.9rem;">Integrity conditions</strong>
-              <p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Full gate battery with named conditions, PSTH visuals, and equations.</p>
-            </div>
-          </div>
-        </a>
-        <a href="https://orcast-h0.vercel.app/ask" target="_blank" style="text-decoration:none;color:inherit;">
-          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
-            <img src="assets/orcast-gifs/ask.gif" alt="sighting check demo" loading="lazy" style="aspect-ratio:16/9;width:100%;object-fit:cover;display:block;">
-            <div style="padding:0.8rem 0.9rem;">
-              <strong style="font-size:0.9rem;">Sighting check + evidence upload</strong>
-              <p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Describe or upload field evidence. Bedrock narration from structured skill context.</p>
-            </div>
-          </div>
-        </a>
-        <a href="https://orcast-h0.vercel.app/explore?planner=1" target="_blank" style="text-decoration:none;color:inherit;">
-          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
-            <img src="assets/orcast-gifs/planner.gif" alt="surface planner demo" loading="lazy" style="aspect-ratio:16/9;width:100%;object-fit:cover;display:block;">
-            <div style="padding:0.8rem 0.9rem;">
-              <strong style="font-size:0.9rem;">Surface planner routing</strong>
-              <p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Managed AI agent dispatches panel sequence. Plan-then-execute, step-log provenance.</p>
-            </div>
-          </div>
-        </a>
+    <section class="program-section">
+      <h2>Research outputs</h2>
+      <div class="direction-grid">
+        <article>
+          <h3>City evidence models</h3>
+          <p>Manhattan is the first applied test domain for measured stress fields, route cost, loop structure and corridor organization.</p>
+        </article>
+        <article>
+          <h3>Physical-world evidence</h3>
+          <p>ORCAST is kept here as a research output on gate-bounded encounter forecasting and claim-to-evidence binding for wildlife observation data.</p>
+        </article>
+        <article>
+          <h3>Managed distributed sessions</h3>
+          <p>Developer tooling work studies moderator-led agent sessions, explicit handoffs and check records for long-running research work.</p>
+        </article>
       </div>
+    </section>
 
-      <p class="links">
-        <a href="https://orcast-h0.vercel.app" target="_blank">Live demo</a> &middot;
-        <a href="https://github.com/gilraitses/orcast" target="_blank">GitHub</a> &middot;
-        <a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-1.pdf" target="_blank">Whitepaper 1 (PDF)</a> &middot;
-        <a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-2-grounding.pdf" target="_blank">Whitepaper 2 (PDF)</a>
+    <section class="program-section">
+      <h2>Developer tools</h2>
+      <p>
+        wavves is a developer tool package in preparation for moderator-led distributed sessions. Public links stay out of the front door until the package README, manifest and article references pass their publication gates.
       </p>
     </section>
 
     <section class="program-section">
-      <h2>Selected work</h2>
+      <h2>Selected artifacts</h2>
       <div class="selected-links">
-        <a href="public/executive-summary.html">Executive summary (slides)</a>
+        <a href="public/comfort-router.html">friend comfort router</a>
+        <a href="public/executive-summary.html">Executive summary deck</a>
         <a href="public/index.html">Public research pages (index)</a>
         <a href="public/graph-field-research.html">Graph-field &amp; corridor modeling</a>
-        <a href="public/spatial-media-installation.html">Installation sketch</a>
+        <a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-1.pdf" target="_blank">ORCAST whitepaper</a>
         <a href="https://gilraitses.github.io/">Papers and white papers</a>
-        <a href="https://orcast-h0.vercel.app" target="_blank">orcast, encounter forecasting (live)</a>
       </div>
     </section>
 
     <section class="program-section signup-section">
-      <h2>Follow or work together</h2>
+      <h2>Contact and updates</h2>
       <div class="signup-grid">
         <article>
-          <h3>orcast whitepapers</h3>
-          <p>Two papers, an evidence-bounded encounter forecasting architecture and a grounding quality measurement framework for AI reasoning chains.</p>
-          <a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-1.pdf" target="_blank">Whitepaper 1 (PDF)</a>
-          <a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-2-grounding.pdf" target="_blank">Whitepaper 2 (PDF)</a>
-        </article>
-        <article>
           <h3>Research updates</h3>
-          <p>Occasional updates on research notes, public demos, paper releases, and site changes across the program.</p>
+          <p>Occasional notes on demos, papers and public artifacts from aimez.</p>
           <a href="mailto:gilraitses@gmail.com?subject=aimez%20research%20updates">Join research updates</a>
         </article>
         <article>
           <h3>Collaboration and outreach</h3>
-          <p>Project inquiries, institutional contact, event invitations, research collaboration, or direct work together.</p>
+          <p>Project inquiries, institutional contact, event invitations and research collaboration.</p>
           <a href="mailto:gilraitses@gmail.com?subject=aimez%20collaboration%20or%20outreach">Start a conversation</a>
         </article>
       </div>

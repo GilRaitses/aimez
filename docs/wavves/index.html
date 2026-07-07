@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wavves | aimez</title>
+  <meta name="description" content="wavves is a Cursor plugin for durable multi-agent routing through alignment packets, model recommendations, check records and handoff files.">
+  <link rel="canonical" href="https://wavves.aimez.ai/">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="stylesheet" href="../assets/site.css?v=publisher-mark-20260706">
+  <style>
+    .wavves-page { max-width: 1120px; }
+    .wavves-hero { min-height: 24rem; }
+    .schema-block {
+      background: rgba(21, 21, 21, 0.86);
+      border-radius: 1rem;
+      color: #f8efe2;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      overflow-x: auto;
+      padding: 1rem;
+      white-space: pre;
+    }
+    .diagram-row {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin: 1.2rem 0;
+    }
+    .diagram-card {
+      background: rgba(251, 245, 231, 0.82);
+      border: 1px solid rgba(189, 109, 54, 0.2);
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+    .diagram-card h3 { margin-bottom: 0.6rem; }
+    .diagram-card svg { display: block; height: auto; width: 100%; }
+    .route-table {
+      border-collapse: collapse;
+      margin: 1rem 0;
+      width: 100%;
+    }
+    .route-table th,
+    .route-table td {
+      border-bottom: 1px solid rgba(189, 109, 54, 0.22);
+      padding: 0.65rem 0.55rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .route-table th {
+      color: #151515;
+      font-weight: 700;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+    .pill-row a {
+      background: rgba(251, 245, 231, 0.78);
+      border: 1px solid rgba(189, 109, 54, 0.24);
+      border-radius: 999px;
+      color: #304f78;
+      font-weight: 700;
+      padding: 0.55rem 0.85rem;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <img class="publisher-corner-mark" src="../assets/substack/aimezlogo.png" width="72" height="72" alt="aimez publisher mark">
+  <main class="program-home wavves-page">
+    <section class="hero-section wavves-hero">
+      <div class="brand-lockup">
+        <h1>wavves</h1>
+      </div>
+      <p class="kicker">durable multi-agent routing</p>
+      <p class="hero-copy">
+        wavves turns moderator intent into alignment packets, model recommendations, check records and handoff files so distributed agent work has a file-backed route instead of a long chat as its only memory.
+      </p>
+      <div class="pill-row">
+        <a href="https://github.com/GilRaitses/wavves" target="_blank">GitHub repo</a>
+        <a href="https://github.com/GilRaitses/wavves#installation" target="_blank">Install notes</a>
+      </div>
+    </section>
+
+    <section class="program-section">
+      <h2>What It Creates</h2>
+      <pre class="schema-block">wavves/
+  INDEX.md
+  AGENTS.md
+  registry.yml
+  step-log.md
+  rotations/
+    rotation-r01-YYYYMMDD-HHMM.md
+  lanes/
+    YYYYMMDD_lane-label/
+      README.md
+      waveset.md
+      dispatch.md
+      findings/
+      gate-captures/
+      decisions/
+  skills/
+    proposed/
+    accepted/</pre>
+      <p>
+        `INDEX.md` is the fast pickup map. `AGENTS.md` is the standing contract. Lane homes carry the work, evidence and model choices. Rotation files assign successor identity when the moderator thread gets heavy.
+      </p>
+    </section>
+
+    <section class="program-section">
+      <h2>Routing Diagram</h2>
+      <div class="diagram-row">
+        <article class="diagram-card">
+          <h3>Moderator Flow</h3>
+          <svg viewBox="0 0 520 220" role="img" aria-label="Moderator flow diagram">
+            <defs>
+              <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#304f78"></path>
+              </marker>
+            </defs>
+            <rect x="16" y="70" width="110" height="58" rx="12" fill="#fbf5e7" stroke="#bd6d36"></rect>
+            <text x="71" y="103" text-anchor="middle" font-size="15" fill="#151515">Operator</text>
+            <rect x="190" y="44" width="140" height="110" rx="14" fill="#fbf5e7" stroke="#8f9171"></rect>
+            <text x="260" y="88" text-anchor="middle" font-size="15" fill="#151515">Moderator</text>
+            <text x="260" y="112" text-anchor="middle" font-size="12" fill="#4c5a63">INDEX + registry</text>
+            <rect x="396" y="28" width="108" height="54" rx="12" fill="#fbf5e7" stroke="#304f78"></rect>
+            <text x="450" y="60" text-anchor="middle" font-size="13" fill="#151515">Lane</text>
+            <rect x="396" y="122" width="108" height="54" rx="12" fill="#fbf5e7" stroke="#304f78"></rect>
+            <text x="450" y="154" text-anchor="middle" font-size="13" fill="#151515">Gate</text>
+            <path d="M126 99 H190" stroke="#304f78" stroke-width="2" marker-end="url(#arrow)"></path>
+            <path d="M330 75 C360 60 370 55 396 55" stroke="#304f78" fill="none" stroke-width="2" marker-end="url(#arrow)"></path>
+            <path d="M330 123 C360 138 370 149 396 149" stroke="#304f78" fill="none" stroke-width="2" marker-end="url(#arrow)"></path>
+          </svg>
+        </article>
+        <article class="diagram-card">
+          <h3>Evidence Route</h3>
+          <svg viewBox="0 0 520 220" role="img" aria-label="Evidence route diagram">
+            <circle cx="80" cy="110" r="46" fill="none" stroke="#bd6d36" stroke-width="6"></circle>
+            <path d="M160 110 C220 40 300 180 360 110" fill="none" stroke="#8f9171" stroke-width="10"></path>
+            <path d="M384 64 L474 110 L384 156 Z" fill="none" stroke="#304f78" stroke-width="8"></path>
+            <text x="80" y="176" text-anchor="middle" font-size="13" fill="#151515">charter</text>
+            <text x="260" y="176" text-anchor="middle" font-size="13" fill="#151515">waves</text>
+            <text x="430" y="176" text-anchor="middle" font-size="13" fill="#151515">handoff</text>
+          </svg>
+        </article>
+      </div>
+    </section>
+
+    <section class="program-section">
+      <h2>Model Routing</h2>
+      <p>
+        The moderator records model recommendations before dispatch. The goal is not to claim savings before measurement. The goal is to reserve high-reasoning models for judgment-heavy work and make the decision auditable.
+      </p>
+      <table class="route-table">
+        <thead>
+          <tr><th>Role</th><th>Recommended tier</th><th>Reason</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lane orchestrator</td><td>high-reasoning</td><td>Cross-file plan, acceptance criteria and gate design.</td></tr>
+          <tr><td>Discovery runners</td><td>fast</td><td>Inventory, search, link checks and mechanical scans.</td></tr>
+          <tr><td>Build runners</td><td>balanced</td><td>Bounded edits with local validation.</td></tr>
+          <tr><td>Adversarial gate</td><td>high-reasoning</td><td>Risk, defect finding and caveat review.</td></tr>
+          <tr><td>Acceptance gate</td><td>high-reasoning</td><td>Final verification with captured evidence.</td></tr>
+        </tbody>
+      </table>
+      <p>
+        When Cursor exposes a model field for a subagent, the moderator can set it during dispatch. When model selection is unavailable, the recommendation stays in the prompt and the runner reports the enforcement gap.
+      </p>
+    </section>
+
+    <section class="program-section">
+      <h2>Walkthrough</h2>
+      <ol>
+        <li>Set up `wavves/` once per repo.</li>
+        <li>Write a `waveset.md` with scope, locks, gates and model recommendations.</li>
+        <li>Dispatch the lane orchestrator with `dispatch.md`.</li>
+        <li>Run wave members against disjoint files.</li>
+        <li>Capture gate evidence under `gate-captures/`.</li>
+        <li>Rotate through `rotations/` when the moderator thread gets heavy.</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>

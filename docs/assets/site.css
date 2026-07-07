@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300..800&display=swap');
 
 * {
   margin: 0;
@@ -6,15 +6,214 @@
   box-sizing: border-box;
 }
 
+/* Publisher identity rebuild: light field, corner mark, fan geometry */
+:root {
+  color-scheme: light;
+  --publisher-ink: #151515;
+  --publisher-charcoal: #24313b;
+  --publisher-paper: #f8efe2;
+  --publisher-cream: #fbf5e7;
+  --publisher-copper: #bd6d36;
+  --publisher-olive: #8f9171;
+  --publisher-blue: #304f78;
+  --font-publisher: "Cormorant Garamond", "Bodoni 72", Didot, Georgia, serif;
+}
+
+body {
+  background:
+    linear-gradient(rgba(248, 239, 226, 0.68), rgba(248, 239, 226, 0.92)),
+    url("banners/machineage_radiatingsunburts_v0_light.png") top center / min(1400px, 160vw) auto no-repeat,
+    radial-gradient(circle at 18% 18%, rgba(189, 109, 54, 0.18), transparent 24rem),
+    radial-gradient(circle at 82% 12%, rgba(143, 145, 113, 0.16), transparent 28rem),
+    var(--publisher-paper);
+  color: var(--publisher-charcoal);
+}
+
+body::before {
+  background:
+    repeating-radial-gradient(circle at 8% 20%, rgba(189, 109, 54, 0.26) 0 1px, transparent 1px 22px),
+    repeating-radial-gradient(circle at 92% 10%, rgba(143, 145, 113, 0.22) 0 1px, transparent 1px 24px);
+  content: "";
+  inset: 0;
+  opacity: 0.38;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+}
+
+main.program-home {
+  max-width: 1120px;
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1.1rem, 4vw, 2.6rem);
+}
+
+.publisher-corner-mark {
+  background: rgba(251, 245, 231, 0.86);
+  border: 1px solid rgba(189, 109, 54, 0.2);
+  border-radius: 0.85rem;
+  box-shadow: 0 12px 36px rgba(36, 49, 59, 0.12);
+  height: clamp(3.2rem, 7vw, 4.8rem);
+  object-fit: cover;
+  position: fixed;
+  right: clamp(0.8rem, 2.5vw, 1.6rem);
+  top: clamp(0.8rem, 2.5vw, 1.6rem);
+  width: clamp(3.2rem, 7vw, 4.8rem);
+  z-index: 20;
+}
+
+.hero-section {
+  background:
+    linear-gradient(90deg, rgba(251, 245, 231, 0.88), rgba(251, 245, 231, 0.5)),
+    url("banners/machineage_radiatingsunburts_v0_light.png") center / cover no-repeat;
+  border: 1px solid rgba(189, 109, 54, 0.2);
+  border-radius: 1.8rem;
+  box-shadow: 0 28px 90px rgba(36, 49, 59, 0.14);
+  color: var(--publisher-charcoal);
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+  min-height: clamp(25rem, 48vw, 36rem);
+  padding: clamp(1.6rem, 4vw, 3.4rem);
+}
+
+.brand-lockup {
+  margin-bottom: clamp(4rem, 14vw, 9rem);
+}
+
+h1 {
+  color: var(--publisher-ink);
+  font-family: var(--font-publisher);
+  font-size: clamp(4rem, 14vw, 10rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 0.82;
+}
+
+.kicker {
+  color: var(--publisher-copper);
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-size: clamp(0.72rem, 1.8vw, 0.95rem);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.hero-copy {
+  color: var(--publisher-charcoal);
+  font-size: clamp(1.24rem, 2.2vw, 1.65rem);
+  max-width: 38rem;
+}
+
+.hero-linkrow a {
+  color: var(--publisher-blue);
+}
+
+.program-section h2 {
+  color: var(--publisher-ink);
+  font-family: var(--font-publisher);
+  font-weight: 600;
+}
+
+.program-section p {
+  color: #4c5a63;
+}
+
+.direction-grid article,
+.signup-grid article,
+.selected-links a,
+.project-panel {
+  background: rgba(251, 245, 231, 0.8);
+  border: 1px solid rgba(189, 109, 54, 0.2);
+  box-shadow: 0 14px 44px rgba(36, 49, 59, 0.1);
+}
+
+.project-panels {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 1.2rem;
+}
+
+.project-panel {
+  border-radius: 1.1rem;
+  overflow: hidden;
+}
+
+.project-panel summary {
+  align-items: baseline;
+  cursor: pointer;
+  display: flex;
+  gap: 0.85rem;
+  justify-content: space-between;
+  list-style: none;
+  padding: 1rem 1.15rem;
+}
+
+.project-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.project-panel summary span {
+  color: var(--publisher-ink);
+  font-family: var(--font-publisher);
+  font-size: clamp(1.55rem, 4vw, 2.4rem);
+  font-weight: 600;
+}
+
+.project-panel summary small {
+  color: #66707a;
+  font-size: 0.88rem;
+}
+
+.project-frame-wrap {
+  background: #fffaf0;
+  border-top: 1px solid rgba(189, 109, 54, 0.18);
+  height: clamp(28rem, 74vh, 46rem);
+}
+
+.project-frame-wrap iframe {
+  border: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.panel-links {
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0.75rem 1.15rem 1rem;
+}
+
+.panel-links a {
+  color: var(--publisher-blue);
+  font-weight: 600;
+}
+
+@media (max-width: 680px) {
+  .publisher-corner-mark {
+    position: absolute;
+  }
+  .brand-lockup {
+    margin-bottom: 5.5rem;
+  }
+  .hero-section {
+    min-height: 30rem;
+  }
+  .project-panel summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .project-frame-wrap {
+    height: 32rem;
+  }
+}
+
 :root {
   color-scheme: light dark;
-  --bg-start: #e8f4fc;
-  --bg-mid: #f5e6f0;
-  --bg-end: #fdf6e3;
+  --bg-start: #f7eadb;
+  --bg-mid: #f8f1df;
+  --bg-end: #e6eef1;
   --text-primary: #3a4a5c;
   --text-secondary: #5a6a7c;
   --accent: #7eb8d8;
   --accent-hover: #a8d4e6;
+  --burnt: #b66a36;
+  --olive: #8d9274;
   --font-ui: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: "IBM Plex Serif", Georgia, serif;
   --font-editorial: "Newsreader", "IBM Plex Serif", Georgia, serif;
@@ -32,12 +231,10 @@ body {
   font-weight: 400;
   color: var(--text-primary);
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    var(--bg-start) 0%,
-    var(--bg-mid) 50%,
-    var(--bg-end) 100%
-  );
+  background:
+    radial-gradient(circle at 14% 18%, rgba(182, 106, 54, 0.22), transparent 24rem),
+    radial-gradient(circle at 84% 18%, rgba(141, 146, 116, 0.2), transparent 26rem),
+    linear-gradient(135deg, var(--bg-start) 0%, var(--bg-mid) 48%, var(--bg-end) 100%);
   background-attachment: fixed;
 }
 
@@ -108,11 +305,42 @@ h1 {
 }
 
 .hero-section {
+  background:
+    linear-gradient(90deg, rgba(247, 234, 219, 0.84), rgba(248, 241, 223, 0.68)),
+    url("banners/machineage_radiatingsunburts_v0_light.png") center / cover no-repeat;
+  border: 1px solid rgba(182, 106, 54, 0.22);
+  border-radius: 1.4rem;
+  box-shadow: 0 28px 80px rgba(58, 74, 92, 0.14);
   margin-bottom: 3.4rem;
+  overflow: hidden;
+  padding: clamp(1.4rem, 4vw, 3rem);
+  position: relative;
+}
+
+.hero-section::after {
+  background: linear-gradient(90deg, rgba(182, 106, 54, 0.2), rgba(141, 146, 116, 0.24));
+  bottom: 0;
+  content: "";
+  height: 0.32rem;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.publisher-mark {
+  aspect-ratio: 1;
+  border-radius: 1.1rem;
+  box-shadow: 0 18px 45px rgba(30, 34, 38, 0.15);
+  display: block;
+  flex: 0 0 auto;
+  height: clamp(4.4rem, 11vw, 7.25rem);
+  object-fit: cover;
+  object-position: center;
+  width: clamp(4.4rem, 11vw, 7.25rem);
 }
 
 .kicker {
-  color: #8f3a12;
+  color: var(--burnt);
   font-family: var(--font-serif);
   font-size: 0.86rem;
   font-style: italic;
@@ -128,7 +356,7 @@ h1 {
 }
 
 .hero-linkrow a {
-  color: #1c4e80;
+  color: #254d6d;
   font-weight: 500;
   text-decoration: none;
 }
@@ -175,8 +403,8 @@ h1 {
 .signup-grid article,
 .demo-section,
 .selected-links a {
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(126, 184, 216, 0.36);
+  background: rgba(255, 252, 245, 0.78);
+  border: 1px solid rgba(182, 106, 54, 0.18);
   border-radius: 1rem;
   box-shadow: 0 12px 36px rgba(58, 74, 92, 0.08);
 }
@@ -342,7 +570,10 @@ h1 {
   }
   body {
     color: var(--text-primary);
-    background: #0e1116;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(182, 106, 54, 0.16), transparent 22rem),
+      radial-gradient(circle at 85% 16%, rgba(126, 184, 216, 0.12), transparent 24rem),
+      #0e1116;
   }
   .kicker {
     color: #e08a5a;
@@ -377,5 +608,205 @@ h1 {
   }
   .patent-note {
     color: #98a2b3 !important;
+  }
+  .hero-section {
+    background:
+      linear-gradient(90deg, rgba(247, 234, 219, 0.88), rgba(248, 241, 223, 0.62)),
+      url("banners/machineage_radiatingsunburts_v0_light.png") center / cover no-repeat;
+    border-color: rgba(224, 138, 90, 0.24);
+  }
+  .hero-section h1,
+  .hero-section .hero-copy {
+    color: #263442;
+  }
+  .hero-section .hero-linkrow a {
+    color: #254d6d;
+  }
+}
+
+/* Final publisher identity overrides. Keep last. */
+:root {
+  color-scheme: light;
+  --text-primary: #24313b;
+  --text-secondary: #4c5a63;
+  --font-publisher: "Cormorant Garamond", "Bodoni 72", Didot, Georgia, serif;
+}
+
+body {
+  background:
+    linear-gradient(rgba(248, 239, 226, 0.66), rgba(248, 239, 226, 0.92)),
+    url("banners/machineage_radiatingsunburts_v0_light.png") top center / min(1400px, 160vw) auto no-repeat,
+    radial-gradient(circle at 18% 18%, rgba(189, 109, 54, 0.18), transparent 24rem),
+    radial-gradient(circle at 82% 12%, rgba(143, 145, 113, 0.16), transparent 28rem),
+    #f8efe2;
+  color: #24313b;
+}
+
+body::before {
+  background:
+    repeating-radial-gradient(circle at 8% 20%, rgba(189, 109, 54, 0.26) 0 1px, transparent 1px 22px),
+    repeating-radial-gradient(circle at 92% 10%, rgba(143, 145, 113, 0.22) 0 1px, transparent 1px 24px);
+  content: "";
+  inset: 0;
+  opacity: 0.38;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+}
+
+main.program-home {
+  max-width: 1120px;
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1.1rem, 4vw, 2.6rem);
+}
+
+.publisher-corner-mark {
+  background: rgba(251, 245, 231, 0.86);
+  border: 1px solid rgba(189, 109, 54, 0.2);
+  border-radius: 0.85rem;
+  box-shadow: 0 12px 36px rgba(36, 49, 59, 0.12);
+  height: clamp(3.2rem, 7vw, 4.8rem);
+  object-fit: cover;
+  position: fixed;
+  right: clamp(0.8rem, 2.5vw, 1.6rem);
+  top: clamp(0.8rem, 2.5vw, 1.6rem);
+  width: clamp(3.2rem, 7vw, 4.8rem);
+  z-index: 20;
+}
+
+.hero-section {
+  background:
+    linear-gradient(90deg, rgba(251, 245, 231, 0.88), rgba(251, 245, 231, 0.5)),
+    url("banners/machineage_radiatingsunburts_v0_light.png") center / cover no-repeat;
+  border: 1px solid rgba(189, 109, 54, 0.2);
+  border-radius: 1.8rem;
+  box-shadow: 0 28px 90px rgba(36, 49, 59, 0.14);
+  color: #24313b;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+  min-height: clamp(25rem, 48vw, 36rem);
+  padding: clamp(1.6rem, 4vw, 3.4rem);
+}
+
+.brand-lockup {
+  margin-bottom: clamp(4rem, 14vw, 9rem);
+}
+
+h1,
+.program-section h2,
+.project-panel summary span {
+  color: #151515;
+  font-family: var(--font-publisher);
+  font-weight: 600;
+}
+
+h1 {
+  font-size: clamp(4rem, 14vw, 10rem);
+  letter-spacing: -0.06em;
+  line-height: 0.82;
+}
+
+.kicker {
+  color: #bd6d36;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.hero-copy {
+  color: #24313b;
+  font-size: clamp(1.24rem, 2.2vw, 1.65rem);
+  max-width: 38rem;
+}
+
+.hero-linkrow a,
+.panel-links a {
+  color: #304f78;
+}
+
+.program-section p {
+  color: #4c5a63;
+}
+
+.direction-grid article,
+.signup-grid article,
+.selected-links a,
+.project-panel {
+  background: rgba(251, 245, 231, 0.8);
+  border: 1px solid rgba(189, 109, 54, 0.2);
+  box-shadow: 0 14px 44px rgba(36, 49, 59, 0.1);
+}
+
+.project-panels {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 1.2rem;
+}
+
+.project-panel {
+  border-radius: 1.1rem;
+  overflow: hidden;
+}
+
+.project-panel summary {
+  align-items: baseline;
+  cursor: pointer;
+  display: flex;
+  gap: 0.85rem;
+  justify-content: space-between;
+  list-style: none;
+  padding: 1rem 1.15rem;
+}
+
+.project-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.project-panel summary span {
+  font-size: clamp(1.55rem, 4vw, 2.4rem);
+}
+
+.project-panel summary small {
+  color: #66707a;
+  font-size: 0.88rem;
+}
+
+.project-frame-wrap {
+  background: #fffaf0;
+  border-top: 1px solid rgba(189, 109, 54, 0.18);
+  height: clamp(28rem, 74vh, 46rem);
+}
+
+.project-frame-wrap iframe {
+  border: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.panel-links {
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0.75rem 1.15rem 1rem;
+}
+
+.panel-links a {
+  font-weight: 600;
+}
+
+@media (max-width: 680px) {
+  .publisher-corner-mark {
+    position: absolute;
+  }
+  .brand-lockup {
+    margin-bottom: 5.5rem;
+  }
+  .hero-section {
+    min-height: 30rem;
+  }
+  .project-panel summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .project-frame-wrap {
+    height: 32rem;
   }
 }

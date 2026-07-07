@@ -25,9 +25,10 @@
   <meta name="theme-color" content="#131c2d">
   <meta name="msapplication-TileColor" content="#131c2d">
   <meta name="msapplication-config" content="browserconfig.xml">
-  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/site.css?v=publisher-mark-20260706">
 </head>
 <body>
+  <img class="publisher-corner-mark" src="assets/substack/aimezlogo.png" width="72" height="72" alt="aimez publisher mark">
   <main class="program-home">
     <section class="hero-section">
       <div class="brand-lockup">
@@ -35,13 +36,15 @@
       </div>
       <p class="kicker">evidence models for physical systems</p>
       <p class="hero-linkrow">
-        <a href="https://aimez.ai/public/">research outputs</a> &middot;
-        <a href="public/comfort-router.html">friend live router</a> &middot;
+        <a href="#projects">project panels</a> &middot;
+        <a href="https://friend.aimez.ai" target="_blank">friend</a> &middot;
+        <a href="https://orcast.aimez.ai" target="_blank">ORCAST</a> &middot;
+        <a href="wavves/">wavves</a> &middot;
         <a href="https://github.com/GilRaitses/aimez">repo</a> &middot;
         <a href="mailto:gilraitses@gmail.com?subject=aimez%20research%20updates">contact</a>
       </p>
       <p class="hero-copy">
-        aimez builds evidence models and tools for decisions about complex physical systems. The work turns sparse observations, physical constraints and audit records into representations that can be inspected before they guide a route, forecast, paper or tool.
+        aimez builds evidence models and tools for decisions about complex physical systems. The work turns sparse observations, physical constraints and audit records into representations that can be inspected before they guide a route, forecast or research artifact.
       </p>
     </section>
 
@@ -55,32 +58,46 @@
     <section class="program-section" id="friend">
       <h2>friend, current product</h2>
       <p>
-        friend is an applied human-centered AI system for pedestrian comfort routing, using a city-scale evidence model of Manhattan to join fragmented observations, camera-derived crowd pressure, a precomputed radiant-temperature layer and street-tree canopy into a block-scale representation of walking conditions.
+        friend is applied human-centered AI for pedestrian comfort routing, using a city-scale evidence model of Manhattan to join fragmented observations, camera-derived crowd pressure, a precomputed radiant-temperature layer and street-tree canopy into a block-scale representation of walking conditions.
       </p>
       <p>
         Routing is the first application on top of that representation. Five cost encodings read the same evidence layers to compare shortest, crowd-avoiding, shade-seeking, comfort-aware and adaptive routes. Every narrated value is labeled live, partially live or deferred.
       </p>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.5rem 0;">
-        <a href="public/comfort-router.html" style="text-decoration:none;color:inherit;">
-          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
-            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1c4e80,#2e8bc0);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.6);">comfort router (live)</div>
-            <div style="padding:0.8rem 0.9rem;"><strong style="font-size:0.9rem;">Comfort router</strong><p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">Five routing modes over the same evidence model, with a time-of-day thermal layer live. Flagship demo.</p></div>
-          </div>
-        </a>
-        <a href="public/executive-summary.html" style="text-decoration:none;color:inherit;">
-          <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);">
-            <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1f3a5f,#3d6e9c);display:flex;align-items:center;justify-content:center;font-size:0.78rem;color:rgba(255,255,255,0.6);">executive summary</div>
-            <div style="padding:0.8rem 0.9rem;"><strong style="font-size:0.9rem;">Executive summary</strong><p style="font-size:0.8rem;margin:0.3rem 0 0;opacity:0.7;line-height:1.45;">A compact deck explaining the city-scale evidence model and the current public boundary.</p></div>
-          </div>
-        </a>
-      </div>
-
       <p class="links">
-        <a href="public/comfort-router.html">friend live router</a> &middot;
+        <a href="https://friend.aimez.ai" target="_blank">friend live router</a> &middot;
         <a href="https://gilraitses.github.io/research/pax-comfort-routing/Raitses_PhysicalWorldRoutingAgents_2026.pdf" target="_blank">Whitepaper (PDF)</a> &middot;
         <a href="notes/neighborhood-access-research.html">Neighborhood access research</a>
       </p>
+    </section>
+
+    <section class="program-section project-panel-section" id="projects">
+      <h2>Project panels</h2>
+      <p>
+        Open the live systems in place. Use the direct links if a browser blocks embedded views.
+      </p>
+      <div class="project-panels">
+        <details class="project-panel" open>
+          <summary>
+            <span>friend</span>
+            <small>Pedestrian comfort routing</small>
+          </summary>
+          <div class="project-frame-wrap">
+            <iframe title="friend live app" src="https://friend.aimez.ai" loading="lazy"></iframe>
+          </div>
+          <p class="panel-links"><a href="https://friend.aimez.ai" target="_blank">Open friend in a new tab</a></p>
+        </details>
+        <details class="project-panel">
+          <summary>
+            <span>ORCAST</span>
+            <small>Encounter forecasting research output</small>
+          </summary>
+          <div class="project-frame-wrap">
+            <iframe title="ORCAST live app" src="https://orcast.aimez.ai" loading="lazy"></iframe>
+          </div>
+          <p class="panel-links"><a href="https://orcast.aimez.ai" target="_blank">Open ORCAST in a new tab</a></p>
+        </details>
+      </div>
     </section>
 
     <section class="program-section">
@@ -88,7 +105,7 @@
       <div class="direction-grid">
         <article>
           <h3>City evidence models</h3>
-          <p>Manhattan is the first applied test domain for measured stress fields, route cost, loop structure and corridor organization.</p>
+          <p>Manhattan is the pilot study for measured stress fields, route cost, loop structure and pedestrian conditions.</p>
         </article>
         <article>
           <h3>Physical-world evidence</h3>
@@ -104,17 +121,17 @@
     <section class="program-section">
       <h2>Developer tools</h2>
       <p>
-        wavves is a developer tool package in preparation for moderator-led distributed sessions. Public links stay out of the front door until the package README, manifest and article references pass their publication gates.
+        wavves is a developer tool for moderator-led distributed sessions, recording alignment packets, model recommendations, check records and handoff files so long agent work can be routed through files instead of chat memory.
       </p>
+      <p class="links"><a href="wavves/">Read the wavves walkthrough</a></p>
     </section>
 
     <section class="program-section">
       <h2>Selected artifacts</h2>
       <div class="selected-links">
-        <a href="public/comfort-router.html">friend live router</a>
-        <a href="public/executive-summary.html">Executive summary deck</a>
-        <a href="public/index.html">Public research pages (index)</a>
-        <a href="public/graph-field-research.html">Graph-field &amp; corridor modeling</a>
+        <a href="https://friend.aimez.ai" target="_blank">friend live router</a>
+        <a href="https://orcast.aimez.ai" target="_blank">ORCAST live platform</a>
+        <a href="wavves/">wavves walkthrough</a>
         <a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-1.pdf" target="_blank">ORCAST whitepaper</a>
         <a href="https://gilraitses.github.io/">Papers and white papers</a>
       </div>

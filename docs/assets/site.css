@@ -810,3 +810,38 @@ h1 {
     height: 32rem;
   }
 }
+
+/* Field-JEPA exhibit (replaces stealth Klosr app iframe) */
+.project-frame-wrap.figure-wrap {
+  height: auto !important;
+  min-height: 0;
+  padding: 0.85rem 0.9rem 0.35rem;
+  background: #10161d;
+}
+
+.project-frame-wrap.figure-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.35rem;
+}
+
+.project-panel .figure-caption {
+  color: #4f5862;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin: 0;
+  padding: 0.85rem 1.15rem 0.35rem;
+}
+
+.project-panel .figure-caption strong {
+  color: var(--publisher-ink);
+}
+
+.project-panel .figure-note {
+  color: #66707a;
+  font-size: 0.86rem;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0.35rem 1.15rem 1.05rem;
+}

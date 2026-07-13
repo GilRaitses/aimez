@@ -25,7 +25,7 @@
   <meta name="theme-color" content="#131c2d">
   <meta name="msapplication-TileColor" content="#131c2d">
   <meta name="msapplication-config" content="browserconfig.xml">
-  <link rel="stylesheet" href="assets/site.css?v=publisher-mark-20260713">
+  <link rel="stylesheet" href="assets/site.css?v=field-jepa-20260713">
 </head>
 <body>
   <img class="publisher-corner-mark" src="assets/substack/aimezlogo.png" width="72" height="72" alt="aimez publisher mark">
@@ -63,9 +63,13 @@
         Comfort-aware routing is one application on that representation. Five cost encodings read the same evidence layers to compare shortest, crowd-avoiding, shade-seeking, comfort-aware and adaptive routes. Every narrated value is labeled live, partially live or deferred.
       </p>
       <p>
-        The live application hosts remain in limited access while the public release prepares. Public materials below are the research note and whitepaper.
+        A pedestrian camera network that samples every 30 minutes builds a detailed record of street conditions, but that record is always of conditions 30 minutes ago. When the 08:00 cycle closes, it contains what the cameras observed from 07:30 to 08:00, and a decision that depends on conditions at 08:30 has nothing measured to consult. Field-JEPA is an experiment on forecasting the next crowding field from that measured cycle without waiting for the next cycle to close.
+      </p>
+      <p>
+        The live application hosts remain in limited access while the public release prepares. The public surface below is the Field-JEPA holdout timelapse. Research note and whitepaper stay linked as text.
       </p>
       <p class="links">
+        <a href="#field-jepa">Field-JEPA forecast</a> &middot;
         <a href="https://gilraitses.github.io/research/pax-comfort-routing/Raitses_PhysicalWorldRoutingAgents_2026.pdf" target="_blank">Whitepaper (PDF)</a> &middot;
         <a href="notes/neighborhood-access-research.html">Neighborhood access research</a>
       </p>
@@ -89,10 +93,53 @@
     <section class="program-section project-panel-section" id="projects">
       <h2>Projects</h2>
       <p>
-        Orca Strike is the public interactive surface for orcast. Klosr and the wider orcast application hosts stay off this page until public release.
+        Public interactive surfaces for Klosr and orcast while application hosts stay limited-access.
       </p>
-      <div class="project-panels" id="orca-strike">
-        <details class="project-panel" open>
+      <div class="project-panels">
+        <details class="project-panel" id="field-jepa" open>
+          <summary>
+            <span>Klosr · Field-JEPA</span>
+            <small>Forecasting the crowding field</small>
+          </summary>
+          <div class="project-frame-wrap figure-wrap">
+            <img
+              src="assets/field-jepa/fjc_jepa_vs_observed_timelapse.gif"
+              alt="Holdout-day timelapse of continuous Field-JEPA and observed crowding-sigma flowfields across Manhattan. Left panel is the model forecast; right panel is the held-out observation for the same cycle."
+              width="924"
+              height="462"
+              loading="lazy">
+          </div>
+          <p class="figure-caption">
+            <strong>Beating persistence on Manhattan’s next half-hour of crowding.</strong>
+            Holdout-day timelapse of continuous Field-JEPA and observed crowding-sigma flowfields.
+            Left panel is the model forecast; right panel is the held-out observation for the same cycle.
+            Day of week and local time sit between the panels and advance on half-hour ticks.
+            Color encodes crowding sigma σ, the global percentile rank of bias-corrected density, with a floor near 0.28 and the densest conditions near 1.0.
+          </p>
+          <p class="figure-note">
+            On the full-island B cohort (339 cameras), Field-JEPA reaches 0.090 MAE at +30 minutes against a persistence bar of 0.105, a 14.2% reduction on a single held-out day (2026-06-29). The sigma field predicted here is a research result on Klosr’s crowding evidence layer, not a deployed routing feature.
+          </p>
+          <div class="project-frame-wrap figure-wrap" style="border-top:1px solid rgba(189,109,54,0.18);">
+            <img
+              src="assets/field-jepa/fjc_comparison_map.png"
+              alt="Three-panel continuous flowfield of pedestrian crowding sigma filling the Manhattan island silhouette. Persistence on the left, Field-JEPA +30-minute forecast in the center, holdout observed field on the right."
+              width="1950"
+              height="780"
+              loading="lazy">
+          </div>
+          <p class="figure-caption">
+            <strong>Persistence · Field-JEPA · Observed.</strong>
+            Crowding sigma at +30 minutes as a continuous shoreline-clipped flowfield for a single holdout cycle.
+            Persistence carries the last observed field unchanged; Field-JEPA shows the +30-minute forecast; the holdout panel shows what was observed.
+          </p>
+          <p class="panel-links">
+            <a href="#klosr">Klosr overview</a>
+            &middot;
+            <a href="https://gilraitses.github.io/research/pax-comfort-routing/Raitses_PhysicalWorldRoutingAgents_2026.pdf" target="_blank" rel="noopener noreferrer">Whitepaper (PDF)</a>
+          </p>
+        </details>
+
+        <details class="project-panel" id="orca-strike" open>
           <summary>
             <span>Orca Strike</span>
             <small>Playable replay and reconstruction module for orcast</small>
@@ -109,24 +156,6 @@
           <p class="panel-links"><a href="https://bash.tv/aimez/orca-strike" target="_blank" rel="noopener noreferrer">Open Orca Strike in a new tab</a></p>
         </details>
       </div>
-      <div class="direction-grid" style="margin-top:1.4rem;">
-        <article>
-          <h3>Klosr</h3>
-          <p>City-scale evidence model for pedestrian conditions, with comfort-aware routing as one application on the representation.</p>
-          <p class="links">
-            <a href="#klosr">Overview</a> &middot;
-            <a href="https://gilraitses.github.io/research/pax-comfort-routing/Raitses_PhysicalWorldRoutingAgents_2026.pdf" target="_blank">Whitepaper</a>
-          </p>
-        </article>
-        <article>
-          <h3>orcast</h3>
-          <p>Evidence-gated SRKW encounter forecasting with a biologging workbench. Wider platform launches this summer.</p>
-          <p class="links">
-            <a href="#orcast">Overview</a> &middot;
-            <a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-1.pdf" target="_blank">Whitepaper</a>
-          </p>
-        </article>
-      </div>
     </section>
 
     <section class="program-section">
@@ -134,7 +163,7 @@
       <div class="direction-grid">
         <article>
           <h3>City evidence models</h3>
-          <p>Manhattan is the pilot study for measured stress fields, route cost, loop structure and pedestrian conditions.</p>
+          <p>Manhattan is the pilot study for measured stress fields, route cost, loop structure and pedestrian conditions. Field-JEPA adds a predicted crowding layer beside the current-cycle measured field.</p>
         </article>
         <article>
           <h3>Physical-world evidence</h3>
@@ -150,10 +179,10 @@
     <section class="program-section">
       <h2>Selected artifacts</h2>
       <div class="selected-links">
+        <a href="#field-jepa">Field-JEPA crowding forecast</a>
         <a href="https://bash.tv/aimez/orca-strike" target="_blank">Orca Strike on Bash</a>
         <a href="https://gilraitses.github.io/research/pax-comfort-routing/Raitses_PhysicalWorldRoutingAgents_2026.pdf" target="_blank">Klosr whitepaper</a>
         <a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-1.pdf" target="_blank">orcast whitepaper</a>
-        <a href="https://gilraitses.github.io/">Papers and white papers</a>
       </div>
     </section>
 

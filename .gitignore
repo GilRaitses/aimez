@@ -7,3 +7,6 @@ e2e/
 # OS / misc cruft
 .DS_Store
 **/.DS_Store
+
+# Local CCA / ops notes — never publish
+.cca/

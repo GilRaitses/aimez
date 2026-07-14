@@ -57,7 +57,7 @@
     <section class="program-section" id="klosr">
       <h2>Klosr, current product</h2>
       <p>
-        Klosr is a city-scale evidence model for pedestrian conditions on Manhattan. Sparse observations fuse onto a walk graph with layer gates before route costs combine.
+        Klosr is a city-scale evidence model for pedestrian conditions on Manhattan. Sparse observations fuse onto a walk graph. Validated evidence layers combine into a route objective.
       </p>
       <p>
         Comfort-aware routing is one application on that representation. Five cost encodings read the same evidence layers to compare shortest, crowd-avoiding, shade-seeking, comfort-aware and adaptive routes. Every narrated value is labeled live, partially live or deferred.
@@ -114,7 +114,7 @@
             Holdout-day timelapse of continuous Field-JEPA and observed crowding-sigma flowfields.
             Left panel is the model forecast; right panel is the held-out observation for the same cycle.
             Day of week and local time sit between the panels and advance on half-hour ticks.
-            Color encodes crowding sigma σ, the global percentile rank of bias-corrected density, with a floor near 0.28 and the densest conditions near 1.0.
+            Color encodes crowding sigma σ as a percentile rank of bias-corrected density inside a validated operating region, with denser conditions higher on the scale.
           </p>
           <p class="figure-note">
             On the full-island B cohort (339 cameras), Field-JEPA reaches 0.090 MAE at +30 minutes against a persistence bar of 0.105, a 14.2% reduction on a single held-out day (2026-06-29). The sigma field predicted here is a research result on Klosr’s crowding evidence layer, not a deployed routing feature.
@@ -134,22 +134,26 @@
           </p>
           <div class="project-frame-wrap figure-wrap" style="border-top:1px solid rgba(189,109,54,0.18);">
             <img
-              src="assets/klosr/route-shade-2x3/klosr_route_fork_shade_2x3.png"
-              alt="Two-by-three figure. Top row: Village dog-park route overview, fork metrics, and sealed Greenwich block shade-volume evidence. Bottom row: Grand Central to Carnegie Hall route overview, fork metrics with accumulation inset, and annotated fork-block shade panels."
-              width="3452"
-              height="2266"
+              src="assets/klosr/route-shade-2x3/rowA_overview_village_routes.png"
+              alt="Village corridor route overview comparing length-seeking and shade-seeking paths between Washington Square and the Gansevoort peninsula."
+              width="1726"
+              height="1133"
+              loading="lazy">
+          </div>
+          <div class="project-frame-wrap figure-wrap" style="border-top:1px solid rgba(189,109,54,0.18);">
+            <img
+              src="assets/klosr/route-shade-2x3/rowB_overview_gc_panelA.png"
+              alt="Midtown route overview for Grand Central to Carnegie Hall comparing shortest and adaptive crowding-aware paths."
+              width="1726"
+              height="1133"
               loading="lazy">
           </div>
           <p class="figure-caption">
-            <strong>Route overview · fork metrics · block shade evidence.</strong>
-            Two origin–destination pairs. Column 1 shows the route field; column 2 shows divergence metrics (not a map close-up); column 3 shows sealed top-down shade volume on Greenwich St tax blocks (W12–Perry, 2026-07-01 14:00).
-            Modeled shade and surface temperature, not measured pedestrian-height air.
+            <strong>Route overviews for two origin–destination pairs.</strong>
+            Village dog-run corridor and Midtown Grand Central to Carnegie Hall. Field-validated shade comparison scenes sit beside these overviews in the research pack. Modeled shade and surface temperature, not measured pedestrian-height air.
           </p>
           <p class="figure-note">
-            Village row: Washington Sq dog run ↔ Gansevoort Peninsula; length vs shade-weighted exposure across 50 routes.
-            Midtown row: Grand Central → Carnegie Hall; shortest vs adaptive on crowding-sigma among five engines.
-            Shade panels cite FSS W5 ACCEPT manifest <code>scene_manifest_greenwich_st_w12_perry_comparison_v1</code>.
-            Path index: <a href="assets/klosr/route-shade-2x3/INDEX.html">assets/klosr/route-shade-2x3/INDEX.html</a>.
+            Fork-metric cards with calibration constants were removed from the public surface. Aggregate Field-JEPA evaluation numbers above remain as research results.
           </p>
           <p class="panel-links">
             <a href="#klosr">Klosr overview</a>

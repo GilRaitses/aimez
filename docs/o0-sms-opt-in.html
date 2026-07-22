@@ -3,65 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>O0 SMS — Opt-in / Message Flow</title>
+  <title>aimez O0 SMS — Opt-in</title>
   <style>
     body { font-family: Georgia, serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.55; color: #1a1a1a; }
     h1 { font-size: 1.35rem; }
     h2 { font-size: 1.1rem; margin-top: 1.5rem; }
-    code, .num { font-family: ui-monospace, Menlo, monospace; }
+    label { display: block; margin: 0.65rem 0 0.25rem; }
+    input[type="tel"] { width: 100%; max-width: 22rem; padding: 0.5rem; font-size: 1rem; }
+    .consent {
+      display: flex; gap: 0.65rem; align-items: flex-start;
+      border: 1px solid #bbb; padding: 0.85rem 1rem; margin: 1rem 0; background: #fff;
+    }
+    .consent input { margin-top: 0.25rem; flex: 0 0 auto; }
+    .consent span { flex: 1 1 auto; }
+    button {
+      margin-top: 0.5rem; padding: 0.55rem 1rem; font-size: 1rem;
+      cursor: pointer;
+    }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
     .box { border: 1px solid #ccc; padding: 0.85rem 1rem; margin: 0.75rem 0; background: #fafafa; white-space: pre-wrap; }
+    .ok { border-color: #2a6; background: #f3fff6; }
+    .err { color: #a20; }
     ul { padding-left: 1.2rem; }
+    .links a { word-break: break-all; }
   </style>
 </head>
 <body>
-  <h1>O0 SMS — Recipient consent &amp; message flow</h1>
-  <p>Campaign collateral for A2P 10DLC. Last updated: 2026-07-21.</p>
+  <h1>aimez O0 SMS — Opt-in</h1>
+  <p>Brand: <strong>aimez</strong>. Public Call to Action for A2P 10DLC. Last updated: 2026-07-22.</p>
 
-  <h2>Who receives messages</h2>
+  <h2>Program</h2>
   <p>
-    Only one enrolled operator handset. This is a private operational alert
-    channel (hard-stop notices). Not marketing. Not a public list.
+    O0 SMS sends recurring automated operational hard-stop alerts when an
+    aimez research workflow needs a human decision (lane name, wave name,
+    one-line summary, recommended next step). Recipients may reply with
+    proceed, shrug, or yes. This is not marketing.
   </p>
 
-  <h2>How end-users opt in</h2>
-  <ol>
-    <li>The account owner reads the Terms and Privacy Policy (links below).</li>
-    <li>
-      The owner enrolls their personal mobile number offline in a private
-      config used only by the O0 SMS tool (no public web form, no purchased lists).
-    </li>
-    <li>
-      Optional text confirmation: the enrolled user may text
-      <strong>START</strong> to the program long code
-      <span class="num">+1 (360) 317-2476</span>.
-    </li>
-    <li>They receive a confirmation / welcome message (sample below).</li>
-  </ol>
+  <h2>Opt in here (sole method)</h2>
+  <p>
+    Enter your mobile number and check the SMS consent box below.
+    The consent box is unchecked by default. SMS consent is optional and
+    separate from reading the Terms or Privacy Policy. You may leave without
+    checking the box.
+  </p>
 
-  <h2>Via-text opt-in (optional confirmation)</h2>
-  <p>Keyword: <strong>START</strong> (also YES, UNSTOP)</p>
-  <p>Long code: <span class="num">+13603172476</span></p>
-  <p>Welcome / confirmation message:</p>
-  <div class="box">You are subscribed to O0 SMS operational hard-stop alerts. Msg frequency varies (typically a few/day or fewer). Msg&amp;data rates may apply. Reply HELP for help, STOP to cancel. Terms: https://aimez.ai/o0-sms-terms.html Privacy: https://aimez.ai/o0-sms-privacy.html</div>
+  <form id="optin-form" novalidate>
+    <label for="phone">Mobile phone number (US)</label>
+    <input id="phone" name="phone" type="tel" inputmode="tel"
+           autocomplete="tel" placeholder="+1XXXXXXXXXX" required>
 
-  <h2>Ongoing operational message (sample)</h2>
-  <div class="box">O0 hard-stop
+    <div class="consent">
+      <input id="sms-consent" name="sms_consent" type="checkbox" value="yes">
+      <span>
+        I agree to receive recurring automated operational SMS hard-stop alerts
+        from aimez (O0 SMS) at the number I entered. Message frequency varies
+        (typically a few messages per day or fewer when hard-stops occur).
+        Message and data rates may apply. Reply HELP for help, STOP to cancel.
+        Terms: <a href="https://aimez.ai/o0-sms-terms.html">https://aimez.ai/o0-sms-terms.html</a>.
+        Privacy: <a href="https://aimez.ai/o0-sms-privacy.html">https://aimez.ai/o0-sms-privacy.html</a>.
+        No mobile information will be shared with third parties or affiliates
+        for marketing or promotional purposes.
+      </span>
+    </div>
+
+    <button type="submit" id="submit-btn" disabled>Subscribe to O0 SMS</button>
+    <p id="form-status" aria-live="polite"></p>
+  </form>
+
+  <h2>After you opt in</h2>
+  <p>
+    You will receive a confirmation SMS from aimez O0 SMS on the long code
+    <span class="num">+1 (360) 317-2476</span>, then operational hard-stop
+    alerts as needed.
+  </p>
+  <div class="box">aimez O0 SMS: You are subscribed to recurring operational hard-stop alerts. Msg frequency varies (typically a few/day or fewer). Msg &amp; data rates may apply. Reply HELP for help, STOP to cancel. Terms: https://aimez.ai/o0-sms-terms.html Privacy: https://aimez.ai/o0-sms-privacy.html</div>
+
+  <h2>Sample operational messages</h2>
+  <div class="box">aimez O0 hard-stop
+RLW/mod-decide
+packet ready; venue locked TMLR
+next: hold_polished_packet_tmlr
+Reply proceed|shrug|yes. STOP to cancel.</div>
+  <div class="box">aimez O0 hard-stop
 apps/resume-WIP-land
 scoped resume WIP ready to commit
 next: land_apps_resume_WIP
-Reply: proceed | shrug | yes</div>
+Reply proceed|shrug|yes. STOP to cancel.</div>
+  <div class="box">aimez O0: got proceed; queued in inbox. Msg&amp;data rates may apply. Reply STOP to cancel.</div>
 
   <h2>HELP / STOP</h2>
   <ul>
-    <li><strong>HELP</strong> → O0 SMS alerts: operational hard-stop notices only. Keywords: HELP, STOP, START, proceed, shrug, yes. Msg&amp;data rates may apply.</li>
-    <li><strong>STOP</strong> → You are unsubscribed from O0 SMS alerts. No further messages will be sent. Reply START to re-subscribe.</li>
+    <li><strong>HELP</strong> → aimez O0 SMS: operational hard-stop alerts only. Msg&amp;data rates may apply. Support: hello@aimez.ai</li>
+    <li><strong>STOP</strong> → aimez O0 SMS: You are unsubscribed. No further messages will be sent.</li>
   </ul>
 
-  <h2>Required links</h2>
+  <h2 class="links">Required links</h2>
   <ul>
     <li>Terms: <a href="https://aimez.ai/o0-sms-terms.html">https://aimez.ai/o0-sms-terms.html</a></li>
     <li>Privacy: <a href="https://aimez.ai/o0-sms-privacy.html">https://aimez.ai/o0-sms-privacy.html</a></li>
-    <li>This opt-in collateral: <a href="https://aimez.ai/o0-sms-opt-in.html">https://aimez.ai/o0-sms-opt-in.html</a></li>
+    <li>This opt-in page: <a href="https://aimez.ai/o0-sms-opt-in.html">https://aimez.ai/o0-sms-opt-in.html</a></li>
   </ul>
+
+  <script>
+    (function () {
+      var form = document.getElementById('optin-form');
+      var phone = document.getElementById('phone');
+      var consent = document.getElementById('sms-consent');
+      var btn = document.getElementById('submit-btn');
+      var status = document.getElementById('form-status');
+
+      function sync() {
+        btn.disabled = !(consent.checked && phone.value.trim().length >= 10);
+      }
+
+      consent.addEventListener('change', sync);
+      phone.addEventListener('input', sync);
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        status.className = '';
+        if (!consent.checked) {
+          status.className = 'err';
+          status.textContent = 'Check the SMS consent box to subscribe. You may leave without checking it.';
+          return;
+        }
+        var n = phone.value.trim();
+        if (n.length < 10) {
+          status.className = 'err';
+          status.textContent = 'Enter a valid US mobile number.';
+          return;
+        }
+        status.className = 'ok';
+        status.textContent =
+          'Opt-in recorded for ' + n +
+          '. You will receive a confirmation SMS from aimez O0 SMS. Reply STOP anytime to cancel.';
+        form.reset();
+        sync();
+      });
+
+      sync();
+    })();
+  </script>
 </body>
 </html>

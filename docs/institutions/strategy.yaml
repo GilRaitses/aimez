@@ -1,0 +1,305 @@
+project:
+  id: vanderbilt_institutional_strategy
+  title: "Designing Conditions at Vanderbilt"
+  status: public_case_study
+  date: 2026-07
+  public_url: "https://aimez.ai/institutions/"
+  source_report: "Vanderbilt University: Institutional Strategy for Interdisciplinary AI, Design, and Cultural Production"
+
+research_question: >-
+  Which institutional operating systems could Vanderbilt build during the
+  next three years by connecting assets that already exist?
+
+central_observation: >-
+  Vanderbilt has assembled substantial AI, computing, clinical, music,
+  design, humanities and public-cultural capacity faster than it has built
+  recurring mechanisms that connect those assets through shared projects.
+
+institutional_thesis: >-
+  The immediate opportunity is to install connective infrastructure:
+  project-formation rules, mixed-team funding, residencies, shared production
+  environments, credentials and evaluation systems that turn parallel assets
+  into repeatable cross-domain work.
+
+operating_system:
+  sequence:
+    - existing_research_and_cultural_assets
+    - required_cross_domain_team_formation
+    - shared_funding_space_and_production_support
+    - public_artifact_and_research_output
+    - evaluation_institutional_memory_and_next_project
+  design_rule: >-
+    Begin with a rule that changes who must work together and what they must
+    make. Build permanent space only after the production cycle has been tested.
+
+editorial_constraints:
+  - one_page_one_pitch
+  - one_paragraph_one_conceptual_role
+  - one_sentence_one_inferential_movement
+  - observation_before_abstraction
+  - examples_as_evidence
+  - no_oxford_commas
+  - no_shell_sentences
+  - no_consultant_language
+  - no_unverified_program_claims
+  - no_art_as_demonstration_surface
+
+ranking:
+  criteria:
+    - institutional_fit
+    - speed_to_pilot
+    - research_value
+    - student_value
+    - public_visibility
+    - funding_path
+    - long_term_value
+    - cost
+  initiatives:
+    - rank: 1
+      id: joint_production_fund
+      title: "VALIANT × Blair AI-Arts Joint Production Fund"
+      initial_cost: 75000
+      launch: spring_2027
+    - rank: 2
+      id: ai_arts_residency
+      title: "AI-Arts Residency: VI4-AiR into VALIANT and Connected Computing"
+      initial_cost: 50000
+      launch: summer_2027
+    - rank: 3
+      id: bicoastal_fellowship
+      title: "Nashville–San Francisco Bi-Coastal AI-Design Fellowship"
+      initial_cost: 200000
+      launch: fall_2026_virtual
+    - rank: 4
+      id: public_ai_lab
+      title: "Public AI Lab: Nashville Cultural Institutions Partnership"
+      initial_cost: 150000
+      launch: spring_2027
+    - rank: 5
+      id: governance_center
+      title: "Human-Centered AI Governance Center"
+      initial_cost: 500000
+      cost_period: 36_months_if_funded
+      launch: fall_2026_working_group
+    - rank: 6
+      id: innovation_studio
+      title: "Innovation Neighborhood Shared AI-Arts Production Studio"
+      initial_cost_range: [5000000, 10000000]
+      launch: 2027_temporary_space
+    - rank: 7
+      id: graduate_certificate
+      title: "Graduate Certificate in AI, Design and Cultural Production"
+      initial_cost: 100000
+      launch: fall_2027
+
+assets:
+  college_of_connected_computing:
+    capabilities: [computer_science, data_science, scientific_computing, ms_ai]
+  valiant:
+    evidence: "12 labs, 41 AI Fellows and 65 AI Scholars at April 2025 opening"
+    capabilities: [ai_translation, immersive_ai, research_labs]
+  amplify:
+    capabilities: [generative_ai, human_centered_ai, agentic_ai]
+  wondry:
+    capabilities: [electrical_making, mechanical_making, fiber_arts, emerging_technology]
+  cca_san_francisco:
+    capabilities: [design, architecture, fine_arts, computational_arts, wattis_institute]
+  innovation_neighborhood:
+    evidence: "40-acre mixed-use development connected by The Meander"
+  vi4_air:
+    evidence: "119 artists, 71 scientists and more than 100 collaborations"
+    capabilities: [residency_governance, science_art_pairing, evaluation]
+  blair:
+    capabilities: [music_cognition, music_technology, performance, composition]
+  vumc_advance:
+    capabilities: [clinical_ai_governance, ai_ethics, health_ai]
+  curb_center:
+    capabilities: [creative_inquiry, public_scholarship, visiting_artists]
+  mcgee_center:
+    capabilities: [narrative_research, media_literacy, algorithmic_narrative]
+  frist:
+    capabilities: [public_exhibitions, museum_education, ai_arts_programming]
+  nmaam:
+    capabilities: [african_american_music_research, cultural_partnership]
+  vtna:
+    evidence: "62,000 hours of television news footage"
+    capabilities: [archives, ai_transcription, metadata_extraction]
+
+initiatives:
+  joint_production_fund:
+    gap: >-
+      Existing music-and-AI activity produces contact without a recurring rule
+      that requires joint proposals and inspectable co-produced artifacts.
+    pilot:
+      duration_months: 12
+      teams: 3
+      grant_per_team: 25000
+      composition_rule:
+        - valiant_or_connected_computing_investigator
+        - arts_or_humanities_investigator
+        - producer_curator_or_technical_lead
+      required_output_types: [software, installation, dataset, performance]
+    pairings:
+      - [valiant_audio_researcher, blair_composer, music_cognition_scientist]
+      - [dsi_data_scientist, mcgee_narrative_scholar, art_faculty]
+      - [amplify_team, eadj_artist, frist_curator]
+    risks:
+      - discussion_without_production
+      - art_subordinated_to_ai_demonstration
+    controls:
+      - shared_principal_investigator_status
+      - artifact_milestones
+      - cross_field_evaluation
+
+  ai_arts_residency:
+    gap: >-
+      AI labs have no tested Vanderbilt residency pathway that brings artistic
+      inquiry into research before public presentation.
+    pilot:
+      residents: 3
+      duration_weeks: 10
+      stipend_per_resident: 10000
+      host: valiant_labs
+      support: [valiant_researcher, curb_public_scholar]
+      exhibition_sites: [cohen_memorial_hall, ccc_ai_showcase]
+    pairings:
+      - [generative_music_artist, audio_ai_researcher]
+      - [data_visualization_artist, dsi_scientist]
+      - [documentary_filmmaker, mcgee_scholar, computer_vision_researcher]
+    evaluation:
+      - research_decisions_influenced
+      - methods_transferred_in_both_directions
+      - continuation_after_exhibition
+
+  bicoastal_fellowship:
+    gap: >-
+      Nashville and San Francisco can remain administratively connected while
+      lacking a project mechanism that makes researchers and designers jointly
+      responsible for one output.
+    pilot:
+      phase_1:
+        year: 2026_2027
+        format: virtual
+        pairs: 5
+      phase_2:
+        year: 2027_2028
+        format: residential
+        fellows: 10
+        sequence: [nashville_semester, san_francisco_semester]
+    pairings:
+      - [valiant_researcher, cca_computational_artist]
+      - [wondry_entrepreneur, cca_industrial_designer]
+      - [dsi_scientist, cca_architect]
+      - [blair_composer, bay_area_ai_music_technologist]
+      - [vumc_engineer, cca_product_designer]
+    governance:
+      requirement: named_program_director_before_sf_opening
+      reporting: provost_level
+
+  public_ai_lab:
+    gap: >-
+      Cultural partnerships remain event-based or collection-specific and lack
+      a recurring co-commissioning process with AI research teams.
+    pilot:
+      commissions:
+        - partner: frist
+          output: interactive_ai_exhibit
+        - partner: nmaam
+          output: african_american_music_archive_project
+      administrative_home_options: [heard_libraries, curb_center]
+      technical_lead_options: [dsi, connected_computing]
+    partner_authority:
+      - research_question
+      - interpretation
+      - community_access
+      - collection_use_conditions
+
+  governance_center:
+    gap: >-
+      Clinical AI, HCI, law, education and humanities governance work lacks a
+      common appointment structure, funding program and operational policy path.
+    pilot:
+      start: fall_2026
+      actions:
+        - publish_joint_research_agenda
+        - launch_public_case_seminar
+        - prepare_neh_center_application
+        - design_first_cross_domain_joint_appointment
+      co_director_domains: [engineering, medicine, law, education]
+    required_outputs:
+      - empirical_research
+      - governance_templates
+      - policy_briefs
+      - public_workshops
+      - clinical_case_tools
+
+  innovation_studio:
+    gap: >-
+      Teams must negotiate access across spaces governed for separate primary
+      users because no neutral production environment belongs to the collaboration.
+    pilot:
+      temporary_space:
+        year: 2027
+        candidate_hosts: [wondry, engineering]
+        evaluation: [demand, equipment_use, project_flow]
+      permanent_space:
+        target_year: 2029_2030
+        size_sq_ft_range: [15000, 20000]
+        capabilities:
+          - creative_gpu_compute
+          - computational_fabrication
+          - recording_and_performance
+          - flexible_exhibition
+    governance:
+      reporting: provost
+      owner: cross_school_council
+      independent_budget: true
+
+  graduate_certificate:
+    gap: >-
+      Students can assemble relevant coursework across schools but receive no
+      formal credential, complete-pathway advising or required public practicum.
+    design:
+      credits: 15
+      administrative_home: college_of_connected_computing
+      governance: cross_school_committee
+      required_courses:
+        - studio_in_ai
+        - human_centered_design_for_ai
+        - ai_and_cultural_production
+        - public_ai_practicum
+      pathway_requirements:
+        - coursework_in_three_schools
+        - dedicated_cross_school_advisor
+        - funded_team_or_residency_participation
+        - public_practicum_artifact
+
+implementation:
+  phase_1_2026_2027:
+    - convene_cross_school_ai_arts_council
+    - launch_joint_production_fund
+    - launch_valiant_artist_residencies
+    - appoint_bicoastal_program_director
+    - prepare_human_centered_ai_center_application
+  phase_2_2027_2028:
+    - open_residential_bicoastal_fellowship
+    - launch_graduate_certificate
+    - commission_frist_and_nmaam_projects
+    - exhibit_outputs_together
+    - operate_temporary_production_studio
+  phase_3_2028_2030:
+    - secure_sustained_external_funding
+    - create_joint_appointments
+    - build_permanent_innovation_neighborhood_studio
+    - connect_nashville_sf_and_public_partners_through_recurring_cohorts
+
+budget:
+  noncapital_initial_range: [600000, 1100000]
+  note: >-
+    Figures are planning bands from the July 2026 institutional study and do
+    not represent approved Vanderbilt allocations.
+
+public_files:
+  html: index.html
+  stylesheet: institutions.css
+  machine_readable_brief: strategy.yaml

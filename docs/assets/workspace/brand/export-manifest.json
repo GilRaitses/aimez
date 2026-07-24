@@ -1,0 +1,32 @@
+{
+  "faviconSource": "brand/aimez-favicon-a-source.svg",
+  "touchIconSource": "brand/aimez-touch-icon-source.svg",
+  "socialPreviewSource": "brand/aimez-social-preview-source.svg",
+  "typography": "Newsreader 500",
+  "outputs": {
+    "favicons": [
+      "docs/assets/favicons/favicon-16x16.png",
+      "docs/assets/favicons/favicon-32x32.png",
+      "docs/assets/favicons/favicon-48x48.png",
+      "docs/assets/favicons/favicon-96x96.png",
+      "docs/assets/favicons/apple-touch-icon.png",
+      "docs/assets/favicons/android-chrome-192x192.png",
+      "docs/assets/favicons/android-chrome-512x512.png",
+      "docs/assets/favicons/icon-192.png",
+      "docs/assets/favicons/icon-512.png",
+      "docs/assets/favicons/favicon.svg",
+      "docs/assets/favicons/favicon.ico",
+      "docs/favicon.ico",
+      "docs/favicon.svg"
+    ],
+    "social": [
+      "docs/assets/social/aimez_klosr_og_r20260724b.png"
+    ]
+  },
+  "ogDimensions": {
+    "width": 1200,
+    "height": 630
+  },
+  "engine": "rsvg-convert + imagemagick",
+  "bakedAt": "2026-07-24T17:34:00+00:00"
+}

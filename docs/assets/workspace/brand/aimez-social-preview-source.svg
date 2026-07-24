@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" aria-label="aimez and Klosr social preview">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#071018"/>
+      <stop offset="55%" stop-color="#0f2433"/>
+      <stop offset="100%" stop-color="#163544"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5ec8c0"/>
+      <stop offset="100%" stop-color="#7eb8d8"/>
+    </linearGradient>
+    <style type="text/css"><![CDATA[
+      @font-face {
+        font-family: "Newsreader";
+        font-style: normal;
+        font-weight: 500;
+        src: url("../fonts/Newsreader-Medium.ttf") format("truetype");
+      }
+      .company {
+        font-family: "Newsreader", Georgia, serif;
+        font-weight: 500;
+        font-size: 96px;
+        letter-spacing: -0.04em;
+        fill: #e8eef6;
+      }
+      .product {
+        font-family: "Newsreader", Georgia, serif;
+        font-weight: 500;
+        font-size: 54px;
+        letter-spacing: -0.02em;
+        fill: #5ec8c0;
+      }
+      .stage {
+        font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;
+        font-weight: 600;
+        font-size: 22px;
+        letter-spacing: 0.12em;
+        fill: #9bb0c2;
+      }
+      .lede {
+        font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 28px;
+        fill: #c5d2de;
+      }
+    ]]></style>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="12" height="630" fill="url(#accent)"/>
+  <text x="88" y="168" class="company">aimez</text>
+  <text x="88" y="250" class="product">Klosr</text>
+  <text x="88" y="320" class="stage">BETA / TESTFLIGHT · PILOT-STAGE</text>
+  <text x="88" y="400">
+    <tspan x="88" dy="0" class="lede">Current product: pedestrian evidence and</tspan>
+    <tspan x="88" dy="40" class="lede">campaign placement for Manhattan decisions.</tspan>
+  </text>
+  <text x="88" y="540" class="lede" style="font-size:24px;fill:#8aa0b2;">aimez.ai · company + product share card</text>
+</svg>

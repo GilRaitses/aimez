@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appendix — Why AI Outputs Succeed at the Interface and Fail in the World</title>
+<style>
+  :root {
+    --bg-deep: #0e1f3d;
+    --bg-mid:  #16306b;
+    --bg-soft: #1c3b87;
+    --bg-card: #1a2a4d;
+    --orange:  #f08930;
+    --orange-soft: #f4a05c;
+    --red:     #8b1c1f;
+    --green:   #2c8a4a;
+    --text:    #f4f7fb;
+    --text-mute: #b9c2d4;
+    --text-dim: #8997b3;
+    --border:  rgba(244, 247, 251, 0.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: "Helvetica Neue", "Arial", system-ui, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text);
+    line-height: 1.55;
+    font-size: 16px;
+  }
+  a { color: var(--orange-soft); text-decoration: none; border-bottom: 1px solid rgba(244,160,92,0.35); }
+  a:hover { color: var(--orange); border-bottom-color: var(--orange); }
+  header.top {
+    padding: 48px 6vw 24px;
+    border-bottom: 3px solid var(--orange);
+    background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+  }
+  header.top .eyebrow {
+    color: var(--orange);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  header.top h1 {
+    font-size: 36px;
+    line-height: 1.15;
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+  header.top .byline {
+    color: var(--text-mute);
+    font-size: 15px;
+    margin: 6px 0 0;
+  }
+  header.top .summary {
+    color: var(--text-mute);
+    font-size: 16px;
+    margin-top: 24px;
+    max-width: 880px;
+  }
+  nav.toc {
+    padding: 18px 6vw;
+    background: var(--bg-mid);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  nav.toc ul {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 12px 22px;
+    font-size: 13px;
+  }
+  nav.toc a {
+    color: var(--text-mute);
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+  }
+  nav.toc a:hover { color: var(--orange); }
+  section {
+    padding: 56px 6vw;
+    border-bottom: 1px solid var(--border);
+  }
+  section .eyebrow {
+    color: var(--orange);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  section h2 {
+    font-size: 28px;
+    line-height: 1.2;
+    margin: 0 0 18px;
+    font-weight: 600;
+    max-width: 900px;
+  }
+  section .lede {
+    color: var(--text-mute);
+    font-size: 16px;
+    max-width: 880px;
+    margin: 0 0 32px;
+  }
+  section h3 {
+    font-size: 18px;
+    margin: 28px 0 10px;
+    color: var(--orange-soft);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  section p { max-width: 880px; margin: 0 0 14px; color: var(--text); }
+  section p.small { font-size: 14px; color: var(--text-mute); }
+  section ul, section ol { max-width: 880px; padding-left: 22px; }
+  section li { margin: 6px 0; }
+  figure {
+    margin: 22px 0 32px;
+    background: var(--bg-card);
+    padding: 16px;
+    border-left: 3px solid var(--orange);
+    border-radius: 2px;
+  }
+  figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: white;
+  }
+  figure figcaption {
+    color: var(--text-mute);
+    font-size: 13px;
+    margin-top: 12px;
+    line-height: 1.55;
+  }
+  .figure-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+  .figure-grid figure { margin: 0; }
+  @media (max-width: 800px) {
+    .figure-grid { grid-template-columns: 1fr; }
+    header.top h1 { font-size: 28px; }
+    section h2 { font-size: 22px; }
+  }
+  .pill {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(240, 137, 48, 0.18);
+    color: var(--orange-soft);
+    border-radius: 12px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-right: 6px;
+    font-weight: 600;
+  }
+  .reference-card {
+    background: var(--bg-card);
+    border-left: 3px solid var(--green);
+    padding: 18px 22px;
+    margin: 18px 0;
+    border-radius: 2px;
+  }
+  .reference-card h3 { color: var(--orange-soft); margin-top: 0; }
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  table.gridtable {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 1100px;
+    background: var(--bg-card);
+    margin: 0;
+    font-size: 14px;
+  }
+  table.gridtable th, table.gridtable td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    text-align: left;
+  }
+  table.gridtable th {
+    background: var(--bg-soft);
+    color: var(--text);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 12px;
+  }
+  table.gridtable tr:first-child td { background: rgba(244, 137, 48, 0.06); }
+  footer.bottom {
+    padding: 36px 6vw;
+    background: var(--bg-deep);
+    color: var(--text-dim);
+    font-size: 13px;
+    border-top: 3px solid var(--orange);
+  }
+  .download-row {
+    display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px;
+  }
+  .download-row a {
+    background: var(--orange);
+    color: var(--bg-deep);
+    padding: 10px 18px;
+    border-radius: 4px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .download-row a:hover { background: var(--orange-soft); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="eyebrow">IST 675 — Human-AI Interaction — Final Project Appendix</div>
+  <h1>Why AI Outputs Succeed at the Interface and Fail in the World</h1>
+  <p class="byline">IST 675 Team Presentation Materials</p>
+  <p class="summary">
+    This appendix supports the live demonstration in the IST 675 final presentation. It documents the routing substrate that produced the demonstration figures, the camera-derived computer vision pipeline behind the corridor's stress field, the cross-street capacity model that produced the supply-side maps, and the full set of supporting figures from the underlying research program. The companion paper that motivates the substrate is linked below.
+  </p>
+  <div class="download-row">
+    <a href="assets/pax_report.pdf">Background Report (PDF)</a>
+    <a href="#cv">Jump to CV Pipeline</a>
+    <a href="#qa">Jump to Q&amp;A Material</a>
+  </div>
+</header>
+
+<nav class="toc">
+  <ul>
+    <li><a href="#demo">Demonstration</a></li>
+    <li><a href="#substrate">Substrate</a></li>
+    <li><a href="#cv">CV Pipeline</a></li>
+    <li><a href="#methodology">Methodology</a></li>
+    <li><a href="#invariance">Invariance</a></li>
+    <li><a href="#extra">Extended Figures</a></li>
+    <li><a href="#qa">Q&amp;A Material</a></li>
+    <li><a href="#related">Related Literature</a></li>
+    <li><a href="#refs">References</a></li>
+  </ul>
+</nav>
+
+<section id="demo">
+  <div class="eyebrow">Section 1</div>
+  <h2>The Live Demonstration. Fastest Route Is Not Feasible Route.</h2>
+  <p class="lede">
+    The mobility instance of the paper's central argument: a routing tool returns the fastest path from Grand Central to Carnegie Hall; the same routing layer, given access to the second-order constraint field, returns a different path with twenty-two percent lower accumulated stress at the same nineteen-hop length. Same task statement, different output.
+  </p>
+
+  <figure>
+    <img src="assets/figures/main/01_fastest_route_vs_feasible_route_comparison.png" alt="Shortest vs sigma-aware route comparison">
+    <figcaption>
+      <strong>Figure 1.</strong> Shortest route (left) versus sigma-aware route (right) for Grand Central to Carnegie Hall. Both routes are nineteen hops. The sigma-aware route accumulates 13.38 units of stress versus 17.09 for the shortest route, a 21.7 percent reduction. Sixteen fewer high-stress edges; max single-edge stress drops from 0.98 to 0.89.
+    </figcaption>
+  </figure>
+
+  <h3>How the contrast generalizes</h3>
+  <figure>
+    <img src="assets/figures/main/02_feasible_routes_destination_grid.png" alt="9-destination grid">
+    <figcaption>
+      <strong>Figure 2.</strong> Nine destinations from Grand Central under the full seven-layer capacity model (sidewalk width, sheds, frontage load, construction closures, station envelopes, open streets, bike lanes). The sigma-aware recommendation differs from the shortest path in eight of the nine destinations.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/figures/main/08_hierarchical_routing_with_capacity_layers.png" alt="Hierarchical vs flat routing">
+    <figcaption>
+      <strong>Figure 3.</strong> Hierarchical multi-scale routing versus flat routing on the same asymmetric-spillover field. The hierarchical layer applies a coarse-tile-plan discount based on which avenue band the path traverses, biasing path choice toward avenues with second-order capacity headroom even when the local edge cost is similar.
+    </figcaption>
+  </figure>
+</section>
+
+<section id="substrate">
+  <div class="eyebrow">Section 2</div>
+  <h2>The Substrate. Second-Order Constraint Field as Measurable Surface.</h2>
+  <p class="lede">
+    The four-panel map below renders mobility's missing-context cell as a per-block measured field. Each panel is one capacity layer of the routing substrate; the rightmost panel combines them into the effective denominator the routing cost reads against. Two hundred twenty-eight cross-street edges in the Midtown corridor carry per-block factors derived from twenty-five public NYC Open Data sources.
+  </p>
+
+  <figure>
+    <img src="assets/figures/main/03_burden_overlay_capacity_layers.png" alt="Cross-street capacity model overlay">
+    <figcaption>
+      <strong>Figure 4.</strong> Four-panel cross-street capacity overlay (Lex vertical, W40 horizontal, x-flipped). Sidewalk width capacity (planimetric width / median width). Active sidewalk-shed factor (DOB Sidewalk Shed permits, currently active). Frontage load factor (PLUTO building class + height + Dining Out NYC + POPS atriums + plazas-as-width). Combined cross-street capacity (step 1 times step 1.5 times step 2 = effective denominator in routing cost).
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/figures/main/04_risk_heatmap_camera_stress.png" alt="Camera-derived stress heatmap">
+    <figcaption>
+      <strong>Figure 5.</strong> The corridor's camera-derived stress field, locked at color scale [0.34, 1.0] with RdYlGn_r colormap for consistency across figures. The heatmap is the supply-versus-demand context against which the capacity model operates: red blocks carry the highest measured pedestrian stress, green blocks the lowest. The routing substrate consumes per-edge sigma values lifted from this field along the same mapping chain used throughout this appendix.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/figures/main/06_load_redistribution_under_stress.png" alt="Load redistribution under stress-aware routing">
+    <figcaption>
+      <strong>Figure 6.</strong> Edge load redistribution map. Red edges absorb rerouted load; blue edges are avoided. Maximum single-edge shift = 0.102 (~10 percent of total betweenness mass). The corridor processes its load internally; zero overlap with boundary-flux edges. This is allostery in the routing substrate: when one capacity layer is activated, betweenness redistributes corridor-wide rather than locally.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/figures/main/05_top6_individual_edges_route_alternatives.png" alt="Top-6 individual edges route alternatives">
+    <figcaption>
+      <strong>Figure 7.</strong> Six individual route panels showing the strongest absorbing edges (top row) and the strongest avoided edges (bottom row) under stress-aware routing. The pattern is the same as Figure 6 viewed at the per-edge scale: rerouted load lands on a small set of absorbing edges and avoids a corresponding set, while the bulk of the corridor sees minor adjustments.
+    </figcaption>
+  </figure>
+</section>
+
+<section id="cv">
+  <div class="eyebrow">Section 3</div>
+  <h2>Computer Vision Pipeline. Camera Frames to Per-Edge Sigma.</h2>
+  <p class="lede">
+    The camera-derived stress field underlying the routing substrate originates from a computer vision pipeline that processes traffic camera frames at thirty-minute cadence across one hundred eighty-one corridor cameras. The pipeline applies a stack of vision models (instance segmentation, object detection, scene labeling) to each frame, extracts per-camera features, reduces those features to a stress score, lifts the score to per-intersection sigma over Voronoi cells, and propagates the result along a fixed mapping chain that the routing layer reads against.
+  </p>
+
+  <figure>
+    <img src="assets/figures/cv_pipeline/cv_model_outputs_park_vs_madison.png" alt="CV model outputs comparison">
+    <figcaption>
+      <strong>Figure 8.</strong> Computer vision model outputs comparing Park Avenue (low-stress) and Madison Avenue (high-stress) corridor cameras. YOLO bounding boxes for pedestrians and vehicles, Detectron2 instance segmentation masks, CLIP scene labels. The visible difference between scenes (sparse versus dense pedestrian density, occluded versus open sidewalk surface, presence of physical scaffolding) is what the per-camera stress score quantifies.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/figures/cv_pipeline/pipeline_data_flow_strip.png" alt="Pipeline data flow strip">
+    <figcaption>
+      <strong>Figure 9.</strong> Pipeline data flow from raw camera frame through CV inference, feature extraction, per-camera stress score, Voronoi cell aggregation, per-intersection sigma, per-edge sigma, to routing cost. Each stage produces reproducible intermediate outputs, and the chain is kept consistent so the heatmap, catalogs, and routing cost all read from the same field.
+    </figcaption>
+  </figure>
+
+  <div class="figure-grid">
+    <figure>
+      <img src="assets/figures/cv_pipeline/camera_voronoi_assignment.png" alt="Camera Voronoi assignment">
+      <figcaption>
+        <strong>Figure 10a.</strong> Voronoi tessellation of the corridor by camera coverage. Each Voronoi cell is the catchment area of one corridor camera; per-camera stress scores aggregate over their cell to produce per-intersection sigma values.
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/cv_pipeline/agent_perceptual_field.png" alt="Agent perceptual field">
+      <figcaption>
+        <strong>Figure 10b.</strong> Agent perceptual field rendered from the per-edge sigma values. This is what the routing agent sees at any given position: a directional gradient of stress intensity that biases path selection toward lower-stress neighbors.
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/cv_pipeline/feature_importance_from_cv_features.png" alt="Feature importance">
+      <figcaption>
+        <strong>Figure 10c.</strong> Feature importance scores from the regression that maps CV-extracted features to per-camera stress. The dominant features are pedestrian density, sidewalk obstruction count, and camera-frame entropy.
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/cv_pipeline/pax_architecture_diagram.png" alt="Pax architecture diagram">
+      <figcaption>
+        <strong>Figure 10d.</strong> Pax system architecture overview. Substrate (graph topology and capacity layers) feeds into stress field (CV-derived sigma), which feeds into routing (cost = stress / capacity). Each block is implemented as a separate pipeline stage with reproducible outputs.
+      </figcaption>
+    </figure>
+  </div>
+
+  <h3>First-Run Methodology Samples</h3>
+  <p>
+    The first collection run, in November 2025, established the basic camera coverage and stress-scoring methodology for the Grand Central to Carnegie Hall corridor. The figures below are sampled from that run's outputs and document the substrate's evolution.
+  </p>
+
+  <div class="figure-grid">
+    <figure>
+      <img src="assets/figures/cv_pipeline/first_run/camera_grid_map.png" alt="First-run camera grid">
+      <figcaption><strong>Figure 11a.</strong> First-run camera grid layout across the corridor. Forty cameras in the initial set, forty-five observed at snapshot.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/cv_pipeline/first_run/first_run_voronoi_tessellation.png" alt="First-run Voronoi">
+      <figcaption><strong>Figure 11b.</strong> First-run Voronoi tessellation. Cell boundaries are the camera-coverage catchments used for per-intersection sigma aggregation.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/cv_pipeline/first_run/graph_representation_comparison.png" alt="First-run graph representation">
+      <figcaption><strong>Figure 11c.</strong> First-run graph representation comparison. Different node-edge sampling strategies tested on the corridor before the 297-node, 503-edge representation was fixed for this analysis.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/cv_pipeline/first_run/state_space_model.png" alt="First-run state space">
+      <figcaption><strong>Figure 11d.</strong> First-run state-space model diagram. Conceptual schema for routing as a state-space search over node positions weighted by per-edge sigma.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="methodology">
+  <div class="eyebrow">Section 4</div>
+  <h2>Methodology Summary.</h2>
+  <p class="lede">
+    The substrate is the product of approximately four months of iterative development. The methodology is summarized below with the major components used in this demonstration.
+  </p>
+
+  <h3>Data inputs</h3>
+  <p>Twenty-five NYC Open Data sources span building footprints, sidewalk planimetric, PLUTO land use, POPS atriums, public plazas, MTA subway entrances and ridership, dining permits, DOB sidewalk shed permits, open streets, construction closures, bike routes, parking meters, pedestrian counts, mobility surveys, sidewalk cafe zoning, NYC 3D building models, and FHV stands. The full data-source table appears on Slide A of the deck.</p>
+
+  <h3>Camera substrate</h3>
+  <p>One hundred eighty-one NYC DOT 511 traffic cameras across the Grand Central to Carnegie Hall corridor, sampled at thirty-minute cadence from 06:00 to 22:00 ET. Frames stored in cloud blob storage; per-frame inference results aggregated to per-camera daily snapshots in a parquet warehouse.</p>
+
+  <h3>CV stack</h3>
+  <p>Detectron2 Mask R-CNN for instance segmentation, YOLO for bounding-box detection of pedestrians and vehicles, CLIP for scene labeling, and a bespoke heuristic layer for sidewalk obstruction detection.</p>
+
+  <h3>Stress lifting</h3>
+  <p>Per-camera scores are lifted to per-intersection sigma via Voronoi cell coverage (cameras are the cell sites; intersections inherit the score of the cell they fall inside). Per-intersection sigma propagates to per-edge sigma via inverse-distance weighting in EPSG:2263 NYSP feet, k=6 nearest, one smoothing pass, alpha=0.30. The same mapping chain is applied consistently across runs.</p>
+
+  <h3>Capacity model</h3>
+  <p>Per-edge capacity factor = sidewalk_width_factor &times; sidewalk_sheds_factor &times; frontage_load_factor &times; construction_closures_factor &times; station_envelopes_factor &times; open_streets_factor &times; bike_lanes_factor. Each factor is a dimensionless multiplier in a bounded range; the combined factor is the effective denominator in the routing cost.</p>
+
+  <h3>Routing</h3>
+  <p>A* search over the corridor graph with cost = (1 + alpha &times; sigma_edge) / capacity_factor. Hierarchical multi-scale routing applies a coarse-tile-plan discount based on avenue-band membership; this biases path choice toward avenues with second-order capacity headroom even when local edge cost is similar.</p>
+
+  <h3>Validation</h3>
+  <p>Three pillars of validation: lived-knowledge alignment against twelve reference blocks (8 of 12 aligned, 4 of 12 partial, 0 of 12 misaligned), camera-stress orthogonality (Pearson r = -0.014 between predicted capacity and measured stress, confirming supply and demand carry independent information), and internal coherence audits (catalog coordinates, POPS attribution, routing decision timing).</p>
+</section>
+
+<section id="invariance">
+  <div class="eyebrow">Section 5</div>
+  <h2>Cross-Domain Invariance.</h2>
+  <p class="lede">
+    Mobility was one row. The same three columns — first-order success, missing context, failure trigger — appear in every HAII system the paper covers. The structural form of the failure is invariant; the surface contents of each row vary in the kind of constraint each system fails to register.
+  </p>
+
+  <div class="table-wrap">
+  <table class="gridtable">
+    <thead>
+      <tr>
+        <th>Domain</th>
+        <th>First-order success</th>
+        <th>Missing context</th>
+        <th>Failure trigger</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Mobility</strong> (just shown)</td>
+        <td>Fastest route returned correctly under the optimization the routing tool was given.</td>
+        <td>Sidewalk width, frontage load, scaffolding, station envelopes.</td>
+        <td>The route meets a stress field it never measured, and the recommendation breaks when the field shifts.</td>
+      </tr>
+      <tr>
+        <td><strong>Robotics</strong> (Habitat 3.0)</td>
+        <td>Task completed inside the simulator's objective.</td>
+        <td>Human partner behavior, room state, obstacle dynamics outside the trained envelope.</td>
+        <td>The partner moves through space the world model never registered, and the collaboration breaks.</td>
+      </tr>
+      <tr>
+        <td><strong>Autonomous</strong> (Waymo)</td>
+        <td>Path planned inside the encoded driving rules and map.</td>
+        <td>Local norms, construction, informal pedestrian and cyclist gestures.</td>
+        <td>A norm-violating scene element activates downstream, and the planned path stops fitting.</td>
+      </tr>
+      <tr>
+        <td><strong>Clinical</strong> (decision support)</td>
+        <td>Recommendation scored well against the encoded patient data.</td>
+        <td>Staffing pressure, prior treatment history, family context, ward conditions.</td>
+        <td>The care plan meets ward conditions the data model never encoded, and the recommended action stops fitting.</td>
+      </tr>
+      <tr>
+        <td><strong>Drafting</strong> (hiring manager + AI screener)</td>
+        <td>Screening rubric satisfied. The candidate scores high on the encoded criteria.</td>
+        <td>Role fit, team dynamics, political context, the actual opening's history.</td>
+        <td>The screening signal misses the constraint that matters, and the candidate is wrong for the live opening.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="extra">
+  <div class="eyebrow">Section 6</div>
+  <h2>Extended Figures from the Research Program.</h2>
+  <p class="lede">
+    These figures are from the broader pax research program. They support the substrate documented above and provide additional Q&amp;A material for technical questions.
+  </p>
+
+  <h3>Time-varying scenarios</h3>
+  <div class="figure-grid">
+    <figure>
+      <img src="assets/figures/appendix/phase_compare_destinations_grid_TW_am_peak.png" alt="AM peak time-varying">
+      <figcaption><strong>Figure 12a.</strong> AM peak time-varying scenario. Subway egress weighted by hourly ridership in the 7:00 to 10:00 ET window.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/appendix/phase_compare_destinations_grid_TW_pm_peak.png" alt="PM peak time-varying">
+      <figcaption><strong>Figure 12b.</strong> PM peak time-varying scenario. Subway egress weighted by hourly ridership in the 17:00 to 19:00 ET window.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/appendix/phase_compare_destinations_grid_TW_midday.png" alt="Midday time-varying">
+      <figcaption><strong>Figure 12c.</strong> Midday time-varying scenario. Subway egress weighted by hourly ridership in the 11:00 to 14:00 ET window.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/appendix/phase_compare_destinations_grid_TW_off_peak.png" alt="Off-peak time-varying">
+      <figcaption><strong>Figure 12d.</strong> Off-peak time-varying scenario. Subway egress weighted by hourly ridership in the 22:00 to 06:00 ET window.</figcaption>
+    </figure>
+  </div>
+
+  <h3>Substrate analysis</h3>
+  <div class="figure-grid">
+    <figure>
+      <img src="assets/figures/appendix/phase_synthesis_slide_A_fiedler.png" alt="Fiedler axis">
+      <figcaption><strong>Figure 13a.</strong> Fiedler axis (psi_1 of L_0) of the corridor graph. The dominant north-south flow axis the operator extracts from the substrate. R^2 = 0.97 against the corridor long axis.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/appendix/phase_d_corridor_boundary_flux.png" alt="Boundary flux">
+      <figcaption><strong>Figure 13b.</strong> Boundary flux analysis. Redistribution under stress-aware routing does not leak across the corridor boundary; the corridor processes its load internally.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/appendix/phase_compare_spillover_modes.png" alt="Spillover modes">
+      <figcaption><strong>Figure 13c.</strong> Symmetric versus asymmetric spillover modes. Technical comparison of two coupling models for how stress on one avenue affects neighboring avenues.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/appendix/cross_street_audit_reference_blocks.png" alt="Lived-knowledge audit">
+      <figcaption><strong>Figure 13d.</strong> Lived-knowledge audit. Twelve reference blocks where the model's predicted capacity was compared against author lived experience. Eight aligned, four partial, zero misaligned.</figcaption>
+    </figure>
+  </div>
+
+  <h3>Capacity layer overlays</h3>
+  <div class="figure-grid">
+    <figure>
+      <img src="assets/figures/appendix/cross_street_time_varying_capacity.png" alt="Time-varying capacity">
+      <figcaption><strong>Figure 14a.</strong> Time-varying cross-street capacity field. Capacity factors that change with time of day (subway egress weighted by hourly ridership).</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/figures/appendix/model_evolution_overlay.png" alt="Model evolution overlay">
+      <figcaption><strong>Figure 14b.</strong> Model evolution overlay. How capacity factors changed across model versions v1 through v8 as more layers were added to the substrate.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="qa">
+  <div class="eyebrow">Section 7</div>
+  <h2>Q&amp;A Material.</h2>
+  <p class="lede">
+    Common questions and short answers, indexed by likely audience questions. Use the Q&amp;A list during live discussion; jump to specific entries by Cmd-F.
+  </p>
+
+  <div class="reference-card">
+    <h3>Where does the camera stress score come from?</h3>
+    <p>From a CV pipeline that runs YOLO bounding boxes, Detectron2 instance segmentation, and CLIP scene labels on each camera frame at thirty-minute cadence, then reduces the per-frame features to a per-camera stress score via a regression trained on lived-knowledge anchors. See Section 3 above.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3>How do you validate the model?</h3>
+    <p>Three pillars. Lived-knowledge alignment against twelve reference blocks where author judgment is the ground truth (eight of twelve aligned). Camera-stress orthogonality, where the predicted capacity is uncorrelated with measured stress (Pearson r = -0.014, confirming supply and demand carry independent signal). Internal coherence audits of catalog coordinates, POPS attribution, and routing decision timing.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3>Why mobility specifically? Why not start with hiring or clinical?</h3>
+    <p>Mobility is the case where the second-order constraint field is most directly measurable. Sidewalk widths come from a planimetric shapefile; sidewalk sheds come from active permits; subway envelopes come from MTA polygons. The same constraint structure exists in hiring or clinical decisions, but the surface measurements are organizational and institutional rather than physical, which makes them harder to render as a map. Mobility lets you see the column-2 cell as a measured field; the other domains run the same column with less inspectable surfaces.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3>How does this connect to the course readings?</h3>
+    <p>Affordances (Evans, Davis) describe the first-order action field; embodiment and 4E cognition (Carney) describe the second-order constraint field; trust calibration (Hoff and Bashir) describes the calibration condition; underspecification (D'Amour) describes the technical condition in which the same output can pass every benchmark while still failing in deployment.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3>Is this published research?</h3>
+    <p>The substrate is an ongoing research program. The IST 675 paper uses the substrate as a concrete instance of the structural argument in the position paper. The background report is linked at the top of the appendix page, and the appendix summarizes the core methodology used in the demonstration.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3>What's the relationship to Lisa Manning's rigidity-transition work?</h3>
+    <p>The position paper imports the vocabulary of jamming, rigidity, and second-order constraint without naming Manning explicitly. The routing substrate operates near what Manning's framework would call the rigidity transition: the constraint count crosses a threshold above which small perturbations to the constraint field produce large rearrangements in route topology. The redistribution figure (Figure 6) is the soft-mode response to a static perturbation that this framing predicts.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3>What would intervention look like in practice?</h3>
+    <p>Intervention can occur in three places. Representation: surface scene constraints to the user before send (e.g., "the route crosses three active sidewalk sheds"). Control: introduce a confirmation prompt at the moment of commitment that names the second-order load the route is about to enter. Signal: post-commitment outcome telemetry to detect mismatch earlier and update the representation for the next cycle. The closing-the-loop slide names all three intervention points.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3>How do I run this myself?</h3>
+    <p>The cross-street capacity model is reproducible from public NYC Open Data. The CV pipeline requires camera image data that is not currently public.</p>
+  </div>
+</section>
+
+<section id="related">
+  <div class="eyebrow">Section 8</div>
+  <h2>Selected Related Literature.</h2>
+  <p class="lede">
+    Two recent papers that the substrate's framing engages with directly. Both make the same methodological move the pax substrate makes (judge a system by the geometry of the set its dynamics explore, not by a single point or local property), in different fields. They are useful as Q&amp;A anchors for technical audiences.
+  </p>
+
+  <div class="reference-card">
+    <h3>Sane et al. (2025). Generalization at the Edge of Stability.</h3>
+    <p><strong>Reference:</strong> arXiv:2604.19740. <a href="https://arxiv.org/abs/2604.19740">https://arxiv.org/abs/2604.19740</a></p>
+    <p><strong>Field:</strong> Deep learning theory.</p>
+    <p><strong>Core claim:</strong> Modern neural networks trained at large learning rates operate in chaotic dynamics where standard pointwise complexity measures (parameter count, Hessian trace, spectral norm) fail to predict generalization. The authors model stochastic optimizers as random dynamical systems converging to fractal attractors and introduce the Sharpness Dimension (SD), a Lyapunov-inspired complexity measure based on the full Hessian spectrum. SD predicts generalization where pointwise sharpness measures fail.</p>
+    <p><strong>Connection to the pax substrate:</strong> The methodological move is identical. SD shifts attention from the local properties of a loss minimum to the dimension of the attractor the optimizer explores. The pax substrate shifts attention from the local cost of an optimal route to the dimension of the constraint field the routing layer reads against. Both are attractor-centric reframings of pointwise analyses.</p>
+    <p><strong>Vocabulary bridge (selected):</strong></p>
+    <ul>
+      <li>RDS (random dynamical system) ↔ routing under uncertainty</li>
+      <li>Pullback random attractor ↔ set of feasible routes over varying capacity field</li>
+      <li>Edge of Stability ↔ near-rigidity transition (soft modes; the redistribution figure)</li>
+      <li>Sharpness Dimension (SD) ↔ effective dimensionality of the substrate's response surface</li>
+      <li>Hessian spectrum ↔ Laplacian spectrum L_0 of the corridor graph</li>
+      <li>Forward-invariant set ↔ the corridor itself (zero boundary leakage)</li>
+      <li>Stochastic Lanczos quadrature ↔ Voronoi + IDW sigma lifting</li>
+    </ul>
+    <p><strong>Full cross-mapping:</strong> summarized in the appendix Q&amp;A section.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3>Sridhar et al. (2025). Allocentric flocking.</h3>
+    <p><strong>Reference:</strong> Nature Communications 16. <a href="https://www.nature.com/articles/s41467-025-64676-5">https://www.nature.com/articles/s41467-025-64676-5</a></p>
+    <p><strong>Field:</strong> Computational neuroscience and collective behavior.</p>
+    <p><strong>Core claim:</strong> Collective motion in animal groups emerges from neurobiologically grounded ring-attractor networks that encode bearings towards conspecifics in either an allocentric (world-centered, anchored to a stable landmark) or an egocentric (heading-relative) reference frame. The authors show that allocentric encoding produces coherent flocking spontaneously; egocentric encoding alone fails. Rapid switching between the two enhances coordination. Collective motion can therefore arise directly from animals' navigational circuits, without explicit alignment rules.</p>
+    <p><strong>Connection to the pax substrate:</strong> The egocentric vs allocentric distinction is the same structural distinction the IST 675 paper draws between first-order (interface-relative) and second-order (scene-anchored) representations. In the flocking paper, animals encoding bearings only egocentrically cannot form coherent groups; in the routing case, an interface offering only first-order moves cannot reach the second-order constraint field that determines outcome fit. Both papers argue the operative variable is the choice of reference frame, and both find that operating only in the agent-centered (egocentric / first-order) frame is structurally insufficient.</p>
+    <p><strong>Vocabulary bridge (selected):</strong></p>
+    <ul>
+      <li>Allocentric reference frame (Sridhar) ↔ second-order scene-anchored representation (pax / IST 675)</li>
+      <li>Egocentric reference frame (Sridhar) ↔ first-order interface-relative representation (pax / IST 675)</li>
+      <li>Ring-attractor network encoding bearings ↔ the substrate's per-edge cost function reading against the capacity field</li>
+      <li>Spontaneous collective motion under allocentric encoding ↔ coherent route selection under second-order-aware optimization</li>
+      <li>Failure of egocentric-only encoding to produce coherent flocking ↔ failure of first-order-only routing to produce contextually fit recommendations</li>
+      <li>Rapid switching between allocentric and egocentric for enhanced coordination ↔ closed-loop intervention (recalibrate representation; carry the update into the next cycle)</li>
+    </ul>
+    <p><strong>Why this paper matters for the demonstration:</strong> Sridhar et al. provide a neurobiologically-grounded existence proof that the egocentric / allocentric distinction is operative in collective behavior at the level of neural circuitry. This strengthens the IST 675 paper's structural claim by demonstrating the same distinction applies in a domain (animal collective motion) far removed from human-AI interaction. The form recurs because the underlying constraint structure is the same: an agent that cannot reach the world-anchored frame cannot coordinate with the scene.</p>
+  </div>
+</section>
+
+<section id="refs">
+  <div class="eyebrow">Section 9</div>
+  <h2>References.</h2>
+
+  <ol>
+    <li>Bousmalis, K., et al. (2023). RoboCat: A self-improving generalist agent for robotic manipulation. arXiv:2306.11706.</li>
+    <li>Carney, J. (2020). Thinking avant la lettre: A review of 4E cognition. Evolutionary Studies in Imaginative Culture, 4(1), 77 to 90.</li>
+    <li>Clinciu, M.-A., and Hastie, H. (2019). A survey of explainable AI terminology. Proc. NL4XAI, 8 to 13.</li>
+    <li>D'Amour, A., et al. (2020). Underspecification presents challenges for credibility in modern machine learning. arXiv:2011.03395.</li>
+    <li>Davis, J. L. (2023). 'Affordances' for machine learning. Proc. ACM FAccT '23, 324 to 332.</li>
+    <li>Evans, S. K., Pearce, K. E., Vitak, J., and Treem, J. W. (2017). Explicating affordances. JCMC, 22(1), 35 to 52.</li>
+    <li>Gambino, A., Fox, J., and Ratan, R. A. (2020). Building a stronger CASA. Human-Machine Communication, 1, 71 to 86.</li>
+    <li>Gibbs, J. L., Kim, H., and Boyraz, M. (2021). Investigating the role of communication technologies in human-machine communication. Annals of the International Communication Association, 45(4), 270 to 296.</li>
+    <li>Hoff, K. A., and Bashir, M. (2015). Trust in automation. Human Factors, 57(3), 407 to 434.</li>
+    <li>Koban, K., and Banks, J. (2023). It feels, therefore it is. Computers in Human Behavior, 146, 107788.</li>
+    <li>Liu, Y., et al. (2026). WanderDream: Evaluating situated reasoning in world and multimodal language models.</li>
+    <li>Meta. (2024). Frontier AI Framework. Meta Platforms.</li>
+    <li>Puig, X., et al. (2023). Habitat 3.0: A co-habitat for humans, avatars and robots. arXiv:2310.13724.</li>
+    <li>Sane, et al. (2025). Generalization at the Edge of Stability. arXiv:2604.19740.</li>
+    <li>Sridhar, V. H., et al. (2025). Allocentric flocking. Nature Communications, 16. <a href="https://www.nature.com/articles/s41467-025-64676-5">https://www.nature.com/articles/s41467-025-64676-5</a></li>
+  </ol>
+
+  <p>This section contains the full reference list used in the presentation and appendix.</p>
+</section>
+
+<footer class="bottom">
+  <p><strong>Background report:</strong> <a href="assets/pax_report.pdf">Open PDF</a></p>
+  <p>The appendix supports IST 675 final presentation materials. April 2026.</p>
+  <p>Human review covered all presentation figures and associated explanatory text before publication.</p>
+</footer>
+
+</body>
+</html>

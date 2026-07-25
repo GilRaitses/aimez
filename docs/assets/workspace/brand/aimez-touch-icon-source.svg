@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" aria-label="aimez touch icon">
+  <defs>
+    <style type="text/css"><![CDATA[
+      @font-face {
+        font-family: "Newsreader";
+        font-style: normal;
+        font-weight: 500;
+        src: url("../fonts/Newsreader-Medium.ttf") format("truetype");
+      }
+      .wordmark {
+        font-family: "Newsreader", "IBM Plex Serif", Georgia, serif;
+        font-weight: 500;
+        font-size: 118px;
+        letter-spacing: -0.02em;
+        fill: #3a4a5c;
+      }
+    ]]></style>
+  </defs>
+  <rect width="512" height="512" fill="#ffffff"/>
+  <text x="256" y="268" text-anchor="middle" dominant-baseline="middle" class="wordmark">aimez</text>
+</svg>

@@ -1,0 +1,14 @@
+{
+  "sourceSvg": "aimez-workspace-logo-source.svg",
+  "sourceSvgTransparent": "aimez-workspace-logo-source-transparent.svg",
+  "outputWhite": "aimez-workspace-logo-from-svg@4x.png",
+  "outputTransparent": "aimez-workspace-logo-from-svg-transparent@4x.png",
+  "canonicalCopy": "docs/assets/aimez-workspace-logo.png",
+  "cssWidth": 320,
+  "cssHeight": 132,
+  "scale": 4,
+  "pixelWidth": 1280,
+  "pixelHeight": 528,
+  "engine": "rsvg-convert",
+  "bakedAt": "2026-07-06T06:40:14.008321+00:00"
+}

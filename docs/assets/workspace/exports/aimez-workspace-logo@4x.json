@@ -1,0 +1,12 @@
+{
+  "sourceHtml": "aimez-workspace-logo-source.html",
+  "sourceSvg": "aimez-workspace-logo-source.svg",
+  "output": "aimez-workspace-logo@4x.png",
+  "cssWidth": 320,
+  "cssHeight": 132,
+  "scale": 4,
+  "pixelWidth": 1280,
+  "pixelHeight": 528,
+  "transparent": false,
+  "bakedAt": "2026-07-06T06:37:23.432Z"
+}

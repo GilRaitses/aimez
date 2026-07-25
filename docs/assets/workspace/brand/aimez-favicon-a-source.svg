@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" aria-label="aimez favicon">
+  <!-- Tab/favicon scale: single letter extracted from wordmark typography (not a separate pictograph). -->
+  <defs>
+    <style type="text/css"><![CDATA[
+      @font-face {
+        font-family: "Newsreader";
+        font-style: normal;
+        font-weight: 500;
+        src: url("../fonts/Newsreader-Medium.ttf") format("truetype");
+      }
+      .glyph {
+        font-family: "Newsreader", "IBM Plex Serif", Georgia, serif;
+        font-weight: 500;
+        font-size: 46px;
+        fill: #3a4a5c;
+      }
+    ]]></style>
+  </defs>
+  <rect width="64" height="64" fill="#ffffff"/>
+  <text x="32" y="36" text-anchor="middle" dominant-baseline="middle" class="glyph">a</text>
+</svg>

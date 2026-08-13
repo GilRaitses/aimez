@@ -349,30 +349,35 @@ body.visitor-immersion .publisher-corner-mark {
 
 @media (orientation: landscape) and (max-height: 500px) {
   .visitor-hero {
-    height: 36svh;
-    max-height: 42svh;
-    min-height: 7.5rem;
+    height: 40svh;
+    max-height: 44svh;
+    min-height: 8.5rem;
   }
 
   .visitor-brand {
-    font-size: clamp(1.6rem, 5vh, 2.4rem);
+    display: none;
   }
 
   .visitor-hero-copy {
-    gap: 0.28rem;
-    padding: 0.45rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.18rem;
+    justify-content: center;
+    padding: 0.35rem 1rem;
   }
 
   .visitor-headline,
   .visitor-lede,
   .visitor-product {
-    font-size: 0.82rem;
-    line-height: 1.25;
+    font-size: 0.78rem;
+    line-height: 1.22;
+    max-width: none;
   }
 
   .cta-primary,
   .cta-secondary {
-    padding: 0.4rem 0.85rem;
+    padding: 0.32rem 0.75rem;
+    font-size: 0.72rem;
   }
 }
 

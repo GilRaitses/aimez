@@ -153,6 +153,22 @@ body.visitor-immersion::before {
   z-index: 1;
 }
 
+.visitor-hero-index {
+  color: var(--visit-ink);
+  font-family: var(--font-visit-ui);
+  font-size: 0.62rem;
+  font-weight: 500;
+  left: 0.6rem;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  max-width: 12rem;
+  pointer-events: none;
+  position: absolute;
+  text-shadow: 0 1px 8px rgba(7, 16, 24, 0.85);
+  top: 0.4rem;
+  z-index: 2;
+}
+
 @media (min-width: 900px) {
   .visitor-hero-copy {
     align-items: center;
@@ -378,6 +394,42 @@ body.visitor-immersion .publisher-corner-mark {
   .cta-secondary {
     padding: 0.32rem 0.75rem;
     font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 400px) and (max-height: 720px) {
+  .visitor-brand {
+    display: none;
+  }
+
+  .visitor-hero-copy {
+    gap: 0.14rem;
+    justify-content: flex-start;
+    padding: 2.9rem 1rem 0.3rem;
+  }
+
+  .visitor-hero-index {
+    font-size: 0.55rem;
+    max-width: 11.5rem;
+  }
+
+  .visitor-headline,
+  .visitor-lede,
+  .visitor-product {
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+
+  .visitor-cta {
+    flex-wrap: wrap;
+    margin-top: 0;
+  }
+
+  .cta-primary,
+  .cta-secondary {
+    font-size: 0.72rem;
+    line-height: 1.2;
+    padding: 0.28rem 0.7rem;
   }
 }
 

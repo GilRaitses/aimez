@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>aimez | evidence models</title>
-  <meta name="description" content="aimez builds evidence models for decisions about the physical world. klosr is the current product: a Beta / testflight for pedestrian evidence and campaign placement on Manhattan.">
+  <meta name="description" content="aimez builds evidence models from sparse observations. klosr is a Manhattan evidence model.">
   <link rel="canonical" href="https://aimez.ai/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="aimez">
   <meta property="og:title" content="aimez · evidence models">
-  <meta property="og:description" content="klosr is the current aimez product for pedestrian evidence and campaign placement on Manhattan. Beta / testflight, pilot-stage.">
+  <meta property="og:description" content="klosr is a Manhattan evidence model.">
   <meta property="og:url" content="https://aimez.ai/">
-  <meta property="og:image" content="https://aimez.ai/assets/social/aimez_klosr_og_r20260724b.png">
+  <meta property="og:image" content="https://aimez.ai/assets/social/aimez_klosr_og_r20260813a.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="aimez · evidence models">
-  <meta name="twitter:description" content="klosr is the current aimez product for pedestrian evidence and campaign placement on Manhattan. Beta / testflight, pilot-stage.">
-  <meta name="twitter:image" content="https://aimez.ai/assets/social/aimez_klosr_og_r20260724b.png">
+  <meta name="twitter:description" content="klosr is a Manhattan evidence model.">
+  <meta name="twitter:image" content="https://aimez.ai/assets/social/aimez_klosr_og_r20260813a.png">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
@@ -29,7 +29,7 @@
   <meta name="theme-color" content="#131c2d">
   <meta name="msapplication-TileColor" content="#131c2d">
   <meta name="msapplication-config" content="browserconfig.xml">
-  <link rel="stylesheet" href="assets/site.css?v=u003-hero-third-20260813">
+  <link rel="stylesheet" href="assets/site.css?v=u004-avr-w2-20260813">
 </head>
 <body class="visitor-immersion">
   <a class="skip-link" href="#layers">Skip to work</a>
@@ -42,7 +42,6 @@
       <a href="#writing">writing</a>
       <a href="#projects">projects</a>
       <a href="institutions/">institutions</a>
-      <a href="#orca-strike">Orca Strike</a>
       <a href="https://github.com/GilRaitses/aimez">repo</a>
       <a href="mailto:gilraitses@gmail.com?subject=aimez%20research%20updates">contact</a>
     </nav>
@@ -61,18 +60,19 @@
     </div>
     <div class="visitor-hero-copy">
       <h1 class="visitor-brand">aimez</h1>
-      <p class="visitor-headline">Evidence models for decisions about the physical world</p>
+      <p class="visitor-headline">Evidence models from sparse observations</p>
       <p class="visitor-lede">
-        Interpretable measurements become representations a decision can use.
+        Complex physical environments outrun the records available when people decide.
       </p>
       <p class="visitor-product">
-        <strong>klosr</strong> is the current product. It is a Beta / testflight pilot for pedestrian evidence and campaign placement on Manhattan.
+        <strong>klosr</strong> is a Manhattan evidence model.
       </p>
       <p class="visitor-cta">
         <a class="cta-primary" href="https://klosr.aimez.ai/early-access" target="_blank" rel="noopener">Request early access</a>
         <a class="cta-secondary" href="#layers">How the work is built</a>
       </p>
     </div>
+    <p class="visitor-hero-index">Camera-sampled island density → crowding σ → 0.28–1.00 (blue floor → red)</p>
   </section>
 
   <main class="program-home">
@@ -114,7 +114,7 @@
         aimez builds tools from research so a product can sit on evidence that can be inspected. Closed lab records become folders a collaborator can open. A disk gate decides what may enter a result.
       </p>
       <p>
-        <strong>klosr</strong> is the current product. It is a Beta / testflight pilot for pedestrian evidence and campaign placement on Manhattan.
+        <strong>klosr</strong> is a Manhattan evidence model.
       </p>
       <p class="links">
         <a href="#klosr">klosr</a> &middot;
@@ -153,7 +153,7 @@
         Application hosts remain in limited access until that release, so the public module embedded below is the Orca Strike interaction surface.
       </p>
       <p class="links">
-        <a href="#orca-strike">Play Orca Strike</a>
+        <a href="#orca-strike">orcast forecast and traces</a>
       </p>
       <p class="links archive-links">
         <span class="archive-label">Research archive</span>
@@ -234,8 +234,8 @@
 
         <details class="project-panel" id="orca-strike" open>
           <summary>
-            <span>Orca Strike</span>
-            <small>Playable replay and reconstruction module for orcast</small>
+            <span>orcast · Orca Strike</span>
+            <small>Kernel-intensity, gate-bounded encounter forecast</small>
           </summary>
           <div class="project-frame-wrap demo-embed" data-demo-embed>
             <div class="demo-embed-state is-active" data-demo-state="loading" aria-live="polite">
@@ -256,7 +256,18 @@
               referrerpolicy="no-referrer-when-downgrade"
               data-demo-frame></iframe>
           </div>
-          <p class="panel-links"><a href="https://bash.tv/aimez/orca-strike" target="_blank" rel="noopener noreferrer">Open Orca Strike in a new tab</a></p>
+          <p class="figure-caption">
+            Reconstruction and replay module on the encounter-forecast workbench. Sparse Salish Sea sightings feed the forecast. Confidence is shown only where held-out gates pass.
+          </p>
+          <p class="figure-note">
+            Held-out deviance skill −0.018, 3 of 5 folds, effective confidence 0%, one Haro Strait hydrophone ~7.5 months. Research/pilot, not a deployed encounter product.
+          </p>
+          <p class="panel-links">
+            <a href="#orcast">orcast overview</a> &middot;
+            <a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-1.pdf" target="_blank">orcast whitepaper 1 (PDF)</a> &middot;
+            <a href="https://gilraitses.github.io/research/orcast/orcast-whitepaper-2-grounding.pdf" target="_blank">orcast whitepaper 2 (PDF)</a> &middot;
+            <a href="https://bash.tv/aimez/orca-strike" target="_blank" rel="noopener noreferrer">Open Orca Strike in a new tab</a>
+          </p>
         </details>
       </div>
     </section>
@@ -317,6 +328,6 @@
   </main>
   </div>
   
-  <script src="assets/site.js?v=u003-hero-third-20260813"></script>
+  <script src="assets/site.js?v=u004-avr-w2-20260813"></script>
 </body>
 </html>

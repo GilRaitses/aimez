@@ -10,38 +10,41 @@ Place the scene in **Manhattan** (Village → Midtown walkable fabric is fine; W
 
 ## Who aimez is
 
-aimez builds **evidence models** for decisions about complex physical systems. Sparse observations, constraints, and audit records become inspectable representations before they guide a route, forecast, or research claim.
+aimez builds **evidence models** for decisions about complex physical systems.
 
 This is **not** a weather app, **not** a heat/climate dashboard as product identity, and **not** an “AI agents do engineering” pitch.
 
-## Primary substrate
+## Current product
 
-**Klosr** is a city-scale evidence model for pedestrian conditions on a Manhattan walk graph. Thermal comfort, shade, crowding, etc. are **layers inside** that representation — not the product.
+**klosr** is the current product. It is a Beta / testflight for pedestrian evidence and campaign placement on Manhattan. Do not paraphrase that down to pedestrian routing only, and do not call it “one substrate” in the hero. Spelling is lowercase `klosr`.
 
-**Field-JEPA** forecasts the next crowding field from measured camera cycles. Use these as visual reference for the evidence layer:
+Thermal comfort, shade, crowding are **layers inside** the city-scale evidence model. They are not the product.
+
+**Field-JEPA** is a klosr-section research visual (crowding-field forecast). It is not the hero identity of aimez. Hero still may use the island evidence-field image. Do not overlay the timelapse GIF in the first view.
 
 - https://aimez.ai/
 - https://aimez.ai/assets/field-jepa/fjc_comparison_map.png
-- https://aimez.ai/assets/field-jepa/fjc_jepa_vs_observed_timelapse.gif
+- GIF (klosr section only): https://aimez.ai/assets/field-jepa/fjc_jepa_vs_observed_timelapse.gif
 
-## Composition (hero only)
+## Composition (first viewport)
 
-First view must be one composition:
+The first viewport is a stacked shell, not a full-screen hero:
 
-1. Brand **aimez** as the hero-level signal (not just nav)
-2. One headline
-3. One short supporting sentence
-4. One CTA group
-5. One dominant spatial / city-evidence visual (edge-to-edge immersion)
+1. In-flow nav band (the layout substrate). It pushes the hero down. It is not an overlay.
+2. Hero at about **one third** of the viewport height. Brand, one headline, one lede, product line, one CTA group, one evidence-field still.
+3. Room beneath the hero for the next section (Featured Article) to be visible without scrolling.
 
-No card grid in the hero. No pill clusters, stat strips, or secondary marketing blocks in the first view.
+No card grid in the hero. No pill clusters or stat strips in the hero. Do not restore `min-height: 100svh` on the hero.
 
 ## Locked copy (use or paraphrase tightly)
 
 - **Brand:** aimez
 - **Headline:** Evidence models for decisions about the physical world
-- **Lede:** Sparse observations become inspectable city-scale representations before they guide a route, forecast, or research claim.
-- **CTA:** Enter the city evidence field
+- **Lede:** Interpretable measurements become representations a decision can use.
+- **Product line:** klosr is the current product. It is a Beta / testflight pilot for pedestrian evidence and campaign placement on Manhattan.
+- **CTA group:** Request early access · How the work is built
+
+Do not replace the lede with a convert / gate / layers lecture. That draft is revoked.
 
 ## Visual language
 

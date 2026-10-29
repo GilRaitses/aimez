@@ -20,7 +20,7 @@
       "docs/favicon.svg"
     ],
     "social": [
-      "docs/assets/social/aimez_klosr_og_r20260724b.png"
+      "docs/assets/social/aimez_klosr_og_r20261029a.png"
     ]
   },
   "ogDimensions": {
@@ -28,5 +28,5 @@
     "height": 630
   },
   "engine": "rsvg-convert + imagemagick",
-  "bakedAt": "2026-07-24T17:34:00+00:00"
+  "bakedAt": "2026-10-29T18:35:09.235019+00:00"
 }

@@ -94,10 +94,10 @@ body.visitor-immersion::before {
 
 .visitor-hero {
   flex: 0 0 auto;
-  height: 33svh;
+  height: auto;
   isolation: isolate;
-  max-height: 38svh;
-  min-height: 8rem;
+  max-height: none;
+  min-height: 33svh;
   overflow: hidden;
   position: relative;
 }
@@ -161,7 +161,7 @@ body.visitor-immersion::before {
   left: 0.6rem;
   letter-spacing: 0.01em;
   line-height: 1.25;
-  max-width: 12rem;
+  max-width: 18rem;
   pointer-events: none;
   position: absolute;
   text-shadow: 0 1px 8px rgba(7, 16, 24, 0.85);
@@ -189,6 +189,14 @@ body.visitor-immersion::before {
   .visitor-product,
   .visitor-cta {
     grid-column: 2;
+  }
+
+  .visitor-hero-copy:not(:has(.visitor-headline)) {
+    grid-template-rows: repeat(3, auto);
+  }
+
+  .visitor-hero-copy:not(:has(.visitor-headline)) .visitor-brand {
+    grid-row: 1 / span 3;
   }
 }
 
@@ -221,7 +229,7 @@ body.visitor-immersion::before {
   font-size: clamp(0.82rem, 1.4vw, 0.98rem);
   font-weight: 400;
   line-height: 1.4;
-  max-width: 36rem;
+  max-width: 46rem;
 }
 
 .visitor-product {
@@ -231,7 +239,7 @@ body.visitor-immersion::before {
   font-size: clamp(0.82rem, 1.35vw, 0.98rem);
   font-weight: 400;
   line-height: 1.4;
-  max-width: 38rem;
+  max-width: 46rem;
 }
 
 .visitor-product strong {
@@ -365,8 +373,8 @@ body.visitor-immersion .publisher-corner-mark {
 
 @media (orientation: landscape) and (max-height: 500px) {
   .visitor-hero {
-    height: 40svh;
-    max-height: 44svh;
+    height: auto;
+    max-height: none;
     min-height: 8.5rem;
   }
 
@@ -1370,4 +1378,65 @@ h1 {
   line-height: 1.4;
   margin: 0;
   padding: 0.35rem 1.15rem 1.05rem;
+}
+
+/* Charter v06: plain link rows, no separator characters in markup or CSS */
+ul.link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.35rem;
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+ul.link-list li {
+  margin: 0;
+  padding: 0;
+}
+
+ul.link-list li::before,
+ul.link-list li::after,
+ul.link-list::before,
+ul.link-list::after {
+  content: none;
+  display: none;
+}
+
+ul.link-list a {
+  color: var(--publisher-blue, #2f5f8a);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+ul.link-list a:hover,
+ul.link-list a:focus-visible {
+  text-decoration: underline;
+}
+
+ul.link-list.panel-link-list {
+  margin: 0;
+  padding: 0.75rem 1.15rem 1rem;
+}
+
+ul.link-list.footer-link-list {
+  color: #8a98a6;
+  font-size: 0.82rem;
+  margin: 0.75rem auto 1.5rem;
+  max-width: 1120px;
+  padding-left: clamp(1.1rem, 4vw, 2.6rem);
+  padding-right: clamp(1.1rem, 4vw, 2.6rem);
+}
+
+ul.link-list.footer-link-list a {
+  color: #8a98a6;
+  font-weight: 500;
+}
+
+body.visitor-immersion main.program-home .cta-row {
+  margin-top: 1rem;
+}
+
+body.visitor-immersion main.program-home .cta-row .cta-primary {
+  display: inline-block;
 }

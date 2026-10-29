@@ -45,7 +45,7 @@ if [[ -f "$DOCS/favicon.svg" ]]; then
 fi
 
 echo "Exporting social preview from $SOCIAL_SVG"
-SOCIAL_OUT="$SOCIAL/aimez_klosr_og_r20260724b.png"
+SOCIAL_OUT="$SOCIAL/aimez_klosr_og_r20261029a.png"
 export_png "$SOCIAL_SVG" 1200 "$SOCIAL_OUT"
 
 python3 - <<PY
@@ -74,7 +74,7 @@ manifest = {
             "docs/favicon.ico",
             "docs/favicon.svg",
         ],
-        "social": ["docs/assets/social/aimez_klosr_og_r20260724b.png"],
+        "social": ["docs/assets/social/aimez_klosr_og_r20261029a.png"],
     },
     "ogDimensions": {"width": 1200, "height": 630},
     "engine": "rsvg-convert + imagemagick",
